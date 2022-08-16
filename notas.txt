@@ -1,0 +1,70 @@
+cambio supervisor a Boss así diferencio más de manera visual el código
+
+presentation
+domain
+data
+
+UI: Capa encargada de la representación de los datos en un dispositivo o plataforma.
+En nuestro caso, será todo el código de Flutter correspondiente a nuestros Widgets,
+pages, navegación…
+
+Data: Capa encargada de comunicarse con las dependencias externas que necesita
+nuestra app para obtener los datos. Por ejemplo,
+la implementación concreta de los repositories con llamadas HTTP, Firebase…
+
+Device: Capa encargada de acceso a las funcionalidades nativas del dispositivo
+en el que correrá nuestra app. Por ejemplo, acceso a la biometría, uso de GPS…
+Domain: Capa que engloba toda la lógica de negocio de nuestra app,
+donde se encuentra el código que debe ser agnóstico de cualquier otra parte de nuestro software. En este caso, es puro código Dart.
+
+
+addStringToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('stringValue', "abc");
+  }
+
+
+addIntToSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('intValue', 123);
+  }
+
+
+  addDoubleToSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setDouble('doubleValue', 115.0);
+    }
+
+    addBoolToSF() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('boolValue', true);
+    }
+
+    //getters
+      getStringValuesSF() async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        //Return String
+        String? stringValue = prefs.getString('stringValue');
+        return stringValue;
+      }
+
+      getBoolValuesSF() async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        //Return bool
+        bool? boolValue = prefs.getBool('boolValue');
+        return boolValue;
+      }
+
+      getIntValuesSF() async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        //Return int
+        int intValue = await prefs.getInt('intValue') ?? 0;
+        return intValue;
+      }
+
+      getDoubleValuesSF() async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        //Return double
+        double doubleValue = await prefs.getDouble('doubleValue') ?? 0;
+        return doubleValue;
+      }

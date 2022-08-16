@@ -1,0 +1,75 @@
+
+_Modelo_
+El modelo representa una única fuente de verdad que lleva los datos de obtención en tiempo real
+o las consultas relacionadas con la base de datos.
+
+Esta capa puede contener lógica de negocio, validación de código, etc. Esta capa interactúa
+con ViewModel para obtener datos locales o en tiempo real. Los datos se dan en respuesta al
+ViewModel.
+
+
+_Viewmodel_
+ViewModel es el mediador entre la Vista y el Modelo, que acepta todos los eventos del usuario
+y solicita que al Modelo para obtener datos.
+Una vez que el Modelo tiene los datos, entonces vuelve a ViewModel y luego ViewModel notificar
+que los datos a la Vista.
+
+
+_Vista_
+La vista es donde el usuario interactúa con los Widgets que se muestran en la pantalla.
+Estos eventos del usuario solicitan algunas acciones que navegan a ViewModel,
+y el resto de ViewModel hace el trabajo. Una vez que el ViewModel tiene los datos requeridos
+entonces actualiza la Vista.
+
+auth:
+    - components
+    - models
+    - repos
+    - screens
+    - viewmodels
+core:
+    - components
+    - erros
+    - extensions
+    - hooks
+    - routing
+    - screens
+    - services
+    - styles
+    - utils
+    - viewmodels
+    - widget
+    data_connection_...
+
+general:
+    - settings:
+        * components
+        * screens
+        * utils
+        * viewmodels
+
+l10n:
+    - app_es.arb
+    - app_gl.arb
+    - l10n.dart
+
+modules:
+    - home:
+        * components
+        * models
+        * repos
+        * screens
+        * utils
+        * viewmodels
+
+    - notification:
+        * models
+
+    - profile:
+        * componetens
+        * screens
+        * viewmodels
+        * widgets
+
+
+

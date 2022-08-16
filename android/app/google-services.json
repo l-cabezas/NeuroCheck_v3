@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757195121533",
+    "project_id": "neurocheck-fc7b7",
+    "storage_bucket": "neurocheck-fc7b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757195121533:android:317b77b78bf6910e8f2214",
+        "android_client_info": {
+          "package_name": "es.udc.neurocheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757195121533-20idkvmmgjkk0ocdetc595n1csi19hr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD30VSRVacsG_hs94wFacs_G7hoWMyizP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757195121533-20idkvmmgjkk0ocdetc595n1csi19hr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

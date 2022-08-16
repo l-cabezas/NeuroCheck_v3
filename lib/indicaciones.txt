@@ -1,0 +1,38 @@
+Casos de uso
+- Tenemos tres dinámicas, puede ser un usuarios simple o bien entrar en el duo supervisor/supervisado
+- por regla general tanto el usuario simple como el supervisado tienen estas funciones:
+    * Añadir tareas poniéndoles nombre, rango horario horas de repetición, cada cuanto quieren una
+        notificacion dentro de ese rango y días que quieren que se repita.
+        Estas tareas serán modificables y tendrán dos estados hechos o no,
+        las tareas se reiniciaran cada día.
+    * Las tareas será visualizables en dos pantallas diferentes una con solo las hechas en ese día y
+        otra con las que faltan por hacer, ya que así la persona lo podrá ver más claramente
+
+    * La parte del supervisado o usuario simple tendrá dos añadidos a mayores que no tendrá
+        el supervisor -> un sistema de "bonificaciones" según cuantas tareas completes (se felicitará
+        y sacará la foto de un gato, perro o capybara (según eleccion)) y un sistema de competición
+        con amigos según cuantas tareas hagas. T_odo esto activable o no.
+
+    * En referente a la parte del supervisor el supervisor podrá añadir tareas al supervisado sin que
+        este las pueda modificar, el supervisor podrá ver las tareas completedas o no y se mandará una
+        notificación cuando una tarea esté hecha. El supervisor solo podrá ver las tareas que el mismo
+        ha añadido, no las añadidas por el supervisado.
+
+    * Tambien tendremos una gestion de perfil para saber en t_odo momento nuestro correo y rol.
+
+    * Tendrermos una autentificacion basada en correo y contraseña para hacer t_odo más sencillo.
+
+
+Funcionalidades
+    * Para añadir las tareas usaremos la base de datos de firebase que guardara dentro del uid de cada
+        persona los campos de:
+        - nombre tarea
+        - hora inicio
+        - hora fin
+        - si es modificable o no
+        - [días de la semana que se repite]
+        - [evento de un día y no se repite]
+        - repetición cada x min
+        - si está hecha o no.
+    *
+

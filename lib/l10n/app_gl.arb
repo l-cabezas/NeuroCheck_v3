@@ -1,0 +1,93 @@
+{
+  "@_CORE": {
+  },
+  "appName": "NeuroCheck",
+  "fontFamily": "SanFrancisco",
+  "noInternetConnection": "Non hai conexión a internet",
+  "pleaseCheckYourDeviceNetwork": "Comproba a conexión do teu dispositivo",
+  "retry": "Volve tentar",
+  "oops": "Oops!",
+  "somethingWentWrong": "Algo saíu mal.",
+  "operationCanceledByUser": "A operación foi cancelada polo usuario" ,
+  "pleaseTryAgainLater": "Téntao de novo máis tarde",
+  "thisFieldIsEmpty": "Este campo está baleiro",
+  "pleaseEnterValidNumber": "Por favor introduce un número de telefóno válido" ,
+  "pleaseEnterValidEmail": "Por favor introduce un email válido",
+  "pleaseEnterValidName": "Por favor introduce un nome válido",
+  "nameMustBeAtLeast2Letters": "O nome ten que ter ó menos 2 letras",
+  "nameMustBeAtMost30Letters": "O nome non pode tener mais de 30 letras",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "back": "Atrás",
+  "edit": "Editar",
+  "continue2": "Continuar",
+  "logOut": "Pechar sesión",
+  "oK": "OK",
+  "user": "Usuario",
+  "name": "Nome",
+  "chooseOption": "Escolle unha opción",
+  "camera": "Camara",
+  "gallery": "Galería",
+  "@_AUTH": {
+  },
+  "welcome": "Benvido",
+  "signInToYourAccount": "Inicia sesión na túa cuenta",
+  "signIn": "Iniciar Sesión",
+  "email": "Email",
+  "password": "Contrasinal",
+  "phone": "Teléfono",
+  "emailOrPasswordIsInCorrect":
+       "Correo electrónico ou contrasinal incorrectos. Por favor, proba de novo.",
+  "register": "Registrarse",
+  "reset": "Restaurar contraseña",
+  "@_GENERAL": {
+  },
+  "spanish": "Español",
+  "galician": "Galego",
+  "settings": "Configuración",
+  "profileSettings": "Configuración do perfil",
+  "appSettings": "Configuración da App",
+  "theme": "Tema",
+  "language": "Idioma",
+  "selectYourPreferredLanguage": "Selecciona o teu idioma preferido",
+  "@_PROFILE": {
+  },
+  "myProfile": "O meu Perfil",
+  "fullName": "Nome completo",
+  "enterYourName": "Introduce o teu nombre",
+  "mobileNumber": "Número de teléfono",
+  "enterYourNumber": "Introduce o teu número",
+  "@_HOME": {
+  },
+  "home": "Inicio",
+  "please_enable_location_service": "Por favor, activa a localización e proba de novo",
+  "location_timeout_error": "Tarda moito, por favor, comprobe a súa conexión a Internet e téntao de novo",
+  "please_wait": "Por favor agarde",
+
+  "details": "Detalles",
+
+  "id": "Id",
+
+  "userDetails": "Detalles de usuario",
+  "note": "Nota",
+  "none": "Nada",
+
+  "areYouSure": "¿Estás seguro?",
+
+  "@_NAVBAR": {
+  },
+  "noTask" : "Sen tarefas",
+  "mod": "Modificar",
+  "done": "Feito",
+
+  "@_TASK": {
+  },
+  "taskName" : "Nome da tarefa",
+  "addTaskDone": "Tarefa engadida corretamente",
+  "hourRange": "Rango horario: ",
+  "repTime": "Repetir cada: ",
+  "days": "días",
+  "rangeWarning": "Non podes poner mais notificacions que minutos hai no teu rango horario",
+  "repeatAdd": "Elixa días para que se repita",
+  "delete": "Borrar"
+}
