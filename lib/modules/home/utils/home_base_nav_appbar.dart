@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/components/appbar_with_icon_component.dart';
+import '../../../core/routing/app_router.dart';
+import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/services/platform_service.dart';
@@ -10,6 +13,7 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_images.dart';
 import '../../../core/widgets/custom_app_bar_widget.dart';
 import '../../../core/widgets/custom_text.dart';
+import '../screens/nested_navigator_screen.dart';
 import '../viewmodels/home_base_nav_providers.dart';
 
 /// The default height of the toolbar component of the [AppBar].
@@ -23,7 +27,7 @@ class PreferredAppBarSize extends Size {
   final double? toolbarHeight;
   final double? bottomHeight;
 }
-
+//todo appbar
 class HomeBaseNavAppBar extends ConsumerWidget
     implements PreferredSizeWidget, ObstructingPreferredSizeWidget {
   final double? toolbarHeight;
@@ -61,6 +65,22 @@ class HomeBaseNavAppBar extends ConsumerWidget
             color: AppColors.lightThemePrimary,
             alignment: Alignment.center,
           ),
+          trailingActions: [
+            //todo añadir icon
+             IconButton(
+              alignment: Alignment.centerRight,
+              color: AppColors.lightThemePrimary,
+              icon: Icon(PlatformIcons(context).personAdd),
+              onPressed: () {
+                NavigationService.push(
+                  context,
+                  isNamed: true,
+                  page: RoutePaths.addSup,
+                );
+              },
+            ),
+          ],
+          //IconButton(color: Colors.red, icon: Icon(Icons.add_chart), onPressed: () {  },),
         );
 
       ///ProfileNestedRoutes

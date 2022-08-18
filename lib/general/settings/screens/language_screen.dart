@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../../core/routing/navigation_service.dart';
+import '../../../core/routing/route_paths.dart';
 import '../../../core/screens/popup_page_nested.dart';
 import '../../../core/services/localization_service.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
+import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../components/language_item_component.dart';
+import '../components/light_button_component.dart';
 import '../utils/language.dart';
 
 class LanguageScreen extends StatelessWidget {
@@ -46,6 +53,41 @@ class LanguageScreen extends StatelessWidget {
                   );
                 },
               ),
+              /*CustomButton(
+                text: 'Select',
+                onPressed: (){
+                    *//*NavigationService.push(
+                      context,
+                      isNamed: true,
+                      page: RoutePaths.settings,
+                    );*//*
+                  NavigationService.goBack(context);
+                },
+
+              )*/
+              SizedBox(
+                height: Sizes.vMarginMedium(context),
+              ),
+          PlatformWidget(
+            material: (_, __) {
+              return InkWell(
+                onTap: (){NavigationService.goBack(context);},
+                child:   LightButtonComponent(
+                  icon: Icons.check,
+                  text: tr(context).change,
+                ),
+              );
+            },
+            cupertino: (_, __) {
+              return GestureDetector(
+                onTap: (){NavigationService.goBack(context);},
+                child:  LightButtonComponent(
+                  icon: Icons.check,
+                  text: tr(context).change,
+                ),
+              );
+            },
+          )
             ],
           ),
         ),
@@ -53,3 +95,4 @@ class LanguageScreen extends StatelessWidget {
     );
   }
 }
+

@@ -90,7 +90,14 @@
   "days": "días",
   "rangeWarning": "No puedes poner más notificaciones que minutos hay en tu rango horario",
   "repeatAdd": "Elije días para que se repita",
-  "delete": "Borrar"
+  "delete": "Borrar",
 
-
+  "@_ROL": {
+  },
+  "askYourDates": "Introduzca su usuario y contraseña",
+  "askDates": "Ahora el usuario y contraseña de tu supervisado",
+  "addSupervised": "Añadir Supervisado",
+  "@_SETTINGS": {
+  },
+  "change": "Cambiar"
 }

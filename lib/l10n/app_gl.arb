@@ -49,7 +49,7 @@
   "appSettings": "Configuración da App",
   "theme": "Tema",
   "language": "Idioma",
-  "selectYourPreferredLanguage": "Selecciona o teu idioma preferido",
+  "selectYourPreferredLanguage": "Escolle o teu idioma de preferencia",
   "@_PROFILE": {
   },
   "myProfile": "O meu Perfil",
@@ -89,5 +89,14 @@
   "days": "días",
   "rangeWarning": "Non podes poner mais notificacions que minutos hai no teu rango horario",
   "repeatAdd": "Elixa días para que se repita",
-  "delete": "Borrar"
+  "delete": "Borrar",
+
+  "@_ROL": {
+  },
+  "askYourDates": "Introduza o seu usuario e contrasinal",
+  "askDates": "Agora o usuario e contrasinal do teu supervisado",
+  "addSupervised": "Engadir Supervisado",
+  "@_SETTINGS": {
+  },
+  "change": "Cambiar"
 }

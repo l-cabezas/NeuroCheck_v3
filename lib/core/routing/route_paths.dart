@@ -4,9 +4,12 @@ class RoutePaths {
   static const authLogin = '/auth';
   static const authRegister = '/authRegister';
   static const authReset = '/authReset';
+
+  static const verifyEmail = '/verifyEmail';
   static const homeBase = '/home_base';
   static const map = '$homeBase/map';
 
+  static const addSup = '/addSuper';
   ///HomeNestedRoutes
   static const home = 'home';
 

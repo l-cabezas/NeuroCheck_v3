@@ -2,6 +2,9 @@ class FirestorePaths {
   /// User
   static String userCollection() => 'users';
 
+  //specific user
+  static String userUId(String uid) => 'users/$uid';
+
   static String userDocument(String docId) => 'users/$docId';
 
   /// TASKs

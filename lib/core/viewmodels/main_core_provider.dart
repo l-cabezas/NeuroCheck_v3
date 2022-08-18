@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
@@ -48,6 +49,31 @@ class MainCoreProvider {
     return FirebaseAuth.instance.currentUser?.uid;
   }
 
+  bool? getCurrentStateAccount() {
+    return FirebaseAuth.instance.currentUser?.emailVerified;
+  }
+  Future<bool> isBoss() async {
+    final result = await _userRepo.getUserData(getCurrentUserAuthUid()!);
+    return result.fold(
+          (failure) {
+        return false;
+      },
+          (userModel) {
+        if (userModel != null) {
+          if(userModel.rol == 'supervisor')
+          {return true;}
+          else{return false;}
+        } else {
+          return false;
+        }
+      },
+    );
+  }
+   checkValidez() async {
+     await FirebaseAuth.instance.currentUser!.reload();
+  }
+
+
   Future<bool> validateAuth(String uid) async {
     final result = await _userRepo.getUserData(uid);
     return result.fold(
@@ -65,7 +91,7 @@ class MainCoreProvider {
       },
     );
   }
-
+  // comprobamos si existe ya el usuario si no guardamos los datos
   Future<Either<Failure, bool>> setUserToFirebase(UserModel userModel) async {
     final result = await _userRepo.getUserData(userModel.uId);
     return await result.fold(
@@ -74,6 +100,7 @@ class MainCoreProvider {
           },
           (userData) async {
         if (userData == null) {
+          log('setUserToFirebase');
           return _userRepo.setUserData(userModel);
         } else {
           return const Right(true);
@@ -84,18 +111,34 @@ class MainCoreProvider {
 
   Future<Either<Failure, bool>> openCollection(UserModel userModel) async {
     final result = await _userRepo.openCollection(userModel);
-    return await result.fold(
+    return _userRepo.setUserData(userModel);
+    /*return await result.fold(
           (failure) {
-        return Left(failure);
-      },
+            return Left(failure);
+          },
           (userData) async {
-        if (userData == null) {
-          //return _userRepo.setUserData(userModel);
-        } else {
-          return const Right(true);
-        }
-      },
-    );
+            if (userData == null) {
+              log('openCollection');
+              return _userRepo.setUserData(userModel);
+            } else {
+              return const Right(true);
+            }
+          },
+    );*/
+  }
+
+
+  Future<bool> setSupervisedUid(UserModel userModel) async {
+    final result = await _userRepo.setSupervisedUid(userModel, userModel.rol!);
+    if (result){
+      return true;
+    } else {
+    return false;
+    }
+  }
+
+  Future<bool> isBossValid() async {
+    return  _authRepo.isVerifiedEmail();
   }
 
   Future<Either<Failure, bool>> registerUserToFirebase(UserModel userModel) async {
@@ -106,7 +149,7 @@ class MainCoreProvider {
       },
           (userData) async {
         if (userData == null) {
-           _userRepo.registerUserData(userModel);
+           //_userRepo.registerUserData(userModel);
            return _userRepo.openCollection(userModel);
         } else {
           return const Right(true);

@@ -48,9 +48,9 @@ class AppImages {
   static const String settingsScreenIcon = '${appScreensIconsPath}settings.png';
   static const String languageScreenIcon = '${appScreensIconsPath}language.png';
   //Languages Icons
-  static const String languageIconEnglish =
-      '${appLanguagesIconsPath}english.png';
-  static const String languageIconArabic = '${appLanguagesIconsPath}arabic.png';
+  static const String languageIconSpanish =
+      '${appLanguagesIconsPath}spanish.png';
+  static const String languageIconGalician = '${appLanguagesIconsPath}galicia.png';
   //Map
   static const String mapLightStyle = '${jsonPath}map_styles/light.json';
   static const String mapDarkStyle = '${jsonPath}map_styles/dark.json';

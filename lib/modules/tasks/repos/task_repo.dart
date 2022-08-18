@@ -16,6 +16,7 @@ import '../../../core/errors/failures.dart';
 import '../../../core/services/firebase_services/firebase_caller.dart';
 import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../../core/services/firebase_services/i_firebase_caller.dart';
+import '../../simple_notifications/notifications.dart';
 import '../models/task_model.dart';
 
 //manejar datos de tasks
@@ -122,11 +123,33 @@ class TasksRepo {
     );
   }
 
-  Future<Either<Failure, bool>> checkTask({required String taskId,}) async {
+  Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
+
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!,taskId: taskId),
+      path: FirestorePaths.taskById(user!,taskId: task.taskId),
       data: {
         'done': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> updateIds({required TaskModel task}) async {
+    List<int> ids = [];
+    await makesNewNotification(task.days!, task.notiHours!)
+        .then((value) => ids = value
+    );
+
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(user!,taskId: task.taskId),
+      data: {
+        'idNotification': ids
       },
       builder: (data) {
         if (data is! ServerFailure && data == true) {
@@ -203,6 +226,20 @@ class TasksRepo {
     listId.forEach((element) {
       AwesomeNotifications().cancel(element);
     });
+  }
+
+  Future<List<int>> makesNewNotification(List<dynamic> days, List<dynamic> hour) async {
+   List<int> reIds = [];
+    for (var element in days) {
+      for (var element2 in hour) {
+        await reCreateReminderNotification(
+            getNumDay(element),element2)
+            .then((value) => reIds.add(value)
+        );
+      }
+    }
+    log('reIds.length ${reIds.length}' );
+    return reIds;
   }
 
   Future<String> setTaskDoc(TaskModel taskData) async {

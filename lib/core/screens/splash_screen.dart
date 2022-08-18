@@ -35,7 +35,6 @@ class SplashScreen extends HookConsumerWidget {
               width: Sizes.fullScreenWidth(context),
               fit: BoxFit.cover,
             ),*/
-            const UpcomingTasksComponent(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

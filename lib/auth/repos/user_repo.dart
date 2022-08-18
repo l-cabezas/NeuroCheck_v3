@@ -45,7 +45,7 @@ class UserRepo {
       },
     );
   }
-
+  // guardamos los datos del usuario en firebase
   Future<Either<Failure, bool>> setUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
       path: FirestorePaths.userDocument(userData.uId),
@@ -68,21 +68,23 @@ class UserRepo {
     );
   }
 
+  //creamos una tarea incial que luego se descarta para inicializar
+  // la bd de firebase
   openCollection(UserModel userData) async {
     TaskModel tarea0 = TaskModel(
-        taskId: 'tarea0',
-        taskName: 'tarea0',
-        begin: '',
-        end: '',
-        editable: '',
-        done: '',
-        numRepetition: '');
+      taskId: 'tarea0',
+      taskName: 'tarea0',
+      begin : '',
+      end: '',
+      editable: '',
+      done : '',
+      numRepetition: '',
+    );
     await _firebaseCaller.addDataToCollection(
       path: FirestorePaths.getTaskCollection(userData.uId),
       data: tarea0.toMap(),
     );
   }
-
 
   Future<Either<Failure, bool>> updateUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
@@ -130,6 +132,24 @@ class UserRepo {
       builder: (data) {
         if (data is! ServerFailure && data == true) {
           userModel = userModel!.copyWith(image: imageUrl);
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  setSupervisedUid(UserModel user, String rol) async {
+    return await _firebaseCaller.setData(
+      path: FirestorePaths.userUId(user.uId),
+      data: {
+        "rol": 'boss',
+        "SupervisedUid": rol},
+      merge: true,
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          userModel = userModel!.copyWith(rol: rol);
           return Right(data);
         } else {
           return Left(data);

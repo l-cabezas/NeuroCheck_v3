@@ -7,15 +7,15 @@ import '../../../core/widgets/custom_tile_component.dart';
 
 class SettingsSectionComponent extends StatelessWidget {
   const SettingsSectionComponent({
-    required this.headerIcon,
-    required this.headerTitle,
+    //required this.headerIcon,
+    //required this.headerTitle,
     this.headerTrailing,
     required this.tileList,
     Key? key,
   }) : super(key: key);
 
-  final IconData headerIcon;
-  final String headerTitle;
+  //final IconData headerIcon;
+  //final String headerTitle;
   final Widget? headerTrailing;
   final List<CustomTileComponent> tileList;
 
@@ -43,21 +43,19 @@ class SettingsSectionComponent extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
-          Material(
+          /*Material(
             child: ListTile(
               horizontalTitleGap: 0,
-              leading: Icon(
-                headerIcon,
-              ),
-              title: CustomText.h4(
+              //leading: Icon(headerIcon,),
+              *//*title: CustomText.h4(
                 context,
                 headerTitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-              ),
+              ),*//*
               trailing: headerTrailing,
             ),
-          ),
+          ),*/
           ...tileList,
         ],
       ),

@@ -22,7 +22,7 @@ class ShowTasks extends HookConsumerWidget {
     final taskToDoStream = ref.watch(taskToDoStreamProvider);
     return taskToDoStream.when(
         data: (taskToDo) {
-      return (taskToDo.isEmpty)
+      return (taskToDo.isEmpty )
           ? CustomText.h4(
               context,
               tr(context).noTask,
@@ -35,7 +35,14 @@ class ShowTasks extends HookConsumerWidget {
               horizontal: Sizes.screenHPaddingMedium(context),
             ),
             itemBuilder: (context, index) {
-              return  CardItemComponent(
+              return (taskToDo[index].taskName == 'tarea0')
+              ? CustomText.h4(
+                context,
+                tr(context).noTask,
+                color: AppColors.grey,
+                alignment: Alignment.center,
+              )
+              : CardItemComponent(
                       taskModel: taskToDo[index],
                   );
                 },

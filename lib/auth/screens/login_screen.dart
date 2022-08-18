@@ -61,6 +61,7 @@ class LoginScreen extends StatelessWidget {
               ),
               CustomButton(
                 text: tr(context).reset,
+                buttonColor: Theme.of(context).primaryColor,
                 onPressed: () {
                   NavigationService.push(
                     context,

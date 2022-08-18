@@ -1,11 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../home/components/upcoming_tasks_component.dart';
-import '../../tasks/screens/noti_prueba_screen.dart';
 import '../../tasks/screens/show_tasks_screen.dart';
 import '../../tasks/screens/add_task_screen.dart';
 import '../../tasks/screens/completed_tasks_screen.dart';

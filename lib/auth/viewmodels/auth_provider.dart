@@ -45,6 +45,39 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
+        subscribeUserToTopic();
+        navigationToHomeScreen(context);
+        //await submitLogin(context, userModel);
+      },
+    );
+  }
+
+  signSupervisedIn(
+      BuildContext context, {
+        required String email,
+        required String password,
+        required String emailSupervised,
+        required String passwordSupervised,
+      }) async {
+    state = const AuthState.loading();
+    NavigationService.removeAllFocus(context);
+    final result = await _authRepo.signSupervisedIn(
+      context,
+      email: email,
+      password: password,
+      emailSupervised: emailSupervised,
+      passwordSupervised: passwordSupervised
+    );
+    await result.fold(
+          (failure) {
+        state = AuthState.error(errorText: failure.message);
+        AppDialogs.showErrorDialog(context, message: failure.message);
+      },
+          (user) async {
+        UserModel userModel = user;
+        _mainCoreProvider.setSupervisedUid(userModel);
+        subscribeUserToTopic();
+        navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
       },
     );
@@ -54,7 +87,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       BuildContext context, {
         required String email,
         required String password,
-        required name,
+        required String name,
+        required String rol
       }) async {
     state = const AuthState.loading();
     NavigationService.removeAllFocus(context);
@@ -62,7 +96,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       context,
       email: email,
       password: password,
-      name: name
+      name: name,
+      rol: rol
     );
     await result.fold(
           (failure) {
@@ -71,7 +106,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
-        await submitLogin(context, userModel);
+        await submitRegister(context, userModel);
       },
     );
   }
@@ -99,11 +134,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
 
   }
+
+  sendEmailVerification(BuildContext context) async {
+    state = const AuthState.loading();
+    NavigationService.removeAllFocus(context);
+    final result = await _authRepo.sendEmailVerification(
+      context,
+    );
+    result.fold(
+            (failure) {
+          state = AuthState.error(errorText: failure.message);
+          AppDialogs.showErrorDialog(context, message: failure.message);
+        },
+            (done){
+              //state = AuthState.available();
+              navigationToCheckScreen(context);
+        }
+    );
+  }
+
   openCollection(UserModel userModel) async {
     await _mainCoreProvider.openCollection(userModel);
   }
 
-  Future submitLogin(BuildContext context, UserModel userModel) async {
+  Future submitRegister(BuildContext context, UserModel userModel) async {
     log(userModel.toMap().toString());
     final result = await _mainCoreProvider.setUserToFirebase(userModel);
     await result.fold(
@@ -114,7 +168,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
         (isSet) async {
           openCollection(userModel);
           subscribeUserToTopic();
-          navigationToHomeScreen(context);
+          //que solo se lo pida al supervisor
+          if((userModel.rol != 'supervisor')) {
+          await _authRepo.sendEmailVerification(context);
+        }
+        (userModel.rol != 'supervisor')
+          ? navigationToHomeScreen(context)
+          : navigationToCheckScreen(context);
       },
     );
   }
@@ -129,7 +189,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
     NavigationService.pushReplacementAll(
       context,
       isNamed: true,
-      page: RoutePaths.homeBase,
+      page: RoutePaths.home,
+    );
+  }
+
+  navigationToCheckScreen(BuildContext context) {
+    NavigationService.pushReplacementAll(
+      context,
+      isNamed: true,
+      page: RoutePaths.verifyEmail,
     );
   }
 

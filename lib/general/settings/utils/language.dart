@@ -5,8 +5,8 @@ import '../../../core/services/localization_service.dart';
 import '../../../core/styles/app_images.dart';
 
 enum Language {
-  spanish('es', AppImages.languageIconEnglish),
-  galician('gl', AppImages.languageIconArabic);
+  spanish('es', AppImages.languageIconSpanish),
+  galician('gl', AppImages.languageIconGalician);
 
   final String code;
   final String flag;

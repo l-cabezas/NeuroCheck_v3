@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../routing/navigation_service.dart';
@@ -58,9 +61,20 @@ class SplashProvider {
 
   Future checkForCachedUser() async {
     bool hasValidAuth = await _mainCoreProvider.checkValidAuth();
+    bool? hasVerify =  _mainCoreProvider.getCurrentStateAccount();
+
 
     if (hasValidAuth) {
-      secondPage = RoutePaths.homeBase;
+      //si el email ha sido verificado si es supervisor
+      bool isBoss = await _mainCoreProvider.isBoss();
+      log('isBoss $isBoss');
+      log('hasVerify $hasVerify');
+      if(hasVerify! && isBoss){
+        secondPage = RoutePaths.homeBase;
+      }else{
+        secondPage = RoutePaths.verifyEmail;
+      }
+
     } else {
       secondPage = RoutePaths.authLogin;
     }

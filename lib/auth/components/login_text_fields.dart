@@ -13,12 +13,16 @@ class LoginTextFieldsSection extends StatelessWidget {
   const LoginTextFieldsSection({
     required this.emailController,
     required this.passwordController,
+    required this.iconButton,
+    required this.see,
     required this.onFieldSubmitted,
     Key? key,
   }) : super(key: key);
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final IconButton iconButton;
+  final bool see;
   final Function(String)? onFieldSubmitted;
 
   @override
@@ -64,8 +68,8 @@ class LoginTextFieldsSection extends StatelessWidget {
         controller: passwordController,
         validator: Validators.instance.validateLoginPassword(context),
         textInputAction: TextInputAction.go,
-        obscureText: true,
-        suffixIcon: const Icon(Icons.password),
+        obscureText: see,
+        suffixIcon: iconButton,
         onFieldSubmitted: onFieldSubmitted,
       ),
 

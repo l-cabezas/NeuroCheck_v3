@@ -41,7 +41,7 @@ class Validators {
     };
   }
 
-  String? Function(String?)? validateRegisterPassword2(BuildContext context, String value2, String value ) {
+  String? Function(String?)? validateRegisterPassword2(BuildContext context, String value, String value2 ) {
     return (value) {
       if (value!.isEmpty) {
         return 'Introduzca contraseña';
@@ -49,7 +49,7 @@ class Validators {
         return 'La contraseña tiene que ser mínimo de 6 caracteres!';
       } else {
         if(value != value2){
-          log('$value $value2');
+          //log('$value $value2');
           return 'No coinciden las contraseñas';
         }else {
           return null;

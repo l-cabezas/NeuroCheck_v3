@@ -22,6 +22,7 @@ import '../../../core/widgets/dialog_widget.dart';
 import '../../simple_notifications/notifications.dart';
 import '../components/forms/days/multi_choice_provider.dart';
 import '../components/forms/days/switch_setting_section_component.dart';
+import '../components/forms/days/switch_theme_provider.dart';
 import '../components/forms/name_task/task_name_text_fields.dart';
 import '../components/forms/range/time_picker_component.dart';
 import '../components/forms/repetitions/repe_noti_component.dart';
@@ -34,6 +35,9 @@ class AddTaskScreen extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     var addTaskProvider = ref.watch(taskProvider.notifier);
 
+    //empezaría en true
+    final switchValue = !ref.watch(switchButtonProvider);
+
     var nameProvider = ref.read(nameTaskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
@@ -43,7 +47,7 @@ class AddTaskScreen extends HookConsumerWidget {
     final nameController = useTextEditingController(text: '');
 
 
-
+    log('sw value $switchValue');
     return PopUpPageNested(
       body: SingleChildScrollView(
         child: Padding(
@@ -96,7 +100,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       borderRadius:
                           BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
-                    child: TimePickerComponent('00:00 - 00:00'),
+                    child: TimePickerComponent('00:00 - 00:00', switchValue),
                   )),
 
               SizedBox(
@@ -127,7 +131,7 @@ class AddTaskScreen extends HookConsumerWidget {
                     };
                     //para luego poder cancelar las notificaciones
                     List<int> id =
-                    setNotiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr(),saveDays(days.tags.toString()));
+                    setNotiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr(),saveDays(days.tags.toString()),switchValue);
 
                     TaskModel task = TaskModel(
                         taskName: nameProvider.getNameTask(),
@@ -135,7 +139,7 @@ class AddTaskScreen extends HookConsumerWidget {
                         //'repeat': FieldValue.arrayUnion(saveDays(days.tags.toString()))
                         //saveDays(days.tags.toString()),
                         idNotification: id,
-
+                        oneTime: (!switchValue).toString(),
                         notiHours: notiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr()),
                         begin: range.getIniHour(),
                         end: range.getfinHour(),
@@ -179,10 +183,14 @@ class AddTaskScreen extends HookConsumerWidget {
     //return days;
   }
 
-  Future<int> stablishNoti(int day, String hora){
+  Future<int> stablishNoti(int day, String hora, bool switchValue){
     var h = hora.split(':');
-    log('Stablish ' + day.toString() + h[0] + h[1]);
-    return createReminderNotification(day,int.parse(h[0]),int.parse(h[1]));
+    log('Stablish $day${h[0]}${h[1]}');
+    //dependiendo si es una notificacion para solo ese día o programada
+    log('sw value Noti $switchValue');
+    return (switchValue)
+        ?  createReminderNotification(day,int.parse(h[0]),int.parse(h[1]))
+        :  createTaskToDoNotification(int.parse(h[0]),int.parse(h[1]));
   }
 
   String reformDays(String days){
@@ -194,7 +202,7 @@ class AddTaskScreen extends HookConsumerWidget {
   }
 
 
-  List<int> setNotiHours(String ini, String fin, String avisar, List<String> day){
+  List<int> setNotiHours(String ini, String fin, String avisar, List<String> day, bool switchValue){
     List<int> list = [];
     var splitIni = ini.split(':');
     //pasamos all a minutos
@@ -215,11 +223,11 @@ class AddTaskScreen extends HookConsumerWidget {
 
         if (duration.inMinutes.remainder(60) < 10) {
          stablishNoti(chooseDay,
-              '${duration.inHours}:0${duration.inMinutes.remainder(60)}').then((value) => list.add(value));
+              '${duration.inHours}:0${duration.inMinutes.remainder(60)}',switchValue).then((value) => list.add(value));
         } else {
 
           stablishNoti(chooseDay,
-              '${duration.inHours}:${duration.inMinutes.remainder(60)}').then((value) => list.add(value));
+              '${duration.inHours}:${duration.inMinutes.remainder(60)}',switchValue).then((value) => list.add(value));
         }
       }
     }

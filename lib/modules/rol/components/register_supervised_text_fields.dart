@@ -1,41 +1,30 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:neurocheck/core/widgets/custom_text.dart';
 
+import '../../../core/services/localization_service.dart';
+import '../../../core/styles/sizes.dart';
+import '../../../core/utils/validators.dart';
+import '../../../core/widgets/custom_text_field.dart';
 
-
-import '../../core/services/localization_service.dart';
-import '../../core/styles/sizes.dart';
-import '../../core/utils/validators.dart';
-import '../../core/widgets/custom_text_field.dart';
-import 'customCheckbox_component.dart';
-
-class RegisterTextFieldsSection extends StatelessWidget {
-  const RegisterTextFieldsSection({
-    required this.nameController,
+class RegisterSupervisedTextFieldsSection extends StatelessWidget {
+  const RegisterSupervisedTextFieldsSection({
     required this.emailController,
     required this.passwordController,
-    required this.passwordController2,
-    required this.iconButton,
-    required this.see,
-    required this.iconButton2,
-    required this.see2,
+    required this.emailControllerSupervised,
+    required this.passwordControllerSupervised,
     required this.onFieldSubmitted,
     Key? key,
   }) : super(key: key);
 
-  final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final TextEditingController passwordController2;
-  final Function(String)? onFieldSubmitted;
-  final IconButton iconButton;
-  final bool see;
 
-  final IconButton iconButton2;
-  final bool see2;
+  final TextEditingController emailControllerSupervised;
+  final TextEditingController passwordControllerSupervised;
+
+  final Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -62,19 +51,11 @@ class RegisterTextFieldsSection extends StatelessWidget {
 
   _sharedItemComponent(BuildContext context) {
     return [
+      CustomText.h3(context, tr(context).askYourDates),
+      SizedBox(height: Sizes.textFieldVMarginDefault(context)),
       CustomTextField(
         context,
-        key: const ValueKey('register_name'),
-        hintText: tr(context).name,
-        controller: nameController,
-        validator: Validators.instance.validateName(context),
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.emailAddress,
-        suffixIcon: Icon(PlatformIcons(context).accountCircle),
-      ),
-      CustomTextField(
-        context,
-        key: const ValueKey('register_email'),
+        key: const ValueKey('login_email'),
         hintText: tr(context).email,
         controller: emailController,
         validator: Validators.instance.validateEmail(context),
@@ -85,30 +66,47 @@ class RegisterTextFieldsSection extends StatelessWidget {
 
       CustomTextField(
         context,
-        key:  const ValueKey('register_password'),
+        key:  const ValueKey('login_password'),
         hintText: tr(context).password,
         controller: passwordController,
         validator: Validators.instance.validateLoginPassword(context),
         textInputAction: TextInputAction.go,
-        obscureText: see,
-        suffixIcon: iconButton,//const Icon(Icons.password),
+        obscureText: true,
+        suffixIcon: const Icon(Icons.password),
         onFieldSubmitted: onFieldSubmitted,
+      ),
+
+      SizedBox(height: Sizes.textFieldVMarginDefault(context)),
+
+      CustomText.h3(context, tr(context).askDates),
+
+      SizedBox(height: Sizes.textFieldVMarginDefault(context)),
+
+      CustomTextField(
+        context,
+        key: const ValueKey('login_emailS'),
+        hintText: tr(context).email,
+        controller: emailControllerSupervised,
+        validator: Validators.instance.validateEmail(context),
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        suffixIcon: Icon(PlatformIcons(context).mail),
       ),
 
       CustomTextField(
         context,
-        key:  const ValueKey('register_password2'),
+        key:  const ValueKey('login_passwordS'),
         hintText: tr(context).password,
-        controller: passwordController2,
-        validator: Validators.instance.validateRegisterPassword2(context, passwordController2.text, passwordController.text),
+        controller: passwordControllerSupervised,
+        validator: Validators.instance.validateLoginPassword(context),
         textInputAction: TextInputAction.go,
-        obscureText: see2,
-        suffixIcon: iconButton2,
+        obscureText: true,
+        suffixIcon: const Icon(Icons.password),
         onFieldSubmitted: onFieldSubmitted,
       ),
 
-      CustomCheckBoxComponent()
-
     ];
+
   }
+
 }

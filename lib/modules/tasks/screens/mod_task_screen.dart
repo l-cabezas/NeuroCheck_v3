@@ -54,6 +54,11 @@ class ModTaskComponent extends HookConsumerWidget {
     var range = ref.read(timeRangeButtonProvider.notifier);
     var repetitions = ref.read(timeRepetitionProvider.notifier);
 
+
+
+    //empezaría en true
+    final switchValue = !ref.watch(switchButtonProvider);
+
     final nametaskFormKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController(text: taskModel.taskName);
 
@@ -214,7 +219,7 @@ class ModTaskComponent extends HookConsumerWidget {
                       borderRadius:
                       BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
-                    child: TimePickerComponent('${taskModel.begin!} - ${taskModel.end!}'),
+                    child: TimePickerComponent('${taskModel.begin!} - ${taskModel.end!}',switchValue),
                   ))
                   :  SizedBox(height: Sizes.vMarginSmallest(context),),
               SizedBox(

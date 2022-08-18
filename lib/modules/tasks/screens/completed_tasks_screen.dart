@@ -51,8 +51,6 @@ class CompletedTasks extends HookConsumerWidget {
         loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
 
     );
-
   }
-
 
 }

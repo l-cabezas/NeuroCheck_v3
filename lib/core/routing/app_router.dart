@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/auth/screens/register_screen.dart';
 import 'package:neurocheck/auth/screens/reset_screen.dart';
+import 'package:neurocheck/auth/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/routing/route_paths.dart';
+import 'package:neurocheck/modules/rol/screens/add_supervised_screen.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/screens/show_tasks_screen.dart';
 import 'package:neurocheck/modules/tasks/screens/add_task_screen.dart';
@@ -63,6 +65,20 @@ class AppRouter {
           transitionDuration: const Duration(microseconds: 700),
         );
 
+      case RoutePaths.verifyEmail:
+        return NavigationSlideFromSide(
+          const VerifyEmailScreen(),
+          settings: settings,
+          transitionDuration: const Duration(microseconds: 700),
+        );
+
+      case RoutePaths.addSup:
+        return NavigationSlideFromSide(
+          const AddSupervisedScreen(),
+          settings: settings,
+          transitionDuration: const Duration(microseconds: 700),
+        );
+
       case RoutePaths.authReset:
         return NavigationSlideFromSide(
           const ResetScreen(),
@@ -91,7 +107,7 @@ class AppRouter {
       case RoutePaths.map:
         return platformPageRoute(
           context: NavigationService.context,
-          builder: (_) => const HomeScreen(),
+          builder: (_) =>  HomeScreen(),
           settings: settings,
         );
 
@@ -116,7 +132,6 @@ class AppRouter {
         );
 
       case RoutePaths.modScreen:
-        log('entrar');
         final args = settings.arguments as TaskModel?;
         return NavigationFadeTransition(
           ModTaskComponent(taskModel: args!,),

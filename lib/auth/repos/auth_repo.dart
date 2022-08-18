@@ -24,7 +24,54 @@ class AuthRepo {
           .signInWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
       //MOD
-      return Right(UserModel.fromUserCredential(userCredential.user!));
+      return Right(UserModel.fromUserCredential(userCredential.user!,'',''));
+    } on FirebaseAuthException catch (e) {
+      final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
+      return Left(ServerFailure(message: errorMessage));
+
+    } catch (e) {
+      log(e.toString());
+      final errorMessage = Exceptions.errorMessage(e);
+      return Left(ServerFailure(message: errorMessage));
+    }
+  }
+
+  Future<Either<Failure, UserModel>> signSupervisedIn(
+      BuildContext context, {
+        required String email,
+        required String password,
+        required String emailSupervised,
+        required String passwordSupervised,
+      }) async {
+    try {
+      //iniciamos sesion con el user del supervisado para conseguir su uid
+      final userCredentialSupervised = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailSupervised,
+          password: passwordSupervised);
+      var uidSupervised = userCredentialSupervised.user!.uid;
+      log('supervised: ' + uidSupervised);
+      try{
+        //cerramos sesión e iniciamos sesión con nuestra cuenta
+        await FirebaseAuth.instance.signOut();
+
+        final userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+
+        log('userCredential: ' + userCredential.toString());
+
+        log('llegó');
+
+        return Right(UserModel.fromUserCredential(userCredential.user!, uidSupervised,''));
+
+      }on FirebaseAuthException catch (e) {
+        final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
+        return Left(ServerFailure(message: errorMessage));
+
+      } catch (e) {
+        log(e.toString());
+        final errorMessage = Exceptions.errorMessage(e);
+        return Left(ServerFailure(message: errorMessage));
+      }
 
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
@@ -42,12 +89,14 @@ class AuthRepo {
         required String email,
         required String password,
         required String name,
+        required String rol,
       }) async {
     try {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
-      return Right(UserModel.fromUserCredential(userCredential.user!));
+
+      return Right(UserModel.fromUserCredential(userCredential.user!,rol, name));
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
       return Left(ServerFailure(message: errorMessage));
@@ -77,6 +126,26 @@ class AuthRepo {
       return Left(ServerFailure(message: errorMessage));
     }
   }
+
+  isVerifiedEmail() async {
+    return await FirebaseAuth.instance.currentUser!.reload();;
+  }
+
+  Future<Either<Failure, bool>> sendEmailVerification(
+      BuildContext context,) async {
+    try {
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      return const Right(true);
+    } on FirebaseAuthException catch (e) {
+      final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
+      return Left(ServerFailure(message: errorMessage));
+    } catch (e) {
+      log(e.toString());
+      final errorMessage = Exceptions.errorMessage(e);
+      return Left(ServerFailure(message: errorMessage));
+    }
+  }
+
 
 
 

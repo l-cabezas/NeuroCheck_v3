@@ -37,11 +37,11 @@ class CustomAppBar extends PlatformAppBar {
       if (trailingActions != null) ...trailingActions,
       if (hasBackButton)
         SizedBox(
-          width: Sizes.appBarBackButtonRadius(context) * 2,
+          width: Sizes.appBarBackButtonRadius(context),
         ),
       if (hasMenuButton)
         SizedBox(
-          width: Sizes.appBarMenuButtonRadius(context) * 2,
+          width: Sizes.appBarMenuButtonRadius(context),
         ),
     ],
     material: (_, __) {

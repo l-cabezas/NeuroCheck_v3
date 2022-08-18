@@ -9,6 +9,7 @@ import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 
 import '../../../../../core/styles/sizes.dart';
+import '../../../../../core/utils/dialogs.dart';
 
 
 //Create a Provider
@@ -25,12 +26,18 @@ class TimeRangeButton extends StateNotifier<String> {
   static String hf = '00:00';
   static String hi = '00:00';
 
+  static bool oneTime = false;
+
   String getIniHour(){
     return hi;
   }
 
   String getfinHour(){
     return hf;
+  }
+
+  void setOneTime(bool value){
+    oneTime = value;
   }
 
   clean(){
@@ -107,6 +114,7 @@ class TimeRangeButton extends StateNotifier<String> {
 
                                 child: CustomText.h4(context,'Cancelar',color: AppColors.red,),
                                 onPressed: (){
+                                  // todo borrar hora no valida
                                   ref.refresh(timeRangeButtonProvider);
                                   navigationPop(context);
                                 })),
@@ -126,20 +134,45 @@ class TimeRangeButton extends StateNotifier<String> {
                             ps.onConfirm!(ps, ps.selecteds);
                             pe.onConfirm!(pe, pe.selecteds);
 
+
                             horaInicial = hi;
                             horaFinal = hf;
 
                             var inputFormat = DateFormat.Hm();
                             var inputDateInicio = inputFormat.parse(hi);
                             var inputDateFin = inputFormat.parse(hf);
-                            if(inputDateInicio.isAfter(inputDateFin)){
-                              ///ShowInfo().showMyDialog(context, 'La hora de inicio va antes que la final', 'Casi es mejor cambiarla');
+
+                            //if(inputDateInicio.isAfter(inputDateFin)){//AppDialogs.showErrorNeutral(context,message: tr(context).rangeWarning);}
+
+                            log('oneTime TRPP ${!oneTime}');
+                            if(!oneTime) {
+                              if(inputDateInicio.minute <= DateTime.now().minute) {
+                                //log(' first if ${inputDateInicio.minute} ${DateTime.now().minute}');
+                                if(inputDateInicio.hour <= DateTime.now().hour){
+                                  //log(' second if ${inputDateInicio.hour} ${DateTime.now().hour}');
+                                  //navigationPop(context);
+                                  AppDialogs.showErrorNeutral(context,
+                                      message: 'No se puede viajar al pasado, '
+                                          'tiene que ser antes de: '
+                                          '${DateTime.now().hour} : ${DateTime.now().minute} o elige otro día');
+                                  //navigationPop(context);
+                                }else{
+                                  ref.refresh(timeRangeButtonProvider);
+                                  navigationPop(context);
+                                }
+                              }else{
+                                ref.refresh(timeRangeButtonProvider);
+                                navigationPop(context);
+                              }
+                            }else{
+                              ref.refresh(timeRangeButtonProvider);
+                              navigationPop(context);
                             }
 
                             //state = '$horaInicial - $horaFinal';
                             //log(state);
-                            ref.refresh(timeRangeButtonProvider);
-                            navigationPop(context);
+                            //ref.refresh(timeRangeButtonProvider);
+                            //navigationPop(context);
                           }),),
 
 
