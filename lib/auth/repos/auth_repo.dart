@@ -24,7 +24,7 @@ class AuthRepo {
           .signInWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
       //MOD
-      return Right(UserModel.fromUserCredential(userCredential.user!,'',''));
+      return Right(UserModel.fromUserCredential(userCredential.user!,'','',''));
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
       return Left(ServerFailure(message: errorMessage));
@@ -58,10 +58,10 @@ class AuthRepo {
             .signInWithEmailAndPassword(email: email, password: password);
 
         log('userCredential: ' + userCredential.toString());
+        log('supervised2: ' + uidSupervised);
 
-        log('llegó');
-
-        return Right(UserModel.fromUserCredential(userCredential.user!, uidSupervised,''));
+        //User user, String? rol, String? name, String? uidSupervised
+        return Right(UserModel.fromUserCredential(userCredential.user!,'supervised','' ,uidSupervised));
 
       }on FirebaseAuthException catch (e) {
         final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
@@ -96,7 +96,7 @@ class AuthRepo {
           .createUserWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
 
-      return Right(UserModel.fromUserCredential(userCredential.user!,rol, name));
+      return Right(UserModel.fromUserCredential(userCredential.user!,rol, name,''));
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
       return Left(ServerFailure(message: errorMessage));

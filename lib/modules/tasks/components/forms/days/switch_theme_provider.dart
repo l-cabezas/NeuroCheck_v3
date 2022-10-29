@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 //Create a Provider
-final switchButtonProvider = StateNotifierProvider<SwitchButton, bool>((ref) {
+final switchButtonProvider = StateNotifierProvider.autoDispose<SwitchButton, bool>((ref) {
   return SwitchButton(ref);
 });
 

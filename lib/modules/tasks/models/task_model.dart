@@ -1,21 +1,22 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TaskModel {
    String taskId;
   final String taskName;
   final String? begin;
   final String? end;
   final String? editable;
-
   final List? days;
   final List? notiHours;
-
   final List? idNotification;
-
   final String? oneTime;
   final String? done;
   final String? numRepetition;
+  final Timestamp? lastUpdate;
+  final String? isNotificationSet;
 
 
   TaskModel({
@@ -24,15 +25,14 @@ class TaskModel {
     required this.begin,
     required this.end,
     required this.editable,
-
     this.days,
     this.notiHours,
-
     this.idNotification,
-
     this.oneTime,
     required this.done,
     required this.numRepetition,
+    this.lastUpdate,
+    this.isNotificationSet,
   });
 
   Map<String, dynamic> toMap() {
@@ -42,15 +42,14 @@ class TaskModel {
     'begin':begin,
     'end':end,
     'editable':editable,
-
     'days':days ?? '',
     'notiHours': notiHours ?? '',
-
     'idNotification': idNotification ?? '',
-
     'oneTime':oneTime ?? '',
     'done':done,
     'numRepetition': numRepetition,
+    'lastUpdate' :lastUpdate,
+    'isNotificationSet': isNotificationSet,
     }..removeWhere((key, value) => value == null);
   }
 
@@ -61,15 +60,14 @@ class TaskModel {
       begin: map['begin'] ?? '',
       end: map['end'] ?? '',
       editable: map['editable'] ?? '',
-
       days: map['days'] ?? '',
       notiHours: map['notiHours'] ?? '',
-
       idNotification: map['idNotification'] ?? '',
-
       oneTime: map['oneTime'] ?? '',
       done: map['done'] ?? '',
-      numRepetition: map['numRepetition'] ?? ''
+      numRepetition: map['numRepetition'] ?? '',
+      lastUpdate: map['lastUpdate'],
+      isNotificationSet: map['isNotificationSet']
     );
   }
 
@@ -81,15 +79,14 @@ class TaskModel {
       begin: task.begin ?? '',
       end: task.end ?? '',
       editable: task.editable ?? '',
-
       days: task.days,
       notiHours: task.notiHours,
-
       idNotification: task.idNotification,
-
       oneTime: task.oneTime ?? '',
       done: task.done ?? '',
       numRepetition: task.numRepetition ?? '',
+      lastUpdate: task.lastUpdate,
+      isNotificationSet: task.isNotificationSet,
     );
   }
 
@@ -99,15 +96,14 @@ class TaskModel {
      String? begin,
      String? end,
      String? editable,
-
      List? days,
      List? notiHours,
-
-      List? idNotification,
-
+     List? idNotification,
      String? oneTime,
      String? done,
-    String? numRepetition,
+     String? numRepetition,
+     Timestamp? lastUpdate,
+     String? isNotificationSet
   }) {
     return TaskModel(
       taskId: taskId ?? this.taskId,
@@ -115,15 +111,14 @@ class TaskModel {
       begin: begin ?? this.begin,
       end: end ?? this.end,
       editable: editable ?? this.editable,
-
       days: this.days,
       notiHours: this.notiHours,
-
       idNotification: this.idNotification,
-
       oneTime: oneTime ?? this.oneTime,
       done: done ?? this.done,
-      numRepetition: numRepetition ?? this.numRepetition
+      numRepetition: numRepetition ?? this.numRepetition,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      isNotificationSet: isNotificationSet ?? this.isNotificationSet,
     );
   }
 }

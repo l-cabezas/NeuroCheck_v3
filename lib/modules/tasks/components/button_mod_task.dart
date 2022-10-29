@@ -23,9 +23,9 @@ class ButtonModComponent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    log('button_mod_task');
-    log(value.toString());
-    log(situation);
+    //log('button_mod_task');
+    //log(value.toString());
+    //log(situation);
     return Container(
         child: PlatformWidget(
       material: (_, __) {
@@ -44,7 +44,7 @@ class ButtonModComponent extends ConsumerWidget {
   }
 
   Function getSituation(String situation,ref){
-    log('getSituation');
+    //log('getSituation');
     final modVM = ref.watch(modTaskProvider);
     switch(situation) {
       case 'name':
@@ -74,7 +74,7 @@ class SharedItemComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('hola');
+
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: Sizes.vPaddingSmall(context),

@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,8 +10,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:neurocheck/auth/viewmodels/auth_provider.dart';
 import 'package:neurocheck/core/services/init_services/awesome_notification.dart';
+import 'package:neurocheck/modules/tasks/repos/utilities.dart';
 import 'package:path/path.dart';
 
+import '../../../auth/models/user_model.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/services/firebase_services/firebase_caller.dart';
@@ -38,7 +41,10 @@ class TasksRepo {
 
   //tareas sin hacer
   Stream<List<TaskModel>> getTasksStream() {
-    return _firebaseCaller.collectionStream<TaskModel>(
+    log('getTaskStream $user');
+    var uidSupervised = _userRepo.userModel?.uidSupervised;
+    return (uidSupervised == '')
+        ? _firebaseCaller.collectionStream<TaskModel>(
       path: FirestorePaths.taskPath(user!),
       queryBuilder: (query) => query
           //.where('taskName', isNotEqualTo: 'tarea0')
@@ -46,57 +52,36 @@ class TasksRepo {
       builder: (snapshotData, snapshotId) {
          return TaskModel.fromMap(snapshotData!, snapshotId);
       },
-    );
-  }
-
-  Stream<List<TaskModel>> getNotiTaskStream() {
-    var actualHour = DateTime.now();
-    var actualDay = getTranslateDay();
-
-    var formatter = DateFormat('hh:mm');
-    String formattedDate = formatter.format(actualHour);
-
-    log('getNoti task repo $formattedDate');
-
-    return _firebaseCaller.collectionStream<TaskModel>(
-      path: FirestorePaths.taskPath(user!),
+    )
+    :_firebaseCaller.collectionStream<TaskModel>(
+      path: FirestorePaths.taskPath(uidSupervised!),
       queryBuilder: (query) => query
-          .where("days", arrayContains: actualDay)
-          .where("oneTime", isEqualTo: 'false')
-          .where("hours", arrayContains: formattedDate),
+      //.where('taskName', isNotEqualTo: 'tarea0')
+          .where('editable', isEqualTo: 'false'),
       builder: (snapshotData, snapshotId) {
         return TaskModel.fromMap(snapshotData!, snapshotId);
       },
     );
   }
 
-  String getTranslateDay(){
-    var actualDay = DateTime.now().weekday;
-    String day = '';
-    switch(actualDay){
-      case 1:
-        day = 'Lunes';
-        break;
-      case 2:
-        day = 'Martes';
-        break;
-      case 3:
-        day ='Miércoles';
-        break;
-      case 4:
-        day = 'Jueves';
-        break;
-      case 5:
-        day = 'Viernes';
-        break;
-      case 6:
-        day = 'Sábado';
-        break;
-      case 7:
-        day = 'Domingo';
-        break;
-    }
-    return day;
+  Stream<List<TaskModel>> getNotiTaskStream() {
+    cancelScheduledNotifications();
+    var actualHour = DateTime.now();
+    var actualDay = getTranslateDay();
+
+    var formatter = DateFormat('hh:mm');
+    String formattedDate = formatter.format(actualHour);
+
+    return  _firebaseCaller.collectionStream<TaskModel>(
+      path: FirestorePaths.taskPath(user!),
+      queryBuilder: (query) => query
+          .where("days", arrayContains: actualDay)
+          .where("done", isEqualTo: "false"),
+      builder: (snapshotData, snapshotId) {
+        log('getNoti task repo 1');
+        return TaskModel.fromMap(snapshotData!, snapshotId);
+      },
+    );
   }
 
 
@@ -140,8 +125,61 @@ class TasksRepo {
     );
   }
 
+  Future<Either<Failure, bool>> cancelTodayNotifications({required TaskModel task}) async {
+    var now = DateTime.now().weekday;
+    //si nos quedan ids de notificacion o no
+    //if(task.idNotification?.length != 0) {
+      //numero de ids que tenemos que borrar
+      var numDelete = task.notiHours?.length;
+      //borramos desde el primero hasta el numero de ids que correspondan a ese día
+      Iterable? idCancel = task.idNotification;
+
+      //cancelamos esas notificaciones
+    idCancel?.forEach((element) {
+        cancelScheduledNotification(element);
+      });
+
+
+      List<int> ids = [];
+
+      //quitamos el día que hemos hecho
+      List? taskMinusDay = task.days;
+
+      //si estamos en ultimo día de rep de esa semana
+      if(taskMinusDay?.length == 1){
+        //notificaciones de 0
+        await makesNewNotification(task.days!, task.notiHours!)
+            .then((value) => ids = value
+        );
+      } else{
+        taskMinusDay?.remove(getStrDay(now));
+        await makesNewNotification(taskMinusDay!, task.notiHours!)
+            .then((value) => ids = value
+        );
+      }
+
+
+      return await _firebaseCaller.updateData(
+        path: FirestorePaths.taskById(user!, taskId: task.taskId),
+        data: {
+          'idNotification': ids
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+   // }
+
+  }
+
   Future<Either<Failure, bool>> updateIds({required TaskModel task}) async {
     List<int> ids = [];
+
+
     await makesNewNotification(task.days!, task.notiHours!)
         .then((value) => ids = value
     );
@@ -195,13 +233,28 @@ class TasksRepo {
   // add task
   Future<Either<Failure, bool>> addSingleTask({
     required TaskModel task,
-    required String id
   }) async {
-    //log('TASK REPO ${user!}  ${task.taskName} ${task.days!} ${task.begin!}  ${task.end!}  ${task.editable!} ${task.done!}  ${task.numRepetition!}');
+    var usuario = await getUsuario();
+    var uidSup = usuario?.uidSupervised;
+    //log('uid Sup $uidSup');
 
-    return await _firebaseCaller.setData(
-      path: FirestorePaths.taskById(user!,taskId: id),
+    //segun sea supervisor o no
+    return (uidSup == '')
+        ? await _firebaseCaller.setData(
+      path: FirestorePaths.taskById(user!,taskId: task.taskId),
       data: task.toMap(),
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            taskModel = task;
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        }
+    )
+    :await _firebaseCaller.setData(
+        path: FirestorePaths.taskById(uidSup!,taskId: task.taskId),
+        data: task.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
             taskModel = task;
@@ -213,6 +266,38 @@ class TasksRepo {
         }
     );
   }
+
+  UserModel? returnUsuario() {
+    UserModel? user;
+    getUsuario().then((value) => user = value);
+    return user;
+  }
+
+  Future<UserModel?> getUsuario() async {
+    final result = await _userRepo.getUserData(user!);
+    return result.fold(
+          (failure) {
+            return null;
+          },
+          (userModel) {
+            return userModel;
+      },
+    );
+  }
+
+
+  Future<Either<Failure, UserModel>> getUser() async {
+    final result = await _userRepo.getUserData(user!);
+    return result.fold(
+      (failure) {
+        return  Left(failure);
+      },
+      (userModel) {
+        return Right(userModel!);
+      },
+    );
+  }
+
 
   deleteSingleTask({
     required TaskModel taskModel
@@ -238,20 +323,24 @@ class TasksRepo {
         );
       }
     }
-    log('reIds.length ${reIds.length}' );
     return reIds;
   }
 
-  Future<String> setTaskDoc(TaskModel taskData) async {
+  Future<String> setTaskDoc(TaskModel taskData, String uid) async {
+    log('setTaskDoc users/$uid/tasks');
     return await _firebaseCaller.addDataToCollection(
-          path: 'users/$user!/tasks',
-          data: taskData.toMap());
+          path: 'users/$uid/tasks', ///tasks
+          data: taskData.toMap()
+    );
   }
 
   Future<Either<Failure, bool>> addDocToFirebase(TaskModel taskModel) async {
-    final id = await setTaskDoc(taskModel);
-    taskModel.taskId = id;
-    final result = await addSingleTask(task: taskModel,id: id);
+    log('uid user $user');
+    // nos da el uid de la tarea
+    taskModel.taskId = await setTaskDoc(taskModel,user!).then((value) => taskModel.taskId = value);
+    log('id task ${taskModel.taskId}');
+
+    final result = await addSingleTask(task: taskModel);
     return await result.fold(
           (failure) {
               return Left(failure);
@@ -266,13 +355,23 @@ class TasksRepo {
     );
   }
 
- /* Future<Either<Failure, bool>> resetTasks() async {
+/*
+  Future<Either<Failure, bool>> resetTasks() async {
+    DateTime currentPhoneDate = DateTime.now(); //DateTime
+
+    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
+
+    DateTime myDateTime = myTimeStamp.toDate(); // TimeStamp to DateTime
+
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Totals");
+
+
 
     _firebaseCaller.collectionStream<TaskModel>(
       path: FirestorePaths.taskPath(user!),
       queryBuilder: (query) => query
       //.where('taskName', isNotEqualTo: 'tarea0')
-          .where('done', isEqualTo: 'false'),
+          .where('done', isGreaterThanOrEqualTo: myTimeStamp.seconds-10),
       builder: (snapshotData, snapshotId) {
         return TaskModel.fromMap(snapshotData!, snapshotId);
       },
@@ -292,6 +391,7 @@ class TasksRepo {
         }
       },
     );
-  }*/
+  }
+*/
 
 }

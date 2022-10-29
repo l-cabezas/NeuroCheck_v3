@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final nameTaskProvider = StateNotifierProvider<NameTaskProvider, String>((ref) {
+final nameTaskProvider = StateNotifierProvider.autoDispose<NameTaskProvider, String>((ref) {
   return NameTaskProvider(ref);
 });
 

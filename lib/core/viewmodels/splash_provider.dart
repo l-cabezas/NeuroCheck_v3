@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:neurocheck/core/utils/dialogs.dart';
 
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';
@@ -63,19 +64,26 @@ class SplashProvider {
     bool hasValidAuth = await _mainCoreProvider.checkValidAuth();
     bool? hasVerify =  _mainCoreProvider.getCurrentStateAccount();
 
-
+//    log('hasValidAuth $hasValidAuth');
     if (hasValidAuth) {
       //si el email ha sido verificado si es supervisor
       bool isBoss = await _mainCoreProvider.isBoss();
-      log('isBoss $isBoss');
-      log('hasVerify $hasVerify');
-      if(hasVerify! && isBoss){
-        secondPage = RoutePaths.homeBase;
+//      log('isBoss $isBoss');
+//      log('hasVerify $hasVerify');
+      //es supervisor
+      if(isBoss){
+        if(hasVerify!) {
+          secondPage = RoutePaths.homeBase;
+        }else{
+          secondPage = RoutePaths.verifyEmail;
+        }
       }else{
-        secondPage = RoutePaths.verifyEmail;
+        //no es supervisor
+        secondPage = RoutePaths.homeBase;
       }
 
     } else {
+      //recheck notification
       secondPage = RoutePaths.authLogin;
     }
   }

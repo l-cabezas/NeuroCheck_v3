@@ -86,13 +86,13 @@ class CardItemComponent extends ConsumerWidget {
                     ref.watch(tasksRepoProvider)
                         .checkTask(task: taskModel);
                     ref.watch(tasksRepoProvider)
-                        .updateIds(task: taskModel);
+                        .cancelTodayNotifications(task: taskModel);
 
                     ref.refresh(tasksRepoProvider);
                   },
                 )
                   : SizedBox(),
-                  (taskModel.done == 'true')
+                  (taskModel.editable == "true")
                     ? CardRedButtonComponent(
                         title: tr(context).delete,
                         isColored: false,

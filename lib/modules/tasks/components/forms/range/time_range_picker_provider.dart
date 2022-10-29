@@ -13,7 +13,7 @@ import '../../../../../core/utils/dialogs.dart';
 
 
 //Create a Provider
-final timeRangeButtonProvider = StateNotifierProvider<TimeRangeButton, String>((ref) {
+final timeRangeButtonProvider = StateNotifierProvider.autoDispose<TimeRangeButton, String>((ref) {
   return TimeRangeButton(ref);
 });
 
@@ -144,7 +144,7 @@ class TimeRangeButton extends StateNotifier<String> {
 
                             //if(inputDateInicio.isAfter(inputDateFin)){//AppDialogs.showErrorNeutral(context,message: tr(context).rangeWarning);}
 
-                            log('oneTime TRPP ${!oneTime}');
+                            //log('oneTime TRPP ${!oneTime}');
                             if(!oneTime) {
                               if(inputDateInicio.minute <= DateTime.now().minute) {
                                 //log(' first if ${inputDateInicio.minute} ${DateTime.now().minute}');

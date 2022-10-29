@@ -3,9 +3,10 @@ import 'dart:developer';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/simple_notifications/utilities.dart';
+import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
 
-Future<int> createTaskToDoNotification(int hour, int minute) async {
+Future<int> createTaskToDoNotification(int hour, int minute, String taskName) async {
   int idNotification = createUniqueId();
 
   await AwesomeNotifications().createNotification(
@@ -13,11 +14,17 @@ Future<int> createTaskToDoNotification(int hour, int minute) async {
       id: idNotification,
       channelKey: 'basic_channel',
       title:
-      'Oye haz esto!!!',
+      'Oye haz esto ${taskName}!!!',
       body: 'Florist at 123 Main St. has 2 in stock',
       //bigPicture: 'asset://assets/notification_map.png',
       notificationLayout: NotificationLayout.BigText,
     ),
+    actionButtons: [
+      NotificationActionButton(
+        key: 'MARK_DONE',
+        label: 'Hecho',
+      ),
+    ],
     schedule: NotificationCalendar(
       weekday: DateTime.now().weekday,
       hour: hour,
@@ -30,32 +37,24 @@ Future<int> createTaskToDoNotification(int hour, int minute) async {
   return idNotification;
 }
 
-int getNumDay(String day){
-  int num = 0;
-  switch(day){
-    case 'Lunes': num = 1; break;
-    case 'Martes': num = 2; break;
-    case 'Miércoles': num = 3; break;
-    case 'Jueves': num = 4; break;
-    case 'Viernes': num = 5; break;
-    case 'Sábado': num = 6; break;
-    case 'Domingo': num = 7; break;
-  }
 
-  return num;
-}
-
-Future<int> createReminderNotification( int day, int hour, int minute) async {
+Future<int> createReminderNotification( int day, int hour, int minute, String taskName) async {
   int idNotification = createUniqueId();
-  log('notifications' + day.toString() + hour.toString() + minute.toString());
+  //log('notifications' + day.toString() + hour.toString() + minute.toString());
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: idNotification,
       channelKey: 'scheduled_channel',
-      title: '${Emojis.wheater_droplet} Add some water to your plant!',
-      body: 'Water your plant regularly to keep it healthy.',
+      title: 'Do ${taskName}',
+      body: 'venga va que toca',//'Rango horario ${taskModel.begin} ${taskModel.end}',
       notificationLayout: NotificationLayout.Default,
     ),
+    actionButtons: [
+      NotificationActionButton(
+        key: 'MARK_DONE',
+        label: 'Hecho',
+      ),
+    ],
     schedule: NotificationCalendar(
       weekday: day,
       hour: hour,

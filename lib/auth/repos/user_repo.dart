@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/errors/failures.dart';
@@ -77,8 +79,14 @@ class UserRepo {
       begin : '',
       end: '',
       editable: '',
+      days: [],
+      notiHours: [],
+      idNotification: [],
+      oneTime: '',
       done : '',
       numRepetition: '',
+      lastUpdate: Timestamp.fromDate(DateTime.now()),
+      isNotificationSet: '',
     );
     await _firebaseCaller.addDataToCollection(
       path: FirestorePaths.getTaskCollection(userData.uId),
@@ -140,16 +148,17 @@ class UserRepo {
     );
   }
 
-  setSupervisedUid(UserModel user, String rol) async {
+  setSupervisedUid(UserModel user) async {
     return await _firebaseCaller.setData(
       path: FirestorePaths.userUId(user.uId),
       data: {
-        "rol": 'boss',
-        "SupervisedUid": rol},
+        "rol": 'supervisor',
+        "uidSupervised": user.uidSupervised
+      },
       merge: true,
       builder: (data) {
         if (data is! ServerFailure && data == true) {
-          userModel = userModel!.copyWith(rol: rol);
+          userModel = userModel!.copyWith(uidSupervised: user.uidSupervised);
           return Right(data);
         } else {
           return Left(data);

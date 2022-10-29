@@ -14,7 +14,7 @@ import '../../../../../core/styles/sizes.dart';
 
 
 //Create a Provider
-final timeRepetitionProvider = StateNotifierProvider<TimeRepetitionButton, String>((ref) {
+final timeRepetitionProvider = StateNotifierProvider.autoDispose<TimeRepetitionButton, String>((ref) {
   return TimeRepetitionButton(ref);
 });
 

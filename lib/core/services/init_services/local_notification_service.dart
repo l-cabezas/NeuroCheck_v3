@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:neurocheck/core/routing/route_paths.dart';
 
 import '../../../modules/notifications/models/notification_model.dart';
 import '../../routing/navigation_service.dart';
@@ -52,7 +53,8 @@ class LocalNotificationService {
         NavigationService.pushReplacement(
           NavigationService.context,
           isNamed: true,
-          page: notificationModel.route,
+          //si clickamos en la notificacion nos vamos a la pagina de inicio
+          page: RoutePaths.homeBase,
         );
         /*if (_notificationModel.data?.containsKey('orderId') ?? false) {
           _container

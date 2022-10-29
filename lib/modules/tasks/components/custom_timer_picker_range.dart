@@ -87,8 +87,9 @@ class CustomTimeRanger extends Container {
                       child: Text('Default'),
                       onPressed: ()  {
                         //timeRange = defaultTimeRange;
-                        log('press default');
-                        log(timeRange!.start.format(context));},
+                        //log('press default');
+                        //log(timeRange!.start.format(context));
+                        },
                       color: orange,
                     )
                   ],

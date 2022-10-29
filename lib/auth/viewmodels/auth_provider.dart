@@ -75,6 +75,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
+        log('userSupervisedPreAuth ${userModel.name}');
+        log('userSupervisedPreAuth ${userModel.uidSupervised}');
         _mainCoreProvider.setSupervisedUid(userModel);
         subscribeUserToTopic();
         navigationToHomeScreen(context);

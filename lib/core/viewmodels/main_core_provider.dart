@@ -128,13 +128,14 @@ class MainCoreProvider {
   }
 
 
-  Future<bool> setSupervisedUid(UserModel userModel) async {
-    final result = await _userRepo.setSupervisedUid(userModel, userModel.rol!);
-    if (result){
+  setSupervisedUid(UserModel userModel) async {
+    //final result =
+    await _userRepo.setSupervisedUid(userModel);
+    /*if (result){
       return true;
     } else {
     return false;
-    }
+    }*/
   }
 
   Future<bool> isBossValid() async {
