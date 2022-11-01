@@ -3,6 +3,8 @@ import 'dart:core';
 //OJO CAMBIAR ESTO PQ ESTAS IMAGENES NO
 class AppImages {
   static const String jsonPath = 'assets/json/';
+  static const String loginIcon = '${loginImagesPath}loginIcon2.png';
+  static const String loginIcon2 = '${loginImagesPath}login2.png';
   static const String welcomeImagesPath = 'assets/images/welcome/';
   static const String loginImagesPath = 'assets/images/login/';
   static const String coreImagesPath = 'assets/images/core/';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/services/localization_service.dart';
+import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/widgets/custom_image.dart';
@@ -15,19 +16,21 @@ class AppLogoComponent extends StatelessWidget {
       children: [
         CustomImage(
           context,
-          AppImages.appLogoIcon,
-          height: Sizes.loginLogoSize(context),
-          width: Sizes.loginLogoSize(context),
+          AppImages.loginIcon,
+          //height: Sizes.loginLogoSize(context),
+          //width: Sizes.loginLogoSize(context),
           fit: BoxFit.cover,
-          imageAndTitleAlignment: MainAxisAlignment.start,
+          //imageAndTitleAlignment: MainAxisAlignment.start,
         ),
         SizedBox(
           height: Sizes.vMarginSmallest(context),
         ),
         CustomText.h1(
           context,
-          tr(context).appName,
+          //tr(context).welcome,
           alignment: Alignment.center,
+          tr(context).signInToYourAccount,
+          color: AppColors.grey,
         ),
       ],
     );

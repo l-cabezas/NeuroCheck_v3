@@ -29,6 +29,23 @@ class Validators {
     };
   }
 
+  String? Function(String?)? validateEmail2(BuildContext context, String value, String value2) {
+    return (value) {
+      if (value!.isEmpty) {
+        return 'Introduce Email';
+      } else if (!value.contains('@')) {
+        return 'Por favor Introduce un email válido';
+      }else {
+        if(value != value2){
+          //log('$value $value2');
+          return 'No coinciden los emails';
+        }else {
+          return null;
+        }
+      }
+    };
+  }
+
   String? Function(String?)? validateLoginPassword(BuildContext context) {
     return (value) {
       if (value!.isEmpty) {

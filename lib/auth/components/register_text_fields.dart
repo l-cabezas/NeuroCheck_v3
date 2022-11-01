@@ -16,6 +16,7 @@ class RegisterTextFieldsSection extends StatelessWidget {
   const RegisterTextFieldsSection({
     required this.nameController,
     required this.emailController,
+    required this.emailController2,
     required this.passwordController,
     required this.passwordController2,
     required this.iconButton,
@@ -28,6 +29,7 @@ class RegisterTextFieldsSection extends StatelessWidget {
 
   final TextEditingController nameController;
   final TextEditingController emailController;
+  final TextEditingController emailController2;
   final TextEditingController passwordController;
   final TextEditingController passwordController2;
   final Function(String)? onFieldSubmitted;
@@ -82,6 +84,16 @@ class RegisterTextFieldsSection extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         suffixIcon: Icon(PlatformIcons(context).mail),
       ),
+      CustomTextField(
+        context,
+        key: const ValueKey('register_email2'),
+        hintText: tr(context).email2,
+        controller: emailController2,
+        validator: Validators.instance.validateEmail2(context,emailController2.text, emailController.text),
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        suffixIcon: Icon(PlatformIcons(context).mail),
+      ),
 
       CustomTextField(
         context,
@@ -98,7 +110,7 @@ class RegisterTextFieldsSection extends StatelessWidget {
       CustomTextField(
         context,
         key:  const ValueKey('register_password2'),
-        hintText: tr(context).password,
+        hintText: tr(context).password2,
         controller: passwordController2,
         validator: Validators.instance.validateRegisterPassword2(context, passwordController2.text, passwordController.text),
         textInputAction: TextInputAction.go,

@@ -39,6 +39,8 @@ class TasksRepo {
 
   var user = FirebaseAuth.instance.currentUser?.uid;
 
+  // OBTECIÓN DE DATOS ---------------------------------------------------------
+
   //tareas sin hacer
   Stream<List<TaskModel>> getTasksStream() {
     log('getTaskStream $user');
@@ -84,7 +86,6 @@ class TasksRepo {
     );
   }
 
-
   Stream<List<TaskModel>> getNotModTasksStream() {
     return _firebaseCaller.collectionStream<TaskModel>(
       path: FirestorePaths.taskPath(user!),
@@ -108,8 +109,65 @@ class TasksRepo {
     );
   }
 
-  Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
+  Future<Either<Failure?, TaskModel>> getTaskByName({required String taskId,}) async {
+    return await _firebaseCaller.getData(
+      path: FirestorePaths.taskById(user!,taskId: taskId),
+      builder: (data, id) {
+        if (data is! ServerFailure && data != null) {
+          return Right(TaskModel.fromMap(data, id!));
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
 
+  UserModel? returnUsuario() {
+    UserModel? user;
+    getUsuario().then((value) => user = value);
+    return user;
+  }
+
+  Future<UserModel?> getUsuario() async {
+    final result = await _userRepo.getUserData(user!);
+    return result.fold(
+          (failure) {
+            return null;
+          },
+          (userModel) {
+            return userModel;
+      },
+    );
+  }
+
+  //obtenemos la informacion de nuestro supervisado mediante su uid
+  Future<UserModel?> getInfoSupervisado(String uid) async {
+    final result = await _userRepo.getUserData(uid);
+    return result.fold(
+          (failure) {
+        return null;
+      },
+          (userModel) {
+        return userModel;
+      },
+    );
+  }
+
+  Future<Either<Failure, UserModel>> getUser() async {
+    final result = await _userRepo.getUserData(user!);
+    return result.fold(
+      (failure) {
+        return  Left(failure);
+      },
+      (userModel) {
+        return Right(userModel!);
+      },
+    );
+  }
+
+  // MODIFICAR ELIMINAR COSAS --------------------------------------------------
+
+  Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
       path: FirestorePaths.taskById(user!,taskId: task.taskId),
       data: {
@@ -129,50 +187,50 @@ class TasksRepo {
     var now = DateTime.now().weekday;
     //si nos quedan ids de notificacion o no
     //if(task.idNotification?.length != 0) {
-      //numero de ids que tenemos que borrar
-      var numDelete = task.notiHours?.length;
-      //borramos desde el primero hasta el numero de ids que correspondan a ese día
-      Iterable? idCancel = task.idNotification;
+    //numero de ids que tenemos que borrar
+    var numDelete = task.notiHours?.length;
+    //borramos desde el primero hasta el numero de ids que correspondan a ese día
+    Iterable? idCancel = task.idNotification;
 
-      //cancelamos esas notificaciones
+    //cancelamos esas notificaciones
     idCancel?.forEach((element) {
-        cancelScheduledNotification(element);
-      });
+      cancelScheduledNotification(element);
+    });
 
 
-      List<int> ids = [];
+    List<int> ids = [];
 
-      //quitamos el día que hemos hecho
-      List? taskMinusDay = task.days;
+    //quitamos el día que hemos hecho
+    List? taskMinusDay = task.days;
 
-      //si estamos en ultimo día de rep de esa semana
-      if(taskMinusDay?.length == 1){
-        //notificaciones de 0
-        await makesNewNotification(task.days!, task.notiHours!)
-            .then((value) => ids = value
-        );
-      } else{
-        taskMinusDay?.remove(getStrDay(now));
-        await makesNewNotification(taskMinusDay!, task.notiHours!)
-            .then((value) => ids = value
-        );
-      }
-
-
-      return await _firebaseCaller.updateData(
-        path: FirestorePaths.taskById(user!, taskId: task.taskId),
-        data: {
-          'idNotification': ids
-        },
-        builder: (data) {
-          if (data is! ServerFailure && data == true) {
-            return Right(data);
-          } else {
-            return Left(data);
-          }
-        },
+    //si estamos en ultimo día de rep de esa semana
+    if(taskMinusDay?.length == 1){
+      //notificaciones de 0
+      await makesNewNotification(task.days!, task.notiHours!)
+          .then((value) => ids = value
       );
-   // }
+    } else{
+      taskMinusDay?.remove(getStrDay(now));
+      await makesNewNotification(taskMinusDay!, task.notiHours!)
+          .then((value) => ids = value
+      );
+    }
+
+
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(user!, taskId: task.taskId),
+      data: {
+        'idNotification': ids
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+    // }
 
   }
 
@@ -214,103 +272,14 @@ class TasksRepo {
     );
   }
 
-  //tarea por nombre
-  Future<Either<Failure?, TaskModel>> getTaskByName({
-    required String taskId,
-  }) async {
-    return await _firebaseCaller.getData(
-      path: FirestorePaths.taskById(user!,taskId: taskId),
-      builder: (data, id) {
-        if (data is! ServerFailure && data != null) {
-          return Right(TaskModel.fromMap(data, id!));
-        } else {
-          return Left(data);
-        }
-      },
-    );
-  }
-
-  // add task
-  Future<Either<Failure, bool>> addSingleTask({
-    required TaskModel task,
-  }) async {
-    var usuario = await getUsuario();
-    var uidSup = usuario?.uidSupervised;
-    //log('uid Sup $uidSup');
-
-    //segun sea supervisor o no
-    return (uidSup == '')
-        ? await _firebaseCaller.setData(
-      path: FirestorePaths.taskById(user!,taskId: task.taskId),
-      data: task.toMap(),
-        builder: (data) {
-          if (data is! ServerFailure && data == true) {
-            taskModel = task;
-            return Right(data);
-          } else {
-            return Left(data);
-          }
-        }
-    )
-    :await _firebaseCaller.setData(
-        path: FirestorePaths.taskById(uidSup!,taskId: task.taskId),
-        data: task.toMap(),
-        builder: (data) {
-          if (data is! ServerFailure && data == true) {
-            taskModel = task;
-
-            return Right(data);
-          } else {
-            return Left(data);
-          }
-        }
-    );
-  }
-
-  UserModel? returnUsuario() {
-    UserModel? user;
-    getUsuario().then((value) => user = value);
-    return user;
-  }
-
-  Future<UserModel?> getUsuario() async {
-    final result = await _userRepo.getUserData(user!);
-    return result.fold(
-          (failure) {
-            return null;
-          },
-          (userModel) {
-            return userModel;
-      },
-    );
-  }
-
-
-  Future<Either<Failure, UserModel>> getUser() async {
-    final result = await _userRepo.getUserData(user!);
-    return result.fold(
-      (failure) {
-        return  Left(failure);
-      },
-      (userModel) {
-        return Right(userModel!);
-      },
-    );
-  }
-
-
-  deleteSingleTask({
-    required TaskModel taskModel
-  }) async {
+  deleteSingleTask({required TaskModel taskModel}) async {
     cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.deleteData(
         path: FirestorePaths.taskById(user!,taskId: taskModel.taskId));
   }
 
   cancelNotification(List<dynamic> listId){
-    listId.forEach((element) {
-      AwesomeNotifications().cancel(element);
-    });
+    listId.forEach((element) { AwesomeNotifications().cancel(element);});
   }
 
   Future<List<int>> makesNewNotification(List<dynamic> days, List<dynamic> hour) async {
@@ -326,6 +295,7 @@ class TasksRepo {
     return reIds;
   }
 
+  // AÑADIR COSAS --------------------------------------------------
   Future<String> setTaskDoc(TaskModel taskData, String uid) async {
     log('setTaskDoc users/$uid/tasks');
     return await _firebaseCaller.addDataToCollection(
@@ -355,43 +325,41 @@ class TasksRepo {
     );
   }
 
-/*
-  Future<Either<Failure, bool>> resetTasks() async {
-    DateTime currentPhoneDate = DateTime.now(); //DateTime
-
-    Timestamp myTimeStamp = Timestamp.fromDate(currentPhoneDate); //To TimeStamp
-
-    DateTime myDateTime = myTimeStamp.toDate(); // TimeStamp to DateTime
-
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Totals");
-
-
-
-    _firebaseCaller.collectionStream<TaskModel>(
-      path: FirestorePaths.taskPath(user!),
-      queryBuilder: (query) => query
-      //.where('taskName', isNotEqualTo: 'tarea0')
-          .where('done', isGreaterThanOrEqualTo: myTimeStamp.seconds-10),
-      builder: (snapshotData, snapshotId) {
-        return TaskModel.fromMap(snapshotData!, snapshotId);
-      },
-    );
-    return await _firebaseCaller.updateData(
-      path: FirestorePaths.getTaskCollection(user!),
-      queryBuilder: (query) => query
-          .where('editable', isEqualTo: 'false'),
-      data: {
-        'done': 'false',
-      },
-      builder: (data) {
-        if (data is! ServerFailure && data == true) {
-          return Right(data);
-        } else {
-          return Left(data);
+  Future<Either<Failure, bool>> addSingleTask({ required TaskModel task,}) async {
+    var usuario = await getUsuario();
+    var uid = usuario?.uId;
+    return await _firebaseCaller.setData(
+        path: FirestorePaths.taskById(uid!,taskId: task.taskId),
+        data: task.toMap(),
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            taskModel = task;
+            return Right(data);
+          } else {
+            return Left(data);
+          }
         }
-      },
     );
   }
-*/
 
+  Future<Either<Failure, bool>> addSingleTaskBoss({ required TaskModel task,}) async {
+    //nuestros datos de usuario
+    var usuario = await getUsuario();
+    //el uid de nuestro supervisado
+    var uidSup = usuario?.uidSupervised;
+
+    //añadimos la tarea a su carpeta de tareasSupervisor
+    return await _firebaseCaller.setData(
+        path: FirestorePaths.taskPathBoss(uidSup!,taskId: task.taskId),
+        data: task.toMap(),
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            taskModel = task;
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        }
+    );
+  }
 }

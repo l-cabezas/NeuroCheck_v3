@@ -34,12 +34,17 @@
   "signInToYourAccount": "Inicia sesión na túa cuenta",
   "signIn": "Iniciar Sesión",
   "email": "Email",
+  "email2": "Repita su email",
   "password": "Contrasinal",
+  "password2": "Repita su contraseña",
   "phone": "Teléfono",
   "emailOrPasswordIsInCorrect":
        "Correo electrónico ou contrasinal incorrectos. Por favor, proba de novo.",
   "register": "Registrarse",
   "reset": "Restaurar contraseña",
+  "questionrol" : "¿Quere desempeñar o rol de supervisor?",
+  "yes" : "Sí",
+  "no" : "No",
   "@_GENERAL": {
   },
   "spanish": "Español",

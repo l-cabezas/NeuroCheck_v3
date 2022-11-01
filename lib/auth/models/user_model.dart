@@ -11,6 +11,7 @@ class UserModel {
   final String? uidSupervised;
   final String? image;
 
+
   UserModel({
     required this.uId,
     required this.email,

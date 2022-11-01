@@ -27,10 +27,6 @@ class UserRepo {
   String? uid;
   UserModel? userModel;
 
-  //extension EitherX<L, R> on Either<L, R> {
-  //   R asRight() => (this as Right).value; //
-  //   L asLeft() => (this as Left).value;
-  // }
 
   Future<Either<Failure, UserModel?>> getUserData(String userId) async {
     return await _firebaseCaller.getData(
@@ -63,7 +59,7 @@ class UserRepo {
     );
   }
 
-   registerUserData(UserModel userData) async {
+  registerUserData(UserModel userData) async {
      await _firebaseCaller.addDataToCollection(
       path: FirestorePaths.userDocument(userData.uId),
       data: userData.toMap(),
@@ -93,7 +89,7 @@ class UserRepo {
       data: tarea0.toMap(),
     );
   }
-
+// se updatea el usuario en firebase
   Future<Either<Failure, bool>> updateUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
       path: FirestorePaths.userDocument(uid!),

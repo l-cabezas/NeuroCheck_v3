@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neurocheck/auth/components/reset_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
+import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 
@@ -12,7 +13,21 @@ class ResetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopUpPage(
       body: SingleChildScrollView(
-        child: Container(
+        child: Column(children:[
+          Container(
+            padding: EdgeInsets.only(
+              top: Sizes.hMarginExtreme(context),
+              bottom: Sizes.vMarginSmallest(context),
+              left: Sizes.vMarginSmall(context),
+            ),
+            alignment: Alignment.topLeft,
+            child: IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+            ),),
+          Container(
           constraints:
           BoxConstraints(minHeight: MediaQuery.of(context).size.height),
           decoration: const BoxDecoration(
@@ -24,26 +39,24 @@ class ResetScreen extends StatelessWidget {
             ),
           ),
           padding: EdgeInsets.symmetric(
-            vertical: Sizes.screenVPaddingHigh(context),
+            //vertical: Sizes.screenVPaddingHigh(context),
             horizontal: Sizes.screenHPaddingDefault(context),
           ),
           child: Column(
-              mainAxisSize: MainAxisSize.min,
+              //mainAxisSize: MainAxisSize.min,
               children: [
                 //const AppLogoComponent(),
                 SizedBox(
                   height: Sizes.vMarginHigh(context),
                 ),
                 //const WelcomeComponent(),
-                SizedBox(
-                  height: Sizes.vMarginHigh(context),
-                ),
+
                 const ResetFormComponent(),
                 SizedBox(
                   height: Sizes.vMarginHigh(context),
                 ),
               ]),
-        ),
+        )]),
       ),
     );
   }

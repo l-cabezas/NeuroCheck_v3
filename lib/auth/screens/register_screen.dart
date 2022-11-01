@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/auth/components/register_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
+import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 
@@ -12,39 +14,54 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopUpPage(
       body: SingleChildScrollView(
-        child: Container(
-          constraints:
-          BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                AppImages.loginBackground,
-              ),
-              fit: BoxFit.fill,
-            ),
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: Sizes.screenVPaddingHigh(context),
-            horizontal: Sizes.screenHPaddingDefault(context),
-          ),
-          child: Column(
+        child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    top: Sizes.hMarginExtreme(context),
+                    bottom: Sizes.vMarginSmallest(context),
+                    left: Sizes.vMarginSmall(context),
+                  ),
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                    onPressed: (){
+                        Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+                ),),
                 //const AppLogoComponent(),
-                SizedBox(
-                  height: Sizes.vMarginHigh(context),
+                Container(
+                constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                //fondo
+                decoration: const BoxDecoration(
+                      image: DecorationImage(
+                      image: AssetImage(
+                      AppImages.loginBackground,
+                      ),
+                      fit: BoxFit.fill,
+                      ),
+                ),
+                padding: EdgeInsets.symmetric(
+                //vertical: Sizes.screenVPaddingHigh(context),
+                horizontal: Sizes.screenHPaddingDefault(context),
                 ),
                 //const WelcomeComponent(),
-                SizedBox(
-                  height: Sizes.vMarginHigh(context),
+                child: Column(
+                      children: [
+                                SizedBox(
+                          height: Sizes.vMarginHigh(context),
+                        ),
+
+                        const RegisterFormComponent(),
+
+                        SizedBox(
+                          height: Sizes.vMarginHigh(context),
+                        ),]
                 ),
-                const RegisterFormComponent(),
-                SizedBox(
-                  height: Sizes.vMarginHigh(context),
-                ),
-              ]),
         ),
-      ),
+      ]),
+    )
     );
   }
 }

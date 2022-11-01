@@ -17,19 +17,34 @@ class WelcomeComponent extends StatelessWidget {
     return Column(
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomText.h2(
-              context,
-              tr(context).welcome,
-              color: AppColors.lightThemePrimary,
-              textAlign: TextAlign.start,
+            Image.asset(
+              AppImages.loginIcon,
+              width: 220,
+              height: 220,
+              //padding: EdgeInsets.only(left: Sizes.vMarginExtreme(context)),
             ),
-            CustomImage.s3(
-              context,
-              AppImages.hiHand,
-              padding: EdgeInsets.only(bottom: Sizes.vPaddingTiny(context)),
-            ),
+            /*Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                  Image.asset(
+                    AppImages.loginIcon,
+                    width: 220,
+                    height: 220,
+                    //padding: EdgeInsets.only(left: Sizes.vMarginExtreme(context)),
+                  ),
+
+              ]),
+            Column(children: [
+              Image.asset(
+                AppImages.loginIcon2,
+                width: 200,
+                height: 220,
+                //padding: EdgeInsets.only(left: Sizes.vMarginExtreme(context)),
+              )
+            ],)*/
+
           ],
         ),
         SizedBox(

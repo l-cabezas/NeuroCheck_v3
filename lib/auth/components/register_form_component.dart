@@ -24,6 +24,7 @@ class RegisterFormComponent extends HookConsumerWidget {
     final loginFormKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController(text: '');
     final emailController = useTextEditingController(text: '');
+    final emailController2 = useTextEditingController(text: '');
     final passwordController = useTextEditingController(text: '');
     final passwordController2 = useTextEditingController(text: '');
 
@@ -39,6 +40,7 @@ class RegisterFormComponent extends HookConsumerWidget {
           RegisterTextFieldsSection(
             nameController: nameController,
             emailController: emailController,
+            emailController2: emailController2,
             passwordController: passwordController,
             passwordController2: passwordController2,
             see: seeValue,
@@ -103,6 +105,7 @@ class RegisterFormComponent extends HookConsumerWidget {
                       email: emailController.text,
                       password: passwordController.text,
                       name: nameController.text,
+                      // si sí es supervisor
                       rol: (checkBoxValue) ? 'supervisor' : 'supervisado'
                     );
                   }

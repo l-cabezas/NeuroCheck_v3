@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/anterior/data/global_var/globals.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 import 'package:neurocheck/modules/home/components/card_order_details_component.dart';
 import 'package:neurocheck/modules/navBar/components/card_item_component.dart';
