@@ -94,7 +94,7 @@
   "repTime": "Repetir cada: ",
   "days": "días",
   "rangeWarning": "No puedes poner más notificaciones que minutos hay en tu rango horario",
-  "repeatAdd": "Elije días para que se repita",
+  "repeatAdd": "Repetición",
   "delete": "Borrar",
 
   "@_ROL": {

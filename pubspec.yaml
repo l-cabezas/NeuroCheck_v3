@@ -150,6 +150,7 @@ dependencies:
   chips_choice_null_safety: ^2.0.6
   lite_rolling_switch: ^0.1.1
   email_validator:
+  toggle_switch: ^2.0.1
 
 
 

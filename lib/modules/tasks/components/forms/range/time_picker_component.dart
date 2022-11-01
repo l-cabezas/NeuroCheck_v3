@@ -52,7 +52,7 @@ class TimePickerComponent extends ConsumerWidget {
                   child: Center(
                     child: (timePicker.getHours() == '00:00 - 00:00')
                                 ? CustomText.h3(context, horas)
-                              :   CustomText.h3(context, timePicker.getHours()),
+                                : CustomText.h3(context, timePicker.getHours()),
                   )))),
     ]));
   }

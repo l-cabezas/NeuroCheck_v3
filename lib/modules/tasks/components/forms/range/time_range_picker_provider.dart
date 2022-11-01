@@ -152,7 +152,7 @@ class TimeRangeButton extends StateNotifier<String> {
                                   //log(' second if ${inputDateInicio.hour} ${DateTime.now().hour}');
                                   //navigationPop(context);
                                   AppDialogs.showErrorNeutral(context,
-                                      message: 'No se puede viajar al pasado, '
+                                      message: 'Si es para hoy no se puede viajar al pasado, '
                                           'tiene que ser antes de: '
                                           '${DateTime.now().hour} : ${DateTime.now().minute} o elige otro día');
                                   //navigationPop(context);
@@ -164,6 +164,7 @@ class TimeRangeButton extends StateNotifier<String> {
                                 ref.refresh(timeRangeButtonProvider);
                                 navigationPop(context);
                               }
+
                             }else{
                               ref.refresh(timeRangeButtonProvider);
                               navigationPop(context);

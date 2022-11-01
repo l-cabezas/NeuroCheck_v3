@@ -25,10 +25,54 @@ class TimeRepetitionButton extends StateNotifier<String> {
 
   static String hr = '';
 
+  static bool chosen = true;
+
+  static bool warning = false;
+
+  String getHr(){
+    return hr;
+  }
+
+  void setHr(String h){
+     hr = h;
+     //ref.refresh(timeRepetitionProvider);
+  }
+
+  bool getW(){
+    return warning;
+  }
+
+  void setW(bool w){
+    warning = w;
+    ref.refresh(timeRepetitionProvider);
+  }
+
+  bool getChoosen(){
+    return chosen;
+  }
+
+  void setChoosen(bool c){
+    chosen = c;
+    ref.refresh(timeRepetitionProvider);
+    print('oli');
+    print('chosen ${chosen}');
+  }
+
+  clean(){
+    hr='';
+  }
+  List<Widget> actions = [];
+
+  TimeRepetitionButton(this.ref) : super('');
+
+  String getMinute(){
+    return hr;
+  }
+
   Picker ps = Picker(
       adapter: NumberPickerAdapter(
           data: [
-             NumberPickerColumn(
+            NumberPickerColumn(
               initValue: 1,
               begin: 0,
               end: 999,
@@ -47,26 +91,11 @@ class TimeRepetitionButton extends StateNotifier<String> {
       title: const Text("Selecciona cada cuanto quieres que se repita"),
       selectedTextStyle: const TextStyle(color: Colors.blue),
       onConfirm: (Picker picker, List value) {
-          var split = value.toString().replaceAll('[', '');
-          split = split.replaceAll(']', '');
-          hr = split;
+        var split = value.toString().replaceAll('[', '');
+        split = split.replaceAll(']', '');
+        hr = split;
       }
-      );
-
-  String getHr(){
-    return hr;
-  }
-
-  clean(){
-    hr='';
-  }
-  List<Widget> actions = [];
-
-  TimeRepetitionButton(this.ref) : super('');
-
-  String getMinute(){
-    return hr;
-  }
+  );
 
   showPicker(BuildContext context){
     showDialog(
@@ -114,10 +143,6 @@ class TimeRepetitionButton extends StateNotifier<String> {
         });
   }
 
-  navigationPop(BuildContext context) {
-    Navigator.pop(context);
-  }
-
   static String parsearHora(DateTime date){
     var control = '';
     String hora = '';
@@ -129,6 +154,12 @@ class TimeRepetitionButton extends StateNotifier<String> {
     hora = ('${date.hour}:$control');
     return hora;
   }
+
+  navigationPop(BuildContext context) {
+    Navigator.pop(context);
+  }
+
+
 
 
 }

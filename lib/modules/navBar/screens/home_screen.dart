@@ -50,11 +50,8 @@ class HomeScreen extends ConsumerWidget {
           controller: controller,
           children: [
             AddTaskScreen(),
-            (_taskRepo.returnUsuario()?.uidSupervised == '')
-                ? ShowTasks()
-                : ShowSupervisorTasks(),
+            ShowTasks(),
             CompletedTasks(),
-            //NotiPrueba(),
           ],
           onPageChanged: (i) => ref.read(indexProvider.notifier).value = i
       ),

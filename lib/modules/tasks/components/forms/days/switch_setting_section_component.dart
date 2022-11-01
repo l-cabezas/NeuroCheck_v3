@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/tasks/components/forms/days/switch_theme_provider.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/app_colors.dart';
@@ -21,7 +22,7 @@ class SwitchSettingsSectionComponent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final switchValue = ref.watch(switchButtonProvider);
+    final switchValue = ref.watch(switchButtonProviderAdd);
     final multiChoiceValue = ref.watch(selectDaysMultiChoice);
 
     if (selectChoices.isNotEmpty) {
@@ -33,32 +34,6 @@ class SwitchSettingsSectionComponent extends ConsumerWidget {
     return Container(
         padding: EdgeInsets.all(10),
         child: Column(children: [
-          CustomTileComponent(
-            title: tr(context).repeatAdd,
-            leadingIcon: Icons.calendar_today_rounded,
-          ),
-          SizedBox(
-            height: Sizes.vMarginMedium(context),
-          ),
-          PlatformSwitch(
-            value: !switchValue,
-            onChanged: (value) {
-              ref
-                  .watch(switchButtonProvider.notifier)
-                  .changeState(change: !switchValue);
-            },
-            material: (_, __) {
-              return MaterialSwitchData(
-                activeColor: AppColors.white,
-                activeTrackColor: AppColors.blue,
-              );
-            },
-            cupertino: (_, __) {
-              return CupertinoSwitchData(
-                activeColor: AppColors.blue,
-              );
-            },
-          ),
           (!switchValue)
             ? Card(
                   elevation: 6,
@@ -94,15 +69,6 @@ class SwitchSettingsSectionComponent extends ConsumerWidget {
             textAlign: TextAlign.center,
           ),
 
-
-          /*: CustomText.h4(
-                  context,
-                  'Se repetirá solamente un día ',
-                  color: Theme.of(context).textTheme.headline4!.color,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                ),*/
           SizedBox(
             height: Sizes.vMarginMedium(context),
           ),

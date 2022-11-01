@@ -6,6 +6,10 @@ final switchButtonProvider = StateNotifierProvider.autoDispose<SwitchButton, boo
   return SwitchButton(ref);
 });
 
+final switchButtonProviderAdd = StateNotifierProvider<SwitchButton, bool>((ref) {
+  return SwitchButton(ref);
+});
+
 class SwitchButton extends StateNotifier<bool> {
   final Ref ref;
   SwitchButton(this.ref) : super(true);

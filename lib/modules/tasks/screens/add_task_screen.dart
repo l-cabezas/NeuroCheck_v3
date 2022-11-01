@@ -10,12 +10,14 @@ import 'package:neurocheck/modules/tasks/components/forms/name_task/name_task_pr
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/screens/popup_page_nested.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/flush_bar_component.dart';
+import '../../../core/widgets/custom_tile_component.dart';
 import '../../simple_notifications/notifications.dart';
 import '../components/forms/days/multi_choice_provider.dart';
 import '../components/forms/days/switch_setting_section_component.dart';
@@ -37,7 +39,7 @@ class AddTaskScreen extends HookConsumerWidget {
 
 
     //empezaría en true
-    final switchValue = !ref.watch(switchButtonProvider);
+    var switchValue = !ref.watch(switchButtonProvider);
     var nameProvider = ref.read(nameTaskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
@@ -45,6 +47,7 @@ class AddTaskScreen extends HookConsumerWidget {
 
     final nametaskFormKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController(text: '');
+
 
 
     return PopUpPageNested(
@@ -70,18 +73,55 @@ class AddTaskScreen extends HookConsumerWidget {
               SizedBox(
                 height: Sizes.vMarginSmallest(context),
               ),
+
               Container(
                   child:
-                  Card(
-                elevation: 6,
-                shadowColor: AppColors.blue,
-                margin: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Sizes.cardRadius(context)),
-                ),
-                child: SwitchSettingsSectionComponent([]),
-              )),
+                  Column(
+                      children:[
+                          Card(
+                            elevation: 6,
+                            shadowColor: AppColors.blue,
+                            margin: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(Sizes.cardRadius(context)),
+                            ),
+                            child: Column(children:[
+                              CustomTileComponent(
+                                title: tr(context).repeatAdd,
+                                leadingIcon: Icons.calendar_today_rounded,
+                              ),
+                              SizedBox(height: Sizes.vMarginSmallest(context),),
+                              ToggleSwitch(
+                                minWidth: 160.0,
+                                //cornerRadius: 20.0,
+                                activeBgColors: [[AppColors.blue], [AppColors.blue]],
+                                activeFgColor: Colors.white,
+                                inactiveBgColor: AppColors.lightGray,
+                                inactiveFgColor: Colors.black,
+                                initialLabelIndex: (ref.read(switchButtonProviderAdd.notifier).state == true) ? 0 : 1,
+                                totalSwitches: 2,
+                                radiusStyle: true,
+                                labels: ['No repetir', 'Elegir días'],
+                                onToggle: (index) {
+                                  print('switched to: $index');
+                                  var i = (index == 0)
+                                      ? true
+                                      : false;
+
+                                  ref.watch(switchButtonProviderAdd.notifier).changeState(change: i);
+                                  switchValue = ref.read(switchButtonProviderAdd.notifier).state;
+                                  log('SWITCH VALUE ${switchValue}');
+                                },
+                              ),
+                              SizedBox(height: Sizes.vMarginSmallest(context),),
+                              SwitchSettingsSectionComponent([
+                              ]),
+                            ])//SwitchSettingsSectionComponent([]),
+                          )
+                      ]
+                  )
+              ),
               //eleccion de días
 
               SizedBox(
@@ -106,7 +146,7 @@ class AddTaskScreen extends HookConsumerWidget {
                 height: Sizes.vMarginMedium(context),
               ),
               Container(
-                  height: 150,
+                  //height: 150,
                   width: 400,
                   child: Card(
                       elevation: 6,
@@ -116,7 +156,9 @@ class AddTaskScreen extends HookConsumerWidget {
                         borderRadius:
                             BorderRadius.circular(Sizes.cardRadius(context)),
                       ),
-                      child: RepeNotiComponent(hora: '',modo: 'add',))),
+                      child: RepeNotiComponent(hora: '',modo: 'add',)
+                  )
+              ),
               SizedBox(
                 height: Sizes.vMarginMedium(context),
               ),
@@ -139,7 +181,8 @@ class AddTaskScreen extends HookConsumerWidget {
                           range.getfinHour(),
                           repetitions.getHr(),
                           saveDays(days.tags.toString()),
-                          switchValue,nameProvider.getNameTask());
+                          switchValue
+                           ,nameProvider.getNameTask());
                        isNotificationSet = 'true';
                     }
 
@@ -165,16 +208,12 @@ class AddTaskScreen extends HookConsumerWidget {
                         lastUpdate: Timestamp.fromDate(DateTime.now()),
                         taskId: '',
                         isNotificationSet: isNotificationSet);
-                    log(' ADD SCREEN ${task.taskName} ${task.days!} '
-                        '${task.begin!}  ${task.end!}  '
-                        '${task.editable!} ${task.done!}  '
-                        '${task.numRepetition!} ${task.notiHours} ${task.lastUpdate}');
+
 
                     taskRepo.addDocToFirebase(task)
                         .then((value) {
                       FlushBarNotification.showError(
                           context: context, message: tr(context).addTaskDone);
-
                       range.clean();
                       range.ref.refresh(timeRangeButtonProvider);
 
@@ -184,6 +223,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       repetitions.clean();
                       repetitions.ref.refresh(timeRepetitionProvider);
 
+                      ref.refresh(switchButtonProviderAdd);
                       ref.refresh(switchButtonProvider);
 
                       nameController.clear();
@@ -204,7 +244,6 @@ class AddTaskScreen extends HookConsumerWidget {
       ),
     );
   }
-
 
   
 
