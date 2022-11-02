@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/repos/user_repo.dart';
+import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
 import 'package:neurocheck/modules/tasks/repos/utilities.dart';
+import 'package:rxdart/rxdart.dart';
 import '../../../auth/models/user_model.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/app_colors.dart';
@@ -26,10 +28,13 @@ class ShowTasks extends HookConsumerWidget {
     final _taskRepo = ref.watch(tasksRepoProvider);
     final _userRepo = ref.watch(userRepoProvider);
     final taskToDoStream = ref.watch(taskToDoStreamProvider);
+    final taskToDoBossStream = ref.watch(taskToDoStreamProviderBoss);
+    final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProvider);
 
     UserModel? user = _taskRepo.returnUsuario();
 
-    return taskToDoStream.when(
+
+    return taskToDoStreamAll.when(
         data: (taskToDo) {
       return (taskToDo.isEmpty )
           ? CustomText.h4(
@@ -43,27 +48,75 @@ class ShowTasks extends HookConsumerWidget {
               vertical: Sizes.screenVPaddingDefault(context),
               horizontal: Sizes.screenHPaddingMedium(context),
             ),
+            separatorBuilder: (context, index) => SizedBox(height: Sizes.vMarginHigh(context),),
+            itemCount: taskToDo[0].length + taskToDo[1].length,
             itemBuilder: (context, index) {
-                log(' show tasks ${user?.uidSupervised!}');
-                if ((taskToDo[index].isNotificationSet == 'false') &&
-                    (user?.uidSupervised == '')) {
-                  setNotiInSupervised(taskToDo[index]);
-                }
-                return (taskToDo[index].taskName == 'tarea0')
-                    ? CustomText.h4(
-                  context,
-                  tr(context).noTask,
-                  color: AppColors.grey,
-                  alignment: Alignment.center,
-                )
-                    : CardItemComponent(
-                  taskModel: taskToDo[index],
+              List<Widget> list = [];
+              //log('index ${index}');
+              var supervised = taskToDo[0].length;
+              var boss = taskToDo[1].length;
+              //log('supervised ${taskToDo[0].length}');
+              //log('boss ${taskToDo[1].length}');
+              //task
+              //log('taskToDO ${taskToDo[index].length}'); // 3
+
+              if(index < supervised){
+                //supervisado
+                log('index ${index}');
+                list.add(
+                    (taskToDo[0][index].taskName == 'tarea0')
+                        ? CustomText.h4(
+                      context,
+                      tr(context).noTask,
+                      color: AppColors.grey,
+                      alignment: Alignment.center,
+                    )
+                        : CardItemComponent(
+                      taskModel: taskToDo[0][index],
+                    )
                 );
+                //si la notificacion está desactivada y no somos supervisores
+                if ((taskToDo[0][index].isNotificationSet == 'false') &&
+                    (user?.uidSupervised == '')) {
+                  setNotiInSupervised(taskToDo[1][index]);
+                }
+              }else{
+                if(index - supervised < boss){
+                  list.add(
+                      (taskToDo[1][index - supervised].taskName == 'tarea0')
+                          ? CustomText.h4(
+                        context,
+                        tr(context).noTask,
+                        color: AppColors.grey,
+                        alignment: Alignment.center,
+                      )
+                          : CardItemComponent(
+                        taskModel: taskToDo[1][index - supervised],
+                      )
+                  );
+                  //si la notificacion está desactivada y no somos supervisores
+                  if ((taskToDo[1][index - supervised].isNotificationSet == 'false') &&
+                      (user?.uidSupervised == '')) {
+                    setNotiInSupervised(taskToDo[1][index - supervised]);
+                  }
+                }
+              }
+
+                return Column(children: list);
+              /*(taskToDo[1][index].taskName == 'tarea0')
+                    ? CustomText.h4(
+                      context,
+                      tr(context).noTask,
+                      color: AppColors.grey,
+                      alignment: Alignment.center,
+                    )
+                    : CardItemComponent(
+                  taskModel: taskToDo[1][index],
+                );*/
                 //si eres supervisado solo podrás ver las tareas que pones tú
 
                 },
-            separatorBuilder: (context, index) => SizedBox(height: Sizes.vMarginHigh(context),),
-            itemCount: taskToDo.length,
+
       );
     },
     error: (err, stack) => CustomText.h4(
@@ -75,7 +128,9 @@ class ShowTasks extends HookConsumerWidget {
                             ),
     loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
 
+
     );
+
 
     /*return Container(
       color: Colors.blueAccent,
