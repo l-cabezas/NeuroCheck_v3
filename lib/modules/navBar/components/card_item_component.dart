@@ -75,27 +75,60 @@ class CardItemComponent extends ConsumerWidget {
                   },
                 )
                 : const SizedBox(),
+
                 (taskModel.editable == "true")
                     ?SizedBox(width: Sizes.hMarginSmall(context),)
                     : SizedBox(),
 
                 //hecho
-                (taskModel.done != 'true')
+                (taskModel.done != 'true' && taskModel.editable == 'true')
                   ? CardButtonComponent(
                   title: tr(context).done,
                   isColored: true,
                   onPressed: () {
 
-                    //ref.watch(tasksRepoProvider).checkTask(task: taskModel);
-                    ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
+                    ref.watch(tasksRepoProvider).checkTask(task: taskModel);
+                    //ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
                     //ref.watch(tasksRepoProvider).cancelTodayNotifications(task: taskModel);
 
-                    ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
+                    //ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
 
                     ref.refresh(tasksRepoProvider);
                   },
                 )
                   : SizedBox(),
+                //hecho
+                (taskModel.done != 'true' && taskModel.editable == 'false')
+                    ? CardButtonComponent(
+                  title: tr(context).done,
+                  isColored: true,
+                  onPressed: () {
+
+                    ref.watch(tasksRepoProvider).checkTaskBoss(task: taskModel);
+                    //ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
+                    //ref.watch(tasksRepoProvider).cancelTodayNotifications(task: taskModel);
+
+                    //ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
+
+                    ref.refresh(tasksRepoProvider);
+                  },
+                )
+                    : SizedBox(),
+
+                //borrar
+                  (taskModel.editable == 'true' && taskModel.done == 'true')
+                      ? CardRedButtonComponent(
+                    title: tr(context).delete,
+                    isColored: false,
+                    onPressed: () {
+                      //IR A PANTALLA DE MODIFICACION DE LA TAREA
+                      //TODO
+                      ref.watch(tasksRepoProvider)
+                          .deleteSingleTask(taskModel: taskModel);
+                      ref.refresh(tasksRepoProvider);
+                    },
+                  )
+                      : const SizedBox(),
               ],
             ),
             SizedBox(
@@ -106,7 +139,8 @@ class CardItemComponent extends ConsumerWidget {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [(
-                    (taskModel.editable == 'true')
+                //borrar
+                    (taskModel.editable == 'true' && taskModel.done == 'false')
                       ? CardRedButtonComponent(
                         title: tr(context).delete,
                         isColored: false,
