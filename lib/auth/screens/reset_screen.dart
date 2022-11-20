@@ -56,7 +56,8 @@ class ResetScreen extends StatelessWidget {
                   height: Sizes.vMarginHigh(context),
                 ),
               ]),
-        )]),
+        )
+        ]),
       ),
     );
   }

@@ -14,7 +14,7 @@ class TaskModel {
   final List? idNotification;
   final String? oneTime;
   final String? done;
-  final String? numRepetition;
+  final int? numRepetition;
   final Timestamp? lastUpdate;
   final String? isNotificationSet;
 
@@ -84,7 +84,7 @@ class TaskModel {
       idNotification: task.idNotification,
       oneTime: task.oneTime ?? '',
       done: task.done ?? '',
-      numRepetition: task.numRepetition ?? '',
+      numRepetition: task.numRepetition ?? 0,
       lastUpdate: task.lastUpdate,
       isNotificationSet: task.isNotificationSet,
     );
@@ -101,7 +101,7 @@ class TaskModel {
      List? idNotification,
      String? oneTime,
      String? done,
-     String? numRepetition,
+     int? numRepetition,
      Timestamp? lastUpdate,
      String? isNotificationSet
   }) {

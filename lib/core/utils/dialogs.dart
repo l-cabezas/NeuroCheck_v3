@@ -7,6 +7,7 @@ import '../routing/route_paths.dart';
 import '../services/localization_service.dart';
 import '../widgets/dialog_widget.dart';
 import 'dialog_message_state.dart';
+import 'dialog_widget_state.dart';
 
 
 
@@ -37,6 +38,30 @@ class AppDialogs {
     );
   }
 
+  static Future addTaskOK(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.correct,
+      title: tr(context).addTaskDone,
+      textButton: tr(context).oK,
+      onPressed: () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+  }
+
+  //TODO STRING
+  static Future showWarning(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.warning,
+      title: 'Rellena todos los campos',
+      textButton: tr(context).oK,
+      onPressed: () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+  }
 
 
 }

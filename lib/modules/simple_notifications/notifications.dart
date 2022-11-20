@@ -14,8 +14,8 @@ Future<int> createTaskToDoNotification(int hour, int minute, String taskName) as
       id: idNotification,
       channelKey: 'basic_channel',
       title:
-      'Oye haz esto ${taskName}!!!',
-      body: 'Florist at 123 Main St. has 2 in stock',
+      'Oye haz esto!!!',
+      body: '${taskName}',
       //bigPicture: 'asset://assets/notification_map.png',
       notificationLayout: NotificationLayout.BigText,
     ),
@@ -49,12 +49,12 @@ Future<int> createReminderNotification( int day, int hour, int minute, String ta
       body: 'venga va que toca',//'Rango horario ${taskModel.begin} ${taskModel.end}',
       notificationLayout: NotificationLayout.Default,
     ),
-    actionButtons: [
+    /*actionButtons: [
       NotificationActionButton(
         key: 'MARK_DONE',
         label: 'Hecho',
       ),
-    ],
+    ],*/
     schedule: NotificationCalendar(
       weekday: day,
       hour: hour,
@@ -76,8 +76,9 @@ Future<int> reCreateReminderNotification(int day, String hour) async {
     content: NotificationContent(
       id: idNotification,
       channelKey: 'scheduled_channel',
-      title: '${Emojis.wheater_droplet} Add some water to your plant!',
-      body: 'Water your plant regularly to keep it healthy.',
+      title: 'Do this',
+      //title: '${Emojis.wheater_droplet} Add some water to your plant!',
+      body: 'Venga va haz esto que toca',
       notificationLayout: NotificationLayout.Default,
     ),
     schedule: NotificationCalendar(

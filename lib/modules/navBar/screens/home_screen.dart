@@ -1,15 +1,18 @@
 import 'dart:developer';
 
+import 'package:cron/cron.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/home/components/upcoming_tasks_component.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
-import 'package:neurocheck/modules/tasks/screens/show_supervisor_tasks.dart';
+import 'package:neurocheck/modules/tasks/screens/boss/completed_boss_tasks_screen.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../home/viewmodels/noti_providers.dart';
 import '../../rol/screens/add_supervised_screen.dart';
 import '../../tasks/screens/add_task_screen.dart';
+import '../../tasks/screens/boss/show_supervisor_tasks.dart';
 import '../../tasks/screens/completed_tasks_screen.dart';
 import '../../tasks/screens/show_tasks_screen.dart';
 import '../utils/nav_bar_provider.dart';
@@ -24,14 +27,6 @@ final indexProvider = StateNotifierProvider((ref) => Index());
 class HomeScreen extends ConsumerWidget {
    HomeScreen({Key? key}) : super(key: key);
 
-
-  final List<Widget> fragments =  [
-    AddTaskScreen(),
-    ShowTasks(),
-    CompletedTasks(),
-    //NotiPrueba(),
-  ];
-
   final List<BottomNavigationBarItem> navItems = [
     BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Añadir tarea'),
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ver tareas'),
@@ -41,17 +36,32 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cron = Cron();
+    cron.schedule(Schedule.parse('00 00 * * *'), () async {
+      print("This code runs at 12am everyday");
+      //update task to no hecho
+     // ref.watch(tasksRepoProvider);
+
+    });
     final PageController controller = PageController(initialPage: 1);
     final int menuIndex = ref.watch(indexProvider) as int;
     final _taskRepo = ref.watch(tasksRepoProvider);
-    log(('${_taskRepo.returnUsuario()?.name}'));
+
+    //ref.watch(userRepoProvider).checkUidSup();
+    final _userRepo = ref.watch(userRepoProvider).uidSuper;
+    log((' a ${_userRepo} HS'));
     return Scaffold(
       body: PageView(
           controller: controller,
           children: [
             AddTaskScreen(),
-            ShowTasks(),
-            CompletedTasks(),
+            (_userRepo != '')
+                ? ShowSupervisorTasks()
+                : ShowTasks(),
+            (_userRepo != '')
+                ? CompletedBossTasks()
+                : CompletedTasks()
+
           ],
           onPageChanged: (i) => ref.read(indexProvider.notifier).value = i
       ),

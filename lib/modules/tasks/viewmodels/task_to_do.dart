@@ -17,7 +17,25 @@ final taskToDoStreamProviderBoss = StreamProvider<List<TaskModel>>((ref) {
 final taskMultipleToDoStreamProvider = StreamProvider<List<List<TaskModel>>>((ref) {
   return CombineLatestStream.list([
   ref.watch(tasksRepoProvider).getTasksStream(),
-    ref.watch(tasksRepoProvider).getTasksBossStream()]);
+    ref.watch(tasksRepoProvider).getTasksBossS()]);
+});
+
+final taskMultipleToDoStreamProviderBoss = StreamProvider<List<List<TaskModel>>>((ref) {
+  return CombineLatestStream.list([
+    ref.watch(tasksRepoProvider).getTasksBossStream(),
+    ]);
+});
+
+final taskMultipleToDoStreamProviderDONE = StreamProvider<List<List<TaskModel>>>((ref) {
+  return CombineLatestStream.list([
+    ref.watch(tasksRepoProvider).getTasksDoneStream(),
+    ref.watch(tasksRepoProvider).getTasksDoneStreamBossS()]);
+});
+
+final taskMultipleToDoCompleteStreamProviderBoss = StreamProvider<List<List<TaskModel>>>((ref) {
+  return CombineLatestStream.list([
+    ref.watch(tasksRepoProvider).getTasksDoneStreamBoss(),
+  ]);
 });
 
 final taskToDoCompleteStreamProvider = StreamProvider<List<TaskModel>>((ref) {

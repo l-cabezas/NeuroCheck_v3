@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
 import '../../simple_notifications/notifications.dart';
@@ -12,6 +14,7 @@ bool checkRange(String ini, String fin, String avisar){
   //pasamos all a minutos
   int finH = int.parse(splitFin[0])*60 + int.parse(splitFin[1]);
 
+  log('AVISAR ${avisar}');
   if(finH - iniH  < int.parse(avisar)) {
     return false;
   }
@@ -98,7 +101,7 @@ setNotiInSupervised(TaskModel taskModel){
 }
 
 
-Future<List<int>> setNotiHours(String ini, String fin, String avisar,
+Future<List<int>> setNotiHours(String ini, String fin, int avisar,
     List<String> day, bool switchValue, String taskName) async {
   List<int> list = [];
   var splitIni = ini.split(':');
@@ -113,9 +116,9 @@ Future<List<int>> setNotiHours(String ini, String fin, String avisar,
 
   for(int j = 0; j< cantDias;j++) {
     int chooseDay = getNumDay(day.elementAt(j));
-    for (int i = iniH; i <= finH; i += int.parse(avisar)) {
+    for (int i = iniH; i <= finH; i += avisar) {
       var duration = Duration(minutes: i);
-      //log('HORAS.ADD ${duration.inHours}:${duration.inMinutes.remainder(60)}');
+
       // para evitar que guarde 8 en vez de 08
 
       if (duration.inMinutes.remainder(60) < 10) {

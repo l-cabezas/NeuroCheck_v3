@@ -12,4 +12,6 @@ Map<DialogWidgetState, dynamic> dialogMessageData = {
   DialogWidgetState.warning: {"icon": AppImages.warning},
   DialogWidgetState.confirmation: {"icon": AppImages.confirmation},
   DialogWidgetState.location: {"icon": AppImages.location},
+
+  DialogWidgetState.correct: {"icon": AppImages.correct},
 };

@@ -26,16 +26,14 @@ class ShowTasks extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final _taskRepo = ref.watch(tasksRepoProvider);
-    final _userRepo = ref.watch(userRepoProvider);
-    final taskToDoStream = ref.watch(taskToDoStreamProvider);
-    final taskToDoBossStream = ref.watch(taskToDoStreamProviderBoss);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProvider);
 
     UserModel? user = _taskRepo.returnUsuario();
 
-
+    log('TASK SHOW ${ref.watch(userRepoProvider).uid}');
     return taskToDoStreamAll.when(
         data: (taskToDo) {
+          log('TASK ${taskToDo.isEmpty}');
       return (taskToDo.isEmpty )
           ? CustomText.h4(
               context,
@@ -121,7 +119,7 @@ class ShowTasks extends HookConsumerWidget {
     },
     error: (err, stack) => CustomText.h4(
                             context,
-                            tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
+                            tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater + 'aaaa',
                             color: AppColors.grey,
                             alignment: Alignment.center,
                             textAlign: TextAlign.center,

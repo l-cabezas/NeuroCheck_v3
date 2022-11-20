@@ -43,6 +43,7 @@ class AppImages {
   static const String noHeader = '${dialogWidgetIconsPath}no_header.png';
   static const String success = '${dialogWidgetIconsPath}success.png';
   static const String warning = '${dialogWidgetIconsPath}warning.png';
+  static const String correct = '${dialogWidgetIconsPath}correct.png';
 
   /// App
   //Screens Icons

@@ -8,4 +8,5 @@ enum DialogWidgetState {
   warning,
   confirmation,
   location,
+  correct
 }

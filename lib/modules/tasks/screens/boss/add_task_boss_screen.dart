@@ -6,30 +6,28 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
+import 'package:neurocheck/core/widgets/custom_text.dart';
 import 'package:neurocheck/modules/tasks/components/forms/name_task/name_task_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/screens/popup_page_nested.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/utils/flush_bar_component.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../../../core/widgets/custom_tile_component.dart';
-import '../../simple_notifications/notifications.dart';
-import '../components/forms/days/multi_choice_provider.dart';
-import '../components/forms/days/switch_setting_section_component.dart';
-import '../components/forms/days/switch_theme_provider.dart';
-import '../components/forms/name_task/task_name_text_fields.dart';
-import '../components/forms/range/time_picker_component.dart';
-import '../components/forms/repetitions/repe_noti_component.dart';
-import '../repos/task_repo.dart';
-import '../repos/utilities.dart';
-import '../viewmodels/task_to_do.dart';
 
+import '../../../../auth/repos/user_repo.dart';
+import '../../../../core/screens/popup_page_nested.dart';
+import '../../../../core/services/localization_service.dart';
+import '../../../../core/styles/sizes.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../core/utils/flush_bar_component.dart';
+import '../../../../core/widgets/custom_tile_component.dart';
+import '../../components/forms/days/multi_choice_provider.dart';
+import '../../components/forms/days/switch_setting_section_component.dart';
+import '../../components/forms/days/switch_theme_provider.dart';
+import '../../components/forms/name_task/task_name_text_fields.dart';
+import '../../components/forms/range/time_picker_component.dart';
+import '../../components/forms/repetitions/repe_noti_component.dart';
+import '../../repos/task_repo.dart';
+import '../../repos/utilities.dart';
 
 class AddTaskScreen extends HookConsumerWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
@@ -168,12 +166,11 @@ class AddTaskScreen extends HookConsumerWidget {
               checkDatosAll(nameProvider.getNameTask(),
                   days.tags.toString(),
                   !(switchValue),
-                range.getIniHour(),
-                range.getfinHour(),repetitions.getMinuteInt())
-              ? CustomButton(
+                  range.getIniHour(),
+                  range.getfinHour(),repetitions.getMinuteInt())
+              ?CustomButton(
                 text: 'Añadir',
                 onPressed: () async {
-                  log('repetitions ${repetitions.getHr()}');
                 bool ok = true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
                   String isNotificationSet = 'false';
                   if (ok){
@@ -181,20 +178,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       days.tags.add(getStrDay(DateTime.now().weekday));
                     };
 
-
-                    //para luego poder cancelar las notificaciones
                     List<int> id = [];
-
-                   id = await setNotiHours(
-                       range.getIniHour(),
-                      range.getfinHour(),
-                      repetitions.getMinuteInt(),
-                      saveDays(days.tags.toString()),
-                      switchValue,
-                      nameProvider.getNameTask());
-
-                   isNotificationSet = 'true';
-
 
                     TaskModel task = TaskModel(
                         taskName: nameProvider.getNameTask(),
@@ -204,18 +188,16 @@ class AddTaskScreen extends HookConsumerWidget {
                         notiHours: notiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr()),
                         begin: range.getIniHour(),
                         end: range.getfinHour(),
-                        editable: 'true',
+                        editable: 'false',
                         done: 'false',
                         numRepetition: repetitions.getMinuteInt(),
                         lastUpdate: Timestamp.fromDate(DateTime.now()),
                         taskId: '',
-                        isNotificationSet: isNotificationSet);
+                        isNotificationSet: 'false');
 
 
-                    taskRepo.addDocToFirebase(task)
+                    taskRepo.addDocToFirebaseBoss(task)
                         .then((value) {
-                     /* FlushBarNotification.showError(
-                          context: context, message: tr(context).addTaskDone);*/
                       AppDialogs.addTaskOK(context,
                           message: tr(context).addTaskDone);
 
@@ -242,12 +224,12 @@ class AddTaskScreen extends HookConsumerWidget {
 
                 },
               )
-              : CustomButton(
+                  : CustomButton(
                   text: 'Añadir',
                   buttonColor: AppColors.grey,
                   onPressed: (){
                     AppDialogs.showWarning(context);
-                  })
+                  }),
               //tasksRepoProvider
               //
               //const LogoutComponent(),
@@ -265,22 +247,20 @@ class AddTaskScreen extends HookConsumerWidget {
 
     //dias
     if(switchValue)
-      {if (name != '' && days.isNotEmpty && begin != ''
-      && end != '' && numRepetition !=0){
+    {if (name != '' && days.isNotEmpty && begin != ''
+        && end != '' && numRepetition !=0){
       check = true;
-      }}
+    }}
     else{
       //oneTime
-  {if (name != '' && begin != ''
-  && end != '' && numRepetition !=0){
-  check = true;
-  }}
+      {if (name != '' && begin != ''
+          && end != '' && numRepetition !=0){
+        check = true;
+      }}
     }
     return check;
 
   }
-
-  
 
 
 }

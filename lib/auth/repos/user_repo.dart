@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,8 +26,9 @@ class UserRepo {
   late IFirebaseCaller _firebaseCaller;
 
   String? uid;
+  String? uidSuper;
   UserModel? userModel;
-
+  var user = FirebaseAuth.instance.currentUser?.uid;
 
   Future<Either<Failure, UserModel?>> getUserData(String userId) async {
     return await _firebaseCaller.getData(
@@ -35,6 +37,7 @@ class UserRepo {
         if (data is! ServerFailure) {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
           uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;
           //Other way to 'extract' the data
           return Right(userModel);
         } else {
@@ -43,6 +46,37 @@ class UserRepo {
       },
     );
   }
+
+  Future<Either<Failure, UserModel?>> checkUidSup() async {
+    return await _firebaseCaller.getData(
+      path: FirestorePaths.userDocument(user!),
+      builder: (data, docId) {
+        if (data is! ServerFailure) {
+          userModel = data != null ? UserModel.fromMap(data, docId!) : null;
+          uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;
+          //Other way to 'extract' the data
+          return Right(userModel);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<String?> getUidSup() async {
+    return await _firebaseCaller.getData(
+      path: FirestorePaths.userDocument(user!),
+      builder: (data, docId) {
+          userModel = data != null ? UserModel.fromMap(data, docId!) : null;
+          uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;
+          //Other way to 'extract' the data
+        return uidSuper;
+      },
+    );
+  }
+
   // guardamos los datos del usuario en firebase
   Future<Either<Failure, bool>> setUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
@@ -80,7 +114,7 @@ class UserRepo {
       idNotification: [],
       oneTime: '',
       done : '',
-      numRepetition: '',
+      numRepetition: 0,
       lastUpdate: Timestamp.fromDate(DateTime.now()),
       isNotificationSet: '',
     );

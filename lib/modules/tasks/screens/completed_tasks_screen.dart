@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,42 +17,72 @@ class CompletedTasks extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final taskToDoStream = ref.watch(taskToDoCompleteStreamProvider);
-    return taskToDoStream.when(
+    final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderDONE);
+    return taskToDoStreamAll.when(
         data: (taskToDo) {
           return (taskToDo.isEmpty)
               ? CustomText.h4(
-            context,
-            tr(context).noTask,
-            color: AppColors.grey,
-            alignment: Alignment.center,
-          )
+                  context,
+                  tr(context).noTask,
+                  color: AppColors.grey,
+                  alignment: Alignment.center,
+                )
               : ListView.separated(
-            padding: EdgeInsets.symmetric(
-              vertical: Sizes.screenVPaddingDefault(context),
-              horizontal: Sizes.screenHPaddingMedium(context),
-            ),
-            itemBuilder: (context, index) {
-              return (taskToDo[index].taskName != 'tarea0')
-                  ? CardItemComponent(
-                taskModel: taskToDo[index],
-              )
-                  : const SizedBox();
-            },
-            separatorBuilder: (context, index) => SizedBox(height: Sizes.vMarginHigh(context),),
-            itemCount: taskToDo.length,
-          );
+                  padding: EdgeInsets.symmetric(
+                    vertical: Sizes.screenVPaddingDefault(context),
+                    horizontal: Sizes.screenHPaddingMedium(context),
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: Sizes.vMarginHigh(context),
+                  ),
+                  itemCount: taskToDo[0].length + taskToDo[1].length,
+                  itemBuilder: (context, index) {
+                    List<Widget> list = [];
+                    var supervised = taskToDo[0].length;
+                    var boss = taskToDo[1].length;
+                    if (index < supervised) {
+                      //supervisado
+                      log('index ${index}');
+                      list.add((taskToDo[0][index].taskName == 'tarea0')
+                          ? CustomText.h4(
+                              context,
+                              tr(context).noTask,
+                              color: AppColors.grey,
+                              alignment: Alignment.center,
+                            )
+                          : CardItemComponent(
+                              taskModel: taskToDo[0][index],
+                            ));
+                    } else {
+                      if (index - supervised < boss) {
+                        list.add((taskToDo[1][index - supervised].taskName ==
+                                'tarea0')
+                            ? CustomText.h4(
+                                context,
+                                tr(context).noTask,
+                                color: AppColors.grey,
+                                alignment: Alignment.center,
+                              )
+                            : CardItemComponent(
+                                taskModel: taskToDo[1][index - supervised],
+                              ));
+                      }
+                    }
+
+                    return Column(children: list);
+                  },
+                );
         },
         error: (err, stack) => CustomText.h4(
-          context,
-          tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-          color: AppColors.grey,
-          alignment: Alignment.center,
-          textAlign: TextAlign.center,
-        ),
-        loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
-
-    );
+              context,
+              tr(context).somethingWentWrong +
+                  '\n' +
+                  tr(context).pleaseTryAgainLater,
+              color: AppColors.grey,
+              alignment: Alignment.center,
+              textAlign: TextAlign.center,
+            ),
+        loading: () =>
+            LoadingIndicators.instance.smallLoadingAnimation(context));
   }
-
 }

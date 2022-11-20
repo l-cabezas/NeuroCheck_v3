@@ -79,7 +79,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
         log('userSupervisedPreAuth ${userModel.uidSupervised}');
         _mainCoreProvider.setSupervisedUid(userModel);
         subscribeUserToTopic();
-        navigationToHomeScreen(context);
+        NavigationService.pushReplacementAll(
+          NavigationService.context,
+          isNamed: true,
+          page: RoutePaths.coreSplash,
+          arguments: {'offAll': true},
+        );
+        //navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
       },
     );

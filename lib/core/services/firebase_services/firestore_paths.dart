@@ -15,6 +15,7 @@ class FirestorePaths {
 
   static String taskPathDone(String uid) => 'users/$uid/tasksDone';
 
+  ///users/OYNBqdlgp3OCzkowjPycrRlAZcj1/tasksBoss/
   static String taskPathBoss(String uid) => 'users/$uid/tasksBoss';
 
   static String taskPathBossDone(String uid) => 'users/$uid/tasksDoneBoss';

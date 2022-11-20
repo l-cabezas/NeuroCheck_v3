@@ -55,9 +55,11 @@ class CardItemComponent extends ConsumerWidget {
             ),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CardButtonComponent(
+                //modificar
+                (taskModel.editable == "true")
+                ? CardButtonComponent(
                   title: tr(context).mod,
                   isColored: false,
                   onPressed: () {
@@ -70,63 +72,55 @@ class CardItemComponent extends ConsumerWidget {
                       arguments: taskModel
                     );
 
-                    /*NavigationService.push(
-                        context,
-                        page: ModTaskComponent( taskModel: taskModel,)
-                    );*/
-
                   },
-                ),
+                )
+                : const SizedBox(),
+                (taskModel.editable == "true")
+                    ?SizedBox(width: Sizes.hMarginSmall(context),)
+                    : SizedBox(),
 
+                //hecho
                 (taskModel.done != 'true')
                   ? CardButtonComponent(
                   title: tr(context).done,
                   isColored: true,
                   onPressed: () {
-                    ref.watch(tasksRepoProvider)
-                        .checkTask(task: taskModel);
-                    ref.watch(tasksRepoProvider)
-                        .cancelTodayNotifications(task: taskModel);
+
+                    //ref.watch(tasksRepoProvider).checkTask(task: taskModel);
+                    ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
+                    //ref.watch(tasksRepoProvider).cancelTodayNotifications(task: taskModel);
+
+                    ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
 
                     ref.refresh(tasksRepoProvider);
                   },
                 )
                   : SizedBox(),
-                  (taskModel.editable == "true")
-                    ? CardRedButtonComponent(
-                        title: tr(context).delete,
-                        isColored: false,
-                        onPressed: () {
-                        //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                        //TODO
-                        ref.watch(tasksRepoProvider)
-                            .deleteSingleTask(taskModel: taskModel);
-                        ref.refresh(tasksRepoProvider);
-
-                        },
-                        )
-                    : const SizedBox()
               ],
             ),
             SizedBox(
               height: Sizes.vMarginSmallest(context),
             ),
 
-            (taskModel.done != 'true')
-            ? CardRedButtonComponent(
-              title: tr(context).delete,
-              isColored: false,
-              onPressed: () {
-                //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                //TODO
-                ref.watch(tasksRepoProvider)
-                        .deleteSingleTask(taskModel: taskModel);
-                ref.refresh(tasksRepoProvider);
-
-
-              },
+            //delete
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [(
+                    (taskModel.editable == 'true')
+                      ? CardRedButtonComponent(
+                        title: tr(context).delete,
+                        isColored: false,
+                        onPressed: () {
+                          //IR A PANTALLA DE MODIFICACION DE LA TAREA
+                          //TODO
+                          ref.watch(tasksRepoProvider)
+                                  .deleteSingleTask(taskModel: taskModel);
+                          ref.refresh(tasksRepoProvider);
+                        },
+                      )
+                      : const SizedBox())
+                ]
             )
-            : const SizedBox()
           ],
         ),
       ),

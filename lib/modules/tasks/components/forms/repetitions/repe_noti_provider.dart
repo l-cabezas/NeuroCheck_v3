@@ -25,17 +25,48 @@ class TimeRepetitionButton extends StateNotifier<String> {
 
   static String hr = '';
 
+  static String min = '';
+
   static bool chosen = true;
 
   static bool warning = false;
+
+  static int minuteInt = 0;
+  static int hourInt = 0;
 
   String getHr(){
     return hr;
   }
 
+  String getMinute(){
+    return min;
+  }
+
   void setHr(String h){
      hr = h;
-     //ref.refresh(timeRepetitionProvider);
+  }
+
+  void setMin(String m){
+    min = m;
+  }
+
+  void setMinuteHour(int hour, int minute){
+    minuteInt = minute;
+    hourInt = hour;
+  }
+
+  int getMinuteInt(){
+    return minuteInt;
+  }
+  int getHourInt(){
+    return hourInt;
+  }
+
+  String getTime(){
+    var mS = minuteInt - hourInt*60;
+    return (hourInt != 0)
+      ?  'Cada ${hourInt} horas y ${mS} minutos'
+      : 'Cada ${minuteInt} minutos';
   }
 
   bool getW(){
@@ -54,7 +85,6 @@ class TimeRepetitionButton extends StateNotifier<String> {
   void setChoosen(bool c){
     chosen = c;
     ref.refresh(timeRepetitionProvider);
-    print('oli');
     print('chosen ${chosen}');
   }
 
@@ -65,9 +95,7 @@ class TimeRepetitionButton extends StateNotifier<String> {
 
   TimeRepetitionButton(this.ref) : super('');
 
-  String getMinute(){
-    return hr;
-  }
+
 
   Picker ps = Picker(
       adapter: NumberPickerAdapter(
