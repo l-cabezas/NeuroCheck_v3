@@ -6,18 +6,19 @@ import 'package:rxdart/rxdart.dart';
 import '../../../auth/models/user_model.dart';
 import '../models/task_model.dart';
 
-final taskToDoStreamProvider = StreamProvider<List<TaskModel>>((ref) {
+/*final taskToDoStreamProvider = StreamProvider<List<TaskModel>>((ref) {
   return ref.watch(tasksRepoProvider).getTasksStream();
-});
+});*/
 
-final taskToDoStreamProviderBoss = StreamProvider<List<TaskModel>>((ref) {
+/*final taskToDoStreamProviderBoss = StreamProvider<List<TaskModel>>((ref) {
   return ref.watch(tasksRepoProvider).getTasksBossStream();
-});
+});*/
 
-final taskMultipleToDoStreamProvider = StreamProvider<List<List<TaskModel>>>((ref) {
+final taskMultipleToDoStreamProviderNOTDONE = StreamProvider<List<List<TaskModel>>>((ref) {
   return CombineLatestStream.list([
-  ref.watch(tasksRepoProvider).getTasksStream(),
-    ref.watch(tasksRepoProvider).getTasksBossS()]);
+    ref.watch(tasksRepoProvider).getTasksStream(),
+    ref.watch(tasksRepoProvider).getTasksBossS()
+  ]);
 });
 
 final taskMultipleToDoStreamProviderBoss = StreamProvider<List<List<TaskModel>>>((ref) {
@@ -29,7 +30,8 @@ final taskMultipleToDoStreamProviderBoss = StreamProvider<List<List<TaskModel>>>
 final taskMultipleToDoStreamProviderDONE = StreamProvider<List<List<TaskModel>>>((ref) {
   return CombineLatestStream.list([
     ref.watch(tasksRepoProvider).getTasksDoneStream(),
-    ref.watch(tasksRepoProvider).getTasksDoneStreamBossS()]);
+    ref.watch(tasksRepoProvider).getTasksDoneStreamBossS()
+  ]);
 });
 
 final taskMultipleToDoCompleteStreamProviderBoss = StreamProvider<List<List<TaskModel>>>((ref) {

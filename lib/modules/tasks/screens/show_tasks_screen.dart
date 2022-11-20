@@ -26,14 +26,12 @@ class ShowTasks extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final _taskRepo = ref.watch(tasksRepoProvider);
-    final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProvider);
+    final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
 
     UserModel? user = _taskRepo.returnUsuario();
 
-    log('TASK SHOW ${ref.watch(userRepoProvider).uid}');
     return taskToDoStreamAll.when(
         data: (taskToDo) {
-          log('TASK ${taskToDo.isEmpty}');
       return (taskToDo.isEmpty )
           ? CustomText.h4(
               context,
@@ -53,11 +51,6 @@ class ShowTasks extends HookConsumerWidget {
               //log('index ${index}');
               var supervised = taskToDo[0].length;
               var boss = taskToDo[1].length;
-              //log('supervised ${taskToDo[0].length}');
-              //log('boss ${taskToDo[1].length}');
-              //task
-              //log('taskToDO ${taskToDo[index].length}'); // 3
-
               if(index < supervised){
                 //supervisado
                 log('index ${index}');
@@ -119,7 +112,7 @@ class ShowTasks extends HookConsumerWidget {
     },
     error: (err, stack) => CustomText.h4(
                             context,
-                            tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater + 'aaaa',
+                            tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
                             color: AppColors.grey,
                             alignment: Alignment.center,
                             textAlign: TextAlign.center,

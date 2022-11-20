@@ -163,20 +163,22 @@ class AddTaskScreen extends HookConsumerWidget {
                 height: Sizes.vMarginMedium(context),
               ),
 
-              checkDatosAll(nameProvider.getNameTask(),
-                  days.tags.toString(),
-                  !(switchValue),
-                  range.getIniHour(),
-                  range.getfinHour(),repetitions.getMinuteInt())
-              ?CustomButton(
+
+              CustomButton(
                 text: 'Añadir',
                 onPressed: () async {
-                bool ok = true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
+                bool ok = //true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
+                checkDatosAll(nameProvider.getNameTask(),
+                    days.tags.toString(),
+                    switchValue,
+                    range.getIniHour(),
+                    range.getfinHour(),repetitions.getMinuteInt());
+
                   String isNotificationSet = 'false';
                   if (ok){
                     if(days.tags.toString()== '[]'){
                       days.tags.add(getStrDay(DateTime.now().weekday));
-                    };
+
 
                     List<int> id = [];
 
@@ -219,17 +221,17 @@ class AddTaskScreen extends HookConsumerWidget {
                     }
                     );
                   } else{
-                    AppDialogs.showErrorNeutral(context,message: tr(context).rangeWarning);
+                    AppDialogs.showWarning(context);
                   }
-
+                  };
                 },
               )
-                  : CustomButton(
-                  text: 'Añadir',
-                  buttonColor: AppColors.grey,
-                  onPressed: (){
-                    AppDialogs.showWarning(context);
-                  }),
+              /*: CustomButton(
+              text: 'Añadir',
+              buttonColor: AppColors.grey,
+              onPressed: (){
+                AppDialogs.showWarning(context);
+              }),*/
               //tasksRepoProvider
               //
               //const LogoutComponent(),
@@ -243,6 +245,7 @@ class AddTaskScreen extends HookConsumerWidget {
   bool checkDatosAll(String name, String days, bool switchValue,
       String begin, String end, int numRepetition){
     bool check = false;
+    log('${check}');
     log(name + days + begin+ end + numRepetition.toString() );
 
     //dias

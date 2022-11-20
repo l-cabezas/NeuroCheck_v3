@@ -88,11 +88,6 @@ class CardItemComponent extends ConsumerWidget {
                   onPressed: () {
 
                     ref.watch(tasksRepoProvider).checkTask(task: taskModel);
-                    //ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
-                    //ref.watch(tasksRepoProvider).cancelTodayNotifications(task: taskModel);
-
-                    //ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
-
                     ref.refresh(tasksRepoProvider);
                   },
                 )
@@ -105,11 +100,6 @@ class CardItemComponent extends ConsumerWidget {
                   onPressed: () {
 
                     ref.watch(tasksRepoProvider).checkTaskBoss(task: taskModel);
-                    //ref.watch(tasksRepoProvider).copyDataSupervised(taskModel);
-                    //ref.watch(tasksRepoProvider).cancelTodayNotifications(task: taskModel);
-
-                    //ref.watch(tasksRepoProvider).deleteSingleTask(taskModel: taskModel);
-
                     ref.refresh(tasksRepoProvider);
                   },
                 )

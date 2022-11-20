@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/routing/navigation_service.dart';
 import '../../core/routing/route_paths.dart';
 import '../../core/services/init_services/firebase_messaging_service.dart';
@@ -45,6 +46,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
+        final prefs = await SharedPreferences.getInstance();
+
+        prefs.setString('rol', userModel.rol!);
+        final myString = prefs.getString('rol') ?? '';
+        log('SHARED PREFERENCES ${myString}');
+
         subscribeUserToTopic();
         navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
@@ -180,6 +187,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
           if((userModel.rol != 'supervisor')) {
           await _authRepo.sendEmailVerification(context);
         }
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('rol', userModel.rol!);
+          final myString = prefs.getString('my_string_key') ?? '';
+        log('SHARED PREFERENCES ${myString}');
         (userModel.rol != 'supervisor')
           ? navigationToHomeScreen(context)
           : navigationToCheckScreen(context);
