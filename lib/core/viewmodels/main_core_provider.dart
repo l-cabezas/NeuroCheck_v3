@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/models/user_model.dart';
 import '../../auth/repos/auth_repo.dart';
@@ -43,6 +44,21 @@ class MainCoreProvider {
     } else {
       return false;
     }
+  }
+
+  Future<SharedPreferences> getPreferences() async {
+    return await SharedPreferences.getInstance();
+  }
+
+  setPreferences() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    log('ROL ${_userRepo.getUidSup()}');
+    /*prefs.setString('rol', user.rol ?? 'no');
+    prefs.setString('prueba', 'prueba');
+    final myString = prefs.getString('rol') ?? '';
+    log('SHARED PREFERENCES ${prefs.getString('rol')}');
+    log('SHARED PREFERENCES PRUEBA ${prefs.getString('prueba')}');*/
   }
 
   String? getCurrentUserAuthUid() {

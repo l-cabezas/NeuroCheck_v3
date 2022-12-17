@@ -23,6 +23,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     _authRepo = ref.watch(authRepoProvider);
   }
 
+
   final Ref ref;
   late MainCoreProvider _mainCoreProvider;
   late AuthRepo _authRepo;
@@ -46,11 +47,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
-        final prefs = await SharedPreferences.getInstance();
 
-        prefs.setString('rol', userModel.rol!);
+        var prefs = await _mainCoreProvider.setPreferences();
+        /*log('ROL ${user.name}');
+        prefs.setString('rol', user.rol ?? 'no');
+        prefs.setString('prueba', 'prueba');
         final myString = prefs.getString('rol') ?? '';
-        log('SHARED PREFERENCES ${myString}');
+        log('SHARED PREFERENCES ${prefs.getString('rol')}');
+        log('SHARED PREFERENCES PRUEBA ${prefs.getString('prueba')}');*/
 
         subscribeUserToTopic();
         navigationToHomeScreen(context);

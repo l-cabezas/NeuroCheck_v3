@@ -50,6 +50,7 @@ class HomeScreen extends ConsumerWidget {
     //ref.watch(userRepoProvider).checkUidSup();
     final _userRepo = ref.watch(userRepoProvider).uidSuper;
     log((' a ${_userRepo} HS'));
+
     return Scaffold(
       body: PageView(
           controller: controller,

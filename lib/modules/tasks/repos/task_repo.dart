@@ -49,10 +49,10 @@ class TasksRepo {
 //tareas sin hacer supervisado hechas por el mismo
 //static String taskPath(String uid) => 'users/$uid/tasks';
   Stream<List<TaskModel>> getTasksStream() {
-    //final _userRepo = ref.watch(userRepoProvider).uid;
+    final _userRepo = ref.watch(userRepoProvider).uid;
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPath(user!),
+      path: FirestorePaths.taskPath(_userRepo!),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
       builder: (snapshotData, snapshotId) {
@@ -67,7 +67,7 @@ class TasksRepo {
 
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPathBoss(user!),
+      path: FirestorePaths.taskPathBoss(_userRepo!),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
       builder: (snapshotData, snapshotId) {
