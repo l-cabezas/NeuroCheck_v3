@@ -29,8 +29,8 @@ import '../../components/forms/repetitions/repe_noti_component.dart';
 import '../../repos/task_repo.dart';
 import '../../repos/utilities.dart';
 
-class AddTaskScreen extends HookConsumerWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+class AddTaskScreenBoss extends HookConsumerWidget {
+  const AddTaskScreenBoss({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
@@ -39,7 +39,7 @@ class AddTaskScreen extends HookConsumerWidget {
 
 
     //empezaría en true
-    var switchValue = !ref.watch(switchButtonProvider);
+   // var switchValue = !ref.watch(switchButtonProvider);
     var nameProvider = ref.read(nameTaskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
@@ -91,31 +91,9 @@ class AddTaskScreen extends HookConsumerWidget {
                                 title: tr(context).repeatAdd,
                                 leadingIcon: Icons.calendar_today_rounded,
                               ),
-                              SizedBox(height: Sizes.vMarginSmallest(context),),
-                              ToggleSwitch(
-                                minWidth: 160.0,
-                                //cornerRadius: 20.0,
-                                activeBgColors: [[AppColors.blue], [AppColors.blue]],
-                                activeFgColor: Colors.white,
-                                inactiveBgColor: AppColors.lightGray,
-                                inactiveFgColor: Colors.black,
-                                initialLabelIndex: (ref.read(switchButtonProviderAdd.notifier).state == true) ? 0 : 1,
-                                totalSwitches: 2,
-                                radiusStyle: true,
-                                labels: ['No repetir', 'Elegir días'],
-                                onToggle: (index) {
-                                  print('switched to: $index');
-                                  var i = (index == 0)
-                                      ? true
-                                      : false;
 
-                                  ref.watch(switchButtonProviderAdd.notifier).changeState(change: i);
-                                  switchValue = ref.read(switchButtonProviderAdd.notifier).state;
-                                  log('SWITCH VALUE ${switchValue}');
-                                },
-                              ),
                               SizedBox(height: Sizes.vMarginSmallest(context),),
-                              SwitchSettingsSectionComponent([]),
+                              ChooseDaySectionComponent([]),
                             ])//SwitchSettingsSectionComponent([]),
                           )
                       ]
@@ -138,7 +116,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       borderRadius:
                           BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
-                    child: TimePickerComponent('00:00 - 00:00', switchValue),
+                    child: TimePickerComponent('00:00 - 00:00'),
                   )),
 
               SizedBox(
@@ -167,60 +145,57 @@ class AddTaskScreen extends HookConsumerWidget {
               CustomButton(
                 text: 'Añadir',
                 onPressed: () async {
-                bool ok = //true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
-                checkDatosAll(nameProvider.getNameTask(),
-                    days.tags.toString(),
-                    switchValue,
-                    range.getIniHour(),
-                    range.getfinHour(),repetitions.getMinuteInt());
-
+                  bool ok = true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
                   String isNotificationSet = 'false';
                   if (ok){
                     if(days.tags.toString()== '[]'){
                       days.tags.add(getStrDay(DateTime.now().weekday));
-
-
-                    List<int> id = [];
-
-                    TaskModel task = TaskModel(
-                        taskName: nameProvider.getNameTask(),
-                        days: saveDays(days.tags.toString()),
-                        idNotification: id,
-                        oneTime: (!switchValue).toString(),
-                        notiHours: notiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr()),
-                        begin: range.getIniHour(),
-                        end: range.getfinHour(),
-                        editable: 'false',
-                        done: 'false',
-                        numRepetition: repetitions.getMinuteInt(),
-                        lastUpdate: Timestamp.fromDate(DateTime.now()),
-                        taskId: '',
-                        isNotificationSet: 'false');
-
-
-                    taskRepo.addDocToFirebaseBoss(task)
-                        .then((value) {
-                      AppDialogs.addTaskOK(context,
-                          message: tr(context).addTaskDone);
-
-                      range.clean();
-                      range.ref.refresh(timeRangeButtonProvider);
-
-                      days.clean();
-                      days.ref.refresh(selectDaysMultiChoice);
-
-                      repetitions.clean();
-                      repetitions.ref.refresh(timeRepetitionProvider);
-
-                      ref.refresh(switchButtonProviderAdd);
-                      ref.refresh(switchButtonProvider);
-
-                      ref.watch(timeRepetitionProvider.notifier).setChoosen(true);
-
-                      nameController.clear();
                     }
-                    );
-                  } else{
+
+                      if (repetitions.getMinuteInt() +
+                          repetitions.getHourInt() !=
+                          0)
+                      {
+                        List<int> id = [];
+
+                        TaskModel task = TaskModel(
+                            taskName: nameProvider.getNameTask(),
+                            days: saveDays(days.tags.toString()),
+                            idNotification: id,
+                            notiHours: notiHours(range.getIniHour(),
+                                range.getfinHour(), repetitions.getHr()),
+                            begin: range.getIniHour(),
+                            end: range.getfinHour(),
+                            editable: 'false',
+                            done: 'false',
+                            numRepetition: repetitions.getMinuteInt(),
+                            lastUpdate: Timestamp.fromDate(DateTime.now()),
+                            taskId: '',
+                            isNotificationSet: 'false');
+
+                        taskRepo.addDocToFirebaseBoss(task).then((value) {
+                          AppDialogs.addTaskOK(context,
+                              message: tr(context).addTaskDone);
+
+                          range.clean();
+                          range.ref.refresh(timeRangeButtonProvider);
+
+                          days.clean();
+                          days.ref.refresh(selectDaysMultiChoice);
+
+                          repetitions.clean();
+                          repetitions.ref.refresh(timeRepetitionProvider);
+
+                          ref.refresh(switchButtonProviderAdd);
+                          ref.refresh(switchButtonProvider);
+
+                          ref
+                              .watch(timeRepetitionProvider.notifier)
+                              .setChoosen(true);
+
+                          nameController.clear();
+                        });
+                      } else{
                     AppDialogs.showWarning(context);
                   }
                   };
@@ -242,27 +217,20 @@ class AddTaskScreen extends HookConsumerWidget {
     );
   }
 
-  bool checkDatosAll(String name, String days, bool switchValue,
-      String begin, String end, int numRepetition){
+  bool checkDatosAll(
+      String name, String days, String begin, String end, int numRepetition) {
     bool check = false;
-    log('${check}');
-    log(name + days + begin+ end + numRepetition.toString() );
+    log('**** ' + name + days + begin + end + numRepetition.toString());
 
     //dias
-    if(switchValue)
-    {if (name != '' && days.isNotEmpty && begin != ''
-        && end != '' && numRepetition !=0){
+    if (name != '' &&
+        days.isNotEmpty &&
+        begin != '' &&
+        end != '' &&
+        numRepetition != 0) {
       check = true;
-    }}
-    else{
-      //oneTime
-      {if (name != '' && begin != ''
-          && end != '' && numRepetition !=0){
-        check = true;
-      }}
     }
     return check;
-
   }
 
 

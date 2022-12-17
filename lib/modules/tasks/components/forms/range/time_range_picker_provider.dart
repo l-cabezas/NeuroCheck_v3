@@ -26,7 +26,7 @@ class TimeRangeButton extends StateNotifier<String> {
   static String hf = '00:00';
   static String hi = '00:00';
 
-  static bool oneTime = false;
+  //static bool oneTime = false;
 
   String getIniHour(){
     return hi;
@@ -36,9 +36,9 @@ class TimeRangeButton extends StateNotifier<String> {
     return hf;
   }
 
-  void setOneTime(bool value){
+  /*void setOneTime(bool value){
     oneTime = value;
-  }
+  }*/
 
   clean(){
     hi='';
@@ -145,7 +145,7 @@ class TimeRangeButton extends StateNotifier<String> {
                             //if(inputDateInicio.isAfter(inputDateFin)){//AppDialogs.showErrorNeutral(context,message: tr(context).rangeWarning);}
 
                             //log('oneTime TRPP ${!oneTime}');
-                            if(!oneTime) {
+                            /*if(!oneTime) {
                               if(inputDateInicio.minute <= DateTime.now().minute) {
                                 //log(' first if ${inputDateInicio.minute} ${DateTime.now().minute}');
                                 if(inputDateInicio.hour <= DateTime.now().hour){
@@ -165,10 +165,10 @@ class TimeRangeButton extends StateNotifier<String> {
                                 navigationPop(context);
                               }
 
-                            }else{
+                            }else{*/
                               ref.refresh(timeRangeButtonProvider);
                               navigationPop(context);
-                            }
+
 
                             //state = '$horaInicial - $horaFinal';
                             //log(state);

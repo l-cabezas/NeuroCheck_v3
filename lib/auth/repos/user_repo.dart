@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/errors/failures.dart';
 import '../../core/services/firebase_services/firebase_caller.dart';
@@ -38,6 +39,7 @@ class UserRepo {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
           uid = userModel?.uId;
           uidSuper = userModel?.uidSupervised;
+          addStringToSFRol(userModel?.rol);
           //Other way to 'extract' the data
           return Right(userModel);
         } else {
@@ -45,6 +47,20 @@ class UserRepo {
         }
       },
     );
+  }
+
+  addStringToSFRol(String? rol) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('rolUsuario', rol!);
+    log('SETT STRING USER REPO ${rol}');
+  }
+
+  Future<String?> getStringValuesSFRol() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    String? stringValue = prefs.getString('rolUsuario');
+    log('GET STRING USER REPO ${stringValue}');
+    return stringValue;
   }
 
   Future<Either<Failure, UserModel?>> checkUidSup() async {
@@ -112,7 +128,6 @@ class UserRepo {
       days: [],
       notiHours: [],
       idNotification: [],
-      oneTime: '',
       done : '',
       numRepetition: 0,
       lastUpdate: Timestamp.fromDate(DateTime.now()),

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../auth/repos/user_repo.dart';
 import '../../../core/components/appbar_with_icon_component.dart';
 import '../../../core/routing/app_router.dart';
 import '../../../core/routing/navigation_service.dart';
@@ -34,6 +37,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
   final PreferredSizeWidget? bottom;
   final Color? backgroundColor;
   final GlobalKey<ScaffoldState>? scaffoldKey;
+  static bool supervisor = false;
 
   HomeBaseNavAppBar({
     this.toolbarHeight,
@@ -45,10 +49,22 @@ class HomeBaseNavAppBar extends ConsumerWidget
             PreferredAppBarSize(toolbarHeight, bottom?.preferredSize.height),
         super(key: key);
 
+  setSupervisor(bool set){
+    supervisor = set;
+  }
   @override
   Widget build(BuildContext context, ref) {
     final currentIndex = ref.watch(HomeBaseNavProviders.currentIndex);
     final currentRoute = ref.watch(HomeBaseNavProviders.routes[currentIndex]);
+
+    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
+      if (value != 'supervisor') {
+        setSupervisor(false);
+      } else {
+        setSupervisor(true);
+      }
+    });
+    //log('Home base nav ${supervisor}');
 
     switch (currentRoute) {
 
@@ -67,7 +83,10 @@ class HomeBaseNavAppBar extends ConsumerWidget
           ),
           trailingActions: [
             //todo añadir icon
-             IconButton(
+            // solo esta funcion si eres supervisor
+           // (_userRepo != '')
+              (supervisor)
+                ? IconButton(
               alignment: Alignment.centerRight,
               color: AppColors.lightThemePrimary,
               icon: Icon(PlatformIcons(context).personAdd),
@@ -78,7 +97,8 @@ class HomeBaseNavAppBar extends ConsumerWidget
                   page: RoutePaths.addSup,
                 );
               },
-            ),
+            )
+                  : SizedBox(),
           ],
           //IconButton(color: Colors.red, icon: Icon(Icons.add_chart), onPressed: () {  },),
         );

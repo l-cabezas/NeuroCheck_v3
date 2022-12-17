@@ -22,17 +22,29 @@ import '../../navBar/components/card_item_component.dart';
 
 class ShowTasks extends HookConsumerWidget {
   const ShowTasks({Key? key}) : super(key: key);
+  static bool supervisor = false;
 
+
+  setSupervisor(bool set){
+    supervisor = set;
+  }
   @override
   Widget build(BuildContext context, ref) {
     final _taskRepo = ref.watch(tasksRepoProvider);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
-
+    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
+      if (value != 'supervisor') {
+        setSupervisor(false);
+      } else {
+        setSupervisor(true);
+      }
+    });
     UserModel? user = _taskRepo.returnUsuario();
 
     return taskToDoStreamAll.when(
         data: (taskToDo) {
-      return (taskToDo.isEmpty )
+          log('SHOW_TASK_SCREEN lenght ${taskToDo[0].length} y boss ${taskToDo[1].length}');
+      return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
           ? CustomText.h4(
               context,
               tr(context).noTask,
@@ -56,39 +68,37 @@ class ShowTasks extends HookConsumerWidget {
                 log('index ${index}');
                 list.add(
                     (taskToDo[0][index].taskName == 'tarea0')
-                        ? CustomText.h4(
-                      context,
-                      tr(context).noTask,
-                      color: AppColors.grey,
-                      alignment: Alignment.center,
-                    )
+                        ? SizedBox()
                         : CardItemComponent(
                       taskModel: taskToDo[0][index],
                     )
                 );
                 //si la notificacion está desactivada y no somos supervisores
                 if ((taskToDo[0][index].isNotificationSet == 'false') &&
-                    (user?.uidSupervised == '')) {
-                  setNotiInSupervised(taskToDo[1][index]);
+                    (!supervisor) && (taskToDo[0][index].taskName != 'tarea0')) {
+                  setNotiInSupervised(taskToDo[0][index]);
+                  _taskRepo.checkSetNoti(task: taskToDo[0][index]);
                 }
               }else{
                 if(index - supervised < boss){
                   list.add(
                       (taskToDo[1][index - supervised].taskName == 'tarea0')
-                          ? CustomText.h4(
+                          ? SizedBox()
+                      /*CustomText.h4(
                         context,
                         tr(context).noTask,
                         color: AppColors.grey,
                         alignment: Alignment.center,
-                      )
+                      )*/
                           : CardItemComponent(
                         taskModel: taskToDo[1][index - supervised],
                       )
                   );
                   //si la notificacion está desactivada y no somos supervisores
                   if ((taskToDo[1][index - supervised].isNotificationSet == 'false') &&
-                      (user?.uidSupervised == '')) {
+                      (user?.uidSupervised == '') && (taskToDo[1][index].taskName != 'tarea0')) {
                     setNotiInSupervised(taskToDo[1][index - supervised]);
+                    _taskRepo.checkSetNoti(task: taskToDo[1][index]);
                   }
                 }
               }

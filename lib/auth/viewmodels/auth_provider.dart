@@ -10,6 +10,7 @@ import '../../core/utils/dialogs.dart';
 import '../../core/viewmodels/main_core_provider.dart';
 import '../models/user_model.dart';
 import '../repos/auth_repo.dart';
+import '../repos/user_repo.dart';
 import 'auth_state.dart';
 
 final authProvider =
@@ -21,12 +22,21 @@ class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(this.ref) : super(const AuthState.available()) {
     _mainCoreProvider = ref.watch(mainCoreProvider);
     _authRepo = ref.watch(authRepoProvider);
+    _userRepo = ref.watch(userRepoProvider);
   }
 
 
   final Ref ref;
   late MainCoreProvider _mainCoreProvider;
   late AuthRepo _authRepo;
+  late UserRepo _userRepo;
+
+  static bool supervisor = false;
+
+
+  setSupervisor(bool set){
+    supervisor = set;
+  }
 
   signInWithEmailAndPassword(
       BuildContext context, {
@@ -48,7 +58,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           (user) async {
         UserModel userModel = user;
 
-        var prefs = await _mainCoreProvider.setPreferences();
+       // var prefs = await _mainCoreProvider.setPreferences();
         /*log('ROL ${user.name}');
         prefs.setString('rol', user.rol ?? 'no');
         prefs.setString('prueba', 'prueba');
@@ -191,11 +201,18 @@ class AuthNotifier extends StateNotifier<AuthState> {
           if((userModel.rol != 'supervisor')) {
           await _authRepo.sendEmailVerification(context);
         }
-        final prefs = await SharedPreferences.getInstance();
+        /*final prefs = await SharedPreferences.getInstance();
         prefs.setString('rol', userModel.rol!);
           final myString = prefs.getString('my_string_key') ?? '';
-        log('SHARED PREFERENCES ${myString}');
-        (userModel.rol != 'supervisor')
+        log('SHARED PREFERENCES ${myString}');*/
+          ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
+            if (value != 'supervisor') {
+              setSupervisor(false);
+            } else {
+              setSupervisor(true);
+            }
+          });
+        (!supervisor)
           ? navigationToHomeScreen(context)
           : navigationToCheckScreen(context);
       },

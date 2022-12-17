@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cron/cron.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -456,6 +457,72 @@ class TasksRepo {
 
   // MODIFICAR ELIMINAR COSAS --------------------------------------------------
 
+  //cancelar todas las notificaciones, borrar ids, marcar done false
+   void resetTasks() async {
+
+    //List<TaskModel> tareas = [];
+    //cancelScheduledNotifications();
+   /*  'isNotificationSet' :'false',
+     'idNotification': []*/
+    //var tareas = await _firebaseCaller.collectionStream<TaskModel>(
+     final cron = Cron();
+     log("CRON ****");
+     try {
+       cron.schedule(Schedule.parse('36 17 * * *'), () {
+         log("SET CRON ESTA FUNCIONANDO");
+         resetTasks();
+       });
+
+       await Future.delayed(Duration(seconds: 30));
+       await cron.close();
+
+       log("**** YA NP");
+     } on ScheduleParseException {
+       // "ScheduleParseException" is thrown if cron parsing is failed.
+       await cron.close();
+     }
+
+     await _firebaseCaller.updateData(
+       path: FirestorePaths.taskById(user!,taskId: 'CtNxWRmxzS1yhkuicrvD'),
+       data: {
+         'done': 'false',
+       },
+       builder: (data) {
+         if (data is! ServerFailure && data == true) {
+           return Right(data);
+         } else {
+           return Left(data);
+         }
+       },
+     );
+    /*    //uid de usuario
+        path: FirestorePaths.taskPath(user!),
+        builder: (snapshotData, snapshotId) {
+          return TaskModel.fromMap(snapshotData!, snapshotId);
+        },
+      );
+    tareas.forEach((element) async {
+      element.forEach((task) async {
+        await _firebaseCaller.updateData(
+          path: FirestorePaths.taskById(user!,taskId: task.taskId),
+          data: {
+            'done': 'false',
+
+          },
+          builder: (data) {
+            if (data is! ServerFailure && data == true) {
+              return Right(data);
+            } else {
+              return Left(data);
+            }
+          },
+        );
+      });
+
+      });*/
+
+  }
+
   Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
       path: FirestorePaths.taskById(user!,taskId: task.taskId),
@@ -477,6 +544,22 @@ class TasksRepo {
       path: FirestorePaths.taskBossById(user!,taskId: task.taskId),
       data: {
         'done': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> checkSetNoti({required TaskModel task}) async {
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(user!,taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'true',
       },
       builder: (data) {
         if (data is! ServerFailure && data == true) {
@@ -539,6 +622,7 @@ class TasksRepo {
 
   }
 
+  //TODO
   Future<Either<Failure, bool>> updateIds({required TaskModel task}) async {
     List<int> ids = [];
 

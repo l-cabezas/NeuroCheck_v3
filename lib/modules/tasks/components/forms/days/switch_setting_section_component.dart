@@ -15,14 +15,14 @@ import '../../../../../core/widgets/custom_text.dart';
 import '../../../../../core/widgets/custom_tile_component.dart';
 import 'multi_choice_provider.dart';
 
-class SwitchSettingsSectionComponent extends ConsumerWidget {
-  SwitchSettingsSectionComponent(this.selectChoices, {Key? key})
+class ChooseDaySectionComponent extends ConsumerWidget {
+  ChooseDaySectionComponent(this.selectChoices, {Key? key})
       : super(key: key);
   List<String> selectChoices;
 
   @override
   Widget build(BuildContext context, ref) {
-    final switchValue = ref.watch(switchButtonProviderAdd);
+    //final switchValue = ref.watch(switchButtonProviderAdd);
     final multiChoiceValue = ref.watch(selectDaysMultiChoice);
 
     if (selectChoices.isNotEmpty) {
@@ -34,8 +34,9 @@ class SwitchSettingsSectionComponent extends ConsumerWidget {
     return Container(
         padding: EdgeInsets.all(10),
         child: Column(children: [
-          (!switchValue)
-            ? Card(
+          /*(!switchValue)
+            ?*/
+          Card(
                   elevation: 6,
                   margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
@@ -59,15 +60,15 @@ class SwitchSettingsSectionComponent extends ConsumerWidget {
                     ),
                     wrapped: true,
                     choiceStyle: C2ChoiceStyle(color: Colors.blue),
-                  ))
-          : CustomText.h4(
+                  )),
+           /*: CustomText.h4(
             context,
             'Se repetirá solamente hoy ',
             color: Theme.of(context).textTheme.headline4!.color,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-          ),
+          ),*/
 
           SizedBox(
             height: Sizes.vMarginMedium(context),

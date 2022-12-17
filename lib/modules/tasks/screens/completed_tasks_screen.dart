@@ -20,7 +20,8 @@ class CompletedTasks extends HookConsumerWidget {
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderDONE);
     return taskToDoStreamAll.when(
         data: (taskToDo) {
-          return (taskToDo.isEmpty)
+          log('CompletedTasks length ${taskToDo[0].length} y boss ${taskToDo[1].length}');
+          return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0))
               ? CustomText.h4(
                   context,
                   tr(context).noTask,
@@ -44,12 +45,13 @@ class CompletedTasks extends HookConsumerWidget {
                       //supervisado
                       log('index ${index}');
                       list.add((taskToDo[0][index].taskName == 'tarea0')
-                          ? CustomText.h4(
+                          ? SizedBox()
+                      /*CustomText.h4(
                               context,
                               tr(context).noTask,
                               color: AppColors.grey,
                               alignment: Alignment.center,
-                            )
+                            )*/
                           : CardItemComponent(
                               taskModel: taskToDo[0][index],
                             ));
@@ -57,12 +59,13 @@ class CompletedTasks extends HookConsumerWidget {
                       if (index - supervised < boss) {
                         list.add((taskToDo[1][index - supervised].taskName ==
                                 'tarea0')
-                            ? CustomText.h4(
+                            ? SizedBox()
+                        /*CustomText.h4(
                                 context,
                                 tr(context).noTask,
                                 color: AppColors.grey,
                                 alignment: Alignment.center,
-                              )
+                              )*/
                             : CardItemComponent(
                                 taskModel: taskToDo[1][index - supervised],
                               ));

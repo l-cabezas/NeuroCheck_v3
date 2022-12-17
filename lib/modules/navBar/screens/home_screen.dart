@@ -12,6 +12,7 @@ import '../../../auth/repos/user_repo.dart';
 import '../../home/viewmodels/noti_providers.dart';
 import '../../rol/screens/add_supervised_screen.dart';
 import '../../tasks/screens/add_task_screen.dart';
+import '../../tasks/screens/boss/add_task_boss_screen.dart';
 import '../../tasks/screens/boss/show_supervisor_tasks.dart';
 import '../../tasks/screens/completed_tasks_screen.dart';
 import '../../tasks/screens/show_tasks_screen.dart';
@@ -26,6 +27,12 @@ final indexProvider = StateNotifierProvider((ref) => Index());
 
 class HomeScreen extends ConsumerWidget {
    HomeScreen({Key? key}) : super(key: key);
+   static bool supervisor = false;
+    static bool todayCheck = false;
+
+   setSupervisor(bool set){
+     supervisor = set;
+   }
 
   final List<BottomNavigationBarItem> navItems = [
     BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Añadir tarea'),
@@ -36,30 +43,53 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cron = Cron();
-    cron.schedule(Schedule.parse('00 00 * * *'), () async {
-      print("This code runs at 12am everyday");
-      //update task to no hecho
-     // ref.watch(tasksRepoProvider);
-
+    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
+      if (value != 'supervisor') {
+        setSupervisor(false);
+      } else {
+        setSupervisor(true);
+      }
     });
+
     final PageController controller = PageController(initialPage: 1);
     final int menuIndex = ref.watch(indexProvider) as int;
     final _taskRepo = ref.watch(tasksRepoProvider);
+    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
+      if (value != 'supervisor') {
+        setSupervisor(false);
+      } else {
+        setSupervisor(true);
+      }
+    });
 
+    //final cron = Cron();
+    if(!supervisor){
+      log("**** SET CRON");
+      ref.watch(tasksRepoProvider).resetTasks();
+      /*cron.schedule(Schedule.parse('19 17 * * *'), () async {
+        log("CRON ESTA FUNCIONANDO");
+
+        //update task to no hecho
+        // ref.watch(tasksRepoProvider);
+        ref.watch(tasksRepoProvider).resetTasks();
+
+      });*/
+    }
     //ref.watch(userRepoProvider).checkUidSup();
-    final _userRepo = ref.watch(userRepoProvider).uidSuper;
-    log((' a ${_userRepo} HS'));
-
+    /*final _userRepo = ref.watch(userRepoProvider).uidSuper;
+    log((' a ${_userRepo} HS'));*/
+    log('HOME_SCREEN ${supervisor}');
     return Scaffold(
       body: PageView(
           controller: controller,
           children: [
-            AddTaskScreen(),
-            (_userRepo != '')
+            (supervisor)
+                ? AddTaskScreenBoss()
+                : AddTaskScreen(),
+            (supervisor)
                 ? ShowSupervisorTasks()
                 : ShowTasks(),
-            (_userRepo != '')
+            (supervisor)
                 ? CompletedBossTasks()
                 : CompletedTasks()
 

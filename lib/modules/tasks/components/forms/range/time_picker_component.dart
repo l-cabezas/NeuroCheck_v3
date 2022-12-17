@@ -13,13 +13,13 @@ import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/widgets/custom_tile_component.dart';
 
 class TimePickerComponent extends ConsumerWidget {
-  TimePickerComponent(this.horas, this.oneTime, {Key? key}) : super(key: key);
+  TimePickerComponent(this.horas, {Key? key}) : super(key: key);
   String horas = '';
-  bool oneTime;
+ // bool oneTime;
   @override
   Widget build(BuildContext context, ref) {
     final timePicker = ref.watch(timeRangeButtonProvider.notifier);
-    timePicker.setOneTime(oneTime);
+   // timePicker.setOneTime(oneTime);
     return Container(
         padding: EdgeInsets.all(10),
         child: Column(children: [

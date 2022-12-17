@@ -30,7 +30,6 @@ import '../repos/task_repo.dart';
 import '../repos/utilities.dart';
 import '../viewmodels/task_to_do.dart';
 
-
 class AddTaskScreen extends HookConsumerWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
 
@@ -39,9 +38,8 @@ class AddTaskScreen extends HookConsumerWidget {
     var userRepo = ref.watch(userRepoProvider);
     var taskRepo = ref.watch(tasksRepoProvider);
 
-
     //empezaría en true
-    var switchValue = !ref.watch(switchButtonProvider);
+    //var switchValue = !ref.watch(switchButtonProvider);
     var nameProvider = ref.read(nameTaskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
@@ -49,8 +47,6 @@ class AddTaskScreen extends HookConsumerWidget {
 
     final nametaskFormKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController(text: '');
-
-
 
     return PopUpPageNested(
       body: SingleChildScrollView(
@@ -62,6 +58,7 @@ class AddTaskScreen extends HookConsumerWidget {
           child: Column(
             children: <Widget>[
               //const UserInfoComponent(),
+              //nombre tarea
               Form(
                   key: nametaskFormKey,
                   child: NameTaskTextFieldsSection(
@@ -75,26 +72,26 @@ class AddTaskScreen extends HookConsumerWidget {
               SizedBox(
                 height: Sizes.vMarginSmallest(context),
               ),
-
+              //días
               Container(
-                  child:
-                  Column(
-                      children:[
-                          Card(
-                            elevation: 6,
-                            shadowColor: AppColors.blue,
-                            margin: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(Sizes.cardRadius(context)),
-                            ),
-                            child: Column(children:[
-                              CustomTileComponent(
-                                title: tr(context).repeatAdd,
-                                leadingIcon: Icons.calendar_today_rounded,
-                              ),
-                              SizedBox(height: Sizes.vMarginSmallest(context),),
-                              ToggleSwitch(
+                  child: Column(children: [
+                Card(
+                    elevation: 6,
+                    shadowColor: AppColors.blue,
+                    margin: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(Sizes.cardRadius(context)),
+                    ),
+                    child: Column(children: [
+                      CustomTileComponent(
+                        title: tr(context).repeatAdd,
+                        leadingIcon: Icons.calendar_today_rounded,
+                      ),
+                      SizedBox(
+                        height: Sizes.vMarginSmallest(context),
+                      ),
+                      /*ToggleSwitch(
                                 minWidth: 160.0,
                                 //cornerRadius: 20.0,
                                 activeBgColors: [[AppColors.blue], [AppColors.blue]],
@@ -115,14 +112,12 @@ class AddTaskScreen extends HookConsumerWidget {
                                   switchValue = ref.read(switchButtonProviderAdd.notifier).state;
                                   log('SWITCH VALUE ${switchValue}');
                                 },
-                              ),
-                              SizedBox(height: Sizes.vMarginSmallest(context),),
-                              SwitchSettingsSectionComponent([]),
-                            ])//SwitchSettingsSectionComponent([]),
-                          )
-                      ]
-                  )
-              ),
+                              ),*/
+                      // SizedBox(height: Sizes.vMarginSmallest(context),),
+                      ChooseDaySectionComponent([]),
+                    ]) //SwitchSettingsSectionComponent([]),
+                    )
+              ])),
               //eleccion de días
 
               SizedBox(
@@ -140,7 +135,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       borderRadius:
                           BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
-                    child: TimePickerComponent('00:00 - 00:00', switchValue),
+                    child: TimePickerComponent('00:00 - 00:00'),
                   )),
 
               SizedBox(
@@ -157,97 +152,96 @@ class AddTaskScreen extends HookConsumerWidget {
                         borderRadius:
                             BorderRadius.circular(Sizes.cardRadius(context)),
                       ),
-                      child: RepeNotiComponent(modo: 'add',)
-                  )
-              ),
+                      child: RepeNotiComponent(
+                        modo: 'add',
+                      ))),
 
               SizedBox(
                 height: Sizes.vMarginMedium(context),
               ),
 
-              checkDatosAll(nameProvider.getNameTask(),
-                  days.tags.toString(),
-                  !(switchValue),
-                range.getIniHour(),
-                range.getfinHour(),repetitions.getMinuteInt())
-              ? CustomButton(
-                text: 'Añadir',
-                onPressed: () async {
-                  log('repetitions ${repetitions.getHr()}');
-                bool ok = true;//checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
-                  String isNotificationSet = 'false';
-                  if (ok){
-                    if(days.tags.toString()== '[]'){
-                      days.tags.add(getStrDay(DateTime.now().weekday));
-                    };
-
-
-                    //para luego poder cancelar las notificaciones
-                    List<int> id = [];
-
-                   id = await setNotiHours(
-                       range.getIniHour(),
+              /*checkDatosAll(
+                      nameProvider.getNameTask(),
+                      days.tags.toString(),
+                      range.getIniHour(),
                       range.getfinHour(),
-                      repetitions.getMinuteInt(),
-                      saveDays(days.tags.toString()),
-                      switchValue,
-                      nameProvider.getNameTask());
+                      repetitions.getMinuteInt())
+                  ?*/
+              CustomButton(
+                      text: 'Añadir',
+                      onPressed: () async {
+                        log('repetitions ${repetitions.getHr()}');
+                        bool ok =
+                            true; //checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
+                        String isNotificationSet = 'false';
+                        if (ok) {
+                          if (days.tags.toString() == '[]') {
+                            days.tags.add(getStrDay(DateTime.now().weekday));
+                          }
+                          if (repetitions.getMinuteInt() +
+                                  repetitions.getHourInt() !=
+                              0) {
+                            //para luego poder cancelar las notificaciones
+                            List<int> id = [];
 
-                   isNotificationSet = 'true';
+                            id = await setNotiHours(
+                                range.getIniHour(),
+                                range.getfinHour(),
+                                repetitions.getMinuteInt(),
+                                saveDays(days.tags.toString()),
+                                nameProvider.getNameTask());
 
+                            isNotificationSet = 'true';
 
-                    TaskModel task = TaskModel(
-                        taskName: nameProvider.getNameTask(),
-                        days: saveDays(days.tags.toString()),
-                        idNotification: id,
-                        oneTime: (!switchValue).toString(),
-                        notiHours: notiHours(range.getIniHour(), range.getfinHour(), repetitions.getHr()),
-                        begin: range.getIniHour(),
-                        end: range.getfinHour(),
-                        editable: 'true',
-                        done: 'false',
-                        numRepetition: repetitions.getMinuteInt(),
-                        lastUpdate: Timestamp.fromDate(DateTime.now()),
-                        taskId: '',
-                        isNotificationSet: isNotificationSet);
+                            TaskModel task = TaskModel(
+                                taskName: nameProvider.getNameTask(),
+                                days: saveDays(days.tags.toString()),
+                                idNotification: id,
+                                notiHours: notiHours(range.getIniHour(),
+                                    range.getfinHour(), repetitions.getHr()),
+                                begin: range.getIniHour(),
+                                end: range.getfinHour(),
+                                editable: 'true',
+                                done: 'false',
+                                numRepetition: repetitions.getMinuteInt(),
+                                lastUpdate: Timestamp.fromDate(DateTime.now()),
+                                taskId: '',
+                                isNotificationSet: isNotificationSet);
 
-
-                    taskRepo.addDocToFirebase(task)
-                        .then((value) {
-                     /* FlushBarNotification.showError(
+                            taskRepo.addDocToFirebase(task).then((value) {
+                              /* FlushBarNotification.showError(
                           context: context, message: tr(context).addTaskDone);*/
-                      AppDialogs.addTaskOK(context,
-                          message: tr(context).addTaskDone);
+                              AppDialogs.addTaskOK(context,
+                                  message: tr(context).addTaskDone);
 
-                      range.clean();
-                      range.ref.refresh(timeRangeButtonProvider);
+                              range.clean();
+                              range.ref.refresh(timeRangeButtonProvider);
 
-                      days.clean();
-                      days.ref.refresh(selectDaysMultiChoice);
+                              days.clean();
+                              days.ref.refresh(selectDaysMultiChoice);
 
-                      repetitions.clean();
-                      repetitions.ref.refresh(timeRepetitionProvider);
+                              repetitions.clean();
+                              repetitions.ref.refresh(timeRepetitionProvider);
 
-                      ref.refresh(switchButtonProviderAdd);
-                      ref.refresh(switchButtonProvider);
+                              ref.refresh(switchButtonProviderAdd);
+                              ref.refresh(switchButtonProvider);
 
-                      ref.watch(timeRepetitionProvider.notifier).setChoosen(true);
+                              ref
+                                  .watch(timeRepetitionProvider.notifier)
+                                  .setChoosen(true);
 
-                      nameController.clear();
-                    }
-                    );
-                  } else{
-                    AppDialogs.showErrorNeutral(context,message: tr(context).rangeWarning);
-                  }
-
-                },
-              )
-              : CustomButton(
-                  text: 'Añadir',
-                  buttonColor: AppColors.grey,
-                  onPressed: (){
-                    AppDialogs.showWarning(context);
-                  })
+                              nameController.clear();
+                            });
+                          } else {
+                            //rango es 0
+                            AppDialogs.showWarning(context);
+                          }
+                        } else {
+                          AppDialogs.showErrorNeutral(context,
+                              message: tr(context).rangeWarning);
+                        }
+                      },
+                    ),
               //tasksRepoProvider
               //
               //const LogoutComponent(),
@@ -258,29 +252,19 @@ class AddTaskScreen extends HookConsumerWidget {
     );
   }
 
-  bool checkDatosAll(String name, String days, bool switchValue,
-      String begin, String end, int numRepetition){
+  bool checkDatosAll(
+      String name, String days, String begin, String end, int numRepetition) {
     bool check = false;
-    log(name + days + begin+ end + numRepetition.toString() );
+    log('**** ' + name + days + begin + end + numRepetition.toString());
 
     //dias
-    if(switchValue)
-      {if (name != '' && days.isNotEmpty && begin != ''
-      && end != '' && numRepetition !=0){
+    if (name != '' &&
+        days.isNotEmpty &&
+        begin != '' &&
+        end != '' &&
+        numRepetition != 0) {
       check = true;
-      }}
-    else{
-      //oneTime
-  {if (name != '' && begin != ''
-  && end != '' && numRepetition !=0){
-  check = true;
-  }}
     }
     return check;
-
   }
-
-  
-
-
 }

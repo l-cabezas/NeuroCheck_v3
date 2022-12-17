@@ -1,11 +1,14 @@
 
 
+import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'auth/repos/user_repo.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
@@ -18,6 +21,7 @@ import 'core/viewmodels/app_locale_provider.dart';
 import 'core/viewmodels/app_theme_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'l10n/l10n.dart';
+import 'modules/tasks/repos/task_repo.dart';
 
 void main() async {
   //This let us access providers before runApp (read only)
@@ -25,6 +29,13 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await ServicesInitializer.instance.init(widgetsBinding, container);
 
+  /*final cron = Cron();
+  cron.schedule(Schedule.parse('12 13 * * *'), () async {
+    log("This code runs at 12am everyday");
+    //update task to no hecho
+    // ref.watch(tasksRepoProvider);
+
+  });*/
 
   AwesomeNotifications().initialize(
     null,
@@ -82,7 +93,6 @@ void main() async {
 
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context, ref) {
     final platformBrightness = usePlatformBrightness();

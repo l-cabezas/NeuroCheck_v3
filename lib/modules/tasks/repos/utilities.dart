@@ -68,14 +68,15 @@ List<String> saveDays(String days){
   //return days;
 }
 
-Future<int> stablishNoti(int day, String hora, bool switchValue, String taskName){
+Future<int> stablishNoti(int day, String hora, String taskName){
   var h = hora.split(':');
   //log('Stablish $day${h[0]}${h[1]}');
   //dependiendo si es una notificacion para solo ese día o programada
   //log('sw value Noti $switchValue');
-  return (switchValue)
+  return createReminderNotification(day,int.parse(h[0]),int.parse(h[1]), taskName);
+ /* return (switchValue)
       ?  createReminderNotification(day,int.parse(h[0]),int.parse(h[1]), taskName)
-      :  createTaskToDoNotification(int.parse(h[0]),int.parse(h[1]), taskName);
+      :  createTaskToDoNotification(int.parse(h[0]),int.parse(h[1]), taskName);*/
 }
 
 String reformDays(String days){
@@ -87,22 +88,19 @@ String reformDays(String days){
 }
 
 setNotiInSupervised(TaskModel taskModel){
-  bool oneTime = false;
-  if(taskModel.oneTime == 'true'){
-    oneTime = true;
-  }
   List<String> listDays = [];
   taskModel.days?.forEach((element) {
     listDays.add(element);
   });
 
   setNotiHours(taskModel.begin!, taskModel.end!,taskModel.numRepetition!,
-      listDays, oneTime ,taskModel.taskName);
+      listDays, taskModel.taskName);
+
 }
 
 
 Future<List<int>> setNotiHours(String ini, String fin, int avisar,
-    List<String> day, bool switchValue, String taskName) async {
+    List<String> day, String taskName) async {
   List<int> list = [];
   var splitIni = ini.split(':');
   //pasamos all a minutos
@@ -122,11 +120,11 @@ Future<List<int>> setNotiHours(String ini, String fin, int avisar,
       // para evitar que guarde 8 en vez de 08
 
       if (duration.inMinutes.remainder(60) < 10) {
-        list.add(await stablishNoti(chooseDay, '${duration.inHours}:0${duration.inMinutes.remainder(60)}',switchValue,taskName));
+        list.add(await stablishNoti(chooseDay, '${duration.inHours}:0${duration.inMinutes.remainder(60)}',taskName));
       } else {
 
         list.add(await stablishNoti(chooseDay,
-            '${duration.inHours}:${duration.inMinutes.remainder(60)}',switchValue,taskName));
+            '${duration.inHours}:${duration.inMinutes.remainder(60)}',taskName));
       }
 
     }

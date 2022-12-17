@@ -90,7 +90,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                           },
                         ),
                         SizedBox(height: Sizes.vMarginSmallest(context),),
-                        SwitchSettingsSectionComponent([]),
+                        ChooseDaySectionComponent([]),
 
                         SizedBox(height: Sizes.vMarginMedium(context),),
 
@@ -177,7 +177,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                       BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
                     child: Column(children:[
-                      TimePickerComponent('${taskModel.begin!} - ${taskModel.end!}', switchValue),
+                      TimePickerComponent('${taskModel.begin!} - ${taskModel.end!}'),
                       SizedBox(height: Sizes.vMarginMedium(context),),
 
                       Row(

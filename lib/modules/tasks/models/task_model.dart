@@ -12,7 +12,6 @@ class TaskModel {
   final List? days;
   final List? notiHours;
   final List? idNotification;
-  final String? oneTime;
   final String? done;
   final int? numRepetition;
   final Timestamp? lastUpdate;
@@ -28,7 +27,6 @@ class TaskModel {
     this.days,
     this.notiHours,
     this.idNotification,
-    this.oneTime,
     required this.done,
     required this.numRepetition,
     this.lastUpdate,
@@ -45,7 +43,6 @@ class TaskModel {
     'days':days ?? '',
     'notiHours': notiHours ?? '',
     'idNotification': idNotification ?? '',
-    'oneTime':oneTime ?? '',
     'done':done,
     'numRepetition': numRepetition,
     'lastUpdate' :lastUpdate,
@@ -63,7 +60,6 @@ class TaskModel {
       days: map['days'] ?? '',
       notiHours: map['notiHours'] ?? '',
       idNotification: map['idNotification'] ?? '',
-      oneTime: map['oneTime'] ?? '',
       done: map['done'] ?? '',
       numRepetition: map['numRepetition'] ?? '',
       lastUpdate: map['lastUpdate'],
@@ -82,7 +78,6 @@ class TaskModel {
       days: task.days,
       notiHours: task.notiHours,
       idNotification: task.idNotification,
-      oneTime: task.oneTime ?? '',
       done: task.done ?? '',
       numRepetition: task.numRepetition ?? 0,
       lastUpdate: task.lastUpdate,
@@ -99,7 +94,6 @@ class TaskModel {
      List? days,
      List? notiHours,
      List? idNotification,
-     String? oneTime,
      String? done,
      int? numRepetition,
      Timestamp? lastUpdate,
@@ -114,7 +108,6 @@ class TaskModel {
       days: this.days,
       notiHours: this.notiHours,
       idNotification: this.idNotification,
-      oneTime: oneTime ?? this.oneTime,
       done: done ?? this.done,
       numRepetition: numRepetition ?? this.numRepetition,
       lastUpdate: lastUpdate ?? this.lastUpdate,
