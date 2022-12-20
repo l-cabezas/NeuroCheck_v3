@@ -22,12 +22,14 @@ import 'core/viewmodels/app_theme_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'l10n/l10n.dart';
 import 'modules/tasks/repos/task_repo.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   //This let us access providers before runApp (read only)
   final container = ProviderContainer();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await ServicesInitializer.instance.init(widgetsBinding, container);
+  await GetStorage.init();
 
   /*final cron = Cron();
   cron.schedule(Schedule.parse('12 13 * * *'), () async {

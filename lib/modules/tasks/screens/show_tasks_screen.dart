@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/repos/user_repo.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
@@ -32,13 +33,14 @@ class ShowTasks extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final _taskRepo = ref.watch(tasksRepoProvider);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
-    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
-      if (value != 'supervisor') {
-        setSupervisor(false);
-      } else {
-        setSupervisor(true);
-      }
-    });
+
+
+    if (GetStorage().read('rol') != 'supervisor') {
+      setSupervisor(false);
+    } else {
+      setSupervisor(true);
+    }
+
     UserModel? user = _taskRepo.returnUsuario();
 
     return taskToDoStreamAll.when(

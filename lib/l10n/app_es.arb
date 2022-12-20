@@ -90,12 +90,14 @@
   },
   "taskName" : "Nombre de la tarea",
   "addTaskDone": "Tarea añadida correctamente",
+  "modTaskDone": "Tarea modificada correctamente",
   "hourRange": "Rango horario: ",
   "repTime": "Repetir cada: ",
   "days": "días",
   "rangeWarning": "No puedes poner más notificaciones que minutos hay en tu rango horario",
   "repeatAdd": "Repetición",
   "delete": "Borrar",
+  "rangeAdd" : "No puedes repetir la tarea más veces que minutos hay en el rango",
 
   "@_ROL": {
   },

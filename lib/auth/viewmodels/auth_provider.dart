@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/routing/navigation_service.dart';
 import '../../core/routing/route_paths.dart';
@@ -31,6 +32,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   late AuthRepo _authRepo;
   late UserRepo _userRepo;
 
+
   static bool supervisor = false;
 
 
@@ -57,15 +59,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
+        GetStorage().write('uidUsuario', user.uId);
+        GetStorage().write('email', email);
+        GetStorage().write('passw', password);
 
-       // var prefs = await _mainCoreProvider.setPreferences();
-        /*log('ROL ${user.name}');
-        prefs.setString('rol', user.rol ?? 'no');
-        prefs.setString('prueba', 'prueba');
-        final myString = prefs.getString('rol') ?? '';
-        log('SHARED PREFERENCES ${prefs.getString('rol')}');
-        log('SHARED PREFERENCES PRUEBA ${prefs.getString('prueba')}');*/
-
+        // TODO: nombre
         subscribeUserToTopic();
         navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
@@ -75,8 +73,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   signSupervisedIn(
       BuildContext context, {
-        required String email,
-        required String password,
+        /*required String email,
+        required String password,*/
         required String emailSupervised,
         required String passwordSupervised,
       }) async {
@@ -84,8 +82,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     NavigationService.removeAllFocus(context);
     final result = await _authRepo.signSupervisedIn(
       context,
-      email: email,
-      password: password,
+      /*email: email,
+      password: password,*/
       emailSupervised: emailSupervised,
       passwordSupervised: passwordSupervised
     );
@@ -96,9 +94,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
-        log('userSupervisedPreAuth ${userModel.name}');
-        log('userSupervisedPreAuth ${userModel.uidSupervised}');
+
+        GetStorage().write('emailSup',emailSupervised);
+        GetStorage().write('passwSup',passwordSupervised);
+
         _mainCoreProvider.setSupervisedUid(userModel);
+        //
         subscribeUserToTopic();
         NavigationService.pushReplacementAll(
           NavigationService.context,
@@ -135,11 +136,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
+        GetStorage().write('uidUsuario', user.uId);
+        GetStorage().write('email', email);
+        GetStorage().write('passw', password);
+        GetStorage().write('rol', rol);
+
         await submitRegister(context, userModel);
       },
     );
   }
-
+//TODO: save passw nuevo
   sendPasswordResetEmail(
       BuildContext context, {
         required String email,
@@ -164,19 +170,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   }
 
-  sendEmailVerification(BuildContext context) async {
+  enviarEmailVerification(BuildContext context) async {
     state = const AuthState.loading();
-    NavigationService.removeAllFocus(context);
-    final result = await _authRepo.sendEmailVerification(
-      context,
-    );
+   // NavigationService.removeAllFocus(context);
+    final result = await _authRepo.sendEmailVerification(context,);
     result.fold(
             (failure) {
-          state = AuthState.error(errorText: failure.message);
-          AppDialogs.showErrorDialog(context, message: failure.message);
-        },
+              state = AuthState.error(errorText: failure.message);
+              AppDialogs.showErrorDialog(context, message: failure.message);
+            },
             (done){
-              //state = AuthState.available();
+              state = AuthState.available();
               navigationToCheckScreen(context);
         }
     );
@@ -201,17 +205,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
           if((userModel.rol != 'supervisor')) {
           await _authRepo.sendEmailVerification(context);
         }
-        /*final prefs = await SharedPreferences.getInstance();
-        prefs.setString('rol', userModel.rol!);
-          final myString = prefs.getString('my_string_key') ?? '';
-        log('SHARED PREFERENCES ${myString}');*/
-          ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
-            if (value != 'supervisor') {
-              setSupervisor(false);
-            } else {
-              setSupervisor(true);
-            }
-          });
+
+        if (GetStorage().read('rol') != 'supervisor') {
+          setSupervisor(false);
+        } else {
+          setSupervisor(true);
+        }
         (!supervisor)
           ? navigationToHomeScreen(context)
           : navigationToCheckScreen(context);

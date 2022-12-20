@@ -12,6 +12,7 @@ import '../../../home/components/card_button_component.dart';
 import '../../../home/components/card_user_details_component.dart';
 import '../../models/task_model.dart';
 import '../../repos/task_repo.dart';
+import '../../viewmodels/task_provider.dart';
 import '../card_red_button_component.dart';
 
 
@@ -73,10 +74,8 @@ class CardItemBossComponent extends ConsumerWidget {
                   isColored: false,
                   onPressed: () {
                     //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                    //TODO
-                    ref.watch(tasksRepoProvider)
-                        .deleteSingleTask(taskModel: taskModel);
-                    ref.refresh(tasksRepoProvider);
+                    ref.watch(taskProvider.notifier)
+                        .deleteSingleTaskBoss(taskModel: taskModel);
                   },
                 )
               ],

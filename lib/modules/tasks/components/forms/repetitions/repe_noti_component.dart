@@ -50,7 +50,8 @@ class RepeNotiComponent extends ConsumerWidget {
               repeNoti.setHr(value.inHours.toString());
               repeNoti.setMinuteHour(value.inHours, value.inMinutes);
               repeNoti.setMin(value.inMinutes.toString());
-
+              var sum = value.inHours*60 + value.inMinutes;
+              repeNoti.setBoth(sum.toString());
 
               ref.refresh(timeRepetitionProvider.notifier);
 
@@ -126,7 +127,7 @@ class RepeNotiComponent extends ConsumerWidget {
 
   String tiempo(String hr){
     String t = "";
-    print(hr);
+    //print(hr);
     log('hr ${hr}');
     if(hr != '00:00 - 00:00' && hr.isNotEmpty){
     int minutos = int.parse(hr);

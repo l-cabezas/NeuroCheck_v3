@@ -40,6 +40,3 @@ final taskMultipleToDoCompleteStreamProviderBoss = StreamProvider<List<List<Task
   ]);
 });
 
-final taskToDoCompleteStreamProvider = StreamProvider<List<TaskModel>>((ref) {
-  return ref.watch(tasksRepoProvider).getTasksCompletedStream();
-});

@@ -4,6 +4,7 @@ import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/home/components/upcoming_tasks_component.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
@@ -16,7 +17,6 @@ import '../../tasks/screens/boss/add_task_boss_screen.dart';
 import '../../tasks/screens/boss/show_supervisor_tasks.dart';
 import '../../tasks/screens/completed_tasks_screen.dart';
 import '../../tasks/screens/show_tasks_screen.dart';
-import '../utils/nav_bar_provider.dart';
 
 class Index extends StateNotifier<int> {
   Index() : super(1);
@@ -43,42 +43,33 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
-      if (value != 'supervisor') {
-        setSupervisor(false);
-      } else {
-        setSupervisor(true);
-      }
-    });
-
     final PageController controller = PageController(initialPage: 1);
     final int menuIndex = ref.watch(indexProvider) as int;
-    final _taskRepo = ref.watch(tasksRepoProvider);
-    ref.watch(userRepoProvider).getStringValuesSFRol().then((value) {
-      if (value != 'supervisor') {
-        setSupervisor(false);
-      } else {
-        setSupervisor(true);
-      }
-    });
+
+    if (GetStorage().read('rol') != 'supervisor') {
+      setSupervisor(false);
+    } else {
+      setSupervisor(true);
+    }
+
 
     //final cron = Cron();
-    if(!supervisor){
+    /*if(!supervisor){
       log("**** SET CRON");
       ref.watch(tasksRepoProvider).resetTasks();
-      /*cron.schedule(Schedule.parse('19 17 * * *'), () async {
+      *//*cron.schedule(Schedule.parse('19 17 * * *'), () async {
         log("CRON ESTA FUNCIONANDO");
 
         //update task to no hecho
         // ref.watch(tasksRepoProvider);
         ref.watch(tasksRepoProvider).resetTasks();
 
-      });*/
-    }
+      });*//*
+    }*/
     //ref.watch(userRepoProvider).checkUidSup();
     /*final _userRepo = ref.watch(userRepoProvider).uidSuper;
     log((' a ${_userRepo} HS'));*/
-    log('HOME_SCREEN ${supervisor}');
+    //log('HOME_SCREEN ${supervisor}');
     return Scaffold(
       body: PageView(
           controller: controller,

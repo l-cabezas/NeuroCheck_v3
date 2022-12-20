@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'task_state.dart';
+part of 'tarea_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$TaskState {
+mixin _$TareaState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
@@ -63,18 +63,19 @@ mixin _$TaskState {
 }
 
 /// @nodoc
-abstract class $TaskStateCopyWith<$Res> {
-  factory $TaskStateCopyWith(TaskState value, $Res Function(TaskState) then) =
-      _$TaskStateCopyWithImpl<$Res>;
+abstract class $TareaStateCopyWith<$Res> {
+  factory $TareaStateCopyWith(
+          TareaState value, $Res Function(TareaState) then) =
+      _$TareaStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$TaskStateCopyWithImpl<$Res> implements $TaskStateCopyWith<$Res> {
-  _$TaskStateCopyWithImpl(this._value, this._then);
+class _$TareaStateCopyWithImpl<$Res> implements $TareaStateCopyWith<$Res> {
+  _$TareaStateCopyWithImpl(this._value, this._then);
 
-  final TaskState _value;
+  final TareaState _value;
   // ignore: unused_field
-  final $Res Function(TaskState) _then;
+  final $Res Function(TareaState) _then;
 }
 
 /// @nodoc
@@ -85,7 +86,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_LoadingCopyWithImpl<$Res> extends _$TaskStateCopyWithImpl<$Res>
+class __$$_LoadingCopyWithImpl<$Res> extends _$TareaStateCopyWithImpl<$Res>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, (v) => _then(v as _$_Loading));
@@ -101,7 +102,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'TaskState.loading()';
+    return 'TareaState.loading()';
   }
 
   @override
@@ -182,7 +183,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements TaskState {
+abstract class _Loading implements TareaState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -194,7 +195,7 @@ abstract class _$$_ErrorCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ErrorCopyWithImpl<$Res> extends _$TaskStateCopyWithImpl<$Res>
+class __$$_ErrorCopyWithImpl<$Res> extends _$TareaStateCopyWithImpl<$Res>
     implements _$$_ErrorCopyWith<$Res> {
   __$$_ErrorCopyWithImpl(_$_Error _value, $Res Function(_$_Error) _then)
       : super(_value, (v) => _then(v as _$_Error));
@@ -225,7 +226,7 @@ class _$_Error implements _Error {
 
   @override
   String toString() {
-    return 'TaskState.error(errorText: $errorText)';
+    return 'TareaState.error(errorText: $errorText)';
   }
 
   @override
@@ -314,7 +315,7 @@ class _$_Error implements _Error {
   }
 }
 
-abstract class _Error implements TaskState {
+abstract class _Error implements TareaState {
   const factory _Error({final String? errorText}) = _$_Error;
 
   String? get errorText;
@@ -331,7 +332,7 @@ abstract class _$$_AvailableCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AvailableCopyWithImpl<$Res> extends _$TaskStateCopyWithImpl<$Res>
+class __$$_AvailableCopyWithImpl<$Res> extends _$TareaStateCopyWithImpl<$Res>
     implements _$$_AvailableCopyWith<$Res> {
   __$$_AvailableCopyWithImpl(
       _$_Available _value, $Res Function(_$_Available) _then)
@@ -348,7 +349,7 @@ class _$_Available implements _Available {
 
   @override
   String toString() {
-    return 'TaskState.available()';
+    return 'TareaState.available()';
   }
 
   @override
@@ -429,6 +430,6 @@ class _$_Available implements _Available {
   }
 }
 
-abstract class _Available implements TaskState {
+abstract class _Available implements TareaState {
   const factory _Available() = _$_Available;
 }

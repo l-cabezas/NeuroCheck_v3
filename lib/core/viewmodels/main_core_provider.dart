@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/models/user_model.dart';
@@ -146,7 +147,10 @@ class MainCoreProvider {
 
   setSupervisedUid(UserModel userModel) async {
     //final result =
-    await _userRepo.setSupervisedUid(userModel);
+   final result = await _userRepo.setSupervisedUid(userModel);
+
+   GetStorage().write('uidSup',userModel.uidSupervised);
+
     /*if (result){
       return true;
     } else {

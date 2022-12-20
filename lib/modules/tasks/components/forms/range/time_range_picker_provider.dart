@@ -26,8 +26,23 @@ class TimeRangeButton extends StateNotifier<String> {
   static String hf = '00:00';
   static String hi = '00:00';
 
+  static int sumaRange = 0;
+
   //static bool oneTime = false;
 
+  int getSumaRange(){
+    var ini = hi.split(':');
+    var iniS = int.parse(ini[0]) * 60 +  int.parse(ini[1]);
+    var fin = hf.split(':');
+    var iniF = int.parse(fin[0]) * 60 +  int.parse(fin[1]);
+    log('**** INIs ${iniS} y INIF ${iniF}');
+    if(iniF - iniS < 0){
+      return 0;
+    }else {
+      return iniF - iniS;
+    }
+
+  }
   String getIniHour(){
     return hi;
   }

@@ -46,25 +46,16 @@ class ModTaskComponent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    var userRepo = ref.watch(userRepoProvider);
-    var taskRepo = ref.watch(tasksRepoProvider);
-
-    //empezaría en true
-    var switchValue = !ref.watch(switchButtonProvider);
-    var nameProvider = ref.read(nameTaskProvider.notifier);
-    var days = ref.read(selectDaysMultiChoice.notifier);
-    var range = ref.read(timeRangeButtonProvider.notifier);
-    var repetitions = ref.read(timeRepetitionProvider.notifier);
-
     var toggleValue = ref.watch(toggleButtonProvider.notifier);
     var choice = 0;
 
     return PopUpPage(
         body: SingleChildScrollView(
-            child: Column(children: [
+            child: Column(
+                children: [
       Container(
         padding: EdgeInsets.only(
-          top: Sizes.hMarginExtreme(context),
+          top: Sizes.hMarginMedium(context),
           bottom: Sizes.vMarginSmallest(context),
           left: Sizes.vMarginSmallest(context),
         ),
@@ -107,7 +98,7 @@ class ModTaskComponent extends HookConsumerWidget {
                   [AppColors.blue]
                 ],
                 activeFgColor: Colors.white,
-                inactiveBgColor: Colors.grey,
+                inactiveBgColor: Colors.black12,
                 inactiveFgColor: Colors.black,
                 initialLabelIndex: toggleValue.state,
                 totalSwitches: 3,
@@ -115,11 +106,11 @@ class ModTaskComponent extends HookConsumerWidget {
                 labels: ['Días', 'Rango', 'Repetición'],
                 //animate: true,
                 onToggle: (index) {
-                  print('switched to: $index');
+                  //print('switched to: $index');
                   choice = index!;
-                  print('choice to: $choice');
-                  ref
-                      .watch(toggleButtonProviderAdd.notifier)
+                  //print('choice to: $choice');
+
+                  ref .watch(toggleButtonProviderAdd.notifier)
                       .changeState(change: index);
                   toggleValue.state = ref.read(toggleButtonProviderAdd.notifier).state;
                   //switchValue = ref.read(switchButtonProviderAdd.notifier).state;
@@ -127,6 +118,7 @@ class ModTaskComponent extends HookConsumerWidget {
               ),
               //const ResetFormComponent(),
               ToggleChoiceComponent(
+                context: context,
                 taskModel: taskModel,
               )
             ]),

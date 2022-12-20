@@ -27,16 +27,16 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
       child: Column(
         children: [
           RegisterSupervisedTextFieldsSection(
-            emailController: emailController,
-            passwordController: passwordController,
+            /*emailController: emailController,
+            passwordController: passwordController,*/
             emailControllerSupervised: emailControllerSupervised,
             passwordControllerSupervised: passwordControllerSupervised,
             onFieldSubmitted: (value) {
               if (loginFormKey.currentState!.validate()) {
                 ref.read(authProvider.notifier).signSupervisedIn(
                   context,
-                  email: emailController.text,
-                  password: passwordController.text,
+                  /*email: emailController.text,
+                  password: passwordController.text,*/
                   emailSupervised: emailControllerSupervised.text,
                   passwordSupervised: passwordControllerSupervised.text,
                 );
@@ -64,8 +64,8 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
                     ref.watch(authProvider.notifier)
                         .signSupervisedIn(
                       context,
-                      email: emailController.text,
-                      password: passwordController.text,
+                      /*email: emailController.text,
+                      password: passwordController.text,*/
                       emailSupervised: emailControllerSupervised.text,
                       passwordSupervised: passwordControllerSupervised.text,
                     );

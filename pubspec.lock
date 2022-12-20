@@ -765,6 +765,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1"
+  get:
+    dependency: transitive
+    description:
+      name: get
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.5"
   get_it:
     dependency: "direct main"
     description:
@@ -772,6 +779,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.2.0"
+  get_storage:
+    dependency: "direct main"
+    description:
+      name: get_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   getwidget:
     dependency: "direct main"
     description:

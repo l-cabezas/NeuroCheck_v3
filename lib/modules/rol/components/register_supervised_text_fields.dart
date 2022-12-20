@@ -10,16 +10,16 @@ import '../../../core/widgets/custom_text_field.dart';
 
 class RegisterSupervisedTextFieldsSection extends StatelessWidget {
   const RegisterSupervisedTextFieldsSection({
-    required this.emailController,
-    required this.passwordController,
+    /*required this.emailController,
+    required this.passwordController,*/
     required this.emailControllerSupervised,
     required this.passwordControllerSupervised,
     required this.onFieldSubmitted,
     Key? key,
   }) : super(key: key);
 
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  /*final TextEditingController emailController;
+  final TextEditingController passwordController;*/
 
   final TextEditingController emailControllerSupervised;
   final TextEditingController passwordControllerSupervised;
@@ -51,7 +51,7 @@ class RegisterSupervisedTextFieldsSection extends StatelessWidget {
 
   _sharedItemComponent(BuildContext context) {
     return [
-      CustomText.h3(context, tr(context).askYourDates),
+      /*CustomText.h3(context, tr(context).askYourDates),
       SizedBox(height: Sizes.textFieldVMarginDefault(context)),
       CustomTextField(
         context,
@@ -77,7 +77,7 @@ class RegisterSupervisedTextFieldsSection extends StatelessWidget {
       ),
 
       SizedBox(height: Sizes.textFieldVMarginDefault(context)),
-
+*/
       CustomText.h3(context, tr(context).askDates),
 
       SizedBox(height: Sizes.textFieldVMarginDefault(context)),

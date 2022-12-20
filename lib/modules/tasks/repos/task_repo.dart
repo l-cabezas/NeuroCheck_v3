@@ -8,6 +8,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:neurocheck/auth/viewmodels/auth_provider.dart';
 import 'package:neurocheck/core/services/init_services/awesome_notification.dart';
@@ -49,11 +50,12 @@ class TasksRepo {
 //SELF PUESTAS
 //tareas sin hacer supervisado hechas por el mismo
 //static String taskPath(String uid) => 'users/$uid/tasks';
+
   Stream<List<TaskModel>> getTasksStream() {
-    final _userRepo = ref.watch(userRepoProvider).uid;
+
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPath(_userRepo!),
+      path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
       builder: (snapshotData, snapshotId) {
@@ -63,12 +65,9 @@ class TasksRepo {
   }
 
   Stream<List<TaskModel>> getTasksBossS() {
-    log('TASK REPO ');
-    final _userRepo = ref.watch(userRepoProvider).uid;
-
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPathBoss(_userRepo!),
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidUsuario')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
       builder: (snapshotData, snapshotId) {
@@ -81,12 +80,15 @@ class TasksRepo {
 // static String taskPathBoss(String uid) => 'users/$uid/tasksBoss';
 //tareas hechas por el supervisados hechas por el mismo
   Stream<List<TaskModel>> getTasksBossStream() {
-    log('TASK REPO ');
     final _userRepo = ref.watch(userRepoProvider).uidSuper;
-
+    String uidSup = '';
+    if(GetStorage().read('uidSup') != ''){
+      uidSup = GetStorage().read('uidSup');
+    }
+    log('**** GET TASK BOSS STREAM ${uidSup}');
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPathBoss(_userRepo!),
+      path: FirestorePaths.taskPathBoss(uidSup),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
       builder: (snapshotData, snapshotId) {
@@ -98,7 +100,7 @@ class TasksRepo {
   Stream<List<TaskModel>> getTasksDoneStream() {
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPath(user!),
+      path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "true"),
       builder: (snapshotData, snapshotId) {
@@ -110,10 +112,10 @@ class TasksRepo {
    return await _userRepo.getUidSup();
  }
   Stream<List<TaskModel>> getTasksDoneStreamBoss() {
-    final _userRepo = ref.watch(userRepoProvider).uidSuper;
+   // final _userRepo = ref.watch(userRepoProvider).uidSuper;
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPathBoss(_userRepo!),
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidSup')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "true"),
       builder: (snapshotData, snapshotId) {
@@ -125,7 +127,7 @@ class TasksRepo {
   Stream<List<TaskModel>> getTasksDoneStreamBossS() {
     return  _firebaseCaller.collectionStream<TaskModel>(
       //uid de usuario
-      path: FirestorePaths.taskPathBoss(user!),
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidUsuario')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "true"),
       builder: (snapshotData, snapshotId) {
@@ -137,7 +139,7 @@ class TasksRepo {
 
   Future<Either<Failure?, TaskModel>> getTaskByName({required String taskId,}) async {
     return await _firebaseCaller.getData(
-      path: FirestorePaths.taskById(user!,taskId: taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario'),taskId: taskId),
       builder: (data, id) {
         if (data is! ServerFailure && data != null) {
           return Right(TaskModel.fromMap(data, id!));
@@ -150,7 +152,7 @@ class TasksRepo {
 
   Future<Either<Failure?, TaskModel>> getTaskBossByName({required String taskId,}) async {
     return await _firebaseCaller.getData(
-      path: FirestorePaths.taskBossById(user!,taskId: taskId),
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario'),taskId: taskId),
       builder: (data, id) {
         if (data is! ServerFailure && data != null) {
           return Right(TaskModel.fromMap(data, id!));
@@ -163,7 +165,7 @@ class TasksRepo {
 
   Future<Either<Failure?, TaskModel>> getTaskDoneByName({required String taskId,}) async {
     return await _firebaseCaller.getData(
-      path: FirestorePaths.taskDoneById(user!,taskId: taskId),
+      path: FirestorePaths.taskDoneById(GetStorage().read('uidUsuario'),taskId: taskId),
       builder: (data, id) {
         if (data is! ServerFailure && data != null) {
           return Right(TaskModel.fromMap(data, id!));
@@ -176,7 +178,7 @@ class TasksRepo {
 
   Future<Either<Failure?, TaskModel>> getTaskDoneBossByName({required String taskId,}) async {
     return await _firebaseCaller.getData(
-      path: FirestorePaths.taskBossDoneById(user!,taskId: taskId),
+      path: FirestorePaths.taskBossDoneById(GetStorage().read('uidUsuario'),taskId: taskId),
       builder: (data, id) {
         if (data is! ServerFailure && data != null) {
           return Right(TaskModel.fromMap(data, id!));
@@ -191,19 +193,19 @@ class TasksRepo {
 
   Future<String> setTaskDoc(TaskModel taskData, String uid) async {
     return await _firebaseCaller.addDataToCollection(
-        path: FirestorePaths.taskPath(user!), ///tasks
+        path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')), ///tasks
         data: taskData.toMap()
     );
   }
 
   Future<Either<Failure, bool>> addSingleTask({ required TaskModel task,}) async {
 
-    final _userRepo = ref.watch(userRepoProvider).uidSuper;
+    /*final _userRepo = ref.watch(userRepoProvider).uidSuper;
     var usuario = await getUsuario();
-    var uid = usuario?.uId;
+    var uid = usuario?.uId;*/
     return await (_userRepo != '')
         ?    _firebaseCaller.setData(
-        path: FirestorePaths.taskBossById(_userRepo!,taskId: task.taskId),
+        path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,taskId: task.taskId),
         data: task.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
@@ -215,7 +217,7 @@ class TasksRepo {
         }
         )
         :  _firebaseCaller.setData(
-        path: FirestorePaths.taskById(uid!,taskId: task.taskId),
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
         data: task.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
@@ -264,10 +266,10 @@ class TasksRepo {
   }
 
   Future<Either<Failure, bool>> addSingleTaskBoss({ required TaskModel task,}) async {
-    var usuario = await getUsuario();
-    var uid = usuario?.uId;
+    //var usuario = await getUsuario();
+    //var uid = usuario?.uId;
     return await _firebaseCaller.setData(
-        path: FirestorePaths.taskBossById(uid!,taskId: task.taskId),
+        path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario'),taskId: task.taskId),
         data: task.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
@@ -327,10 +329,10 @@ class TasksRepo {
   }
 
   Future<Either<Failure, bool>> addSingleTaskDone({ required TaskModel task,}) async {
-    var usuario = await getUsuario();
-    var uid = usuario?.uId;
+    /*var usuario = await getUsuario();
+    var uid = usuario?.uId;*/
     return await _firebaseCaller.setData(
-        path: FirestorePaths.taskDoneById(uid!,taskId: task.taskId),
+        path: FirestorePaths.taskDoneById(GetStorage().read('uidUsuario'),taskId: task.taskId),
         data: task.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
@@ -348,23 +350,23 @@ class TasksRepo {
   Future<void> deleteSingleTask({required TaskModel taskModel}) async {
     cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskById(user!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId));
   }
 
   Future<void> deleteSingleTaskDone({required TaskModel taskModel}) async {
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskDoneById(user!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskDoneById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId));
   }
 
   Future<void> deleteSingleTaskBoss({required TaskModel taskModel}) async {
     cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskBossById(user!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId));
   }
 
   Future<void> deleteSingleTaskDoneBoss({required TaskModel taskModel}) async {
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskBossDoneById(user!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskBossDoneById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId));
   }
 
 
@@ -377,7 +379,7 @@ class TasksRepo {
     String formattedDate = formatter.format(actualHour);
 
     return  _firebaseCaller.collectionStream<TaskModel>(
-      path: FirestorePaths.taskPath(user!),
+      path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
       queryBuilder: (query) => query
           .where("days", arrayContains: actualDay)
           .where("done", isEqualTo: "false"),
@@ -390,7 +392,7 @@ class TasksRepo {
 
   Stream<List<TaskModel>> getNotModTasksStream() {
     return _firebaseCaller.collectionStream<TaskModel>(
-      path: FirestorePaths.taskPath(user!),
+      path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
       queryBuilder: (query) => query
           .where('editable', isEqualTo: 'false'),
       builder: (snapshotData, snapshotId) {
@@ -402,7 +404,7 @@ class TasksRepo {
   //tareas hechas
   Stream<List<TaskModel>> getTasksCompletedStream() {
     return _firebaseCaller.collectionStream<TaskModel>(
-      path: FirestorePaths.taskPath(user!),
+      path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
       queryBuilder: (query) => query
           .where('done', isEqualTo: 'true'),
       builder: (snapshotData, snapshotId) {
@@ -419,7 +421,7 @@ class TasksRepo {
   }
 
   Future<UserModel?> getUsuario() async {
-    final result = await _userRepo.getUserData(user!);
+    final result = await _userRepo.getUserData(GetStorage().read('uidUsuario')!);
     return result.fold(
           (failure) {
             return null;
@@ -444,7 +446,7 @@ class TasksRepo {
   }
 
   Future<Either<Failure, UserModel>> getUser() async {
-    final result = await _userRepo.getUserData(user!);
+    final result = await _userRepo.getUserData(GetStorage().read('uidUsuario')!);
     return result.fold(
       (failure) {
         return  Left(failure);
@@ -468,7 +470,7 @@ class TasksRepo {
      final cron = Cron();
      log("CRON ****");
      try {
-       cron.schedule(Schedule.parse('36 17 * * *'), () {
+       cron.schedule(Schedule.parse('53 11 * * *'), () {
          log("SET CRON ESTA FUNCIONANDO");
          resetTasks();
        });
@@ -481,51 +483,38 @@ class TasksRepo {
        // "ScheduleParseException" is thrown if cron parsing is failed.
        await cron.close();
      }
+    List<TaskModel> tareas = [];
 
-     await _firebaseCaller.updateData(
-       path: FirestorePaths.taskById(user!,taskId: 'CtNxWRmxzS1yhkuicrvD'),
-       data: {
-         'done': 'false',
-       },
-       builder: (data) {
-         if (data is! ServerFailure && data == true) {
-           return Right(data);
-         } else {
-           return Left(data);
-         }
+     await _firebaseCaller.collectionStream<TaskModel>(
+       //uid de usuario
+       path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
+       builder: (snapshotData, snapshotId) {
+         tareas.add(TaskModel.fromMap(snapshotData!, snapshotId));
+         return TaskModel.fromMap(snapshotData, snapshotId);
        },
      );
-    /*    //uid de usuario
-        path: FirestorePaths.taskPath(user!),
-        builder: (snapshotData, snapshotId) {
-          return TaskModel.fromMap(snapshotData!, snapshotId);
-        },
-      );
-    tareas.forEach((element) async {
-      element.forEach((task) async {
-        await _firebaseCaller.updateData(
-          path: FirestorePaths.taskById(user!,taskId: task.taskId),
-          data: {
-            'done': 'false',
-
-          },
-          builder: (data) {
-            if (data is! ServerFailure && data == true) {
-              return Right(data);
-            } else {
-              return Left(data);
-            }
-          },
-        );
-      });
-
-      });*/
+      log('TAMAÑO ${tareas.length}');
+     tareas.forEach((task) async {
+       await _firebaseCaller.updateData(
+         path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+         data: {
+           'done': 'false',
+         },
+         builder: (data) {
+           if (data is! ServerFailure && data == true) {
+             return Right(data);
+           } else {
+             return Left(data);
+           }
+         },
+       );
+     });
 
   }
 
   Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!,taskId: task.taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
       data: {
         'done': 'true',
       },
@@ -541,7 +530,7 @@ class TasksRepo {
 
   Future<Either<Failure, bool>> checkTaskBoss({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskBossById(user!,taskId: task.taskId),
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
       data: {
         'done': 'true',
       },
@@ -557,7 +546,7 @@ class TasksRepo {
 
   Future<Either<Failure, bool>> checkSetNoti({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!,taskId: task.taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
       data: {
         'isNotificationSet': 'true',
       },
@@ -606,7 +595,7 @@ class TasksRepo {
 
 
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!, taskId: task.taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!, taskId: task.taskId),
       data: {
         'idNotification': ids
       },
@@ -632,7 +621,7 @@ class TasksRepo {
     );
 
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!,taskId: task.taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
       data: {
         'idNotification': ids
       },
@@ -649,7 +638,7 @@ class TasksRepo {
 
   Future<Either<Failure, bool>> updateTask(Map<String, dynamic> datos,{required String taskId,}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(user!,taskId: taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: taskId),
       data: datos,
       builder: (data) {
         if (data is! ServerFailure && data == true) {
@@ -663,7 +652,7 @@ class TasksRepo {
 
   Future<Either<Failure, bool>> updateTaskBoss(Map<String, dynamic> datos,{required String taskId,}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskBossById(user!,taskId: taskId),
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: taskId),
       data: datos,
       builder: (data) {
         if (data is! ServerFailure && data == true) {

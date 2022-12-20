@@ -42,7 +42,7 @@ class AppDialogs {
     await DialogWidget.showCustomDialog(
       context: context,
       dialogWidgetState: DialogWidgetState.correct,
-      title: tr(context).addTaskDone,
+      title: message,
       textButton: tr(context).oK,
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);
@@ -56,6 +56,18 @@ class AppDialogs {
       context: context,
       dialogWidgetState: DialogWidgetState.warning,
       title: 'Rellena todos los campos',
+      textButton: tr(context).oK,
+      onPressed: () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+  }
+
+  static Future showWarningAddRange(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.warning,
+      title: tr(context).rangeAdd,
       textButton: tr(context).oK,
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);

@@ -65,7 +65,7 @@ class CustomSelectWeekDays extends Container {
                       ),
                     ),
                     onSelect: (values) {
-                      print(values);
+                      //print(values);
                     },
                   ),
                   SizedBox(
@@ -89,7 +89,7 @@ class CustomSelectWeekDays extends Container {
                       ),
                     ),
                     onSelect: (values) {
-                      print(values);
+                     // print(values);
                       days = desSelectedDays;
                     },
                   ),

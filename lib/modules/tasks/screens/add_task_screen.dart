@@ -10,15 +10,13 @@ import 'package:neurocheck/modules/tasks/components/forms/name_task/name_task_pr
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/screens/popup_page_nested.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/utils/dialogs.dart';
-import '../../../core/utils/flush_bar_component.dart';
-import '../../../core/widgets/custom_text.dart';
 import '../../../core/widgets/custom_tile_component.dart';
+import '../../../core/widgets/loading_indicators.dart';
 import '../../simple_notifications/notifications.dart';
 import '../components/forms/days/multi_choice_provider.dart';
 import '../components/forms/days/switch_setting_section_component.dart';
@@ -28,16 +26,14 @@ import '../components/forms/range/time_picker_component.dart';
 import '../components/forms/repetitions/repe_noti_component.dart';
 import '../repos/task_repo.dart';
 import '../repos/utilities.dart';
-import '../viewmodels/task_to_do.dart';
+import '../viewmodels/task_provider.dart';
+
 
 class AddTaskScreen extends HookConsumerWidget {
   const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
-    var userRepo = ref.watch(userRepoProvider);
-    var taskRepo = ref.watch(tasksRepoProvider);
-
     //empezaría en true
     //var switchValue = !ref.watch(switchButtonProvider);
     var nameProvider = ref.read(nameTaskProvider.notifier);
@@ -167,81 +163,73 @@ class AddTaskScreen extends HookConsumerWidget {
                       range.getfinHour(),
                       repetitions.getMinuteInt())
                   ?*/
-              CustomButton(
-                      text: 'Añadir',
-                      onPressed: () async {
-                        log('repetitions ${repetitions.getHr()}');
-                        bool ok =
-                            true; //checkRange(range.getIniHour(), range.getfinHour(), repetitions.getHr());
-                        String isNotificationSet = 'false';
-                        if (ok) {
-                          if (days.tags.toString() == '[]') {
-                            days.tags.add(getStrDay(DateTime.now().weekday));
-                          }
-                          if (repetitions.getMinuteInt() +
-                                  repetitions.getHourInt() !=
-                              0) {
-                            //para luego poder cancelar las notificaciones
-                            List<int> id = [];
+              Consumer(
+                builder: (context, ref, child) {
+                  final taskLoading = ref.watch(
+                    taskProvider.select((state) =>
+                        state.maybeWhen(
+                            loading: () => true, orElse: () => false)),
+                  );
+                  return taskLoading
+                      ? LoadingIndicators.instance.smallLoadingAnimation(
+                    context,
+                    width: Sizes.loadingAnimationButton(context),
+                    height: Sizes.loadingAnimationButton(context),
+                  )
+                      : CustomButton(
+                    text: 'Añadir',
+                    onPressed: () async {
 
-                            id = await setNotiHours(
-                                range.getIniHour(),
-                                range.getfinHour(),
-                                repetitions.getMinuteInt(),
-                                saveDays(days.tags.toString()),
-                                nameProvider.getNameTask());
+                      String isNotificationSet = 'false';
+                        if (days.tags.toString() == '[]') {
+                          days.tags.add(getStrDay(DateTime
+                              .now()
+                              .weekday));
+                        }
+                      if (repetitions.getBoth() != 0) {
+                          //para luego poder cancelar las notificaciones
+                          List<int> id = [];
+                          if(range.getSumaRange() > repetitions.getBoth()) {
+                              id = await setNotiHours(
+                                  range.getIniHour(),
+                                  range.getfinHour(),
+                                  repetitions.getMinuteInt(),
+                                  saveDays(days.tags.toString()),
+                                  nameProvider.getNameTask());
 
-                            isNotificationSet = 'true';
+                              isNotificationSet = 'true';
 
-                            TaskModel task = TaskModel(
-                                taskName: nameProvider.getNameTask(),
-                                days: saveDays(days.tags.toString()),
-                                idNotification: id,
-                                notiHours: notiHours(range.getIniHour(),
-                                    range.getfinHour(), repetitions.getHr()),
-                                begin: range.getIniHour(),
-                                end: range.getfinHour(),
-                                editable: 'true',
-                                done: 'false',
-                                numRepetition: repetitions.getMinuteInt(),
-                                lastUpdate: Timestamp.fromDate(DateTime.now()),
-                                taskId: '',
-                                isNotificationSet: isNotificationSet);
-
-                            taskRepo.addDocToFirebase(task).then((value) {
-                              /* FlushBarNotification.showError(
-                          context: context, message: tr(context).addTaskDone);*/
-                              AppDialogs.addTaskOK(context,
-                                  message: tr(context).addTaskDone);
-
-                              range.clean();
-                              range.ref.refresh(timeRangeButtonProvider);
-
-                              days.clean();
-                              days.ref.refresh(selectDaysMultiChoice);
-
-                              repetitions.clean();
-                              repetitions.ref.refresh(timeRepetitionProvider);
-
-                              ref.refresh(switchButtonProviderAdd);
-                              ref.refresh(switchButtonProvider);
+                              TaskModel task = TaskModel(
+                                  taskName: nameProvider.getNameTask(),
+                                  days: saveDays(days.tags.toString()),
+                                  idNotification: id,
+                                  notiHours: notiHours(range.getIniHour(),
+                                      range.getfinHour(), repetitions.getBt()),
+                                  begin: range.getIniHour(),
+                                  end: range.getfinHour(),
+                                  editable: 'true',
+                                  done: 'false',
+                                  numRepetition: repetitions.getBoth(),
+                                  lastUpdate:
+                                      Timestamp.fromDate(DateTime.now()),
+                                  taskId: '',
+                                  isNotificationSet: isNotificationSet);
 
                               ref
-                                  .watch(timeRepetitionProvider.notifier)
-                                  .setChoosen(true);
-
-                              nameController.clear();
-                            });
+                                  .read(taskProvider.notifier)
+                                  .addDocToFirebase(context, task);
+                            }else{
+                              AppDialogs.showWarningAddRange(context);
+                            }
                           } else {
-                            //rango es 0
-                            AppDialogs.showWarning(context);
-                          }
-                        } else {
-                          AppDialogs.showErrorNeutral(context,
-                              message: tr(context).rangeWarning);
-                        }
-                      },
-                    ),
+                        AppDialogs.showErrorNeutral(context,
+                            message: tr(context).rangeWarning);
+                      }
+                    },
+                  );
+                }
+              )
+
               //tasksRepoProvider
               //
               //const LogoutComponent(),

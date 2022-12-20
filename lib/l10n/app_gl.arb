@@ -89,12 +89,14 @@
   },
   "taskName" : "Nome da tarefa",
   "addTaskDone": "Tarefa engadida corretamente",
+  "modTaskDone": "Tarea modificada correctamente",
   "hourRange": "Rango horario: ",
   "repTime": "Repetir cada: ",
   "days": "días",
   "rangeWarning": "Non podes poner mais notificacions que minutos hai no teu rango horario",
   "repeatAdd": "Repetición",
   "delete": "Borrar",
+  "rangeAdd" : "Non podes repetir a tarefa mais veces que minutos hai no rango",
 
   "@_ROL": {
   },

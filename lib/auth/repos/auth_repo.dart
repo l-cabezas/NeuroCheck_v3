@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/failures.dart';
@@ -38,30 +39,38 @@ class AuthRepo {
 
   Future<Either<Failure, UserModel>> signSupervisedIn(
       BuildContext context, {
-        required String email,
-        required String password,
+        /*required String email,
+        required String password,*/
         required String emailSupervised,
         required String passwordSupervised,
       }) async {
     try {
       //iniciamos sesion con el user del supervisado para conseguir su uid
+
+      GetStorage().write('emailSup', emailSupervised);
+      GetStorage().write('passwSup', passwordSupervised);
+
       final userCredentialSupervised = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailSupervised,
           password: passwordSupervised);
-      var uidSupervised = userCredentialSupervised.user!.uid;
-      log('supervised: ' + uidSupervised);
+      GetStorage().write('uidSup', userCredentialSupervised.user!.uid);
+      //var uidSupervised = userCredentialSupervised.user!.uid;
+      log('supervised: ' + GetStorage().read('uidSup'));
       try{
         //cerramos sesión e iniciamos sesión con nuestra cuenta
         await FirebaseAuth.instance.signOut();
 
         final userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+            .signInWithEmailAndPassword(email: GetStorage().read('email'), password: GetStorage().read('passw'));
 
-        log('userCredential: ' + userCredential.toString());
-        log('supervised2: ' + uidSupervised);
+        /*log('userCredential: ' + userCredential.toString());
+        log('supervised2: ' + uidSupervised);*/
 
         //User user, String? rol, String? name, String? uidSupervised
-        return Right(UserModel.fromUserCredential(userCredential.user!,'supervised','' ,uidSupervised));
+        return Right(
+            UserModel.fromUserCredential(userCredential.user!,'supervised','' ,GetStorage().read('uidSup')
+            )
+        );
 
       }on FirebaseAuthException catch (e) {
         final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/errors/failures.dart';
@@ -39,7 +40,10 @@ class UserRepo {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
           uid = userModel?.uId;
           uidSuper = userModel?.uidSupervised;
-          addStringToSFRol(userModel?.rol);
+          //addStringToSFRol(userModel?.rol);
+          GetStorage().write('rol', userModel?.rol);
+          GetStorage().write('uidUsuario', userModel?.uId);
+          GetStorage().write('uidSup', userModel?.uidSupervised);
           //Other way to 'extract' the data
           return Right(userModel);
         } else {
@@ -49,20 +53,13 @@ class UserRepo {
     );
   }
 
-  addStringToSFRol(String? rol) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('rolUsuario', rol!);
-    log('SETT STRING USER REPO ${rol}');
-  }
+  //----------------------------------------------------------------------------
 
-  Future<String?> getStringValuesSFRol() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    String? stringValue = prefs.getString('rolUsuario');
-    log('GET STRING USER REPO ${stringValue}');
-    return stringValue;
-  }
 
+
+
+
+ //------------------------------------------------------------------------------
   Future<Either<Failure, UserModel?>> checkUidSup() async {
     return await _firebaseCaller.getData(
       path: FirestorePaths.userDocument(user!),

@@ -21,26 +21,26 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    var a = ref.watch(mainCoreProvider).checkValidez();
-    log('a $a');
     return
       Column(
         children: [
           Center(
             child: CustomText.h2(
-              context, color: AppColors.darkGray,'Verify el email insertado para poder usar la app'),
+              context, color: AppColors.darkGray,'Verifique su email para poder usar la app'),
           ),
           SizedBox(
             height: Sizes.vMarginSmall(context),
           ),
           Center(
             child: CustomText.h3(
-                context, color: AppColors.darkGray,'Si no tiene el correo reenvielo'),
+                context, color: AppColors.darkGray,'Revise si tiene el correo electrónico de verificacion '
+                '(si no le aparece baya a la seccion de spam) '
+                'y si no tiene el correo pulse el botón de reenviar y compruebe de nuevo'),
           ),
           SizedBox(
             height: Sizes.vMarginSmall(context),
           ),
-          //todo poner fotico o algo
+          //todo: poner fotico o algo
           //boton
           Consumer(
             builder: (context, ref, child) {
@@ -58,7 +58,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                 text: 'Reenviar',
                 onPressed: () {
                     ref.watch(authProvider.notifier)
-                        .sendEmailVerification(context,);
+                        .enviarEmailVerification(context);
 
                 },
               );
@@ -78,7 +78,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                 NavigationService.pushReplacementAll(
                   NavigationService.context,
                   isNamed: true,
-                  page: RoutePaths.coreSplash,
+                  page: RoutePaths.addSup,
                   arguments: {'offAll': true},
                 );
               }

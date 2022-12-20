@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/core/routing/app_router.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -87,8 +88,8 @@ class CardItemComponent extends ConsumerWidget {
                   isColored: true,
                   onPressed: () {
 
-                    ref.watch(tasksRepoProvider).checkTask(task: taskModel);
-                    ref.refresh(tasksRepoProvider);
+                    ref.watch(taskProvider.notifier).checkTask(task: taskModel);
+                    //ref.refresh(tasksRepoProvider);
                   },
                 )
                   : SizedBox(),
@@ -99,8 +100,8 @@ class CardItemComponent extends ConsumerWidget {
                   isColored: true,
                   onPressed: () {
 
-                    ref.watch(tasksRepoProvider).checkTaskBoss(task: taskModel);
-                    ref.refresh(tasksRepoProvider);
+                    ref.watch(taskProvider.notifier).checkTaskBoss(task: taskModel);
+                   // ref.refresh(tasksRepoProvider);
                   },
                 )
                     : SizedBox(),
@@ -113,9 +114,8 @@ class CardItemComponent extends ConsumerWidget {
                     onPressed: () {
                       //IR A PANTALLA DE MODIFICACION DE LA TAREA
                       //TODO
-                      ref.watch(tasksRepoProvider)
-                          .deleteSingleTask(taskModel: taskModel);
-                      ref.refresh(tasksRepoProvider);
+                      ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
+                     // ref.refresh(tasksRepoProvider);
                     },
                   )
                       : const SizedBox(),

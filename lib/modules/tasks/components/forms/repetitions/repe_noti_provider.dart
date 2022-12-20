@@ -25,6 +25,8 @@ class TimeRepetitionButton extends StateNotifier<String> {
 
   static String hr = '';
 
+  static String both = '';
+
   static String min = '';
 
   static bool chosen = true;
@@ -38,12 +40,19 @@ class TimeRepetitionButton extends StateNotifier<String> {
     return hr;
   }
 
+  String getBt(){
+    return both;
+  }
   String getMinute(){
     return min;
   }
 
   void setHr(String h){
      hr = h;
+  }
+
+  void setBoth(String bt){
+    both = bt;
   }
 
   void setMin(String m){
@@ -55,6 +64,10 @@ class TimeRepetitionButton extends StateNotifier<String> {
     hourInt = hour;
   }
 
+  int getBoth(){
+    log('**** HORA Y MIN ${minuteInt} + ${hourInt}');
+    return minuteInt;
+  }
   int getMinuteInt(){
     return minuteInt;
   }
@@ -85,7 +98,6 @@ class TimeRepetitionButton extends StateNotifier<String> {
   void setChoosen(bool c){
     chosen = c;
     ref.refresh(timeRepetitionProvider);
-    print('chosen ${chosen}');
   }
 
   clean(){

@@ -101,7 +101,7 @@ class CardUserDetailsComponent extends StatelessWidget {
   List<String> getDiasString(List<dynamic> numeros) {
     List<String> tags = [];
     numeros.forEach((element) {
-      print(element.toString());
+      //print(element.toString());
       if (element < 8) {
         //va de 0..7 no de 1..8
         tags.add(daysList.elementAt(element - 1));

@@ -5,11 +5,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/routing/navigation_service.dart';
 import 'package:neurocheck/modules/simple_notifications/notifications.dart';
 import 'package:neurocheck/modules/tasks/components/forms/days/switch_theme_provider.dart';
 import 'package:neurocheck/modules/tasks/components/toggle_theme_provider.dart';
+import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../../../core/services/localization_service.dart';
@@ -19,6 +21,7 @@ import '../../../../../core/widgets/custom_text.dart';
 import '../../../../../core/widgets/custom_tile_component.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/utils/flush_bar_component.dart';
+import '../../../core/widgets/loading_indicators.dart';
 import '../models/task_model.dart';
 import '../repos/task_repo.dart';
 import '../repos/utilities.dart';
@@ -31,22 +34,19 @@ import 'forms/repetitions/repe_noti_provider.dart';
 
 
 class ToggleChoiceComponent extends ConsumerWidget {
-  ToggleChoiceComponent( {required this.taskModel,Key? key})
+  ToggleChoiceComponent( {required this.context,required this.taskModel,Key? key})
       : super(key: key);
 
   final TaskModel taskModel;
+  BuildContext context;
 
   @override
   Widget build(BuildContext context, ref) {
     final toggleValue = ref.watch(toggleButtonProviderAdd);
-    final multiChoiceValue = ref.watch(selectDaysMultiChoice);
-    var switchValue = !ref.watch(switchButtonProvider);
-    var taskRepo = ref.watch(tasksRepoProvider);
-
+    var taskRepo = ref.watch(taskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
     var repetitions = ref.read(timeRepetitionProvider.notifier);
-    var userRepo = ref.watch(userRepoProvider);
 
 
     return Container(
@@ -67,29 +67,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                         SizedBox(
                           height: Sizes.vMarginSmall(context),
                         ),
-                        ToggleSwitch(
-                          minWidth: 160.0,
-                          //cornerRadius: 20.0,
-                          activeBgColors: [[Colors.green], [Colors.green]],
-                          activeFgColor: Colors.white,
-                          inactiveBgColor: AppColors.lightGray,
-                          inactiveFgColor: Colors.black,
-                          initialLabelIndex: (ref.read(switchButtonProviderAdd.notifier).state == true) ? 0 : 1,
-                          totalSwitches: 2,
-                          radiusStyle: true,
-                          labels: ['No repetir', 'Elegir días'],
-                          onToggle: (index) {
-                            print('switched to: $index');
-                            var i = (index == 0)
-                                ? true
-                                : false;
-
-                            ref.watch(switchButtonProviderAdd.notifier).changeState(change: i);
-                            switchValue = ref.read(switchButtonProviderAdd.notifier).state;
-                            log('SWITCH VALUE ${switchValue}');
-                          },
-                        ),
-                        SizedBox(height: Sizes.vMarginSmallest(context),),
+                        //SizedBox(height: Sizes.vMarginSmallest(context),),
                         ChooseDaySectionComponent([]),
 
                         SizedBox(height: Sizes.vMarginMedium(context),),
@@ -103,51 +81,46 @@ class ToggleChoiceComponent extends ConsumerWidget {
 
                                   }),
                               SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
-
-                              CupertinoButton(
+                              Consumer(
+                                  builder: (context, ref, child) {
+                                    final taskLoading = ref.watch(
+                                      taskProvider.select((state) =>
+                                          state.maybeWhen(loading: () => true, orElse: () => false)),
+                                    );
+                                    return taskLoading
+                                        ? LoadingIndicators.instance.smallLoadingAnimation(
+                                      context,
+                                      width: Sizes.loadingAnimationButton(context),
+                                      height: Sizes.loadingAnimationButton(context),
+                                    )
+                                  : CupertinoButton(
                                   child: CustomText.h4(context,'Ok',color: AppColors.blue),
                                   onPressed: () async {
-                                    var sup = userRepo.userModel?.uidSupervised;
                                     //para luego poder cancelar las notificaciones
                                     //si no es supervisor activamos las notis
 
-                                    if(sup != ''){
+                                    if(GetStorage().read('uidSup') != ''){
                                       //disp boss no hay notis
                                       //taskRepo.cancelNotification(taskModel.idNotification!);
-                                      taskRepo.updateTaskBoss({
+                                      taskRepo.updateTaskBoss(context,{
                                         'idNotification': [],
                                         'days': saveDays(days.tags.toString()),
                                         'lastUpdate': Timestamp.fromDate(DateTime.now()),
-                                        'oneTime': (!switchValue).toString(),
-                                        'isNotificationSet': 'false',
-                                      },
+                                        'isNotificationSet': 'false',},
                                           taskId: taskModel.taskId
-                                      ).then((value) {
-                                        FlushBarNotification.showError(
-                                            context: context,
-                                            message: 'Días Modificados');
-                                    //    NavigationService.goBack(context);
-                                      });
+                                      );
                                     }else{
                                       //se cambian días, borramos notificacion y cambiamos días, si es oneTime y su ultima mod
                                       taskRepo.cancelNotification(taskModel.idNotification!);
-                                      taskRepo.updateTask({
+                                      taskRepo.updateTask(context,{
                                         'days': saveDays(days.tags.toString()),
                                         'lastUpdate': Timestamp.fromDate(DateTime.now()),
-                                        'oneTime': (!switchValue).toString(),
                                         'isNotificationSet': 'false',
                                       },
                                           taskId: taskModel.taskId
-                                      ).then((value) {
-                                        FlushBarNotification.showError(
-                                            context: context,
-                                            message: 'Días Modificados');
-                                        //NavigationService.goBack(context);
-                                      });
+                                      );
                                     }
-
-
-
+                                  });
                                   })
                             ]
                         ),
@@ -189,20 +162,26 @@ class ToggleChoiceComponent extends ConsumerWidget {
 
                                 }),
                             SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
-
-                            CupertinoButton(
+                            Consumer(
+                                builder: (context, ref, child) {
+                                  final taskLoading = ref.watch(
+                                    taskProvider.select((state) =>
+                                        state.maybeWhen(loading: () => true, orElse: () => false)),
+                                  );
+                                  return taskLoading
+                                      ? LoadingIndicators.instance.smallLoadingAnimation(
+                                    context,
+                                    width: Sizes.loadingAnimationButton(context),
+                                    height: Sizes.loadingAnimationButton(context),
+                                  )
+                                      : CupertinoButton(
                                 child: CustomText.h4(context,'Ok',color: AppColors.blue),
                                 onPressed: (){
-                                  var sup = userRepo.userModel?.uidSupervised;
-                                  //para luego poder cancelar las notificaciones
-                                  //si no es supervisor activamos las notis
 
-                                  //hora inicio y fin
-
-                                  if(sup != ''){
+                                  if(GetStorage().read('uidSup') != ''){
                                     //disp boss no hay notis
                                     //taskRepo.cancelNotification(taskModel.idNotification!);
-                                    taskRepo.updateTaskBoss({
+                                    taskRepo.updateTaskBoss(context,{
                                       'begin': range.getIniHour(),
                                       'end': range.getfinHour(),
                                       'idNotification': [],
@@ -210,30 +189,22 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                       'isNotificationSet': 'false',
                                     },
                                         taskId: taskModel.taskId
-                                    ).then((value) {
-                                      FlushBarNotification.showError(
-                                          context: context,
-                                          message: 'Rango horario modificado');
-                                  //    NavigationService.goBack(context);
-                                    });
+                                    );
+
                                   }else{
                                     //se cambian días, borramos notificacion y cambiamos días, si es oneTime y su ultima mod
                                     taskRepo.cancelNotification(taskModel.idNotification!);
-                                    taskRepo.updateTask({
+                                    taskRepo.updateTask(context,{
                                       'begin': range.getIniHour(),
                                       'end': range.getfinHour(),
                                       'lastUpdate': Timestamp.fromDate(DateTime.now()),
                                       'isNotificationSet': 'false',
                                     },
                                         taskId: taskModel.taskId
-                                    ).then((value) {
-                                      FlushBarNotification.showError(
-                                          context: context,
-                                          message: 'Rango horario modificado');
-                                   //   NavigationService.goBack(context);
-                                    });
+                                    );
+
                                   }
-                                })
+                                });})
                           ]
                       ),
                     ])
@@ -271,49 +242,49 @@ class ToggleChoiceComponent extends ConsumerWidget {
 
                               }),
                           SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
+                          Consumer(
+                              builder: (context, ref, child) {
+                                final taskLoading = ref.watch(
+                                  taskProvider.select((state) =>
+                                      state.maybeWhen(loading: () => true, orElse: () => false)),
+                                );
+                                return taskLoading
+                                    ? LoadingIndicators.instance.smallLoadingAnimation(
+                                  context,
+                                  width: Sizes.loadingAnimationButton(context),
+                                  height: Sizes.loadingAnimationButton(context),
+                                )
+                                    : CupertinoButton(
+                                    child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                    onPressed: (){
 
-                          CupertinoButton(
-                              child: CustomText.h4(context,'Ok',color: AppColors.blue),
-                              onPressed: (){
-                                var sup = userRepo.userModel?.uidSupervised;
-                                //para luego poder cancelar las notificaciones
-                                //si no es supervisor activamos las notis
-
-                                //cada cuantos minutos se repite
-
-                                if(sup != ''){
+                                      if(GetStorage().read('uidSup') != ''){
                                   //disp boss no hay notis
                                   //taskRepo.cancelNotification(taskModel.idNotification!);
-                                  taskRepo.updateTaskBoss({
+                                  /*taskRepo.updateTaskBoss(context,{
                                     'numRepetition': repetitions.getHr(),
                                     'idNotification': [],
                                     'lastUpdate': Timestamp.fromDate(DateTime.now()),
                                     'isNotificationSet': 'false',
                                   },
                                       taskId: taskModel.taskId
-                                  ).then((value) {
-                                    FlushBarNotification.showError(
-                                        context: context,
-                                        message: 'Tiempo notificicaciones modificado');
-                             //       NavigationService.goBack(context);
-                                  });
+                                  );*/
+                                        log('**** TOGGLE CHOICE REPETITION ${repetitions.getHr()}');
                                 }else{
                                   //se cambian días, borramos notificacion y cambiamos días, si es oneTime y su ultima mod
-                                  taskRepo.cancelNotification(taskModel.idNotification!);
-                                  taskRepo.updateTask({
+                                  /*taskRepo.cancelNotification(taskModel.idNotification!);
+                                  taskRepo.updateTask(context,{
                                     'numRepetition': repetitions.getHr(),
                                     'lastUpdate': Timestamp.fromDate(DateTime.now()),
                                     'isNotificationSet': 'false',
                                   },
                                       taskId: taskModel.taskId
-                                  ).then((value) {
-                                    FlushBarNotification.showError(
-                                        context: context,
-                                        message: 'Tiempo notificicaciones modificado');
-                            //        NavigationService.goBack(context);
-                                  });
+                                  );*/
+
+                                  log('**** TOGGLE CHOICE REPETITION ${repetitions.getHr()}');
+
                                 }
-                              })
+                              });})
                         ]
                     ),
                   ]),
@@ -354,7 +325,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
   List<String> getDiasString(List<dynamic> numeros) {
     List<String> tags = [];
     numeros.forEach((element) {
-      print(element.toString());
+      //print(element.toString());
       if (element < 8) {
         //va de 0..7 no de 1..8
         tags.add(daysList.elementAt(element - 1));
