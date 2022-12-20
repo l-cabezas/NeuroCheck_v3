@@ -46,6 +46,11 @@
   "questionrol" : "¿Quieres desempeñar el rol de supervisor?",
   "yes" : "Sí",
   "no" : "No",
+  "send": "Enviar",
+  "re_send" : "Reenviar",
+  "verifyTitle": "Verifique su email para poder usar la app",
+  "cancelBtn": "Cancelar",
+  "verifyMessage" : "Revise si tiene el correo electrónico de verificacion (si no le aparece vaya a la seccion de spam). Si no tiene el correo pulse el botón de reenviar y compruebe de nuevo",
   "@_GENERAL": {
   },
   "spanish": "Español",

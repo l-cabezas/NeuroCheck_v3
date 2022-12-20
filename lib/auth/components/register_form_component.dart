@@ -67,7 +67,6 @@ class RegisterFormComponent extends HookConsumerWidget {
               },),
             onFieldSubmitted: (value) {
               if (loginFormKey.currentState!.validate()) {
-                log('register_form_component $checkBoxValue');
                 ref.read(authProvider.notifier).createUserWithEmailAndPassword(
                   context,
                   email: emailController.text,
@@ -97,7 +96,6 @@ class RegisterFormComponent extends HookConsumerWidget {
                   : CustomButton(
                 text: tr(context).register,
                 onPressed: () {
-                  log('register_form_component2 $checkBoxValue');
                   if (loginFormKey.currentState!.validate()) {
                     ref.watch(authProvider.notifier)
                         .createUserWithEmailAndPassword(

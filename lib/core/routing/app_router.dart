@@ -67,7 +67,7 @@ class AppRouter {
 
       case RoutePaths.verifyEmail:
         return NavigationSlideFromSide(
-          const VerifyEmailScreen(),
+           VerifyEmailScreen(),
           settings: settings,
           transitionDuration: const Duration(microseconds: 700),
         );

@@ -55,6 +55,11 @@
   "theme": "Tema",
   "language": "Idioma",
   "selectYourPreferredLanguage": "Escolle o teu idioma de preferencia",
+  "send": "Enviar",
+  "re_send" : "Reenviar",
+  "cancelBtn": "Cancelar",
+  "verifyTitle": "Verifique o seu email para poder usar a app",
+  "verifyMessage" : "Revise se ten o correo electrónico de verificacion (se non lle aparece mire na seccion de spam). Se non ten o correo pulse no botón de reenviar e comprobe de novo",
   "@_PROFILE": {
   },
   "myProfile": "O meu Perfil",

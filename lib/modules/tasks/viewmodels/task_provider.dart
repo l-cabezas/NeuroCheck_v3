@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../auth/repos/auth_repo.dart';
 import '../../../auth/repos/user_repo.dart';
+import '../../../auth/viewmodels/auth_provider.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';

@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/models/user_model.dart';
 import '../../auth/repos/auth_repo.dart';
 import '../../auth/repos/user_repo.dart';
+import '../../auth/viewmodels/auth_provider.dart';
 import '../errors/failures.dart';
 import '../services/init_services/connectivity_service.dart';
 import '../services/init_services/firebase_messaging_service.dart';

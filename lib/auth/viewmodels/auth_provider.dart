@@ -19,6 +19,10 @@ StateNotifierProvider.autoDispose<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(ref);
 });
 
+final bossValidProvider = StreamProvider<bool?>((ref) {
+    return ref.watch(authRepoProvider).isEmailverified();
+});
+
 class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier(this.ref) : super(const AuthState.available()) {
     _mainCoreProvider = ref.watch(mainCoreProvider);
@@ -122,28 +126,25 @@ class AuthNotifier extends StateNotifier<AuthState> {
       }) async {
     state = const AuthState.loading();
     NavigationService.removeAllFocus(context);
-    final result = await _authRepo.createUserWithEmailAndPassword(
-      context,
-      email: email,
-      password: password,
-      name: name,
-      rol: rol
-    );
-    await result.fold(
-          (failure) {
-        state = AuthState.error(errorText: failure.message);
-        AppDialogs.showErrorDialog(context, message: failure.message);
-      },
-          (user) async {
-        UserModel userModel = user;
-        GetStorage().write('uidUsuario', user.uId);
-        GetStorage().write('email', email);
-        GetStorage().write('passw', password);
-        GetStorage().write('rol', rol);
+    //no tiene sentido registrar a un supervisor sin verificar el email
+      final result = await _authRepo.createUserWithEmailAndPassword(context,
+          email: email, password: password, name: name, rol: rol);
+      await result.fold(
+        (failure) {
+          state = AuthState.error(errorText: failure.message);
+          AppDialogs.showErrorDialog(context, message: failure.message);
+        },
+        (user) async {
+          UserModel userModel = user;
+          GetStorage().write('uidUsuario', user.uId);
+          GetStorage().write('email', email);
+          GetStorage().write('passw', password);
+          GetStorage().write('rol', rol);
+          AuthState.loading();
+          await submitRegister(context, userModel);
+        },
 
-        await submitRegister(context, userModel);
-      },
-    );
+      );
   }
 //TODO: save passw nuevo
   sendPasswordResetEmail(
@@ -191,7 +192,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   Future submitRegister(BuildContext context, UserModel userModel) async {
-    log(userModel.toMap().toString());
+
     final result = await _mainCoreProvider.setUserToFirebase(userModel);
     await result.fold(
           (failure) {
@@ -202,9 +203,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
           openCollection(userModel);
           subscribeUserToTopic();
           //que solo se lo pida al supervisor
-          if((userModel.rol != 'supervisor')) {
+          if((userModel.rol == 'supervisor')) {
           await _authRepo.sendEmailVerification(context);
-        }
+        } else{
+            AuthState.available();
+          }
 
         if (GetStorage().read('rol') != 'supervisor') {
           setSupervisor(false);
@@ -225,7 +228,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   navigationToHomeScreen(BuildContext context) {
-    NavigationService.pushReplacementAll(
+    NavigationService.pushReplacement(
       context,
       isNamed: true,
       page: RoutePaths.home,
@@ -244,7 +247,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     NavigationService.pushReplacementAll(
       context,
       isNamed: true,
-      page: RoutePaths.authLogin,
+      page: RoutePaths.home,
     );
   }
 }

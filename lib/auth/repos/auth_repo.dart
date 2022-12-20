@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:neurocheck/auth/viewmodels/auth_state.dart';
 
 import '../../core/errors/exceptions.dart';
 import '../../core/errors/failures.dart';
@@ -13,6 +14,7 @@ import '../models/user_model.dart';
 final authRepoProvider = Provider<AuthRepo>((ref) => AuthRepo());
 
 class AuthRepo {
+  const AuthRepo();
   //registro y login
   //createUserWithEmailAndPassword
   Future<Either<Failure, UserModel>> signInWithEmailAndPassword(
@@ -25,7 +27,11 @@ class AuthRepo {
           .signInWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
       //MOD
+      GetStorage().write('uidUsuario', userCredential.user?.uid);
+      GetStorage().write('email', email);
+      GetStorage().write('passw', password);
       return Right(UserModel.fromUserCredential(userCredential.user!,'','',''));
+
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
       return Left(ServerFailure(message: errorMessage));
@@ -104,6 +110,10 @@ class AuthRepo {
       final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
+      GetStorage().write('uidUsuario', userCredential.user?.uid);
+      GetStorage().write('email', email);
+      GetStorage().write('passw', password);
+      GetStorage().write('rol', rol);
 
       return Right(UserModel.fromUserCredential(userCredential.user!,rol, name,''));
     } on FirebaseAuthException catch (e) {
@@ -137,12 +147,29 @@ class AuthRepo {
   }
 
   isVerifiedEmail() async {
-    return await FirebaseAuth.instance.currentUser!.reload();;
+    return await FirebaseAuth.instance.currentUser!.reload();
+  }
+
+  Stream<bool?> isEmailverified() async* {
+    bool? enabled;
+    while (true) {
+      try {
+        await FirebaseAuth.instance.currentUser!.reload();
+        bool? isEnabled = FirebaseAuth.instance.currentUser?.emailVerified;
+        if (enabled != isEnabled) {
+          enabled = isEnabled;
+          yield enabled;
+        }
+      }
+      catch (error) {}
+      await Future.delayed(Duration(seconds: 5));
+    }
   }
 
   Future<Either<Failure, bool>> sendEmailVerification(
       BuildContext context,) async {
     try {
+      AuthState.loading();
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       return const Right(true);
     } on FirebaseAuthException catch (e) {
@@ -154,6 +181,8 @@ class AuthRepo {
       return Left(ServerFailure(message: errorMessage));
     }
   }
+
+
 
 
 
