@@ -75,20 +75,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
+
   signSupervisedIn(
       BuildContext context, {
-        /*required String email,
-        required String password,*/
         required String emailSupervised,
         required String passwordSupervised,
       }) async {
     state = const AuthState.loading();
     NavigationService.removeAllFocus(context);
-    final result = await _authRepo.signSupervisedIn(
-      context,
-      /*email: email,
-      password: password,*/
-      emailSupervised: emailSupervised,
+    final result = await _authRepo.signSupervisedIn(context,
+        emailSupervised: emailSupervised,
       passwordSupervised: passwordSupervised
     );
     await result.fold(
@@ -98,19 +94,30 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
-
         GetStorage().write('emailSup',emailSupervised);
         GetStorage().write('passwSup',passwordSupervised);
-
         _mainCoreProvider.setSupervisedUid(userModel);
         //
         subscribeUserToTopic();
-        NavigationService.pushReplacementAll(
-          NavigationService.context,
-          isNamed: true,
-          page: RoutePaths.coreSplash,
-          arguments: {'offAll': true},
-        );
+        UserModel? sup = await _mainCoreProvider.getUserData();
+        // si el supervisado tiene un supervisado mala cosa
+        log ('**** signSupervisedIn UID ${sup?.uidSupervised} y ROL ${sup?.rol}');
+        if(sup?.rol == 'supervisor'){
+          NavigationService.pushReplacementAll(
+            NavigationService.context,
+            isNamed: true,
+            page: RoutePaths.deleteSup,
+            arguments: {'offAll': true},
+          );
+        }else{
+          NavigationService.pushReplacementAll(
+            NavigationService.context,
+            isNamed: true,
+            page: RoutePaths.coreSplash,
+            arguments: {'offAll': true},
+          );
+        }
+
         //navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
       },

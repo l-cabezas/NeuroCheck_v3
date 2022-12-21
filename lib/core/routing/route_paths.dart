@@ -10,6 +10,7 @@ class RoutePaths {
   static const map = '$homeBase/map';
 
   static const addSup = '/addSuper';
+  static const deleteSup = '/deleteSup';
   ///HomeNestedRoutes
   static const home = 'home';
 

@@ -10,16 +10,11 @@ import '../../../core/widgets/custom_text_field.dart';
 
 class RegisterSupervisedTextFieldsSection extends StatelessWidget {
   const RegisterSupervisedTextFieldsSection({
-    /*required this.emailController,
-    required this.passwordController,*/
     required this.emailControllerSupervised,
     required this.passwordControllerSupervised,
     required this.onFieldSubmitted,
     Key? key,
   }) : super(key: key);
-
-  /*final TextEditingController emailController;
-  final TextEditingController passwordController;*/
 
   final TextEditingController emailControllerSupervised;
   final TextEditingController passwordControllerSupervised;
@@ -51,33 +46,6 @@ class RegisterSupervisedTextFieldsSection extends StatelessWidget {
 
   _sharedItemComponent(BuildContext context) {
     return [
-      /*CustomText.h3(context, tr(context).askYourDates),
-      SizedBox(height: Sizes.textFieldVMarginDefault(context)),
-      CustomTextField(
-        context,
-        key: const ValueKey('login_email'),
-        hintText: tr(context).email,
-        controller: emailController,
-        validator: Validators.instance.validateEmail(context),
-        textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.emailAddress,
-        suffixIcon: Icon(PlatformIcons(context).mail),
-      ),
-
-      CustomTextField(
-        context,
-        key:  const ValueKey('login_password'),
-        hintText: tr(context).password,
-        controller: passwordController,
-        validator: Validators.instance.validateLoginPassword(context),
-        textInputAction: TextInputAction.go,
-        obscureText: true,
-        suffixIcon: const Icon(Icons.password),
-        onFieldSubmitted: onFieldSubmitted,
-      ),
-
-      SizedBox(height: Sizes.textFieldVMarginDefault(context)),
-*/
       CustomText.h3(context, tr(context).askDates),
 
       SizedBox(height: Sizes.textFieldVMarginDefault(context)),

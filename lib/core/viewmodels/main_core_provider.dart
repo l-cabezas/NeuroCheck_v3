@@ -48,20 +48,7 @@ class MainCoreProvider {
     }
   }
 
-  Future<SharedPreferences> getPreferences() async {
-    return await SharedPreferences.getInstance();
-  }
 
-  setPreferences() async {
-    var prefs = await SharedPreferences.getInstance();
-
-    log('ROL ${_userRepo.getUidSup()}');
-    /*prefs.setString('rol', user.rol ?? 'no');
-    prefs.setString('prueba', 'prueba');
-    final myString = prefs.getString('rol') ?? '';
-    log('SHARED PREFERENCES ${prefs.getString('rol')}');
-    log('SHARED PREFERENCES PRUEBA ${prefs.getString('prueba')}');*/
-  }
 
   String? getCurrentUserAuthUid() {
     return FirebaseAuth.instance.currentUser?.uid;
@@ -128,21 +115,20 @@ class MainCoreProvider {
   }
 
   Future<Either<Failure, bool>> openCollection(UserModel userModel) async {
-    final result = await _userRepo.openCollection(userModel);
+    await _userRepo.openCollection(userModel);
     return _userRepo.setUserData(userModel);
-    /*return await result.fold(
+  }
+
+  Future<UserModel?> getUserData() async {
+    final result = await _userRepo.getUserData(GetStorage().read('uidSup')!);
+    return result.fold(
           (failure) {
-            return Left(failure);
-          },
-          (userData) async {
-            if (userData == null) {
-              log('openCollection');
-              return _userRepo.setUserData(userModel);
-            } else {
-              return const Right(true);
-            }
-          },
-    );*/
+        return null;
+      },
+          (userModel) {
+        return userModel;
+      },
+    );
   }
 
 
@@ -152,11 +138,6 @@ class MainCoreProvider {
 
    GetStorage().write('uidSup',userModel.uidSupervised);
 
-    /*if (result){
-      return true;
-    } else {
-    return false;
-    }*/
   }
 
   Future<bool> isBossValid() async {

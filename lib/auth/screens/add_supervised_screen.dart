@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/core/widgets/custom_app_bar_widget.dart';
 
-import '../../../core/screens/popup_page.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/sizes.dart';
+import '../../core/screens/popup_page.dart';
+import '../../core/styles/app_colors.dart';
+import '../../core/styles/sizes.dart';
 import '../components/register_supervised_component.dart';
 
 class AddSupervisedScreen extends StatelessWidget {

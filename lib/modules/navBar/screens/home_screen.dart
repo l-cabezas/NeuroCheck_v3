@@ -11,7 +11,7 @@ import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
 import 'package:neurocheck/modules/tasks/screens/boss/completed_boss_tasks_screen.dart';
 import '../../../auth/repos/user_repo.dart';
 import '../../home/viewmodels/noti_providers.dart';
-import '../../rol/screens/add_supervised_screen.dart';
+import '../../../auth/screens/add_supervised_screen.dart';
 import '../../tasks/screens/add_task_screen.dart';
 import '../../tasks/screens/boss/add_task_boss_screen.dart';
 import '../../tasks/screens/boss/show_supervisor_tasks.dart';

@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:neurocheck/auth/screens/delete_sup_screen.dart';
 import 'package:neurocheck/auth/screens/register_screen.dart';
 import 'package:neurocheck/auth/screens/reset_screen.dart';
 import 'package:neurocheck/auth/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/routing/route_paths.dart';
-import 'package:neurocheck/modules/rol/screens/add_supervised_screen.dart';
+import 'package:neurocheck/auth/screens/add_supervised_screen.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/screens/show_tasks_screen.dart';
 import 'package:neurocheck/modules/tasks/screens/add_task_screen.dart';
@@ -75,6 +76,13 @@ class AppRouter {
       case RoutePaths.addSup:
         return NavigationSlideFromSide(
           const AddSupervisedScreen(),
+          settings: settings,
+          transitionDuration: const Duration(microseconds: 700),
+        );
+
+      case RoutePaths.deleteSup:
+        return NavigationSlideFromSide(
+          const DeleteSupScreen(),
           settings: settings,
           transitionDuration: const Duration(microseconds: 700),
         );

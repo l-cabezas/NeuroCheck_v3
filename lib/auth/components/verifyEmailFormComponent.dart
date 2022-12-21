@@ -29,6 +29,22 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
      if(authValid!){
        return Column(
            children: [
+             Center(
+               child: CustomText.h2(
+                   context, color: AppColors.darkGray,
+                   'Registrar supervisado'),
+             ),
+             SizedBox(
+               height: Sizes.vMarginMedium(context),
+             ),
+             Center(
+               child: CustomText.h3(
+                   context, color: AppColors.darkGray,
+                   'A la hora de usar esta cuenta como rol de supervisor tiene que tener un usuario a su cargo'),
+             ),
+             SizedBox(
+               height: Sizes.vMarginMedium(context),
+             ),
                Center(
                  child: CustomButton(
                        text: 'Registrar supervisado',

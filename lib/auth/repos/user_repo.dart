@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -53,11 +54,42 @@ class UserRepo {
       },
     );
   }
+   deleteUserRepo(UserModel userData) async {
+    await _firebaseCaller.deleteAllCollectionData(
+      path: FirestorePaths.userUId(userData.uId),
+    );
+  }
 
-  //----------------------------------------------------------------------------
 
+/*  Future<Either<Failure, bool>> deleteUserAuth(
+      BuildContext context, {
+        required String email,
+      }) async {
+    try {
+      final userCredentialSupervised = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: GetStorage().read('emailSup'),
+          password:  GetStorage().read('passwSup'));
 
+      await deleteUserRepo(GetStorage().read('uidSup'));
+      await userCredentialSupervised.user?.delete();
+      GetStorage().write('emailSup', '');
+      GetStorage().write('passwSup', '');
+      GetStorage().write('uidSup', '');
 
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: GetStorage().read('email'),
+          password:  GetStorage().read('passw'));
+
+      return const Right(true);
+    } on FirebaseAuthException catch (e) {
+      final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
+      return Left(ServerFailure(message: errorMessage));
+    } catch (e) {
+      log(e.toString());
+      final errorMessage = Exceptions.errorMessage(e);
+      return Left(ServerFailure(message: errorMessage));
+    }
+  }*/
 
 
  //------------------------------------------------------------------------------
@@ -90,7 +122,6 @@ class UserRepo {
       },
     );
   }
-
   // guardamos los datos del usuario en firebase
   Future<Either<Failure, bool>> setUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
@@ -183,6 +214,24 @@ class UserRepo {
       builder: (data) {
         if (data is! ServerFailure && data == true) {
           userModel = userModel!.copyWith(image: imageUrl);
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  deleteSupUid(String uid) async {
+    return await _firebaseCaller.setData(
+      path: FirestorePaths.userUId(uid),
+      data: {
+        "uidSupervised": ''
+      },
+      merge: true,
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          //userModel = userModel!.copyWith(uidSupervised: user.uidSupervised);
           return Right(data);
         } else {
           return Left(data);

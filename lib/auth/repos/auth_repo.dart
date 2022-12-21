@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:neurocheck/auth/repos/user_repo.dart';
 import 'package:neurocheck/auth/viewmodels/auth_state.dart';
 
 import '../../core/errors/exceptions.dart';
@@ -45,8 +46,6 @@ class AuthRepo {
 
   Future<Either<Failure, UserModel>> signSupervisedIn(
       BuildContext context, {
-        /*required String email,
-        required String password,*/
         required String emailSupervised,
         required String passwordSupervised,
       }) async {
@@ -59,6 +58,7 @@ class AuthRepo {
       final userCredentialSupervised = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: emailSupervised,
           password: passwordSupervised);
+
       GetStorage().write('uidSup', userCredentialSupervised.user!.uid);
       //var uidSupervised = userCredentialSupervised.user!.uid;
       log('supervised: ' + GetStorage().read('uidSup'));
@@ -69,8 +69,6 @@ class AuthRepo {
         final userCredential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: GetStorage().read('email'), password: GetStorage().read('passw'));
 
-        /*log('userCredential: ' + userCredential.toString());
-        log('supervised2: ' + uidSupervised);*/
 
         //User user, String? rol, String? name, String? uidSupervised
         return Right(
@@ -145,6 +143,7 @@ class AuthRepo {
       return Left(ServerFailure(message: errorMessage));
     }
   }
+
 
   isVerifiedEmail() async {
     return await FirebaseAuth.instance.currentUser!.reload();
