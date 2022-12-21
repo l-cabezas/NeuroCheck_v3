@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:neurocheck/modules/simple_notifications/notifications.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -16,6 +17,7 @@ class SettingsViewModel {
   late MainCoreProvider _mainCoreProvider;
 
   signOut() async {
+    cancelScheduledNotifications();
     NavigationService.pushReplacementAll(
       NavigationService.context,
       isNamed: true,

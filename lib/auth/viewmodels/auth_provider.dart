@@ -101,7 +101,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
         subscribeUserToTopic();
         UserModel? sup = await _mainCoreProvider.getUserData();
         // si el supervisado tiene un supervisado mala cosa
-        log ('**** signSupervisedIn UID ${sup?.uidSupervised} y ROL ${sup?.rol}');
+        log ('**** signSupervisedIn UID ${sup?.uidSupervised} y ROL ${sup?.rol}'
+            'e emailSup ${sup?.emailSup}');
         if(sup?.rol == 'supervisor'){
           NavigationService.pushReplacementAll(
             NavigationService.context,

@@ -31,7 +31,7 @@ class AuthRepo {
       GetStorage().write('uidUsuario', userCredential.user?.uid);
       GetStorage().write('email', email);
       GetStorage().write('passw', password);
-      return Right(UserModel.fromUserCredential(userCredential.user!,'','',''));
+      return Right(UserModel.fromUserCredential(userCredential.user!,'','','',''));
 
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
@@ -73,6 +73,7 @@ class AuthRepo {
         //User user, String? rol, String? name, String? uidSupervised
         return Right(
             UserModel.fromUserCredential(userCredential.user!,'supervised','' ,GetStorage().read('uidSup')
+                ,GetStorage().read('emailSup')
             )
         );
 
@@ -113,7 +114,7 @@ class AuthRepo {
       GetStorage().write('passw', password);
       GetStorage().write('rol', rol);
 
-      return Right(UserModel.fromUserCredential(userCredential.user!,rol, name,''));
+      return Right(UserModel.fromUserCredential(userCredential.user!,rol, name,'',''));
     } on FirebaseAuthException catch (e) {
       final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
       return Left(ServerFailure(message: errorMessage));
@@ -147,6 +148,10 @@ class AuthRepo {
 
   isVerifiedEmail() async {
     return await FirebaseAuth.instance.currentUser!.reload();
+  }
+
+  deleteUser() async {
+     await FirebaseAuth.instance.currentUser!.delete();
   }
 
   Stream<bool?> isEmailverified() async* {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:neurocheck/core/styles/app_colors.dart';
 
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/styles/font_styles.dart';
@@ -17,7 +18,7 @@ class UserDetailsComponent extends ConsumerWidget {
 
     return Column(
       children: [
-        CustomText.h3(
+        CustomText.h2(
           context,
           userModel.name!.isEmpty
               ? 'User${userModel.uId.substring(0, 6)}'
@@ -26,13 +27,64 @@ class UserDetailsComponent extends ConsumerWidget {
           alignment: Alignment.center,
         ),
         SizedBox(
-          height: Sizes.vMarginDot(context),
+          height: Sizes.vMarginSmall(context),
         ),
-        CustomText.h5(
+        CustomText.h4(
           context,
-          userModel.email,
-          alignment: Alignment.center,
+          'Correo electrónico: ', // todo: tr
+          alignment: Alignment.centerLeft,
+          color: AppColors.lightBlack,
         ),
+        SizedBox(
+          height: Sizes.vMarginSmall(context),
+        ),
+        CustomText.h4(
+          context,
+          '${userModel.email}',
+          alignment: Alignment.center,
+          color: AppColors.lightGray,
+        ),
+        (userModel.rol != 'supervisor')
+        ? SizedBox()
+        : Column(
+            children:
+        [SizedBox(
+          height: Sizes.vMarginSmall(context),
+        ),
+        CustomText.h4(
+          context,
+          'Rol: ', // todo: tr
+        alignment: Alignment.centerLeft,
+          color: AppColors.lightBlack,
+        ),
+        SizedBox(
+          height: Sizes.vMarginSmallest(context),
+        ),
+        CustomText.h4(
+          context,
+          '${userModel.rol}',
+          alignment: Alignment.center,
+          color: AppColors.lightGray,
+        ),
+
+        SizedBox(
+          height: Sizes.vMarginSmall(context),
+        ),
+        CustomText.h4(
+          context,
+          'Supervisando a: ', // todo: tr
+          alignment: Alignment.centerLeft,
+          color: AppColors.lightBlack,
+        ),
+        SizedBox(
+          height: Sizes.vMarginSmall(context),
+        ),
+        CustomText.h4(
+          context,
+          '${userModel.emailSup}',
+          alignment: Alignment.center,
+          color: AppColors.lightGray,
+        ),])
       ],
     );
   }

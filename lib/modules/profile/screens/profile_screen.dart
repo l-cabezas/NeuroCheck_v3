@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
                       SizedBox(
                         height: Sizes.vMarginHigh(context),
                       ),
-                      const ProfileFormComponent(),
+                     // const ProfileFormComponent(),
                     ],
                   ),
                 );

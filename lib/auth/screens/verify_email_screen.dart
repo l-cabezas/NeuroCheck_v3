@@ -15,6 +15,7 @@ import '../../core/widgets/custom_text.dart';
 import '../../core/widgets/loading_indicators.dart';
 import '../components/verifyEmailFormComponent.dart';
 import '../repos/auth_repo.dart';
+import '../repos/user_repo.dart';
 import '../viewmodels/auth_provider.dart';
 import '../viewmodels/auth_state.dart';
 
@@ -51,6 +52,9 @@ class VerifyEmailScreen extends ConsumerWidget {
                           text: tr(context).cancelBtn,
                           buttonColor: AppColors.white,
                           onPressed: () {
+                            ref.watch(userRepoProvider)
+                                .deleteUidBD(GetStorage().read('uidUsuario'));
+                            ref.watch(authRepoProvider).deleteUser();
                             NavigationService.push(
                               context,
                               isNamed: true,

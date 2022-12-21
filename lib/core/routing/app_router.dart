@@ -8,6 +8,7 @@ import 'package:neurocheck/auth/screens/reset_screen.dart';
 import 'package:neurocheck/auth/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/routing/route_paths.dart';
 import 'package:neurocheck/auth/screens/add_supervised_screen.dart';
+import 'package:neurocheck/general/settings/screens/edit_name_screen.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/screens/show_tasks_screen.dart';
 import 'package:neurocheck/modules/tasks/screens/add_task_screen.dart';
@@ -188,6 +189,12 @@ class AppRouter {
         return platformPageRoute(
           context: HomeBaseNavUtils.navScreensKeys[2].currentContext!,
           builder: (_) => const LanguageScreen(),
+          settings: settings,
+        );
+      case RoutePaths.settingsName:
+        return platformPageRoute(
+          context: HomeBaseNavUtils.navScreensKeys[2].currentContext!,
+          builder: (_) => const EditNameScreen(),
           settings: settings,
         );
 

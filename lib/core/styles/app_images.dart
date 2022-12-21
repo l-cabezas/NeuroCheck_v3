@@ -5,6 +5,7 @@ class AppImages {
   static const String jsonPath = 'assets/json/';
   static const String loginIcon = '${loginImagesPath}loginIcon2.png';
   static const String loginIcon2 = '${loginImagesPath}login2.png';
+  static const String profileCat = '${appIconsPath}profile/icon_cat.png';
   static const String welcomeImagesPath = 'assets/images/welcome/';
   static const String loginImagesPath = 'assets/images/login/';
   static const String coreImagesPath = 'assets/images/core/';
@@ -31,6 +32,7 @@ class AppImages {
   static const String loadingAnimation = '${jsonPath}loading_animation.json';
   static const String loadingGIF = '${coreImagesPath}loading.gif';
   static const String cameraIcon = '${coreImagesPath}camera.png';
+  static const String blank = '${coreImagesPath}blank.png';
   static const String noInternet = '${coreImagesPath}no_internet.jpg';
 
   //Dialog Widget Icons

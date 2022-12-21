@@ -67,7 +67,25 @@ class AppSettingsSectionComponent extends ConsumerWidget {
             );
           },
         ),
+        CustomTileComponent(
+          title: 'Cambiar nombre ',
+          leadingIcon: PlatformIcons(context).edit,
+          customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
+          onTap: () {
+            NavigationService.push(
+              context,
+              isNamed: true,
+              page: RoutePaths.settingsName,
+            );
+          },
+        ),
       ],
     );
   }
 }
+
+/*
+SizedBox(
+height: Sizes.vMarginHigh(context),
+),
+const ProfileFormComponent(),*/

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../auth/repos/user_repo.dart';
+import '../styles/app_images.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 import '../widgets/cached_network_image_circular.dart';
@@ -14,13 +15,21 @@ class MainDrawerUserInfoComponent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final userModel = ref.watch(userRepoProvider).userModel;
+    final userModel = ref.watch(userRepoProvider).userModel!;
 
     return Column(
       children: [
         //foto de perfil
-        CachedNetworkImageCircular(
-          imageUrl: userModel!.image,
+        (userModel.image == '')
+            ? CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: Sizes.userImageMediumRadius(context),
+          child:  Image.asset(
+            AppImages.profileCat,
+            fit: BoxFit.cover, ),
+        )
+            : CachedNetworkImageCircular(
+          imageUrl: userModel.image,
           radius: Sizes.userImageMediumRadius(context),
         ),
         SizedBox(
@@ -43,14 +52,14 @@ class MainDrawerUserInfoComponent extends ConsumerWidget {
         ),
 
         //email
-        CustomText.h5(
+        /*CustomText.h5(
           context,
           userModel.email,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           alignment: Alignment.center,
-        ),
+        ),*/
       ],
     );
   }

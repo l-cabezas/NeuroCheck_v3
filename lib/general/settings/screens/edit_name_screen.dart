@@ -1,14 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../../../core/routing/navigation_service.dart';
 import '../../../core/screens/popup_page_nested.dart';
+import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
-import '../components/logout_component.dart';
+import '../../../core/widgets/custom_text.dart';
+import '../../../modules/profile/components/profile_form_component.dart';
+import '../components/light_button_component.dart';
 import '../components/settings_sections_components/app_settings_section_component.dart';
 import '../components/user_info_component.dart';
 
-//configuracion
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class EditNameScreen extends StatelessWidget {
+  const EditNameScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +26,20 @@ class SettingsScreen extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
-              //info usuario
-              const UserInfoComponent(),
-              SizedBox(
-                height: Sizes.vMarginSmall(context),
+              CustomText.h3(
+                context,
+                'Cambiar nombre usuario', // todo: tr
+                alignment: Alignment.center,
               ),
-              // cambiar, tema, idioma y nombre
-              const AppSettingsSectionComponent(),
               SizedBox(
                 height: Sizes.vMarginMedium(context),
               ),
-              //cerrar sesión
-              const LogoutComponent(),
+
+              const ProfileFormComponent(),
+
+              SizedBox(
+                height: Sizes.vMarginMedium(context),
+              ),
             ],
           ),
         ),

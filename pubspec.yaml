@@ -218,6 +218,7 @@ flutter:
     - assets/images/app_icons/screens_icons/
     - assets/images/app_icons/languages_icons/
     - assets/images/app_icons/task_icons/
+    - assets/images/app_icons/profile/
 
   fonts:
     - family: poppins

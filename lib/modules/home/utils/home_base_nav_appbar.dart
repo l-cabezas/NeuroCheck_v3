@@ -53,6 +53,8 @@ class HomeBaseNavAppBar extends ConsumerWidget
   setSupervisor(bool set){
     supervisor = set;
   }
+
+  // el app bar que enseñar según donde estés
   @override
   Widget build(BuildContext context, ref) {
     final currentIndex = ref.watch(HomeBaseNavProviders.currentIndex);
@@ -68,6 +70,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
     switch (currentRoute) {
 
       ///HomeNestedRoutes
+    //pantalla principal con menu, nombre app e icono de add sup si se puede
       case RoutePaths.home:
         return CustomAppBar(
           context,
@@ -82,8 +85,6 @@ class HomeBaseNavAppBar extends ConsumerWidget
           ),
           trailingActions: [
             //todo añadir icon
-            // solo esta funcion si eres supervisor
-           // (_userRepo != '')
               (supervisor)
                 ? IconButton(
               alignment: Alignment.centerRight,
@@ -103,27 +104,32 @@ class HomeBaseNavAppBar extends ConsumerWidget
         );
 
       ///ProfileNestedRoutes
+    // apartados de menu lateral
+    //perfil
       case RoutePaths.profile:
         return CustomAppBar(
           context,
           hasBackButton:
               PlatformService.instance.isMaterialApp() ? true : false,
-          customTitle: AppBarWithIconComponent(
-            icon: AppImages.profileScreenIcon,
+          customTitle: CustomText.h2(context, tr(context).myProfile, alignment: Alignment.centerLeft,)
+          /*AppBarWithIconComponent(
+            icon: AppImages.blank,
             title: tr(context).myProfile,
-          ),
+          ),*/
         );
 
       ///SettingsNestedRoutes
+    ///configuracion
       case RoutePaths.settings:
         return CustomAppBar(
           context,
           hasBackButton:
               PlatformService.instance.isMaterialApp() ? true : false,
-          customTitle: AppBarWithIconComponent(
+          customTitle:  CustomText.h2(context, tr(context).settings, alignment: Alignment.centerLeft,)
+          /*AppBarWithIconComponent(
             icon: AppImages.settingsScreenIcon,
             title: tr(context).settings,
-          ),
+          ),*/
         );
       case RoutePaths.settingsLanguage:
         return CustomAppBar(
@@ -132,6 +138,16 @@ class HomeBaseNavAppBar extends ConsumerWidget
           customTitle: AppBarWithIconComponent(
             icon: AppImages.languageScreenIcon,
             title: tr(context).language,
+          ),
+        );
+
+      case RoutePaths.settingsName:
+        return CustomAppBar(
+          context,
+          hasBackButton: true,
+          customTitle: AppBarWithIconComponent(
+            icon: AppImages.info,
+            title: 'Cambiar nombre', //todo: tr
           ),
         );
 

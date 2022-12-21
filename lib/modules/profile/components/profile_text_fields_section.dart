@@ -47,7 +47,7 @@ class ProfileTextFieldsSection extends StatelessWidget {
   _sharedItemComponent(BuildContext context) {
     return [
       TitledTextFieldItem(
-        title: tr(context).fullName,
+        title: '',//tr(context).fullName,
         hint: tr(context).enterYourName,
         controller: nameController,
         validator: Validators.instance.validateName(context),

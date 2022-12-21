@@ -87,29 +87,6 @@ class AddTaskScreen extends HookConsumerWidget {
                       SizedBox(
                         height: Sizes.vMarginSmallest(context),
                       ),
-                      /*ToggleSwitch(
-                                minWidth: 160.0,
-                                //cornerRadius: 20.0,
-                                activeBgColors: [[AppColors.blue], [AppColors.blue]],
-                                activeFgColor: Colors.white,
-                                inactiveBgColor: AppColors.lightGray,
-                                inactiveFgColor: Colors.black,
-                                initialLabelIndex: (ref.read(switchButtonProviderAdd.notifier).state == true) ? 0 : 1,
-                                totalSwitches: 2,
-                                radiusStyle: true,
-                                labels: ['No repetir', 'Elegir días'],
-                                onToggle: (index) {
-                                  print('switched to: $index');
-                                  var i = (index == 0)
-                                      ? true
-                                      : false;
-
-                                  ref.watch(switchButtonProviderAdd.notifier).changeState(change: i);
-                                  switchValue = ref.read(switchButtonProviderAdd.notifier).state;
-                                  log('SWITCH VALUE ${switchValue}');
-                                },
-                              ),*/
-                      // SizedBox(height: Sizes.vMarginSmallest(context),),
                       ChooseDaySectionComponent([]),
                     ]) //SwitchSettingsSectionComponent([]),
                     )
@@ -195,12 +172,12 @@ class AddTaskScreen extends HookConsumerWidget {
                                   range.getfinHour(),
                                   repetitions.getMinuteInt(),
                                   saveDays(days.tags.toString()),
-                                  nameProvider.getNameTask());
+                                  nameController.text);
 
                               isNotificationSet = 'true';
 
                               TaskModel task = TaskModel(
-                                  taskName: nameProvider.getNameTask(),
+                                  taskName: nameController.text,
                                   days: saveDays(days.tags.toString()),
                                   idNotification: id,
                                   notiHours: notiHours(range.getIniHour(),

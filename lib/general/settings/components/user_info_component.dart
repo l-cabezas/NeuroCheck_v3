@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../auth/repos/user_repo.dart';
+import '../../../core/styles/app_images.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/cached_network_image_circular.dart';
@@ -42,7 +43,15 @@ class UserInfoComponent extends ConsumerWidget {
         SizedBox(
           width: Sizes.hMarginDot(context),
         ),
-        CachedNetworkImageCircular(
+        (userModel.image == '')
+            ? CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: Sizes.userImageSmallRadius(context),
+          child:  Image.asset(
+            AppImages.profileCat,
+            fit: BoxFit.cover, ),
+        )
+            : CachedNetworkImageCircular(
           imageUrl: userModel.image,
           radius: Sizes.userImageSmallRadius(context),
         ),

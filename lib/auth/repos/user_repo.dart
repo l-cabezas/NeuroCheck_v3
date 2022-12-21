@@ -240,12 +240,19 @@ class UserRepo {
     );
   }
 
+  deleteUidBD(String uid) async {
+    return await _firebaseCaller.deleteData(
+      path: FirestorePaths.userUId(uid),
+    );
+  }
+
   setSupervisedUid(UserModel user) async {
     return await _firebaseCaller.setData(
       path: FirestorePaths.userUId(user.uId),
       data: {
         "rol": 'supervisor',
-        "uidSupervised": user.uidSupervised
+        "uidSupervised": user.uidSupervised,
+        "emailSup" : user.emailSup
       },
       merge: true,
       builder: (data) {

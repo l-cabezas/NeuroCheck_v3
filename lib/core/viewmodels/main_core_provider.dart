@@ -133,10 +133,9 @@ class MainCoreProvider {
 
 
   setSupervisedUid(UserModel userModel) async {
-    //final result =
-   final result = await _userRepo.setSupervisedUid(userModel);
-
+    await _userRepo.setSupervisedUid(userModel);
    GetStorage().write('uidSup',userModel.uidSupervised);
+   GetStorage().write('emailSup',userModel.email);
 
   }
 
@@ -162,6 +161,7 @@ class MainCoreProvider {
   }
 
   Future logoutUser() async {
+    GetStorage().erase();
     await _userRepo.clearUserLocalData();
     await _authRepo.signOut();
     await FirebaseMessagingService.instance

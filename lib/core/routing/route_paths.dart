@@ -20,6 +20,7 @@ class RoutePaths {
   ///SettingsNestedRoutes
   static const settings = 'settings';
   static const settingsLanguage = '$settings/language';
+  static const settingsName = '$settings/name';
 
   //testing stuff
   static const red = 'red';

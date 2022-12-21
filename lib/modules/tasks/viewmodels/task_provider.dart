@@ -88,7 +88,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
    addDocToFirebase(BuildContext context, TaskModel taskModel) async {
     // nos da el uid de la tarea
     state = const TareaState.loading();
-    await _firebaseCaller.addDataToCollection(
+    taskModel.taskId = await _firebaseCaller.addDataToCollection(
         path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')), ///tasks
         data: taskModel.toMap()
     );
@@ -129,7 +129,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
             AppDialogs.showErrorDialog(context, message: failure.message);
           },
           (taskModel) async {
-            //state = TareaState.available();
+            state = TareaState.available();
             AppDialogs.addTaskOK(context,
                 message: tr(context).addTaskDone);
       },
