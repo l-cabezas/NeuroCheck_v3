@@ -9,6 +9,7 @@ import 'package:neurocheck/modules/home/components/card_order_details_component.
 import 'package:neurocheck/modules/navBar/components/card_item_component.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 
+import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/widgets/custom_tile_component.dart';
 
@@ -25,7 +26,7 @@ class TimePickerComponent extends ConsumerWidget {
         child: Column(children: [
       CustomText.h4(
         context,
-        'Elige rango horario ', //todo
+        tr(context).choose_range,
         color: Theme.of(context).textTheme.headline4!.color,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,

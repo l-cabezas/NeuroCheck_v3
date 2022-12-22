@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 
 import '../../../auth/repos/user_repo.dart';
+import '../../../core/services/localization_service.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_text.dart';
@@ -31,7 +32,7 @@ class UserDetailsComponent extends ConsumerWidget {
         ),
         CustomText.h4(
           context,
-          'Correo electrónico: ', // todo: tr
+          tr(context).profile_email,
           alignment: Alignment.centerLeft,
           color: AppColors.lightBlack,
         ),
@@ -53,7 +54,7 @@ class UserDetailsComponent extends ConsumerWidget {
         ),
         CustomText.h4(
           context,
-          'Rol: ', // todo: tr
+          tr(context).profile_rol,
         alignment: Alignment.centerLeft,
           color: AppColors.lightBlack,
         ),
@@ -72,7 +73,7 @@ class UserDetailsComponent extends ConsumerWidget {
         ),
         CustomText.h4(
           context,
-          'Supervisando a: ', // todo: tr
+          tr(context).profile_sup,
           alignment: Alignment.centerLeft,
           color: AppColors.lightBlack,
         ),

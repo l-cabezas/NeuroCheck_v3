@@ -10,6 +10,7 @@ import 'package:neurocheck/core/widgets/custom_button.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 
+import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/sizes.dart';
 
 
@@ -156,16 +157,15 @@ class TimeRepetitionButton extends StateNotifier<String> {
                       mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
                       crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
                       children: [
-                    //todo
                     CupertinoButton(
-                        child: CustomText.h3(context,'Cancelar',color: AppColors.red),
+                        child: CustomText.h3(context,tr(context).cancel,color: AppColors.red),
                         onPressed: (){
                           //ref.refresh(timeRepetitionProvider);
                           navigationPop(context);
                         }),
                     SizedBox(width: Sizes.vMarginHigh(context),),
                     CupertinoButton(
-                        child: CustomText.h3(context,'Ok',color: AppColors.blue),
+                        child: CustomText.h3(context,tr(context).oK,color: AppColors.blue),
                         onPressed: (){
                           //log('okey');
                           ps.onConfirm!(ps, ps.selecteds);

@@ -147,7 +147,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
           hasBackButton: true,
           customTitle: AppBarWithIconComponent(
             icon: AppImages.info,
-            title: 'Cambiar nombre', //todo: tr
+            title: tr(context).change_name,
           ),
         );
 

@@ -105,7 +105,6 @@ class AppRouter {
 
     //todo
       case RoutePaths.modScreen:
-        log('entrar');
         final args = settings.arguments as TaskModel?;
         return NavigationFadeTransition(
           ModTaskComponent(taskModel: args!,),

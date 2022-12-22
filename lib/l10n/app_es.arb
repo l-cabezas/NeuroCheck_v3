@@ -4,8 +4,7 @@
   "appName": "NeuroCheck",
   "fontFamily": "SanFrancisco",
   "noInternetConnection": "No hay conexión a internet",
-  "pleaseCheckYourDeviceNetwork":
-      "Por favor comprueba la conexión de tu dispositivo",
+  "pleaseCheckYourDeviceNetwork": "Por favor comprueba la conexión de tu dispositivo",
   "retry": "Vuelve a intentarlo",
   "oops": "Oops!",
   "somethingWentWrong": "Algo ha ido mal.",
@@ -23,12 +22,13 @@
   "edit": "Editar",
   "continue2": "Continuar",
   "logOut": "Cerrar sesión",
-  "oK": "OK",
+  "oK": "Ok",
   "user": "Usuario",
   "name": "Nombre",
   "chooseOption": "Elige una opción",
   "camera": "Camara",
   "gallery": "Galería",
+  "fill_core": "Rellena todos los campos",
   "@_AUTH": {
   },
   "welcome": "Bienvenido",
@@ -68,13 +68,16 @@
   "enterYourName": "Introduce tu nombre",
   "mobileNumber": "Número de teléfono",
   "enterYourNumber": "Introduce Tu Número",
+  "profile_email": "Correo electrónico: ",
+  "profile_rol": "Rol: ",
+  "profile_sup": "Supervisando a: ",
   "@_HOME": {
   },
   "home": "Inicio",
   "please_enable_location_service": "Por favor activa la localización y prueba de nuevo",
   "location_timeout_error": "Tarda mucho, por favor, compruebe su conexión a Internet e inténtelo de nuevo",
   "please_wait": "Por favor espere",
-
+  "change_name": "Cambiar nombre",
   "details": "Detalles",
 
   "id": "Id",
@@ -103,7 +106,10 @@
   "repeatAdd": "Repetición",
   "delete": "Borrar",
   "rangeAdd" : "No puedes repetir la tarea más veces que minutos hay en el rango",
-
+  "choose_range": "Elige rango horario ",
+  "ini_range": "Inicio: ",
+  "fin_range": "Fin: ",
+  "repeat_noti": "¿Cada cuantos minutos quieres que se repita la notificación?",
   "@_ROL": {
   },
   "askYourDates": "Introduzca su usuario y contraseña",
@@ -111,5 +117,6 @@
   "addSupervised": "Añadir Supervisado",
   "@_SETTINGS": {
   },
-  "change": "Cambiar"
+  "change": "Cambiar",
+  "name_settings": "Cambiar nombre usuario"
 }

@@ -54,7 +54,6 @@ class AppSettingsSectionComponent extends ConsumerWidget {
             ),
           ),
         ),
-        //todo cambiar config
         CustomTileComponent(
           title: tr(context).language,
           leadingIcon: Icons.translate,
@@ -68,7 +67,7 @@ class AppSettingsSectionComponent extends ConsumerWidget {
           },
         ),
         CustomTileComponent(
-          title: 'Cambiar nombre ',
+          title: '${tr(context).change_name} ',
           leadingIcon: PlatformIcons(context).edit,
           customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
           onTap: () {

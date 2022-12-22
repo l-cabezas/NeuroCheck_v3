@@ -28,6 +28,7 @@
   "chooseOption": "Escolle unha opción",
   "camera": "Camara",
   "gallery": "Galería",
+  "fill_core": "Encha todos os campos",
   "@_AUTH": {
   },
   "welcome": "Benvido",
@@ -67,13 +68,16 @@
   "enterYourName": "Introduce o teu nombre",
   "mobileNumber": "Número de teléfono",
   "enterYourNumber": "Introduce o teu número",
+  "profile_email": "Correo electrónico: ",
+  "profile_rol": "Rol: ",
+  "profile_sup": "Supervisando a: ",
   "@_HOME": {
   },
   "home": "Inicio",
   "please_enable_location_service": "Por favor, activa a localización e proba de novo",
   "location_timeout_error": "Tarda moito, por favor, comprobe a súa conexión a Internet e téntao de novo",
   "please_wait": "Por favor agarde",
-
+  "change_name": "Cambiar nome",
   "details": "Detalles",
 
   "id": "Id",
@@ -102,6 +106,10 @@
   "repeatAdd": "Repetición",
   "delete": "Borrar",
   "rangeAdd" : "Non podes repetir a tarefa mais veces que minutos hai no rango",
+  "choose_range": "Escolla intervalo de tempo",
+  "ini_range": "Inicio: ",
+  "fin_range": "Fin: ",
+  "repeat_noti": "Cada cantos minutos queres que se repita a notificación?",
 
   "@_ROL": {
   },
@@ -110,5 +118,6 @@
   "addSupervised": "Engadir Supervisado",
   "@_SETTINGS": {
   },
-  "change": "Cambiar"
+  "change": "Cambiar",
+  "name_settings": "Cambiar nombre usuario"
 }

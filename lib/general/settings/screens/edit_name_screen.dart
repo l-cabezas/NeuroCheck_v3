@@ -28,7 +28,7 @@ class EditNameScreen extends StatelessWidget {
             children: <Widget>[
               CustomText.h3(
                 context,
-                'Cambiar nombre usuario', // todo: tr
+                tr(context).name_settings,
                 alignment: Alignment.center,
               ),
               SizedBox(

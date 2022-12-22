@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 
+import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/widgets/custom_text.dart';
@@ -29,8 +30,7 @@ class RepeNotiComponent extends ConsumerWidget {
       SizedBox(height: Sizes.vMarginSmall(context),),
       CustomText.h3(
         context,
-        '¿Cada cuantos minutos quieres '
-            'que se repita la notificación?', //todo
+        tr(context).repeat_noti,
         color: Theme.of(context).textTheme.headline4!.color,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,

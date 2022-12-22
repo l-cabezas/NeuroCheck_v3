@@ -50,12 +50,12 @@ class AppDialogs {
     );
   }
 
-  //TODO STRING
+
   static Future showWarning(BuildContext context, {String? message}) async {
     await DialogWidget.showCustomDialog(
       context: context,
       dialogWidgetState: DialogWidgetState.warning,
-      title: 'Rellena todos los campos',
+      title: tr(context).fill_core,
       textButton: tr(context).oK,
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);

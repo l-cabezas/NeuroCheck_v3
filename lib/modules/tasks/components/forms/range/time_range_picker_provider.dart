@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 
+import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/utils/dialogs.dart';
 
@@ -103,17 +104,16 @@ class TimeRangeButton extends StateNotifier<String> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            //todo
-            title: const Text("Elija rango horario"),
+            title: Text(tr(context).choose_range),
             actions: actions,
             content: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text("Inicio:"),
+                   Text(tr(context).ini_range),
                   ps.makePicker(),
-                  const Text("Fin:"),
+                   Text(tr(context).fin_range),
                   pe.makePicker(),
 
                   SizedBox(

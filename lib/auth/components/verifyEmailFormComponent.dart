@@ -40,7 +40,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
              Center(
                child: CustomText.h3(
                    context, color: AppColors.darkGray,
-                   'A la hora de usar esta cuenta como rol de supervisor tiene que tener un usuario a su cargo'),
+                   'A la hora de usar esta cuenta como rol de supervisor tiene que tener un usuario a su cargo'), // todo: tr
              ),
              SizedBox(
                height: Sizes.vMarginMedium(context),
