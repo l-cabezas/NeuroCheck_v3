@@ -191,13 +191,13 @@ flutter_icons:
   adaptive_icon_foreground: "assets/images/core/iconApp/icon_circle_wb.png"
 
 flutter_native_splash:
-  color: "#FAFAFA"
-  color_dark: "#303030"
+  color: "#4856a1"
+  color_dark: "#4856a1"
   android_gravity: fill
   ios_content_mode: scaleAspectFill
   android_12:
-    image: "assets/images/welcome/transparent_splash_icon.png"
-    image_dark: "assets/images/welcome/transparent_splash_icon.png"
+    image: "assets/images/core/iconApp/icon_circle_wb.png"
+    image_dark: "assets/images/core/iconApp/icon_circle_wb.png"
 
 # The following section is specific to Flutter packages.
 flutter:

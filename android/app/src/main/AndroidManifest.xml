@@ -7,7 +7,7 @@
 
 
    <application
-        android:label="neurocheck"
+        android:label="NeuroCheck"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
