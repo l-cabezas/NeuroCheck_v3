@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:neurocheck/core/services/localization_service.dart';
 import 'package:neurocheck/modules/home/components/upcoming_tasks_component.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
 import 'package:neurocheck/modules/tasks/screens/boss/completed_boss_tasks_screen.dart';
@@ -37,7 +38,8 @@ class HomeScreen extends ConsumerWidget {
   final List<BottomNavigationBarItem> navItems = [
     BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Añadir tarea'),
     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ver tareas'),
-    BottomNavigationBarItem(icon: Icon(Icons.library_add_check_outlined), label: 'Tareas Hechas'),
+    BottomNavigationBarItem(icon: Icon(Icons.library_add_check_outlined),
+        label: 'Tareas Hechas'),
     //BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: 'Noti'),
   ];
 
@@ -88,7 +90,12 @@ class HomeScreen extends ConsumerWidget {
           onPageChanged: (i) => ref.read(indexProvider.notifier).value = i
       ),
       bottomNavigationBar: BottomNavigationBar(
-          items: navItems,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.add), label: tr(context).add_screen),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: tr(context).show_screen),
+            BottomNavigationBarItem(icon: Icon(Icons.library_add_check_outlined),
+                label: tr(context).show_done_screen),
+          ],
           currentIndex: menuIndex,
           onTap: (i) {
             ref.read(indexProvider.notifier).value = i;

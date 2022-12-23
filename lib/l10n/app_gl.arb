@@ -88,6 +88,12 @@
 
   "areYouSure": "¿Estás seguro?",
 
+  "@_HOME_SCREEN": {
+  },
+  "add_screen": "Engadir tarefa",
+  "show_screen": "Ver Tarefas",
+  "show_done_screen": "Tarefas Feitas",
+
   "@_NAVBAR": {
   },
   "noTask" : "Sen tarefas",
