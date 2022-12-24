@@ -8,7 +8,7 @@ import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
 Future<int> createTaskToDoNotification(int hour, int minute, String taskName) async {
   int idNotification = createUniqueId();
-
+//todo: poner mejor notis
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: idNotification,

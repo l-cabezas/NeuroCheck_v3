@@ -50,6 +50,25 @@ class AppDialogs {
     );
   }
 
+  static Future signOutOk(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.correct,
+      title: message,
+      textButton: tr(context).oK,
+      onPressed: () {
+        //NavigationService.goBack(context,rootNavigator: true);
+        //Phoenix.rebirth(context);
+        NavigationService.pushReplacementAll(
+          NavigationService.context,
+          isNamed: true,
+          rootNavigator: true,
+          page: RoutePaths.authLogin,
+        );
+      },
+    );
+  }
+
 
   static Future showWarning(BuildContext context, {String? message}) async {
     await DialogWidget.showCustomDialog(

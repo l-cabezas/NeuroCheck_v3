@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:cron/cron.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:neurocheck/core/utils/dialogs.dart';
 
 import '../routing/navigation_service.dart';
@@ -66,7 +68,10 @@ class SplashProvider {
 
 //    log('hasValidAuth $hasValidAuth');
     if (hasValidAuth) {
+      //cancelamos los cron hechos para volver a ponerlos
+
       //si el email ha sido verificado si es supervisor
+
       bool isBoss = await _mainCoreProvider.isBoss();
 //      log('isBoss $isBoss');
 //      log('hasVerify $hasVerify');
@@ -78,6 +83,10 @@ class SplashProvider {
           secondPage = RoutePaths.verifyEmail;
         }
       }else{
+        log('**** RESET CRON');
+        Cron().close();
+        GetStorage().write('false','CronSet');
+
         //no es supervisor
         secondPage = RoutePaths.homeBase;
       }

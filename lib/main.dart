@@ -31,14 +31,6 @@ void main() async {
   await ServicesInitializer.instance.init(widgetsBinding, container);
   await GetStorage.init();
 
-  /*final cron = Cron();
-  cron.schedule(Schedule.parse('12 13 * * *'), () async {
-    log("This code runs at 12am everyday");
-    //update task to no hecho
-    // ref.watch(tasksRepoProvider);
-
-  });*/
-
   AwesomeNotifications().initialize(
     null,
     //'resource://drawable/res_notification_app_icon',
@@ -114,7 +106,7 @@ class MyApp extends HookConsumerWidget {
 
           navigatorKey: NavigationService.navigationKey,
           debugShowCheckedModeBanner: false,
-          title: 'NeuroCheck',
+          //title: 'NeuroCheck',
           color: AppColors.lightThemePrimary,
 
           locale: appLocale,

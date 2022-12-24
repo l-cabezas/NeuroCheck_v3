@@ -55,23 +55,18 @@ class HomeScreen extends ConsumerWidget {
     }
 
 
-    //final cron = Cron();
-    /*if(!supervisor){
+    final cron = Cron();
+    //seteamos el crono una vez y si no somos supervisores
+    if(!supervisor && GetStorage().read('CronSet') == 'false') {
       log("**** SET CRON");
-      ref.watch(tasksRepoProvider).resetTasks();
-      *//*cron.schedule(Schedule.parse('19 17 * * *'), () async {
-        log("CRON ESTA FUNCIONANDO");
-
-        //update task to no hecho
-        // ref.watch(tasksRepoProvider);
+      GetStorage().write('true','CronSet');
+      // a las 00:00h se ejecutará esto todos los días
+      cron.schedule(Schedule.parse('32 13 * * *'), () async {
         ref.watch(tasksRepoProvider).resetTasks();
 
-      });*//*
-    }*/
-    //ref.watch(userRepoProvider).checkUidSup();
-    /*final _userRepo = ref.watch(userRepoProvider).uidSuper;
-    log((' a ${_userRepo} HS'));*/
-    //log('HOME_SCREEN ${supervisor}');
+      });
+    }
+
     return Scaffold(
       body: PageView(
           controller: controller,

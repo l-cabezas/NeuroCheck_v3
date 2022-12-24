@@ -6,6 +6,7 @@ import '../../../core/services/localization_service.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../viewmodels/settings_viewmodel.dart';
 
@@ -19,13 +20,18 @@ class LogoutComponent extends ConsumerWidget {
     return PlatformWidget(
       material: (_, __) {
         return InkWell(
-          onTap: settingsVM.signOut,
+          onTap: () async {
+            await settingsVM.signOut();
+          },
           child: const _SharedItemComponent(),
         );
       },
       cupertino: (_, __) {
         return GestureDetector(
-          onTap: settingsVM.signOut,
+          onTap: () async {
+            await settingsVM.signOut();
+
+          },
           child: const _SharedItemComponent(),
         );
       },

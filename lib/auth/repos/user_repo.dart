@@ -29,8 +29,8 @@ class UserRepo {
   final Ref ref;
   late IFirebaseCaller _firebaseCaller;
 
-  String? uid;
-  String? uidSuper;
+  /*String? uid;
+  String? uidSuper;*/
   UserModel? userModel;
   var user = FirebaseAuth.instance.currentUser?.uid;
 
@@ -40,8 +40,8 @@ class UserRepo {
       builder: (data, docId) {
         if (data is! ServerFailure) {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
-          uid = userModel?.uId;
-          uidSuper = userModel?.uidSupervised;
+         /* uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;*/
           //addStringToSFRol(userModel?.rol);
           GetStorage().write('rol', userModel?.rol);
           GetStorage().write('uidUsuario', userModel?.uId);
@@ -99,8 +99,8 @@ class UserRepo {
       builder: (data, docId) {
         if (data is! ServerFailure) {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
-          uid = userModel?.uId;
-          uidSuper = userModel?.uidSupervised;
+          /*uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;*/
           //Other way to 'extract' the data
           return Right(userModel);
         } else {
@@ -115,10 +115,10 @@ class UserRepo {
       path: FirestorePaths.userDocument(user!),
       builder: (data, docId) {
           userModel = data != null ? UserModel.fromMap(data, docId!) : null;
-          uid = userModel?.uId;
-          uidSuper = userModel?.uidSupervised;
+          /*uid = userModel?.uId;
+          uidSuper = userModel?.uidSupervised;*/
           //Other way to 'extract' the data
-        return uidSuper;
+        return userModel?.uidSupervised;
       },
     );
   }
@@ -147,7 +147,7 @@ class UserRepo {
 
   //creamos una tarea incial que luego se descarta para inicializar
   // la bd de firebase
-  openCollection(UserModel userData) async {
+  /*openCollection(UserModel userData) async {
     TaskModel tarea0 = TaskModel(
       taskId: 'tarea0',
       taskName: 'tarea0',
@@ -166,11 +166,11 @@ class UserRepo {
       path: FirestorePaths.getTaskCollection(userData.uId),
       data: tarea0.toMap(),
     );
-  }
+  }*/
 // se updatea el usuario en firebase
   Future<Either<Failure, bool>> updateUserData(UserModel userData) async {
     return await _firebaseCaller.setData(
-      path: FirestorePaths.userDocument(uid!),
+      path: FirestorePaths.userDocument(GetStorage().read('uidUsuario')),
       data: userData.toMap(),
       merge: true,
       builder: (data) {
@@ -186,7 +186,7 @@ class UserRepo {
 
   Future<Either<Failure, bool>> updateUserImage(File? imageFile) async {
     Either<Failure, String> result = await _firebaseCaller.uploadImage(
-      path: FirestorePaths.profilesImagesPath(uid!),
+      path: FirestorePaths.profilesImagesPath(GetStorage().read('uidUsuario')),
       file: imageFile!,
       builder: (data) {
         if (data is! ServerFailure) {
@@ -208,7 +208,7 @@ class UserRepo {
 
   Future<Either<Failure, bool>> setUserImage(String imageUrl) async {
     return await _firebaseCaller.setData(
-      path: FirestorePaths.userDocument(uid!),
+      path: FirestorePaths.userDocument(GetStorage().read('uidUsuario')),
       data: {"image": imageUrl},
       merge: true,
       builder: (data) {
@@ -267,7 +267,12 @@ class UserRepo {
   }
 
   Future clearUserLocalData() async {
-    uid = null;
-    userModel = null;
+    //uid = null;
+    //userModel = null;
+    GetStorage().write('uidUsuario', '');
+    GetStorage().write('email', '');
+    GetStorage().write('passw', '');
+    GetStorage().write('rol', '');
+    GetStorage().erase();
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/modules/simple_notifications/notifications.dart';
 
@@ -18,6 +21,7 @@ class SettingsViewModel {
 
   signOut() async {
     cancelScheduledNotifications();
+
     NavigationService.pushReplacementAll(
       NavigationService.context,
       isNamed: true,
@@ -28,5 +32,8 @@ class SettingsViewModel {
     await Future.delayed(const Duration(seconds: 1));
 
     await _mainCoreProvider.logoutUser();
+
+
+    log('**** signOut cool');
   }
 }

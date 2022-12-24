@@ -28,6 +28,7 @@ class AuthRepo {
           .signInWithEmailAndPassword(email: email, password: password);
       log(userCredential.toString());
       //MOD
+      log('**** signInWithEmailAndPassword ${userCredential.user?.uid} ${email} ${password}');
       GetStorage().write('uidUsuario', userCredential.user?.uid);
       GetStorage().write('email', email);
       GetStorage().write('passw', password);
@@ -195,6 +196,7 @@ class AuthRepo {
   Future signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
+      log('**** cool log out');
     } catch (e) {
       log(e.toString());
     }

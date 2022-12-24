@@ -36,42 +36,18 @@ class CompletedTasks extends HookConsumerWidget {
                   separatorBuilder: (context, index) => SizedBox(
                     height: Sizes.vMarginHigh(context),
                   ),
-                  itemCount: taskToDo[0].length + taskToDo[1].length,
+                  itemCount: (taskToDo[0].length + taskToDo[1].length),
                   itemBuilder: (context, index) {
                     List<Widget> list = [];
                     var supervised = taskToDo[0].length;
                     var boss = taskToDo[1].length;
                     if (index < supervised) {
-                      //supervisado
-                      log('index ${index}');
-                      list.add((taskToDo[0][index].taskName == 'tarea0')
-                          ? SizedBox()
-                      /*CustomText.h4(
-                              context,
-                              tr(context).noTask,
-                              color: AppColors.grey,
-                              alignment: Alignment.center,
-                            )*/
-                          : CardItemComponent(
-                              taskModel: taskToDo[0][index],
-                            ));
+                      list.add( CardItemComponent(taskModel: taskToDo[0][index],));
                     } else {
                       if (index - supervised < boss) {
-                        list.add((taskToDo[1][index - supervised].taskName ==
-                                'tarea0')
-                            ? SizedBox()
-                        /*CustomText.h4(
-                                context,
-                                tr(context).noTask,
-                                color: AppColors.grey,
-                                alignment: Alignment.center,
-                              )*/
-                            : CardItemComponent(
-                                taskModel: taskToDo[1][index - supervised],
-                              ));
+                        list.add(CardItemComponent(taskModel: taskToDo[1][index - supervised],));
                       }
                     }
-
                     return Column(children: list);
                   },
                 );

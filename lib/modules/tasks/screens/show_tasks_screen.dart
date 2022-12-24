@@ -34,18 +34,19 @@ class ShowTasks extends HookConsumerWidget {
     final _taskRepo = ref.watch(tasksRepoProvider);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
 
-
     if (GetStorage().read('rol') != 'supervisor') {
       setSupervisor(false);
     } else {
       setSupervisor(true);
     }
 
-    UserModel? user = _taskRepo.returnUsuario();
-
+    log('**** SHOW_TASK_SCREEN ${GetStorage().read('uidUsuario')}');
+    log('**** SHOW_TASK_SCREEN ROL ${GetStorage().read('rol')} uidSup ${GetStorage().read('uidSup')}');
     return taskToDoStreamAll.when(
         data: (taskToDo) {
-          log('SHOW_TASK_SCREEN lenght ${taskToDo[0].length} y boss ${taskToDo[1].length}');
+          log('**** SHOW_TASK_SCREEN lenght ${taskToDo[0].length} y boss ${taskToDo[1].length}');
+          log('**** SHOW_TASK_SCREEN ITEM COUNT ${taskToDo[0].length + taskToDo[1].length}');
+          // 2 (0,1) 2 (0,1)
       return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
           ? CustomText.h4(
               context,
@@ -62,50 +63,41 @@ class ShowTasks extends HookConsumerWidget {
             itemCount: taskToDo[0].length + taskToDo[1].length,
             itemBuilder: (context, index) {
               List<Widget> list = [];
-              //log('index ${index}');
-              var supervised = taskToDo[0].length;
-              var boss = taskToDo[1].length;
-              if(index < supervised){
-                //supervisado
-                log('index ${index}');
-                list.add(
-                    (taskToDo[0][index].taskName == 'tarea0')
-                        ? SizedBox()
-                        : CardItemComponent(
-                      taskModel: taskToDo[0][index],
-                    )
-                );
-                //si la notificacion está desactivada y no somos supervisores
-                if ((taskToDo[0][index].isNotificationSet == 'false') &&
-                    (!supervisor) && (taskToDo[0][index].taskName != 'tarea0')) {
-                  setNotiInSupervised(taskToDo[0][index]);
-                  _taskRepo.checkSetNoti(task: taskToDo[0][index]);
-                }
-              }else{
-                if(index - supervised < boss){
-                  list.add(
-                      (taskToDo[1][index - supervised].taskName == 'tarea0')
-                          ? SizedBox()
-                      /*CustomText.h4(
-                        context,
-                        tr(context).noTask,
-                        color: AppColors.grey,
-                        alignment: Alignment.center,
-                      )*/
-                          : CardItemComponent(
-                        taskModel: taskToDo[1][index - supervised],
-                      )
-                  );
-                  //si la notificacion está desactivada y no somos supervisores
-                  if ((taskToDo[1][index - supervised].isNotificationSet == 'false') &&
-                      (user?.uidSupervised == '') && (taskToDo[1][index].taskName != 'tarea0')) {
-                    setNotiInSupervised(taskToDo[1][index - supervised]);
-                    _taskRepo.checkSetNoti(task: taskToDo[1][index]);
-                  }
-                }
-              }
+              if(index != taskToDo[0].length + taskToDo[1].length) {
+                      var supervised = taskToDo[0].length;
+                      var boss = taskToDo[1].length;
+                      // supervised es 2 -> index: 0,1
+                      if (index < supervised) {
+                        //supervisado
+                        list.add(CardItemComponent(
+                          taskModel: taskToDo[0][index],
+                        ));
+                        //si la notificacion está desactivada y no somos supervisores
+                        if ((taskToDo[0][index].isNotificationSet == 'false') &&
+                            (!supervisor)) {
+                          setNotiInSupervised(taskToDo[0][index]);
+                          _taskRepo.checkSetNoti(task: taskToDo[0][index]);
+                        }
+                      } else {
+                        if (index - supervised  < boss) {
+                          var indexBoss = index - supervised;
+                          list.add(CardItemComponent(
+                            taskModel: taskToDo[1][indexBoss],
+                          ));
+                          //si la notificacion está desactivada y no somos supervisores
+                          if ((taskToDo[1][indexBoss]
+                                      .isNotificationSet ==
+                                  'false') &&
+                              (GetStorage().read('uidSup') == '')) {
+                            setNotiInSupervised(
+                                taskToDo[1][indexBoss]);
+                            _taskRepo.checkSetNoti(task: taskToDo[1][indexBoss]);
+                          }
+                        }
+                      }
+                    }
 
-                return Column(children: list);
+                    return Column(children: list);
               /*(taskToDo[1][index].taskName == 'tarea0')
                     ? CustomText.h4(
                       context,

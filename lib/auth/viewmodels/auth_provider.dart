@@ -62,10 +62,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
         AppDialogs.showErrorDialog(context, message: failure.message);
       },
           (user) async {
+            state = const AuthState.available();
         UserModel userModel = user;
         GetStorage().write('uidUsuario', user.uId);
         GetStorage().write('email', email);
         GetStorage().write('passw', password);
+        GetStorage().write('rol', user.rol);
 
         // TODO: nombre
         subscribeUserToTopic();
@@ -195,9 +197,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  openCollection(UserModel userModel) async {
+  /*openCollection(UserModel userModel) async {
     await _mainCoreProvider.openCollection(userModel);
-  }
+  }*/
 
   Future submitRegister(BuildContext context, UserModel userModel) async {
 
@@ -208,7 +210,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         AppDialogs.showErrorDialog(context, message: failure.message);
       },
         (isSet) async {
-          openCollection(userModel);
+          //openCollection(userModel);
           subscribeUserToTopic();
           //que solo se lo pida al supervisor
           if((userModel.rol == 'supervisor')) {
@@ -255,7 +257,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     NavigationService.pushReplacementAll(
       context,
       isNamed: true,
-      page: RoutePaths.home,
+      page: RoutePaths.authLogin,
     );
   }
 }

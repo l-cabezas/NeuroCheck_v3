@@ -80,7 +80,6 @@ class TasksRepo {
 // static String taskPathBoss(String uid) => 'users/$uid/tasksBoss';
 //tareas hechas por el supervisados hechas por el mismo
   Stream<List<TaskModel>> getTasksBossStream() {
-    final _userRepo = ref.watch(userRepoProvider).uidSuper;
     String uidSup = '';
     if(GetStorage().read('uidSup') != ''){
       uidSup = GetStorage().read('uidSup');
@@ -461,30 +460,10 @@ class TasksRepo {
 
   //cancelar todas las notificaciones, borrar ids, marcar done false
    void resetTasks() async {
-
-    //List<TaskModel> tareas = [];
-    //cancelScheduledNotifications();
-   /*  'isNotificationSet' :'false',
-     'idNotification': []*/
-    //var tareas = await _firebaseCaller.collectionStream<TaskModel>(
-     final cron = Cron();
-     log("CRON ****");
-     try {
-       cron.schedule(Schedule.parse('53 11 * * *'), () {
-         log("SET CRON ESTA FUNCIONANDO");
-         resetTasks();
-       });
-
-       await Future.delayed(Duration(seconds: 30));
-       await cron.close();
-
-       log("**** YA NP");
-     } on ScheduleParseException {
-       // "ScheduleParseException" is thrown if cron parsing is failed.
-       await cron.close();
-     }
+    //obtenemos tareas, cancelamos sus notificaciones, ponemos isNotificationSet
+     // a false y cambiamos a no hechas todas
     List<TaskModel> tareas = [];
-
+    cancelScheduledNotifications();
      await _firebaseCaller.collectionStream<TaskModel>(
        //uid de usuario
        path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
@@ -493,12 +472,23 @@ class TasksRepo {
          return TaskModel.fromMap(snapshotData, snapshotId);
        },
      );
-      log('TAMAÑO ${tareas.length}');
+    //las del boss tb
+    await _firebaseCaller.collectionStream<TaskModel>(
+      //uid de usuario
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidUsuario')!),
+      builder: (snapshotData, snapshotId) {
+        tareas.add(TaskModel.fromMap(snapshotData!, snapshotId));
+        return TaskModel.fromMap(snapshotData, snapshotId);
+      },
+    );
+
      tareas.forEach((task) async {
        await _firebaseCaller.updateData(
          path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
          data: {
+           'isNotificationSet': 'false',
            'done': 'false',
+           'idNotification': [],
          },
          builder: (data) {
            if (data is! ServerFailure && data == true) {
@@ -509,7 +499,8 @@ class TasksRepo {
          },
        );
      });
-
+     //ya se ha hecho el reset
+    GetStorage().write('false','CronSet');
   }
 
   Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {

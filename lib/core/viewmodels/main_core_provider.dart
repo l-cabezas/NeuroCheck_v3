@@ -115,7 +115,7 @@ class MainCoreProvider {
   }
 
   Future<Either<Failure, bool>> openCollection(UserModel userModel) async {
-    await _userRepo.openCollection(userModel);
+    //await _userRepo.openCollection(userModel);
     return _userRepo.setUserData(userModel);
   }
 
@@ -152,7 +152,7 @@ class MainCoreProvider {
           (userData) async {
         if (userData == null) {
            //_userRepo.registerUserData(userModel);
-           return _userRepo.openCollection(userModel);
+           //return _userRepo.openCollection(userModel);
         } else {
           return const Right(true);
         }
@@ -161,11 +161,11 @@ class MainCoreProvider {
   }
 
   Future logoutUser() async {
-    GetStorage().erase();
     await _userRepo.clearUserLocalData();
+    await FirebaseMessagingService.instance.unsubscribeFromTopic(topic: 'general');
     await _authRepo.signOut();
-    await FirebaseMessagingService.instance
-        .unsubscribeFromTopic(topic: 'general');
+    await Future.delayed(const Duration(seconds: 1));
+
   }
 
   ///Location module methods
