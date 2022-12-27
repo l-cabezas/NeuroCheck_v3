@@ -52,7 +52,7 @@ class CompletedTasks extends HookConsumerWidget {
                       if (index - supervised < boss) {
                         var indexBoss = index - supervised;
                         if(taskToDo[1][indexBoss].cancelNoti != 'false'){
-                          ref.read(taskProvider.notifier).deleteSingleTaskBoss(taskModel: taskToDo[1][indexBoss]);
+                          ref.read(taskProvider.notifier).deleteTaskbyBoss(taskModel: taskToDo[1][indexBoss]);
                         }
                         list.add(CardItemComponent(taskModel: taskToDo[1][indexBoss],));
                       }

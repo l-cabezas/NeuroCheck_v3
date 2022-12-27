@@ -115,10 +115,8 @@ class CardItemComponent extends ConsumerWidget {
                     onPressed: () {
                       //IR A PANTALLA DE MODIFICACION DE LA TAREA
                       //TODO: borrar tarea
-                      ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
-                      ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
-                      ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
-
+                      ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+                      //ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
                      // ref.refresh(tasksRepoProvider);
                     },
                   )
@@ -140,9 +138,9 @@ class CardItemComponent extends ConsumerWidget {
                         isColored: false,
                         onPressed: () {
                           //TODO
-                          ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
-                          ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
-                          ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
+                          ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+                          //ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
+                          //ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
                        },
                       )
                       : const SizedBox())

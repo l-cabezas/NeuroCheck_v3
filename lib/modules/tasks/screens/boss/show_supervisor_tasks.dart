@@ -13,6 +13,7 @@ import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
 import '../../components/show/card_item_boss_component.dart';
+import '../../viewmodels/task_provider.dart';
 import '../../viewmodels/task_to_do.dart';
 
 

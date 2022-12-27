@@ -257,7 +257,8 @@ class TaskNotifier extends StateNotifier<TareaState> {
     cancelNotification(taskModel.idNotification!);
     //borramos da
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId));
   }
 
   ///-------------------------NOTIFICATION--------------------------------------

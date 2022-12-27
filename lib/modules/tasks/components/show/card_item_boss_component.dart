@@ -75,9 +75,6 @@ class CardItemBossComponent extends ConsumerWidget {
                   title: tr(context).delete,
                   isColored: false,
                   onPressed: () {
-                    //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                    //ref.watch(notiControlProvider.notifier).checkDeleteBoss(taskModel: taskModel);
-
                     ref.watch(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
                   },
                 )

@@ -24,9 +24,6 @@ class CompletedBossTasks extends HookConsumerWidget {
     // provider individual -> ns pq
     return taskToDoStreamAllCompleted.when(
         data: (taskToDo) {
-          var t = [[]];
-          log('COMPLETED ${taskToDo[0]}');
-
           return (taskToDo[0].isEmpty )
               ? CustomText.h4(
             context,
