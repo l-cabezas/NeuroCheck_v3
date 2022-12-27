@@ -99,22 +99,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
     );*/
 
 
-    final result =
-    (taskModel.editable != 'true')
-        ?    await _firebaseCaller.setData(
-        path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,
-            taskId: taskModel.taskId),
-        data: taskModel.toMap(),
-        builder: (data) {
-          if (data is! ServerFailure && data == true) {
-            //control notificaciones
-            return Right(data);
-          } else {
-            return Left(data);
-          }
-        }
-    )
-        :  await _firebaseCaller.setData(
+    final result = await _firebaseCaller.setData(
         path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
             taskId: taskModel.taskId),
         data: taskModel.toMap(),

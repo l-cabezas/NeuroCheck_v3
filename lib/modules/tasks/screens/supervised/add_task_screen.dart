@@ -58,42 +58,51 @@ class AddTaskScreen extends HookConsumerWidget {
             children: <Widget>[
               //const UserInfoComponent(),
               //nombre tarea
-
-              Form(
-                  key: nametaskFormKey,
-                  child: NameTaskTextFieldsSection(
-                    nameController: nameController,
-                    onFieldSubmitted: (value) {
-                      if (nametaskFormKey.currentState!.validate()) {
-                        nameProvider.controllerName(nameController);
-                      }
-                    },
-                  )),
+              GestureDetector(
+              onTap: () {
+                FocusManager.instance.primaryFocus?.unfocus();
+                },
+              child:
+                  Form(
+                      key: nametaskFormKey,
+                      child: NameTaskTextFieldsSection(
+                        nameController: nameController,
+                        onFieldSubmitted: (value) {
+                          if (nametaskFormKey.currentState!.validate()) {
+                            nameProvider.controllerName(nameController);
+                          }
+                        },
+                      ))
+              ),
               SizedBox(
                 height: Sizes.vMarginSmallest(context),
               ),
               //días
               Container(
                   child: Column(children: [
-                Card(
-                    elevation: 6,
-                    shadowColor: AppColors.blue,
-                    margin: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(Sizes.cardRadius(context)),
-                    ),
-                    child: Column(children: [
-                      CustomTileComponent(
-                        title: tr(context).repeatAdd,
-                        leadingIcon: Icons.calendar_today_rounded,
-                      ),
-                      SizedBox(
-                        height: Sizes.vMarginSmallest(context),
-                      ),
-                      ChooseDaySectionComponent([]),
-                    ]) //SwitchSettingsSectionComponent([]),
-                    )
+                      GestureDetector(
+                          onTap: () {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                          },
+                      child: Card(
+                        elevation: 6,
+                        shadowColor: AppColors.blue,
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(Sizes.cardRadius(context)),
+                        ),
+                        child: Column(children: [
+                          CustomTileComponent(
+                            title: tr(context).repeatAdd,
+                            leadingIcon: Icons.calendar_today_rounded,
+                          ),
+                          SizedBox(
+                            height: Sizes.vMarginSmallest(context),
+                          ),
+                          ChooseDaySectionComponent([]),
+                        ]) //SwitchSettingsSectionComponent([]),
+                        ))
               ])),
               //eleccion de días
 
@@ -104,7 +113,11 @@ class AddTaskScreen extends HookConsumerWidget {
               Container(
                   height: 150,
                   width: 400,
-                  child: Card(
+                  child: GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child: Card(
                     elevation: 6,
                     shadowColor: AppColors.blue,
                     margin: EdgeInsets.zero,
@@ -113,7 +126,8 @@ class AddTaskScreen extends HookConsumerWidget {
                           BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
                     child: TimePickerComponent('00:00 - 00:00'),
-                  )),
+                  ))
+              ),
 
               SizedBox(
                 height: Sizes.vMarginMedium(context),
@@ -121,7 +135,11 @@ class AddTaskScreen extends HookConsumerWidget {
               Container(
                   //height: 150,
                   width: 400,
-                  child: Card(
+                  child: GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child:Card(
                       elevation: 6,
                       shadowColor: AppColors.blue,
                       margin: EdgeInsets.zero,
@@ -131,19 +149,15 @@ class AddTaskScreen extends HookConsumerWidget {
                       ),
                       child: RepeNotiComponent(
                         modo: 'add',
-                      ))),
+                      )
+                      )
+                  )
+              ),
 
               SizedBox(
                 height: Sizes.vMarginMedium(context),
               ),
 
-              /*checkDatosAll(
-                      nameProvider.getNameTask(),
-                      days.tags.toString(),
-                      range.getIniHour(),
-                      range.getfinHour(),
-                      repetitions.getMinuteInt())
-                  ?*/
               Consumer(
                 builder: (context, ref, child) {
                   final taskLoading = ref.watch(
@@ -170,15 +184,7 @@ class AddTaskScreen extends HookConsumerWidget {
                       if (repetitions.getBoth() != 0) {
                           //para luego poder cancelar las notificaciones
                           List<int> id = [];
-                          if(range.getSumaRange() > repetitions.getBoth()) {
-                              /*id = await setNotiHours(
-                                  range.getIniHour(),
-                                  range.getfinHour(),
-                                  repetitions.getMinuteInt(),
-                                  saveDays(days.tags.toString()),
-                                  nameController.text);*/
-
-
+                         // if(range.getSumaRange() > repetitions.getBoth()) {
                               TaskModel task = TaskModel(
                                   taskName: nameController.text,
                                   days: saveDays(days.tags.toString()),
@@ -195,16 +201,12 @@ class AddTaskScreen extends HookConsumerWidget {
                                   taskId: '',
                                   isNotificationSet: 'true',
                                   cancelNoti: 'false');
-                              var ids = ref.read(taskProvider.notifier).setNotification(task);
-                              List<int> idsNotifications = [];
-                              // esto nos sirve para poder cancelarlos después
-                              ids.then((value) => value.forEach((element) {idsNotifications.add(element); }));
-                              task.idNotification = idsNotifications;
+
                               ref.read(taskProvider.notifier).addDocToFirebase(context, task);
 
-                            }else{
+                            /*}else{
                               AppDialogs.showWarningAddRange(context);
-                            }
+                            }*/
                           } else {
                         AppDialogs.showErrorNeutral(context,
                             message: tr(context).rangeWarning);

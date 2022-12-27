@@ -81,24 +81,29 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                   child:
                   Column(
                       children:[
-                          Card(
-                            elevation: 6,
-                            shadowColor: AppColors.blue,
-                            margin: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(Sizes.cardRadius(context)),
-                            ),
-                            child: Column(children:[
-                              CustomTileComponent(
-                                title: tr(context).repeatAdd,
-                                leadingIcon: Icons.calendar_today_rounded,
-                              ),
+                      GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        },
+                        child:(Card(
+                                      elevation: 6,
+                                      shadowColor: AppColors.blue,
+                                      margin: EdgeInsets.zero,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(Sizes.cardRadius(context)),
+                                      ),
+                                      child: Column(children:[
+                                        CustomTileComponent(
+                                          title: tr(context).repeatAdd,
+                                          leadingIcon: Icons.calendar_today_rounded,
+                                        ),
 
-                              SizedBox(height: Sizes.vMarginSmallest(context),),
-                              ChooseDaySectionComponent([]),
-                            ])//SwitchSettingsSectionComponent([]),
-                          )
+                                        SizedBox(height: Sizes.vMarginSmallest(context),),
+                                        ChooseDaySectionComponent([]),
+                                      ])//SwitchSettingsSectionComponent([]),
+                                    ))
+                      )
                       ]
                   )
               ),
@@ -111,7 +116,11 @@ class AddTaskScreenBoss extends HookConsumerWidget {
               Container(
                   height: 150,
                   width: 400,
-                  child: Card(
+                  child: GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child:(Card(
                     elevation: 6,
                     shadowColor: AppColors.blue,
                     margin: EdgeInsets.zero,
@@ -120,7 +129,10 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                           BorderRadius.circular(Sizes.cardRadius(context)),
                     ),
                     child: TimePickerComponent('00:00 - 00:00'),
-                  )),
+                  )
+                      )
+                  )
+              ),
 
               SizedBox(
                 height: Sizes.vMarginMedium(context),
@@ -128,7 +140,11 @@ class AddTaskScreenBoss extends HookConsumerWidget {
               Container(
                   //height: 150,
                   width: 400,
-                  child: Card(
+                  child: GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
+                      child:(Card(
                       elevation: 6,
                       shadowColor: AppColors.blue,
                       margin: EdgeInsets.zero,
@@ -137,7 +153,7 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                             BorderRadius.circular(Sizes.cardRadius(context)),
                       ),
                       child: RepeNotiComponent(modo: 'add',)
-                  )
+                  )))
               ),
 
               SizedBox(
@@ -169,7 +185,7 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                       if (repetitions.getBoth() != 0) {
                         List<int> id = [];
                       // no puede repertirse cada más minutos que rango hay
-                       if(range.getSumaRange() > repetitions.getBoth()) {
+                       //if(range.getSumaRange() > repetitions.getBoth()) {
                               TaskModel task = TaskModel(
                                   taskName: nameProvider.getNameTask(),
                                   days: saveDays(days.tags.toString()),
@@ -188,13 +204,11 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                                   cancelNoti: 'false'
                                 );
 
-                              ref
-                                  .read(taskProvider.notifier)
-                                  .addDocToFirebaseBoss(context, task);
+                              ref.read(taskProvider.notifier).addDocToFirebaseBoss(context, task);
 
-                            }else{
+                            /*}else{
                                   AppDialogs.showWarningAddRange(context);
-                            }
+                            }*/
                           } else{
                         AppDialogs.showWarning(context);
                   };
