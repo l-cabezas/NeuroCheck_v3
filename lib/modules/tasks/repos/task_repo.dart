@@ -459,48 +459,61 @@ class TasksRepo {
   // MODIFICAR ELIMINAR COSAS --------------------------------------------------
 
   //cancelar todas las notificaciones, borrar ids, marcar done false
-   void resetTasks() async {
+   void resetTasks(TaskModel taskModel) async {
+
     //obtenemos tareas, cancelamos sus notificaciones, ponemos isNotificationSet
      // a false y cambiamos a no hechas todas
-    List<TaskModel> tareas = [];
+     log("**** INSIDE SET CRON ${GetStorage().read('CronSet')}");
+
+
     cancelScheduledNotifications();
-     await _firebaseCaller.collectionStream<TaskModel>(
-       //uid de usuario
-       path: FirestorePaths.taskPath(GetStorage().read('uidUsuario')!),
-       builder: (snapshotData, snapshotId) {
-         tareas.add(TaskModel.fromMap(snapshotData!, snapshotId));
-         return TaskModel.fromMap(snapshotData, snapshotId);
-       },
-     );
-    //las del boss tb
-    await _firebaseCaller.collectionStream<TaskModel>(
-      //uid de usuario
-      path: FirestorePaths.taskPathBoss(GetStorage().read('uidUsuario')!),
-      builder: (snapshotData, snapshotId) {
-        tareas.add(TaskModel.fromMap(snapshotData!, snapshotId));
-        return TaskModel.fromMap(snapshotData, snapshotId);
+    //diferenciamos si es tarea de supervisor o no
+    if (taskModel.editable == 'true')
+    {
+      log("**** CRON RESETEAMOS CON ${GetStorage().read('uidUsuario')}");
+      await resetTask(task: taskModel);
+    } else {
+      log("**** BOSS CRON RESETEAMOS CON ${GetStorage().read('uidUsuario')}");
+      await await resetTaskBoss(task: taskModel);
+    }
+     //ya se ha hecho el reset
+    //GetStorage().write('CronSet','false');
+  }
+
+  Future<Either<Failure, bool>> resetTask({required TaskModel task}) async {
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'false',
+        'done': 'false',
+        'idNotification': [],
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
       },
     );
+  }
 
-     tareas.forEach((task) async {
-       await _firebaseCaller.updateData(
-         path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
-         data: {
-           'isNotificationSet': 'false',
-           'done': 'false',
-           'idNotification': [],
-         },
-         builder: (data) {
-           if (data is! ServerFailure && data == true) {
-             return Right(data);
-           } else {
-             return Left(data);
-           }
-         },
-       );
-     });
-     //ya se ha hecho el reset
-    GetStorage().write('false','CronSet');
+  Future<Either<Failure, bool>> resetTaskBoss({required TaskModel task}) async {
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'false',
+        'done': 'false',
+        'idNotification': [],
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
   }
 
   Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
@@ -537,8 +550,59 @@ class TasksRepo {
 
   Future<Either<Failure, bool>> checkSetNoti({required TaskModel task}) async {
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario'),taskId: task.taskId),
       data: {
+        'isNotificationSet': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> checkSetNotiBoss({required TaskModel task}) async {
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario'),taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> addNotification(TaskModel task) async {
+    List<int> list = await setNotiInSupervised(task);
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario'),taskId: task.taskId),
+      data: {
+        'idNotification': list,
+        'isNotificationSet': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> addNotificationBoss(TaskModel task, List<int> ids) async {
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario'),taskId: task.taskId),
+      data: {
+        'idNotification': ids,
         'isNotificationSet': 'true',
       },
       builder: (data) {

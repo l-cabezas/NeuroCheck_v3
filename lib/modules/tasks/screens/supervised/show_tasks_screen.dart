@@ -1,25 +1,25 @@
 import 'dart:developer';
 
+import 'package:cron/cron.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/repos/user_repo.dart';
+import 'package:neurocheck/core/widgets/custom_button.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
 import 'package:neurocheck/modules/tasks/repos/utilities.dart';
+import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../auth/models/user_model.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../../../core/widgets/loading_indicators.dart';
-import '../../navBar/components/supervised_card_item_component.dart';
-import '../../navBar/viewmodels/task_to_notify_provider.dart';
-import '../../simple_notifications/notifications.dart';
-import '../viewmodels/task_to_do.dart';
-import '../../navBar/components/card_item_component.dart';
+import '../../../../auth/models/user_model.dart';
+import '../../../../core/services/localization_service.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/styles/sizes.dart';
+import '../../../../core/widgets/custom_text.dart';
+import '../../../../core/widgets/loading_indicators.dart';
+import '../../viewmodels/task_to_do.dart';
+import '../../../navBar/components/card_item_component.dart';
 
 class ShowTasks extends HookConsumerWidget {
   const ShowTasks({Key? key}) : super(key: key);
@@ -39,14 +39,38 @@ class ShowTasks extends HookConsumerWidget {
     } else {
       setSupervisor(true);
     }
+    final cron = Cron();
+    log('**** BEFORE CRON SET ${GetStorage().read('CronSet')}');
+    //seteamos el crono una vez y si no somos supervisores
+    if(!supervisor && GetStorage().read('CronSet') == 'false') {
 
-    log('**** SHOW_TASK_SCREEN ${GetStorage().read('uidUsuario')}');
-    log('**** SHOW_TASK_SCREEN ROL ${GetStorage().read('rol')} uidSup ${GetStorage().read('uidSup')}');
-    return taskToDoStreamAll.when(
+      GetStorage().write('CronSet','true');
+      // a las 00:00h se ejecutará esto todos los días
+      cron.schedule(Schedule.parse('39 12 * * *'), () async {
+        var supervisado = ref.watch(tasksRepoProvider).getTasksDoneStream() ;
+
+        supervisado.forEach((element) {
+          element.forEach((value) {
+            log('**** A ${value.taskId}');
+            ref.watch(tasksRepoProvider).resetTasks(value);
+          });
+        });
+
+        var supervisor = ref.watch(tasksRepoProvider).getTasksDoneStreamBossS() ;
+
+        supervisor.forEach((element) {
+          element.forEach((value) {
+            log('**** B ${value.taskId}');
+            ref.watch(tasksRepoProvider).resetTaskBoss(task: value);
+          });
+        });
+      });
+
+    }
+
+
+        return taskToDoStreamAll.when(
         data: (taskToDo) {
-          log('**** SHOW_TASK_SCREEN lenght ${taskToDo[0].length} y boss ${taskToDo[1].length}');
-          log('**** SHOW_TASK_SCREEN ITEM COUNT ${taskToDo[0].length + taskToDo[1].length}');
-          // 2 (0,1) 2 (0,1)
       return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
           ? CustomText.h4(
               context,
@@ -63,53 +87,52 @@ class ShowTasks extends HookConsumerWidget {
             itemCount: taskToDo[0].length + taskToDo[1].length,
             itemBuilder: (context, index) {
               List<Widget> list = [];
+
               if(index != taskToDo[0].length + taskToDo[1].length) {
                       var supervised = taskToDo[0].length;
                       var boss = taskToDo[1].length;
                       // supervised es 2 -> index: 0,1
                       if (index < supervised) {
                         //supervisado
+                        if(taskToDo[0][index].cancelNoti == 'true' && taskToDo[0][index].isNotificationSet == 'true'){
+                          ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskToDo[0][index]);
+                        }
                         list.add(CardItemComponent(
                           taskModel: taskToDo[0][index],
                         ));
+
                         //si la notificacion está desactivada y no somos supervisores
-                        if ((taskToDo[0][index].isNotificationSet == 'false') &&
-                            (!supervisor)) {
-                          setNotiInSupervised(taskToDo[0][index]);
-                          _taskRepo.checkSetNoti(task: taskToDo[0][index]);
+                        if ((taskToDo[0][index].isNotificationSet == 'false') && (!supervisor)) {
+                          var selectTask = taskToDo[0][index];
+                          //hacemos las notis y obtenemos su id
+                          ref.read(taskProvider.notifier).setNotification(selectTask);
+                          ref.read(taskProvider.notifier).updateNotificationInfo(task: selectTask);
                         }
                       } else {
                         if (index - supervised  < boss) {
                           var indexBoss = index - supervised;
+                          // tengo que esperar a que este activada si no no borra nada y no se desactiva
+                          if(taskToDo[1][indexBoss].cancelNoti == 'true' && taskToDo[1][indexBoss].isNotificationSet == 'true'){
+                            log('**** entramos');
+                            ref.read(taskProvider.notifier).deleteTaskbyBoss(taskModel: taskToDo[1][indexBoss]);
+                          }
                           list.add(CardItemComponent(
                             taskModel: taskToDo[1][indexBoss],
                           ));
                           //si la notificacion está desactivada y no somos supervisores
-                          if ((taskToDo[1][indexBoss]
-                                      .isNotificationSet ==
-                                  'false') &&
-                              (GetStorage().read('uidSup') == '')) {
-                            setNotiInSupervised(
-                                taskToDo[1][indexBoss]);
-                            _taskRepo.checkSetNoti(task: taskToDo[1][indexBoss]);
+
+                          if ((taskToDo[1][indexBoss].isNotificationSet == 'false') && (GetStorage().read('uidSup') == '')) {
+                           // _taskRepo.checkSetNotiBoss(task: taskToDo[1][indexBoss]);
+                            //de esta task
+                            var selectTask = taskToDo[1][indexBoss];
+                            ref.read(taskProvider.notifier).setNotification(selectTask);
+                            ref.read(taskProvider.notifier).updateNotificationInfoBoss(task: selectTask);
                           }
                         }
                       }
                     }
 
-                    return Column(children: list);
-              /*(taskToDo[1][index].taskName == 'tarea0')
-                    ? CustomText.h4(
-                      context,
-                      tr(context).noTask,
-                      color: AppColors.grey,
-                      alignment: Alignment.center,
-                    )
-                    : CardItemComponent(
-                  taskModel: taskToDo[1][index],
-                );*/
-                //si eres supervisado solo podrás ver las tareas que pones tú
-
+                    return Column(children:list);
                 },
 
       );

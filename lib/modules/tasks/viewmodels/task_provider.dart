@@ -21,6 +21,8 @@ import '../../../core/services/init_services/firebase_messaging_service.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/viewmodels/main_core_provider.dart';
+import '../../notifications/models/notiControl_model.dart';
+import '../../notifications/viewmodels/notiControl_provider.dart';
 import '../models/task_model.dart';
 
 
@@ -96,13 +98,16 @@ class TaskNotifier extends StateNotifier<TareaState> {
             (value) => taskModel.taskId = value
     );*/
 
-    final result = (GetStorage().read('uidSup') != '')
+
+    final result =
+    (taskModel.editable != 'true')
         ?    await _firebaseCaller.setData(
         path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,
             taskId: taskModel.taskId),
         data: taskModel.toMap(),
         builder: (data) {
           if (data is! ServerFailure && data == true) {
+            //control notificaciones
             return Right(data);
           } else {
             return Left(data);
@@ -239,12 +244,29 @@ class TaskNotifier extends StateNotifier<TareaState> {
 //-----------------------
 
   Future<void> deleteSingleTask({required TaskModel taskModel}) async {
-    cancelNotification(taskModel.idNotification!);
+    log('**** deleteSingleTask ${taskModel.idNotification?.length}');
+    await cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.deleteData(
-        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId));
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId)
+    );
   }
+
+  Future<void> deleteTaskbyBoss({required TaskModel taskModel}) async {
+    log('**** deleteTaskbyBoss ${taskModel.idNotification?.length}');
+    await cancelNotification(taskModel.idNotification!);
+    return await _firebaseCaller.deleteData(
+        path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: taskModel.taskId)
+    );
+  }
+
   cancelNotification(List<dynamic> listId){
-    listId.forEach((element) { AwesomeNotifications().cancel(element);});
+    log('eliminando notis ${listId.length}');
+    listId.forEach((element) {
+      log('cancelar notis ${element}');
+      AwesomeNotifications().cancelSchedule(element);
+      AwesomeNotifications().cancel(element);
+    }
+    );
   }
 
   Future<void> deleteSingleTaskBoss({required TaskModel taskModel}) async {
@@ -253,6 +275,197 @@ class TaskNotifier extends StateNotifier<TareaState> {
     return await _firebaseCaller.deleteData(
         path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,taskId: taskModel.taskId));
   }
+
+  ///-------------------------NOTIFICATION--------------------------------------
+  /// esto nos sirve para cancelar las notificaciones en el supervisado
+  void checkDeleteNoti({required TaskModel taskModel}) async {
+    if(taskModel.editable == 'true') {
+      await _firebaseCaller.updateData(
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId),
+        data: {
+          'cancelNoti': 'true',
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+    } else{
+      await _firebaseCaller.updateData(
+        path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,
+            taskId: taskModel.taskId),
+        data: {
+          'cancelNoti': 'true',
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+    }
+  }
+
+   Future<List<int>> setNotification(TaskModel taskModel) async {
+     log('**** SET NOTIFICATION');
+     List<int> allIds = [];
+     var splitIni = taskModel.begin?.split(':');
+     //pasamos all a minutos
+     int iniH = int.parse(splitIni![0])*60 + int.parse(splitIni[1]);
+
+     var splitFin = taskModel.end?.split(':');
+     //pasamos all a minutos
+     int finH = int.parse(splitFin![0])*60 + int.parse(splitFin[1]);
+
+     int? cantDias = taskModel.days?.length;
+     //notificacion por cada día
+     for(int j = 0; j< cantDias!;j++) {
+
+       int chooseDay = getNumDay(taskModel.days?.elementAt(j));
+
+       // 13:00 hasta 14:00 cada 4 min
+       for (int i = iniH; i <= finH; i += taskModel.numRepetition!) {
+         int idNotification = DateTime.now().millisecondsSinceEpoch.remainder(100000);
+         allIds.add(idNotification);
+         var duration = Duration(minutes: i);
+          await makeNotiAwesome(idNotification,taskModel.taskName,
+              chooseDay, duration.inHours,(duration.inMinutes-60*duration.inHours));
+       }
+     }
+
+     if(taskModel.editable == 'true') {
+      await _firebaseCaller.updateData(
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId),
+        data: {
+          'idNotification': allIds,
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+    } else{
+       await _firebaseCaller.updateData(
+         path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
+             taskId: taskModel.taskId),
+         data: {
+           'idNotification': allIds,
+         },
+         builder: (data) {
+           if (data is! ServerFailure && data == true) {
+             return Right(data);
+           } else {
+             return Left(data);
+           }
+         },
+       );
+     }
+
+    return allIds;
+
+  }
+
+  makeNotiAwesome(int idNotification, String taskName, int day, int hour, int minute ) async {
+    //int idNotification, String taskName, int day, int hour, int minute
+
+    log('**** MAKENOTI ${idNotification} ${taskName} ${day} ${hour} ${minute}');
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: idNotification,
+        channelKey: 'scheduled_channel',
+        title: 'Do ${taskName} ',
+        body: 'venga va que toca',//'Rango horario ${taskModel.begin} ${taskModel.end}',
+        notificationLayout: NotificationLayout.Default,
+        wakeUpScreen: true,
+      ),
+      actionButtons: [
+        NotificationActionButton(
+          key: 'MARK_DONE',
+          label: 'Hecho',
+        ),
+      ],
+      schedule: NotificationCalendar(
+        weekday: day,
+        hour: hour,
+        minute: minute,
+        second: 0,
+        millisecond: 0,
+        repeats: true,
+        preciseAlarm: true,
+      ),
+    );
+  }
+
+  int getNumDay(String day){
+    int num = 0;
+    switch(day){
+      case 'Lunes': num = 1; break;
+      case 'Martes': num = 2; break;
+      case 'Miércoles': num = 3; break;
+      case 'Jueves': num = 4; break;
+      case 'Viernes': num = 5; break;
+      case 'Sábado': num = 6; break;
+      case 'Domingo': num = 7; break;
+    }
+
+    return num;
+  }
+
+  void cancelTaskNotification(TaskModel taskModel){
+    taskModel.idNotification?.forEach((id) {
+      log('**** cacelado id ${id} de ${taskModel.taskName} ');
+      AwesomeNotifications().cancel(id);
+    });
+  }
+
+  Future<Either<Failure, bool>> updateNotificationInfo({required TaskModel task}) async {
+    //state = const TareaState.loading();
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'idNotification': task.idNotification,
+        'isNotificationSet': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> updateNotificationInfoBoss({required TaskModel task}) async {
+    //state = const TareaState.loading();
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'idNotification': task.idNotification,
+        'isNotificationSet': 'true',
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+//-------------------------------------------------------------------------------
+
 
   navigationToHomeScreen(BuildContext context) {
     NavigationService.pushReplacementAll(

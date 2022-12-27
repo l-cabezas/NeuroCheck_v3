@@ -10,6 +10,7 @@ import '../../../../core/services/localization_service.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../home/components/card_button_component.dart';
 import '../../../home/components/card_user_details_component.dart';
+import '../../../notifications/viewmodels/notiControl_provider.dart';
 import '../../models/task_model.dart';
 import '../../repos/task_repo.dart';
 import '../../viewmodels/task_provider.dart';
@@ -69,13 +70,15 @@ class CardItemBossComponent extends ConsumerWidget {
                   },
                 ),
 
+                // borrar supervisor
                 CardRedButtonComponent(
                   title: tr(context).delete,
                   isColored: false,
                   onPressed: () {
                     //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                    ref.watch(taskProvider.notifier)
-                        .deleteSingleTaskBoss(taskModel: taskModel);
+                    //ref.watch(notiControlProvider.notifier).checkDeleteBoss(taskModel: taskModel);
+
+                    ref.watch(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
                   },
                 )
               ],

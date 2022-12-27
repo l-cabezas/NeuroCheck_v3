@@ -4,13 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../../../core/widgets/loading_indicators.dart';
-import '../viewmodels/task_to_do.dart';
-import '../../navBar/components/card_item_component.dart';
+import '../../../../core/services/localization_service.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/styles/sizes.dart';
+import '../../../../core/widgets/custom_text.dart';
+import '../../../../core/widgets/loading_indicators.dart';
+import '../../viewmodels/task_provider.dart';
+import '../../viewmodels/task_to_do.dart';
+import '../../../navBar/components/card_item_component.dart';
 
 class CompletedTasks extends HookConsumerWidget {
   const CompletedTasks({Key? key}) : super(key: key);
@@ -41,11 +42,19 @@ class CompletedTasks extends HookConsumerWidget {
                     List<Widget> list = [];
                     var supervised = taskToDo[0].length;
                     var boss = taskToDo[1].length;
+
                     if (index < supervised) {
+                      if(taskToDo[0][index].cancelNoti != 'false'){
+                        ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskToDo[0][index]);
+                      }
                       list.add( CardItemComponent(taskModel: taskToDo[0][index],));
                     } else {
                       if (index - supervised < boss) {
-                        list.add(CardItemComponent(taskModel: taskToDo[1][index - supervised],));
+                        var indexBoss = index - supervised;
+                        if(taskToDo[1][indexBoss].cancelNoti != 'false'){
+                          ref.read(taskProvider.notifier).deleteSingleTaskBoss(taskModel: taskToDo[1][indexBoss]);
+                        }
+                        list.add(CardItemComponent(taskModel: taskToDo[1][indexBoss],));
                       }
                     }
                     return Column(children: list);

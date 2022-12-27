@@ -13,11 +13,11 @@ import 'package:neurocheck/modules/tasks/screens/boss/completed_boss_tasks_scree
 import '../../../auth/repos/user_repo.dart';
 import '../../home/viewmodels/noti_providers.dart';
 import '../../../auth/screens/add_supervised_screen.dart';
-import '../../tasks/screens/add_task_screen.dart';
+import '../../tasks/screens/supervised/add_task_screen.dart';
 import '../../tasks/screens/boss/add_task_boss_screen.dart';
 import '../../tasks/screens/boss/show_supervisor_tasks.dart';
-import '../../tasks/screens/completed_tasks_screen.dart';
-import '../../tasks/screens/show_tasks_screen.dart';
+import '../../tasks/screens/supervised/completed_tasks_screen.dart';
+import '../../tasks/screens/supervised/show_tasks_screen.dart';
 
 class Index extends StateNotifier<int> {
   Index() : super(1);
@@ -54,18 +54,6 @@ class HomeScreen extends ConsumerWidget {
       setSupervisor(true);
     }
 
-
-    final cron = Cron();
-    //seteamos el crono una vez y si no somos supervisores
-    if(!supervisor && GetStorage().read('CronSet') == 'false') {
-      log("**** SET CRON");
-      GetStorage().write('true','CronSet');
-      // a las 00:00h se ejecutará esto todos los días
-      cron.schedule(Schedule.parse('32 13 * * *'), () async {
-        ref.watch(tasksRepoProvider).resetTasks();
-
-      });
-    }
 
     return Scaffold(
       body: PageView(

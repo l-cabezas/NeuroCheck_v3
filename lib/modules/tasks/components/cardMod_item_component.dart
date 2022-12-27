@@ -15,7 +15,7 @@ import '../../tasks/components/card_red_button_component.dart';
 import '../../tasks/components/time_range_picker.dart';
 import '../../tasks/models/task_model.dart';
 import '../../tasks/repos/task_repo.dart';
-import '../../tasks/screens/mod_task_screen.dart';
+import '../screens/supervised/mod_task_screen.dart';
 import '../../tasks/viewmodels/task_to_do.dart';
 
 class CardModItemComponent extends ConsumerWidget {

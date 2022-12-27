@@ -39,8 +39,10 @@ Future<int> createTaskToDoNotification(int hour, int minute, String taskName) as
 
 
 Future<int> createReminderNotification( int day, int hour, int minute, String taskName) async {
-  int idNotification = createUniqueId();
-  //log('notifications' + day.toString() + hour.toString() + minute.toString());
+  int idNotification = DateTime.now().millisecondsSinceEpoch.remainder(100000);
+
+  log('**** createReminderNotification ${idNotification} ${taskName}');
+
   await AwesomeNotifications().createNotification(
     content: NotificationContent(
       id: idNotification,
@@ -49,12 +51,12 @@ Future<int> createReminderNotification( int day, int hour, int minute, String ta
       body: 'venga va que toca',//'Rango horario ${taskModel.begin} ${taskModel.end}',
       notificationLayout: NotificationLayout.Default,
     ),
-    /*actionButtons: [
+    actionButtons: [
       NotificationActionButton(
         key: 'MARK_DONE',
         label: 'Hecho',
       ),
-    ],*/
+    ],
     schedule: NotificationCalendar(
       weekday: day,
       hour: hour,
@@ -64,6 +66,7 @@ Future<int> createReminderNotification( int day, int hour, int minute, String ta
       repeats: true,
     ),
   );
+
   return idNotification;
 }
 

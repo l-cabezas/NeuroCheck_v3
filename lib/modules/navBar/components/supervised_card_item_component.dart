@@ -8,9 +8,11 @@ import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
 import '../../home/components/card_button_component.dart';
 import '../../home/components/card_user_details_component.dart';
+import '../../notifications/viewmodels/notiControl_provider.dart';
 import '../../tasks/components/card_red_button_component.dart';
 import '../../tasks/models/task_model.dart';
 import '../../tasks/repos/task_repo.dart';
+import '../../tasks/viewmodels/task_provider.dart';
 
 class SupervisedCardItemComponent extends ConsumerWidget {
 
@@ -78,10 +80,16 @@ class SupervisedCardItemComponent extends ConsumerWidget {
                   onPressed: () {
                     //IR A PANTALLA DE MODIFICACION DE LA TAREA
                     //TODO
-                    ref.watch(tasksRepoProvider)
+
+                    ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
+                    ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
+                    ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
+
+                    /*ref.watch(tasksRepoProvider)
                         .deleteSingleTask(taskModel: taskModel);
                     ref.refresh(tasksRepoProvider);
-
+                    ref.watch(notiControlProvider.notifier).checkDelete(taskModel: taskModel);
+*/
                   },
                 )
                     : const SizedBox()

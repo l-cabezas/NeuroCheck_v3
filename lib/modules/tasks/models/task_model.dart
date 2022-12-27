@@ -11,11 +11,12 @@ class TaskModel {
   final String? editable;
   final List? days;
   final List? notiHours;
-  final List? idNotification;
+  List? idNotification;
   final String? done;
   final int? numRepetition;
   final Timestamp? lastUpdate;
   final String? isNotificationSet;
+  final String? cancelNoti;
 
 
   TaskModel({
@@ -31,6 +32,7 @@ class TaskModel {
     required this.numRepetition,
     this.lastUpdate,
     this.isNotificationSet,
+    this.cancelNoti,
   });
 
   Map<String, dynamic> toMap() {
@@ -47,6 +49,7 @@ class TaskModel {
     'numRepetition': numRepetition,
     'lastUpdate' :lastUpdate,
     'isNotificationSet': isNotificationSet,
+    'cancelNoti': cancelNoti,
     }..removeWhere((key, value) => value == null);
   }
 
@@ -63,7 +66,8 @@ class TaskModel {
       done: map['done'] ?? '',
       numRepetition: map['numRepetition'] ?? '',
       lastUpdate: map['lastUpdate'],
-      isNotificationSet: map['isNotificationSet']
+      isNotificationSet: map['isNotificationSet'],
+      cancelNoti:map['cancelNoti'] ?? ''
     );
   }
 
@@ -82,6 +86,7 @@ class TaskModel {
       numRepetition: task.numRepetition ?? 0,
       lastUpdate: task.lastUpdate,
       isNotificationSet: task.isNotificationSet,
+      cancelNoti: task.cancelNoti ?? ''
     );
   }
 
@@ -97,7 +102,8 @@ class TaskModel {
      String? done,
      int? numRepetition,
      Timestamp? lastUpdate,
-     String? isNotificationSet
+     String? isNotificationSet,
+    String? cancelNoti,
   }) {
     return TaskModel(
       taskId: taskId ?? this.taskId,
@@ -112,6 +118,7 @@ class TaskModel {
       numRepetition: numRepetition ?? this.numRepetition,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       isNotificationSet: isNotificationSet ?? this.isNotificationSet,
+      cancelNoti: cancelNoti ?? this.cancelNoti
     );
   }
 }

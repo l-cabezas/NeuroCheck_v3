@@ -12,11 +12,12 @@ import '../../../core/styles/sizes.dart';
 import '../../home/components/card_button_component.dart';
 import '../../home/components/card_order_details_component.dart';
 import '../../home/components/card_user_details_component.dart';
+import '../../notifications/viewmodels/notiControl_provider.dart';
 import '../../tasks/components/card_red_button_component.dart';
 import '../../tasks/components/time_range_picker.dart';
 import '../../tasks/models/task_model.dart';
 import '../../tasks/repos/task_repo.dart';
-import '../../tasks/screens/mod_task_screen.dart';
+import '../../tasks/screens/supervised/mod_task_screen.dart';
 import '../../tasks/viewmodels/task_to_do.dart';
 
 class CardItemComponent extends ConsumerWidget {
@@ -58,7 +59,7 @@ class CardItemComponent extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //modificar
+                //modificar supervisado
                 (taskModel.editable == "true")
                 ? CardButtonComponent(
                   title: tr(context).mod,
@@ -93,7 +94,7 @@ class CardItemComponent extends ConsumerWidget {
                   },
                 )
                   : SizedBox(),
-                //hecho
+                //hecho supervisor
                 (taskModel.done != 'true' && taskModel.editable == 'false')
                     ? CardButtonComponent(
                   title: tr(context).done,
@@ -106,15 +107,18 @@ class CardItemComponent extends ConsumerWidget {
                 )
                     : SizedBox(),
 
-                //borrar
+                //borrar supervisado
                   (taskModel.editable == 'true' && taskModel.done == 'true')
                       ? CardRedButtonComponent(
                     title: tr(context).delete,
                     isColored: false,
                     onPressed: () {
                       //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                      //TODO
+                      //TODO: borrar tarea
+                      ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
                       ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
+                      ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
+
                      // ref.refresh(tasksRepoProvider);
                     },
                   )
@@ -129,18 +133,17 @@ class CardItemComponent extends ConsumerWidget {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [(
-                //borrar
+                //borrar supervisado
                     (taskModel.editable == 'true' && taskModel.done == 'false')
                       ? CardRedButtonComponent(
                         title: tr(context).delete,
                         isColored: false,
                         onPressed: () {
-                          //IR A PANTALLA DE MODIFICACION DE LA TAREA
                           //TODO
-                          ref.watch(tasksRepoProvider)
-                                  .deleteSingleTask(taskModel: taskModel);
-                          ref.refresh(tasksRepoProvider);
-                        },
+                          ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
+                          ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
+                          ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
+                       },
                       )
                       : const SizedBox())
                 ]

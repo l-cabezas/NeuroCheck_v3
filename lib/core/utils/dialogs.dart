@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../modules/tasks/screens/add_task_screen.dart';
+import '../../modules/tasks/screens/supervised/add_task_screen.dart';
 import '../routing/app_router.dart';
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';

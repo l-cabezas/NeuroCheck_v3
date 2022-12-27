@@ -6,27 +6,30 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
+import 'package:neurocheck/modules/home/viewmodels/noti_providers.dart';
+import 'package:neurocheck/modules/notifications/models/notiControl_model.dart';
 import 'package:neurocheck/modules/tasks/components/forms/name_task/name_task_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/screens/popup_page_nested.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/widgets/custom_tile_component.dart';
-import '../../../core/widgets/loading_indicators.dart';
-import '../../simple_notifications/notifications.dart';
-import '../components/forms/days/multi_choice_provider.dart';
-import '../components/forms/days/switch_setting_section_component.dart';
-import '../components/forms/days/switch_theme_provider.dart';
-import '../components/forms/name_task/task_name_text_fields.dart';
-import '../components/forms/range/time_picker_component.dart';
-import '../components/forms/repetitions/repe_noti_component.dart';
-import '../repos/task_repo.dart';
-import '../repos/utilities.dart';
-import '../viewmodels/task_provider.dart';
+import '../../../../auth/repos/user_repo.dart';
+import '../../../../core/screens/popup_page_nested.dart';
+import '../../../../core/services/localization_service.dart';
+import '../../../../core/styles/sizes.dart';
+import '../../../../core/utils/dialogs.dart';
+import '../../../../core/widgets/custom_tile_component.dart';
+import '../../../../core/widgets/loading_indicators.dart';
+import '../../../notifications/viewmodels/notiControl_provider.dart';
+import '../../../simple_notifications/notifications.dart';
+import '../../components/forms/days/multi_choice_provider.dart';
+import '../../components/forms/days/switch_setting_section_component.dart';
+import '../../components/forms/days/switch_theme_provider.dart';
+import '../../components/forms/name_task/task_name_text_fields.dart';
+import '../../components/forms/range/time_picker_component.dart';
+import '../../components/forms/repetitions/repe_noti_component.dart';
+import '../../repos/task_repo.dart';
+import '../../repos/utilities.dart';
+import '../../viewmodels/task_provider.dart';
 
 
 class AddTaskScreen extends HookConsumerWidget {
@@ -55,6 +58,7 @@ class AddTaskScreen extends HookConsumerWidget {
             children: <Widget>[
               //const UserInfoComponent(),
               //nombre tarea
+
               Form(
                   key: nametaskFormKey,
                   child: NameTaskTextFieldsSection(
@@ -167,14 +171,13 @@ class AddTaskScreen extends HookConsumerWidget {
                           //para luego poder cancelar las notificaciones
                           List<int> id = [];
                           if(range.getSumaRange() > repetitions.getBoth()) {
-                              id = await setNotiHours(
+                              /*id = await setNotiHours(
                                   range.getIniHour(),
                                   range.getfinHour(),
                                   repetitions.getMinuteInt(),
                                   saveDays(days.tags.toString()),
-                                  nameController.text);
+                                  nameController.text);*/
 
-                              isNotificationSet = 'true';
 
                               TaskModel task = TaskModel(
                                   taskName: nameController.text,
@@ -190,11 +193,15 @@ class AddTaskScreen extends HookConsumerWidget {
                                   lastUpdate:
                                       Timestamp.fromDate(DateTime.now()),
                                   taskId: '',
-                                  isNotificationSet: isNotificationSet);
+                                  isNotificationSet: 'true',
+                                  cancelNoti: 'false');
+                              var ids = ref.read(taskProvider.notifier).setNotification(task);
+                              List<int> idsNotifications = [];
+                              // esto nos sirve para poder cancelarlos después
+                              ids.then((value) => value.forEach((element) {idsNotifications.add(element); }));
+                              task.idNotification = idsNotifications;
+                              ref.read(taskProvider.notifier).addDocToFirebase(context, task);
 
-                              ref
-                                  .read(taskProvider.notifier)
-                                  .addDocToFirebase(context, task);
                             }else{
                               AppDialogs.showWarningAddRange(context);
                             }

@@ -70,13 +70,9 @@ List<String> saveDays(String days){
 
 Future<int> stablishNoti(int day, String hora, String taskName){
   var h = hora.split(':');
-  //log('Stablish $day${h[0]}${h[1]}');
-  //dependiendo si es una notificacion para solo ese día o programada
-  //log('sw value Noti $switchValue');
+  log('**** stablishNoti');
   return createReminderNotification(day,int.parse(h[0]),int.parse(h[1]), taskName);
- /* return (switchValue)
-      ?  createReminderNotification(day,int.parse(h[0]),int.parse(h[1]), taskName)
-      :  createTaskToDoNotification(int.parse(h[0]),int.parse(h[1]), taskName);*/
+
 }
 
 String reformDays(String days){
@@ -87,20 +83,19 @@ String reformDays(String days){
 
 }
 
-setNotiInSupervised(TaskModel taskModel){
+Future<List<int>> setNotiInSupervised(TaskModel taskModel){
   List<String> listDays = [];
   taskModel.days?.forEach((element) {
     listDays.add(element);
   });
-
-  setNotiHours(taskModel.begin!, taskModel.end!,taskModel.numRepetition!,
-      listDays, taskModel.taskName);
+  log('***** setNOtiInSupervised ${taskModel.taskName}');
+  // devuelve ids
+  return setNotiHours(taskModel.begin!, taskModel.end!,taskModel.numRepetition!, listDays, taskModel.taskName);
 
 }
 
 
-Future<List<int>> setNotiHours(String ini, String fin, int avisar,
-    List<String> day, String taskName) async {
+Future<List<int>> setNotiHours(String ini, String fin, int avisar, List<String> day, String taskName) async {
   List<int> list = [];
   var splitIni = ini.split(':');
   //pasamos all a minutos
@@ -116,13 +111,13 @@ Future<List<int>> setNotiHours(String ini, String fin, int avisar,
     int chooseDay = getNumDay(day.elementAt(j));
     for (int i = iniH; i <= finH; i += avisar) {
       var duration = Duration(minutes: i);
-
       // para evitar que guarde 8 en vez de 08
-
       if (duration.inMinutes.remainder(60) < 10) {
-        list.add(await stablishNoti(chooseDay, '${duration.inHours}:0${duration.inMinutes.remainder(60)}',taskName));
+        log('**** list add ${taskName}');
+        list.add(
+            await stablishNoti(chooseDay, '${duration.inHours}:0${duration.inMinutes.remainder(60)}',taskName));
       } else {
-
+        log('**** list add ${taskName}');
         list.add(await stablishNoti(chooseDay,
             '${duration.inHours}:${duration.inMinutes.remainder(60)}',taskName));
       }

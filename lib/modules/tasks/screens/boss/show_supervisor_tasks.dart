@@ -27,7 +27,6 @@ class ShowSupervisorTasks extends HookConsumerWidget {
     // provider individual -> ns pq
     return taskToDoStreamAllBoss.when(
         data: (taskToDo) {
-          log(' TASK TO DO ${taskToDo[0].length}');
           return (taskToDo[0].isEmpty)
               ? CustomText.h4(
             context,
@@ -45,7 +44,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
             itemBuilder: (context, index) {
               List<Widget> list = [];
                   list.add(
-                      (taskToDo[0][index].taskName == 'tarea0')
+                      (taskToDo[0][index].cancelNoti == 'true')
                           ? CustomText.h4(
                         context,
                         tr(context).noTask,

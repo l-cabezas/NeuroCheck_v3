@@ -23,6 +23,8 @@ import '../../../../core/utils/dialogs.dart';
 import '../../../../core/utils/flush_bar_component.dart';
 import '../../../../core/widgets/custom_tile_component.dart';
 import '../../../../core/widgets/loading_indicators.dart';
+import '../../../notifications/models/notiControl_model.dart';
+import '../../../notifications/viewmodels/notiControl_provider.dart';
 import '../../components/forms/days/multi_choice_provider.dart';
 import '../../components/forms/days/switch_setting_section_component.dart';
 import '../../components/forms/days/switch_theme_provider.dart';
@@ -182,11 +184,14 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                                   lastUpdate:
                                       Timestamp.fromDate(DateTime.now()),
                                   taskId: '',
-                                  isNotificationSet: 'false');
+                                  isNotificationSet: 'false',
+                                  cancelNoti: 'false'
+                                );
 
                               ref
                                   .read(taskProvider.notifier)
                                   .addDocToFirebaseBoss(context, task);
+
                             }else{
                                   AppDialogs.showWarningAddRange(context);
                             }

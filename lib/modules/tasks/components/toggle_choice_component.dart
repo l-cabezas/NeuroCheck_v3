@@ -78,7 +78,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                               CupertinoButton(
                                   child: CustomText.h4(context,'Cancelar',color: AppColors.red),
                                   onPressed: (){
-
+                                    NavigationService.goBack(context,rootNavigator: true);
                                   }),
                               SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
                               Consumer(
@@ -159,7 +159,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                             CupertinoButton(
                                 child: CustomText.h4(context,'Cancelar',color: AppColors.red),
                                 onPressed: (){
-
+                                  NavigationService.goBack(context,rootNavigator: true);
                                 }),
                             SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
                             Consumer(
@@ -239,7 +239,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
                           CupertinoButton(
                               child: CustomText.h4(context,'Cancelar',color: AppColors.red),
                               onPressed: (){
-
+                                NavigationService.goBack(context,rootNavigator: true);
                               }),
                           SizedBox(width: Sizes.vMarginHighest(context)*3.3,),
                           Consumer(
@@ -257,32 +257,17 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                     : CupertinoButton(
                                     child: CustomText.h4(context,'Ok',color: AppColors.blue),
                                     onPressed: (){
-
+                                  //
                                       if(GetStorage().read('uidSup') != ''){
-                                  //disp boss no hay notis
-                                  //taskRepo.cancelNotification(taskModel.idNotification!);
-                                  /*taskRepo.updateTaskBoss(context,{
-                                    'numRepetition': repetitions.getHr(),
-                                    'idNotification': [],
-                                    'lastUpdate': Timestamp.fromDate(DateTime.now()),
-                                    'isNotificationSet': 'false',
-                                  },
-                                      taskId: taskModel.taskId
-                                  );*/
+
                                         log('**** TOGGLE CHOICE REPETITION ${repetitions.getHr()}');
-                                }else{
-                                  //se cambian días, borramos notificacion y cambiamos días, si es oneTime y su ultima mod
-                                  /*taskRepo.cancelNotification(taskModel.idNotification!);
-                                  taskRepo.updateTask(context,{
-                                    'numRepetition': repetitions.getHr(),
-                                    'lastUpdate': Timestamp.fromDate(DateTime.now()),
-                                    'isNotificationSet': 'false',
-                                  },
-                                      taskId: taskModel.taskId
-                                  );*/
-
-                                  log('**** TOGGLE CHOICE REPETITION ${repetitions.getHr()}');
-
+                                        taskRepo.updateTaskBoss(context,{
+                                          'idNotification': [],
+                                          'lastUpdate': Timestamp.fromDate(DateTime.now()),
+                                          'isNotificationSet': 'false',
+                                          'numRepetition' : repetitions.minutos_repetir
+                                        }, taskId: taskModel.taskId
+                                        );
                                 }
                               });})
                         ]

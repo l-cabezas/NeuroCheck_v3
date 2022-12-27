@@ -28,6 +28,9 @@ class FirestorePaths {
 
   static String taskBossDoneById(String uid,{required String taskId}) => 'users/$uid/tasksBossDone/$taskId';
 
+  static String notificationPass(String uid) => 'users/$uid/notiControl';
+  static String notificationPassById(String uid,{required String notiId}) => 'users/$uid/notiControl/$notiId';
+  static String notificationPassByTaskId(String uid,{required String notiId}) => 'users/$uid/notiControl/$notiId';
 
   /// FirebaseStorage
   static String profilesImagesPath(String userId) => 'users/$userId/$userId';
