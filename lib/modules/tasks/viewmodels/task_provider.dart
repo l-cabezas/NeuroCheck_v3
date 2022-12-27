@@ -213,7 +213,6 @@ class TaskNotifier extends StateNotifier<TareaState> {
   }
 
    updateTaskBoss(BuildContext context,Map<String, dynamic> datos,{required String taskId,}) async {
-     log('**** UPDATE TASK BOSS ${GetStorage().read('uidSup')} ${taskId}');
     final result = await _firebaseCaller.updateData(
       path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,taskId: taskId),
       data: datos,

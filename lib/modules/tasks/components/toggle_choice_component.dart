@@ -98,7 +98,6 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                   onPressed: () async {
                                     //para luego poder cancelar las notificaciones
                                     //si no es supervisor activamos las notis
-
                                     if(GetStorage().read('uidSup') != ''){
                                       //disp boss no hay notis
                                       //taskRepo.cancelNotification(taskModel.idNotification!);
@@ -177,7 +176,6 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                       : CupertinoButton(
                                 child: CustomText.h4(context,'Ok',color: AppColors.blue),
                                 onPressed: (){
-
                                   if(GetStorage().read('uidSup') != ''){
                                     //disp boss no hay notis
                                     //taskRepo.cancelNotification(taskModel.idNotification!);
@@ -257,18 +255,37 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                     : CupertinoButton(
                                     child: CustomText.h4(context,'Ok',color: AppColors.blue),
                                     onPressed: (){
-                                  //
                                       if(GetStorage().read('uidSup') != ''){
 
                                         log('**** TOGGLE CHOICE REPETITION ${repetitions.getHr()}');
-                                        taskRepo.updateTaskBoss(context,{
-                                          'idNotification': [],
-                                          'lastUpdate': Timestamp.fromDate(DateTime.now()),
-                                          'isNotificationSet': 'false',
-                                          'numRepetition' : repetitions.minutos_repetir
-                                        }, taskId: taskModel.taskId
-                                        );
-                                }
+                                        /*notiHours: notiHours(range.getIniHour(),
+                                            range.getfinHour(), repetitions.getBt()),*/
+                                        if(range.getIniHour() != taskModel.begin || range.getfinHour() != taskModel.end){
+                                          log('**** error');
+                                        } else {
+                                          taskRepo.updateTaskBoss(context,{
+                                            'idNotification': [],
+                                            'lastUpdate': Timestamp.fromDate(DateTime.now()),
+                                            'isNotificationSet': 'false',
+                                            'numRepetition' : repetitions.getBoth()
+                                          }, taskId: taskModel.taskId
+                                          );
+                                        }
+
+                                } else {
+                                        if(range.getIniHour() != taskModel.begin || range.getfinHour() != taskModel.end){
+                                          log('**** error2');
+                                        } else{
+                                          taskRepo.updateTask(context,{
+                                            'idNotification': [],
+                                            'lastUpdate': Timestamp.fromDate(DateTime.now()),
+                                            'isNotificationSet': 'false',
+                                            'numRepetition' : repetitions.getBoth()
+                                          }, taskId: taskModel.taskId
+                                          );
+                                        }
+
+                                      }
                               });})
                         ]
                     ),

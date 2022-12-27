@@ -20,7 +20,7 @@ import '../../modules/navBar/screens/home_screen.dart';
 import '../../modules/home/utils/home_base_nav_utils.dart';
 import '../../modules/tasks/screens/supervised/completed_tasks_screen.dart';
 import '../../modules/profile/screens/profile_screen.dart';
-import '../../modules/tasks/screens/supervised/mod_task_screen.dart';
+import '../../modules/tasks/screens/mod_task_screen.dart';
 import '../screens/no_internet_connection_screen.dart';
 import '../screens/splash_screen.dart';
 import 'navigation_service.dart';
