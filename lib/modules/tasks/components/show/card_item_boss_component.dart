@@ -121,8 +121,9 @@ class CardItemBossComponent extends ConsumerWidget {
       title: CustomText.h2(context, tr(context).adv),
       content: CustomText.h3(context,tr(context).adv_delete),
       actions: [
-        okButton,
         cancelButton,
+        okButton,
+
       ],
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))

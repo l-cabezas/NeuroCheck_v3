@@ -197,8 +197,8 @@ class CardItemComponent extends ConsumerWidget {
       title: CustomText.h2(context, tr(context).adv),
       content: CustomText.h3(context,tr(context).adv_done), // todo: tr
       actions: [
-        okButton,
         cancelButton,
+        okButton,
       ],
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
@@ -220,7 +220,7 @@ class CardItemComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).delete,
-          color: AppColors.red
+          color: AppColors.blue
       ),
       onPressed:  () {
         ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
@@ -233,7 +233,7 @@ class CardItemComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).cancel,
-          color: AppColors.blue
+          color: AppColors.red
       ),
       onPressed:  () {
         NavigationService.goBack(context,rootNavigator: true);
@@ -244,8 +244,8 @@ class CardItemComponent extends ConsumerWidget {
       title: CustomText.h2(context, tr(context).adv),
       content: CustomText.h3(context,tr(context).adv_delete), // todo: tr
       actions: [
-        okButton,
         cancelButton,
+        okButton,
       ],
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))
