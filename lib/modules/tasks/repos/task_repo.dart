@@ -464,9 +464,6 @@ class TasksRepo {
     //obtenemos tareas, cancelamos sus notificaciones, ponemos isNotificationSet
      // a false y cambiamos a no hechas todas
      log("**** INSIDE SET CRON ${GetStorage().read('CronSet')}");
-
-
-    cancelScheduledNotifications();
     //diferenciamos si es tarea de supervisor o no
     if (taskModel.editable == 'true')
     {

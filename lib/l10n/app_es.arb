@@ -116,6 +116,9 @@
   "ini_range": "Inicio: ",
   "fin_range": "Fin: ",
   "repeat_noti": "¿Cada cuantos minutos quieres que se repita la notificación?",
+  "adv": "Advertencia",
+  "adv_done": "Vas a marcar la tarea como hecha, ¿Seguimos?",
+  "adv_delete" : "Vas a borrar la tarea, ¿Seguimos?",
   "@_ROL": {
   },
   "askYourDates": "Introduzca su usuario y contraseña",

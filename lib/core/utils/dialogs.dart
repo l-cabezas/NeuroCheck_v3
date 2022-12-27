@@ -1,6 +1,12 @@
+
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
 import '../../modules/tasks/screens/supervised/add_task_screen.dart';
+import '../../modules/tasks/viewmodels/task_provider.dart';
 import '../routing/app_router.dart';
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';
@@ -22,6 +28,27 @@ class AppDialogs {
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);
       },
+    );
+  }
+
+  static Future showCheckDialog(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.question,
+      title: tr(context).oops,
+      description: '${tr(context).somethingWentWrong}\n${message ?? tr(context).pleaseTryAgainLater}',
+      textButton: tr(context).oK,
+      textButton2: tr(context).cancel,
+      onPressed: () {
+        log('aceptar');
+        TaskNotifier.aceptar = true;
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+      onPressed2: (){
+        log('NO aceptar');
+        TaskNotifier.aceptar = false;
+        NavigationService.goBack(context,rootNavigator: true);
+      }
     );
   }
 

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/core/routing/app_router.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/core/utils/dialogs.dart';
+import 'package:neurocheck/core/widgets/custom_text.dart';
+import 'package:neurocheck/core/widgets/custom_text_button.dart';
 import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
 
 import '../../../core/routing/navigation_service.dart';
@@ -88,8 +91,10 @@ class CardItemComponent extends ConsumerWidget {
                   title: tr(context).done,
                   isColored: true,
                   onPressed: () {
-
-                    ref.watch(taskProvider.notifier).checkTask(task: taskModel);
+                    showAlertDialogCheck(context,ref);
+                    //ref.watch(taskProvider.notifier).checkTask(context, taskModel: taskModel);
+                  //ref.watch(taskProvider.notifier).questionCheck(context, taskModel: taskModel);
+                    //ref.watch(taskProvider.notifier).checkTask(taskModel: taskModel);
                     //ref.refresh(tasksRepoProvider);
                   },
                 )
@@ -101,7 +106,11 @@ class CardItemComponent extends ConsumerWidget {
                   isColored: true,
                   onPressed: () {
 
-                    ref.watch(taskProvider.notifier).checkTaskBoss(task: taskModel);
+                    //DialogWidget.showCustomDialog()
+                    showAlertDialogCheck(context,ref);
+                  //ref.watch(taskProvider.notifier).checkTask(context,taskModel: taskModel);
+                    //ref.watch(taskProvider.notifier).checkTaskBoss(taskModel: taskModel);
+                   // ref.watch(taskProvider.notifier).showCheckTestDone(context, taskModel);
                    // ref.refresh(tasksRepoProvider);
                   },
                 )
@@ -115,7 +124,8 @@ class CardItemComponent extends ConsumerWidget {
                     onPressed: () {
                       //IR A PANTALLA DE MODIFICACION DE LA TAREA
                       //TODO: borrar tarea
-                      ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+                      //ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+                      showAlertDialogDelete(context,ref);
                       //ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
                      // ref.refresh(tasksRepoProvider);
                     },
@@ -138,7 +148,7 @@ class CardItemComponent extends ConsumerWidget {
                         isColored: false,
                         onPressed: () {
                           //TODO
-                          ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+                          showAlertDialogDelete(context,ref);
                           //ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
                           //ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
                        },
@@ -149,6 +159,105 @@ class CardItemComponent extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  showAlertDialogCheck(BuildContext context, ref) {
+
+    // set up the buttons
+    Widget okButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).oK,
+          color: AppColors.blue
+      ),
+      onPressed:  () {
+        if (taskModel.editable == 'true'){
+          ref.watch(taskProvider.notifier).checkTask(context, taskModel: taskModel);
+        }else{
+          ref.watch(taskProvider.notifier).checkTaskBoss(context, taskModel: taskModel);
+        }
+
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+
+    Widget cancelButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).cancel,
+          color: AppColors.red
+      ),
+      onPressed:  () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: CustomText.h2(context, tr(context).adv),
+      content: CustomText.h3(context,tr(context).adv_done), // todo: tr
+      actions: [
+        okButton,
+        cancelButton,
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showAlertDialogDelete(BuildContext context, ref) {
+    // set up the buttons
+    Widget okButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).delete,
+          color: AppColors.red
+      ),
+      onPressed:  () {
+        ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
+
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+
+    Widget cancelButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).cancel,
+          color: AppColors.blue
+      ),
+      onPressed:  () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: CustomText.h2(context, tr(context).adv),
+      content: CustomText.h3(context,tr(context).adv_delete), // todo: tr
+      actions: [
+        okButton,
+        cancelButton,
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

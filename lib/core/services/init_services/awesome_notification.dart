@@ -9,7 +9,7 @@ class AweNotification{
     AwesomeNotifications().initialize(
       'resource://drawable/res_notification_app_icon',
       [
-        NotificationChannel(
+        /*NotificationChannel(
           channelKey: 'basic_channel',
           channelName: 'Basic Notifications',
           defaultColor: AppColors.blue,
@@ -25,7 +25,7 @@ class AweNotification{
           importance: NotificationImportance.High,
           soundSource: 'resource://raw/res_custom_notification',
           channelDescription: '',
-        ),
+        ),*/
       ],
     );
 

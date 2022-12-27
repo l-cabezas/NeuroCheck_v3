@@ -116,7 +116,9 @@
   "ini_range": "Inicio: ",
   "fin_range": "Fin: ",
   "repeat_noti": "Cada cantos minutos queres que se repita a notificación?",
-
+  "adv": "Advertencia",
+  "adv_done": "Vai marcar a tarefa como feita, continuamos?",
+  "adv_delete" : "Vai eliminar a tarefa, continuamos?",
   "@_ROL": {
   },
   "askYourDates": "Introduza o seu usuario e contrasinal",

@@ -98,7 +98,8 @@ Future<int> reCreateReminderNotification(int day, String hour) async {
 }
 
 Future<void> cancelScheduledNotifications() async {
-  await AwesomeNotifications().cancelAllSchedules();
+  //await AwesomeNotifications().cancelAllSchedules();
+  await AwesomeNotifications().cancelNotificationsByChannelKey('scheduled_channel');
 }
 
 Future<void> cancelScheduledNotification(int id) async {

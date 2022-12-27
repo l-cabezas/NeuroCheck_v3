@@ -19,8 +19,10 @@ import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../../core/services/firebase_services/i_firebase_caller.dart';
 import '../../../core/services/init_services/firebase_messaging_service.dart';
 import '../../../core/services/localization_service.dart';
+import '../../../core/utils/dialog_message_state.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/viewmodels/main_core_provider.dart';
+import '../../../core/widgets/dialog_widget.dart';
 import '../../notifications/models/notiControl_model.dart';
 import '../../notifications/viewmodels/notiControl_provider.dart';
 import '../models/task_model.dart';
@@ -53,29 +55,60 @@ class TaskNotifier extends StateNotifier<TareaState> {
   setSupervisor(bool set){
     supervisor = set;
   }
+  static bool aceptar = false;
 
-  Future<Either<Failure, bool>> checkTask({required TaskModel task}) async {
-    state = const TareaState.loading();
-    return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
-      data: {
-        'done': 'true',
-      },
-      builder: (data) {
-        if (data is! ServerFailure && data == true) {
-          return Right(data);
-        } else {
-          return Left(data);
+  questionCheck(BuildContext context,{required TaskModel taskModel}) async {
+    //await AppDialogs.showCheckDialog(context);
+    await DialogWidget.showCustomDialog(
+        context: context,
+        dialogWidgetState: DialogWidgetState.question,
+        title: tr(context).oops,
+        description: '${tr(context).somethingWentWrong}\n${ tr(context).pleaseTryAgainLater}',
+        textButton: tr(context).oK,
+        textButton2: tr(context).cancel,
+        onPressed: () {
+          log('aceptar');
+          checkTask( context,taskModel: taskModel);
+          NavigationService.goBack(context,rootNavigator: true);
+
+        },
+        onPressed2: (){
+          log('NO aceptar');
+          NavigationService.goBack(context,rootNavigator: true);
         }
-      },
     );
   }
+  checkTask(BuildContext context,{required TaskModel taskModel}) async {
+    state = const TareaState.loading();
+      await cancelNotification(taskModel.idNotification!);
+      return await _firebaseCaller.updateData(
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId),
+        data: {
+          'done': 'true',
+          'isSetNotification': 'false',
+          'idNotification': [],
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+  }
 
-  Future<Either<Failure, bool>> checkTaskBoss({required TaskModel task}) async {
+  //cancelamos notificaciones, deseteamos y borramos ids
+  Future<Either<Failure, bool>> checkTaskBoss({required TaskModel taskModel}) async {
+    await cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.updateData(
-      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
+          taskId: taskModel.taskId),
       data: {
         'done': 'true',
+        'isSetNotification': 'false',
+        'idNotification': [],
       },
       builder: (data) {
         if (data is! ServerFailure && data == true) {
@@ -125,6 +158,42 @@ class TaskNotifier extends StateNotifier<TareaState> {
       },
     );
   }
+
+   /*showCheckTestDone(BuildContext context, TaskModel taskModel) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.question, // todo: tr
+      title: tr(context).oops,
+      description: '¿Estas seguro?',
+      textButton: tr(context).oK,
+      textButton2: tr(context).cancel,
+      onPressed: () {
+        if(taskModel.editable=='true'){
+          checkTask(taskModel: taskModel);
+        }
+        else {
+          checkTaskBoss(taskModel: taskModel);
+        }
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    onPressed2: (){
+      NavigationService.goBack(context,rootNavigator: true);
+    }
+    );
+
+
+    *//*return await result.fold(
+          (failure) {
+        state =  TareaState.error(errorText: failure.message);
+        //AppDialogs.showErrorDialog(context, message: failure.message);
+      },
+          (taskModel) async {
+        state = TareaState.available();
+        //AppDialogs.addTaskOK(context, message: tr(context).addTaskDone);
+      },
+    );*//*
+
+  }*/
 
 
 
@@ -406,12 +475,6 @@ class TaskNotifier extends StateNotifier<TareaState> {
     return num;
   }
 
-  void cancelTaskNotification(TaskModel taskModel){
-    taskModel.idNotification?.forEach((id) {
-      log('**** cacelado id ${id} de ${taskModel.taskName} ');
-      AwesomeNotifications().cancel(id);
-    });
-  }
 
   Future<Either<Failure, bool>> updateNotificationInfo({required TaskModel task}) async {
     //state = const TareaState.loading();

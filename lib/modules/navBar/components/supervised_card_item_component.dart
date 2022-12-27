@@ -78,18 +78,7 @@ class SupervisedCardItemComponent extends ConsumerWidget {
                   title: tr(context).delete,
                   isColored: false,
                   onPressed: () {
-                    //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                    //TODO
-
-                    ref.read(taskProvider.notifier).cancelTaskNotification(taskModel);
-                    ref.watch(notiControlProvider.notifier).deleteNotiControlWT(taskModel: taskModel);
-                    ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
-
-                    /*ref.watch(tasksRepoProvider)
-                        .deleteSingleTask(taskModel: taskModel);
-                    ref.refresh(tasksRepoProvider);
                     ref.watch(notiControlProvider.notifier).checkDelete(taskModel: taskModel);
-*/
                   },
                 )
                     : const SizedBox()

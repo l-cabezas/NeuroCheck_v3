@@ -18,6 +18,7 @@ import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
+import '../../../simple_notifications/notifications.dart';
 import '../../viewmodels/task_to_do.dart';
 import '../../../navBar/components/card_item_component.dart';
 
@@ -46,7 +47,10 @@ class ShowTasks extends HookConsumerWidget {
 
       GetStorage().write('CronSet','true');
       // a las 00:00h se ejecutará esto todos los días
-      cron.schedule(Schedule.parse('39 12 * * *'), () async {
+      cron.schedule(Schedule.parse('00 00 * * *'), () async {
+        //cancelamos todas las notificaciones
+        cancelScheduledNotifications();
+
         var supervisado = ref.watch(tasksRepoProvider).getTasksDoneStream() ;
 
         supervisado.forEach((element) {
