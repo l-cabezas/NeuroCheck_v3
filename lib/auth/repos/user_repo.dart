@@ -241,6 +241,7 @@ class UserRepo {
   }
 
   deleteUidBD(String uid) async {
+    log('**** DELETE UID ${uid}');
     return await _firebaseCaller.deleteData(
       path: FirestorePaths.userUId(uid),
     );

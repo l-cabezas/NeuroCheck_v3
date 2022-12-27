@@ -45,7 +45,8 @@
   "reset": "Restaurar contraseña",
   "questionrol" : "¿Quere desempeñar o rol de supervisor?",
   "yes" : "Sí",
-  "no" : "No",
+  "no" : "Non",
+  "delete_acc": "Vai eliminar esta conta, unha vez eliminada non poderás recuperala pero poderás rexistrarte de novo con ese mesmo correo electrónico e contrasinal",
   "@_GENERAL": {
   },
   "spanish": "Español",

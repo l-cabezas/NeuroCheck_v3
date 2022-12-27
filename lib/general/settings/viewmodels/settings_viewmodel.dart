@@ -36,4 +36,23 @@ class SettingsViewModel {
 
     log('**** signOut cool');
   }
+
+  deleteAccount() async {
+    cancelScheduledNotifications();
+
+    NavigationService.pushReplacementAll(
+      NavigationService.context,
+      isNamed: true,
+      rootNavigator: true,
+      page: RoutePaths.authLogin,
+    );
+    //Delay until NavigationFadeTransition is done
+    await Future.delayed(const Duration(seconds: 1));
+
+    await _mainCoreProvider.deleteAccount();
+
+
+    log('**** delete cool');
+  }
+
 }

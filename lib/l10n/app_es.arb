@@ -51,6 +51,7 @@
   "verifyTitle": "Verifique su email para poder usar la app",
   "cancelBtn": "Cancelar",
   "verifyMessage" : "Revise si tiene el correo electrónico de verificacion (si no le aparece vaya a la seccion de spam). Si no tiene el correo pulse el botón de reenviar y compruebe de nuevo",
+  "delete_acc": "Va a borrar esta cuenta, una vez borrada no la podrá recuperar pero si podrá volver a registrarse con ese mismo correo y contraseña",
   "@_GENERAL": {
   },
   "spanish": "Español",

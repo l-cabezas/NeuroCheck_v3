@@ -168,6 +168,16 @@ class MainCoreProvider {
 
   }
 
+  Future deleteAccount() async {
+    await _userRepo.deleteUidBD(GetStorage().read('uidUsuario'));
+    await _userRepo.clearUserLocalData();
+    await FirebaseMessagingService.instance.unsubscribeFromTopic(topic: 'general');
+    await _authRepo.deleteUser();
+    await _authRepo.signOut();
+    await Future.delayed(const Duration(seconds: 1));
+
+  }
+
   ///Location module methods
   Future<bool> enableLocationAndRequestPermission() async {
     bool locationServiceEnabled = await enableLocationService();

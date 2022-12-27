@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neurocheck/general/settings/components/delete_component.dart';
 
 import '../../../core/screens/popup_page_nested.dart';
 import '../../../core/styles/sizes.dart';
@@ -33,6 +34,11 @@ class SettingsScreen extends StatelessWidget {
               ),
               //cerrar sesión
               const LogoutComponent(),
+              SizedBox(
+                height: Sizes.vMarginHigh(context),
+              ),
+              //cerrar sesión
+              const DeleteComponent(),
             ],
           ),
         ),
