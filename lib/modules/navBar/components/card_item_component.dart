@@ -92,10 +92,6 @@ class CardItemComponent extends ConsumerWidget {
                   isColored: true,
                   onPressed: () {
                     showAlertDialogCheck(context,ref);
-                    //ref.watch(taskProvider.notifier).checkTask(context, taskModel: taskModel);
-                  //ref.watch(taskProvider.notifier).questionCheck(context, taskModel: taskModel);
-                    //ref.watch(taskProvider.notifier).checkTask(taskModel: taskModel);
-                    //ref.refresh(tasksRepoProvider);
                   },
                 )
                   : SizedBox(),
@@ -106,28 +102,19 @@ class CardItemComponent extends ConsumerWidget {
                   isColored: true,
                   onPressed: () {
 
-                    //DialogWidget.showCustomDialog()
                     showAlertDialogCheck(context,ref);
-                  //ref.watch(taskProvider.notifier).checkTask(context,taskModel: taskModel);
-                    //ref.watch(taskProvider.notifier).checkTaskBoss(taskModel: taskModel);
-                   // ref.watch(taskProvider.notifier).showCheckTestDone(context, taskModel);
-                   // ref.refresh(tasksRepoProvider);
+
                   },
                 )
                     : SizedBox(),
 
-                //borrar supervisado
+                //borrar supervisado DONE
                   (taskModel.editable == 'true' && taskModel.done == 'true')
                       ? CardRedButtonComponent(
                     title: tr(context).delete,
                     isColored: false,
                     onPressed: () {
-                      //IR A PANTALLA DE MODIFICACION DE LA TAREA
-                      //TODO: borrar tarea
-                      //ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
                       showAlertDialogDelete(context,ref);
-                      //ref.watch(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
-                     // ref.refresh(tasksRepoProvider);
                     },
                   )
                       : const SizedBox(),
@@ -153,7 +140,17 @@ class CardItemComponent extends ConsumerWidget {
                           //ref.read(taskProvider.notifier).deleteSingleTask(taskModel: taskModel);
                        },
                       )
-                      : const SizedBox())
+                      : const SizedBox()),
+
+                      (taskModel.editable == 'true' && taskModel.done == 'true')
+                        ? CardButtonComponent(
+                      title: 'Deshacer', //todo: tr
+                      isColored: false,
+                      onPressed: () {
+                        ref.watch(taskProvider.notifier).undoCheckTask(taskModel: taskModel);
+                      },
+                    )
+                        : const SizedBox()
                 ]
             )
           ],
@@ -175,7 +172,7 @@ class CardItemComponent extends ConsumerWidget {
         if (taskModel.editable == 'true'){
           ref.watch(taskProvider.notifier).checkTask(context, taskModel: taskModel);
         }else{
-          ref.watch(taskProvider.notifier).checkTaskBoss(context, taskModel: taskModel);
+          ref.watch(taskProvider.notifier).checkTaskBoss(taskModel: taskModel);
         }
 
         NavigationService.goBack(context,rootNavigator: true);

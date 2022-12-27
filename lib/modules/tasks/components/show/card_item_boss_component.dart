@@ -83,9 +83,26 @@ class CardItemBossComponent extends ConsumerWidget {
                 )
               ],
             ),
-
-          ],
-        ),
+      (taskModel.done == 'true')
+            ? SizedBox(
+        height: Sizes.vMarginSmallest(context),
+      )
+      : SizedBox(),
+      (taskModel.done == 'true')
+      //desmarcar el hecho
+          ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CardButtonComponent(
+                title: 'Deshacer',
+                isColored: false,
+                onPressed: () {
+                  ref.read(taskProvider.notifier).undoCheckTaskBoss(taskModel: taskModel);
+                },
+              ),
+              ])
+          : SizedBox()
+        ]),
       ),
     );
   }

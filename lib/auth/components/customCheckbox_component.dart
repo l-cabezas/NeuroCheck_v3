@@ -11,59 +11,57 @@ import '../../core/styles/sizes.dart';
 import '../../core/widgets/custom_text.dart';
 
 class CustomCheckBoxComponent extends ConsumerWidget {
-  CustomCheckBoxComponent({Key? key})
-      : super(key: key);
+  CustomCheckBoxComponent({Key? key}) : super(key: key);
 
   @override
-    Widget build(BuildContext context,ref) {
+  Widget build(BuildContext context, ref) {
     final checkBoxValue = ref.watch(checkBoxProvider);
     return Column(children: [
-      CustomText.h3(context, tr(context).questionrol, color: AppColors.lightBlack),
+      CustomText.h3(context, tr(context).questionrol,
+          color: AppColors.lightBlack),
       SizedBox(
         height: Sizes.vMarginSmall(context),
       ),
       Row(
         children: [
-          SizedBox(width: 65,),
+          SizedBox(
+            width: 65,
+          ),
           Checkbox(
             shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0), // CHANGE BORDER RADIUS HERE
-            side: BorderSide(
-            width: 30,
-            color: AppColors.red
-            ),
+              borderRadius: BorderRadius.circular(30.0),
+              // CHANGE BORDER RADIUS HERE
+              side: BorderSide(width: 30, color: AppColors.red),
             ), // Rounded Checkbox
             value: checkBoxValue,
             onChanged: (inputValue) {
-            ref.watch(checkBoxProvider.notifier)
-                .changeState(change: !checkBoxValue);
-            log(checkBoxValue.toString());
+              ref
+                  .watch(checkBoxProvider.notifier)
+                  .changeState(change: !checkBoxValue);
+              log('${checkBoxValue.toString()}');
             },
-            ),
+          ),
           CustomText.h4(context, tr(context).yes),
-          SizedBox(width: 50,),
+          SizedBox(
+            width: 50,
+          ),
           Checkbox(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0), // CHANGE BORDER RADIUS HERE
-              side: BorderSide(
-                  width: 30,
-                  color: AppColors.red
-              ),
+              borderRadius: BorderRadius.circular(30.0),
+              // CHANGE BORDER RADIUS HERE
+              side: BorderSide(width: 30, color: AppColors.red),
             ), // Rounded Checkbox
             value: !checkBoxValue,
             onChanged: (inputValue) {
-              ref.watch(checkBoxProvider.notifier)
+              ref
+                  .watch(checkBoxProvider.notifier)
                   .changeState(change: !checkBoxValue);
-              log(checkBoxValue.toString());
+              log('${checkBoxValue.toString()}');
             },
           ),
           CustomText.h4(context, tr(context).no),
         ],
       )
-
-
     ]);
-
-
-    }
+  }
 }

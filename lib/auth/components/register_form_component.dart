@@ -108,7 +108,7 @@ class RegisterFormComponent extends HookConsumerWidget {
                     );
                   }
                   ref.refresh(seePasswordProvider);
-                  ref.refresh(seePasswordProvider);
+                  //ref.refresh(seePasswordProvider);
                 },
               );
             },

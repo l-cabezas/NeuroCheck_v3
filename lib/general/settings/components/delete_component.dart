@@ -103,13 +103,13 @@ class _SharedItemComponent extends StatelessWidget {
         vertical: Sizes.vPaddingSmall(context),
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: AppColors.red,
         borderRadius: BorderRadius.circular(
           Sizes.dialogSmallRadius(context),
         ),
         border: Border.all(
-          width: 1,
-          color: AppColors.lightThemePrimary,
+          width: 2,
+          color: AppColors.white,
         ),
         boxShadow: [
           BoxShadow(
@@ -124,7 +124,7 @@ class _SharedItemComponent extends StatelessWidget {
         children: [
           const Icon(
             Icons.delete,
-            color: AppColors.lightThemePrimary,
+            color: AppColors.white,
           ),
           SizedBox(
             width: Sizes.hMarginSmall(context),
@@ -134,7 +134,7 @@ class _SharedItemComponent extends StatelessWidget {
             'Borrar Cuenta', //todo: tr
             alignment: Alignment.center,
             weight: FontStyles.fontWeightExtraBold,
-            color: AppColors.lightThemePrimary,
+            color: AppColors.white,
           ),
         ],
       ),

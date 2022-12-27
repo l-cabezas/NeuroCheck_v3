@@ -17,19 +17,35 @@ class RegisterScreen extends StatelessWidget {
         child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  padding: EdgeInsets.only(
-                    top: Sizes.hMarginExtreme(context),
-                    bottom: Sizes.vMarginSmallest(context),
-                    left: Sizes.vMarginSmall(context),
-                  ),
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    onPressed: (){
-                        Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
-                ),),
+                Row(children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: Sizes.hMarginExtreme(context),
+                      bottom: Sizes.vMarginSmallest(context),
+                      left: Sizes.vMarginSmall(context),
+                    ),
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+                    ),),
+                  SizedBox(width: Sizes.fullScreenWidth(context)/1.6,),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: Sizes.hMarginExtreme(context),
+                      bottom: Sizes.vMarginSmallest(context),
+                      left: Sizes.vMarginSmall(context),
+                    ),
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        onPressed: (){
+                          //Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+                    ),),
+                ],),
                 //const AppLogoComponent(),
                 Container(
                 constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),

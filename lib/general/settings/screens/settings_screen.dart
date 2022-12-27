@@ -32,6 +32,9 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: Sizes.vMarginMedium(context),
               ),
+              SizedBox(
+                height: Sizes.vMarginHigh(context),
+              ),
               //cerrar sesión
               const LogoutComponent(),
               SizedBox(

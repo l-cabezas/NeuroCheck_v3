@@ -100,7 +100,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
   }
 
   //cancelamos notificaciones, deseteamos y borramos ids
-  Future<Either<Failure, bool>> checkTaskBoss({required TaskModel taskModel}) async {
+  checkTaskBoss({required TaskModel taskModel}) async {
     await cancelNotification(taskModel.idNotification!);
     return await _firebaseCaller.updateData(
       path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
@@ -118,6 +118,64 @@ class TaskNotifier extends StateNotifier<TareaState> {
         }
       },
     );
+  }
+
+  Future<Either<Failure, bool>> undoCheckTaskBoss({required TaskModel taskModel}) async {
+
+      return await _firebaseCaller.updateData(
+        path: FirestorePaths.taskBossById(GetStorage().read('uidSup')!,
+            taskId: taskModel.taskId),
+        data: {
+          'done': 'false',
+          'isSetNotification': 'false',
+          'idNotification': [],
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+  }
+
+  Future<Either<Failure, bool>> undoCheckTask({required TaskModel taskModel}) async {
+    if(taskModel.editable == 'false') {
+      return await _firebaseCaller.updateData(
+        path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId),
+        data: {
+          'done': 'false',
+          'isSetNotification': 'false',
+          'idNotification': [],
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+    } else {
+      return await _firebaseCaller.updateData(
+        path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
+            taskId: taskModel.taskId),
+        data: {
+          'done': 'false',
+          'isSetNotification': 'false',
+          'idNotification': [],
+        },
+        builder: (data) {
+          if (data is! ServerFailure && data == true) {
+            return Right(data);
+          } else {
+            return Left(data);
+          }
+        },
+      );
+    }
   }
   //-------------------
    addDocToFirebase(BuildContext context, TaskModel taskModel) async {
