@@ -25,13 +25,36 @@ class AppLogoComponent extends StatelessWidget {
         SizedBox(
           height: Sizes.vMarginSmallest(context),
         ),
-        CustomText.h1(
-          context,
-          //tr(context).welcome,
-          alignment: Alignment.center,
-          tr(context).signInToYourAccount,
-          color: AppColors.grey,
-        ),
+
+        Row(
+            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children:[
+            Container(
+              child: CustomText.h1(
+              context,
+              //tr(context).welcome,
+              alignment: Alignment.center,
+              tr(context).signInToYourAccount,
+              color: AppColors.grey,
+            ),),
+          //SizedBox(width: Sizes.vMarginExtreme(context),),
+              Container(
+                padding: EdgeInsets.only(
+                  //top: Sizes.hMarginExtreme(context),
+                  //bottom: Sizes.vMarginSmallest(context),
+                  //right: Sizes.vMarginSmall(context),
+                  left: Sizes.vMarginExtreme(context) + 7,
+                ),
+                alignment: Alignment.topRight,
+                child: IconButton(
+                    onPressed: (){
+                      //Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+                ),
+              ),
+        ]),
+
       ],
     );
   }

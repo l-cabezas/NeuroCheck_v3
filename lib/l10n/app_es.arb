@@ -32,7 +32,7 @@
   "@_AUTH": {
   },
   "welcome": "Bienvenido",
-  "signInToYourAccount": "Inicia sesión en tu cuenta",
+  "signInToYourAccount": "Inicia sesión ",
   "signIn": "Iniciar Sesión",
   "email": "Email",
   "email2": "Repita su email",
