@@ -570,6 +570,45 @@ class TaskNotifier extends StateNotifier<TareaState> {
     );
   }
 
+  Future<Either<Failure, bool>> resetTask({required TaskModel task}) async {
+    await cancelNotification(task.idNotification!);
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'false',
+        'done': 'false',
+        'idNotification': [],
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+  Future<Either<Failure, bool>> resetTaskBoss({required TaskModel task}) async {
+    await cancelNotification(task.idNotification!);
+    return await _firebaseCaller.updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,taskId: task.taskId),
+      data: {
+        'isNotificationSet': 'false',
+        'done': 'false',
+        'idNotification': [],
+      },
+      builder: (data) {
+        if (data is! ServerFailure && data == true) {
+          return Right(data);
+        } else {
+          return Left(data);
+        }
+      },
+    );
+  }
+
+
 //-------------------------------------------------------------------------------
 
 

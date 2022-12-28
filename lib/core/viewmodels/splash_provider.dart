@@ -33,6 +33,7 @@ class SplashProvider {
               (_) {
                 log('**** CRON FALSE');
                 GetStorage().write('CronSet','false');
+                GetStorage().write('reset','false');
             NavigationService.pushReplacementAll(
               NavigationService.context,
               isNamed: true,

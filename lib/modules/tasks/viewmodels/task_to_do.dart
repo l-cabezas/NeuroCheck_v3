@@ -13,6 +13,15 @@ final taskMultipleToDoStreamProviderNOTDONE = StreamProvider<List<List<TaskModel
   ]);
 });
 
+final taskMultipleAll = StreamProvider<List<List<TaskModel>>>((ref) {
+  return CombineLatestStream.list([
+    ref.watch(tasksRepoProvider).getTasksStream(),
+    ref.watch(tasksRepoProvider).getTasksBossS(),
+    ref.watch(tasksRepoProvider).getTasksDoneStream(),
+    ref.watch(tasksRepoProvider).getTasksDoneStreamBossS()
+  ]);
+});
+
 final taskMultipleToDoStreamProviderDONE = StreamProvider<List<List<TaskModel>>>((ref) {
   return CombineLatestStream.list([
     ref.watch(tasksRepoProvider).getTasksDoneStream(),

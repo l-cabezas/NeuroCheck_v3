@@ -34,49 +34,54 @@ class ShowTasks extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     GetStorage().write('screen','show');
     final _taskRepo = ref.watch(tasksRepoProvider);
-    final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
+    final taskToDoStreamAll = ref.watch(taskMultipleAll);
+    //final taskToDoStreamAll = ref.watch(taskMultipleAll);
 //todo: info icon
+
     if (GetStorage().read('rol') != 'supervisor') {
       setSupervisor(false);
     } else {
       setSupervisor(true);
     }
     final cron = Cron();
+
     log('**** BEFORE CRON SET ${GetStorage().read('CronSet')}');
     //seteamos el crono una vez y si no somos supervisores
-    if(!supervisor && GetStorage().read('CronSet') == 'false') {
 
+    if(!supervisor && GetStorage().read('CronSet') == 'false') {
       GetStorage().write('CronSet','true');
       // a las 00:00h se ejecutará esto todos los días
       cron.schedule(Schedule.parse('00 00 * * *'), () async {
-        //cancelamos todas las notificaciones
-        cancelScheduledNotifications();
 
-        var supervisado = ref.watch(tasksRepoProvider).getTasksDoneStream() ;
+        GetStorage().write('reset','true');
+        log('**** SETEANDO ${GetStorage().read('reset')}');
 
-        supervisado.forEach((element) {
-          element.forEach((value) {
-            log('**** A ${value.taskId}');
-            ref.watch(tasksRepoProvider).resetTasks(value);
-          });
-        });
-
-        var supervisor = ref.watch(tasksRepoProvider).getTasksDoneStreamBossS() ;
-
-        supervisor.forEach((element) {
-          element.forEach((value) {
-            log('**** B ${value.taskId}');
-            ref.watch(tasksRepoProvider).resetTaskBoss(task: value);
-          });
-        });
       });
-
     }
 
 
         return taskToDoStreamAll.when(
         data: (taskToDo) {
-      return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
+          if(GetStorage().read('reset') == 'true'){
+            for (var listas in taskToDo) {
+              for (var element in listas) {
+                if (element.done == 'true') {
+                  log('**** element ${element.taskName}');
+                  if(element.editable == 'true') {
+                    ref.watch(taskProvider.notifier).resetTask(task: element);
+                  } else {
+                    ref.watch(taskProvider.notifier).resetTaskBoss(task: element);
+                  }
+                }
+              }
+              log('**** tareas reseteadas');
+            }
+            GetStorage().write('reset','false');
+            GetStorage().write('CronSet','false');
+            ref.refresh(taskMultipleAll);
+
+          }
+          return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
           ? CustomText.h4(
               context,
               tr(context).noTask,
@@ -92,6 +97,7 @@ class ShowTasks extends HookConsumerWidget {
             itemCount: taskToDo[0].length + taskToDo[1].length,
             itemBuilder: (context, index) {
               List<Widget> list = [];
+
 
               if(index != taskToDo[0].length + taskToDo[1].length) {
                       var supervised = taskToDo[0].length;

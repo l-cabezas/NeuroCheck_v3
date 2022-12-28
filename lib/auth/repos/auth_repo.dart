@@ -33,6 +33,7 @@ class AuthRepo {
       GetStorage().write('email', email);
       GetStorage().write('passw', password);
       GetStorage().write('CronSet', 'false');
+      GetStorage().write('reset','false');
       return Right(UserModel.fromUserCredential(userCredential.user!,'','','',''));
 
     } on FirebaseAuthException catch (e) {

@@ -16,7 +16,7 @@ class MainDrawerBottomComponent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return  Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CustomText.h3(
             context,
