@@ -85,8 +85,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
             context,
             tr(context).appName,
             color: AppColors.lightThemePrimary,
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
           ),
+          centerTitle: true,
           trailingActions: [
             //todo añadir icon
             IconButton(
