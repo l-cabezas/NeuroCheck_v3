@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../core/services/localization_service.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
+import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
 import '../../viewmodels/task_provider.dart';
@@ -15,7 +16,7 @@ import '../../../navBar/components/card_item_component.dart';
 
 class CompletedTasks extends HookConsumerWidget {
   const CompletedTasks({Key? key}) : super(key: key);
-
+//todo: info icon
   @override
   Widget build(BuildContext context, ref) {
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderDONE);
@@ -61,15 +62,24 @@ class CompletedTasks extends HookConsumerWidget {
                   },
                 );
         },
-        error: (err, stack) => CustomText.h4(
-              context,
-              tr(context).somethingWentWrong +
-                  '\n' +
-                  tr(context).pleaseTryAgainLater,
-              color: AppColors.grey,
-              alignment: Alignment.center,
-              textAlign: TextAlign.center,
-            ),
+        error: (err, stack) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomText.h4(
+                context,
+                tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
+                color: AppColors.grey,
+                alignment: Alignment.center,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: Sizes.vMarginMedium(context),),
+              CustomButton(
+                  text: tr(context).recharge,
+                  onPressed: (){
+                    ref.refresh(taskMultipleToDoStreamProviderNOTDONE);
+                    ref.refresh(taskMultipleToDoStreamProviderDONE);
+                  })
+            ]),
         loading: () =>
             LoadingIndicators.instance.smallLoadingAnimation(context));
   }

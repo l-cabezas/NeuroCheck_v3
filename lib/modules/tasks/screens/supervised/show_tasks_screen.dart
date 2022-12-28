@@ -34,7 +34,7 @@ class ShowTasks extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final _taskRepo = ref.watch(tasksRepoProvider);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
-
+//todo: info icon
     if (GetStorage().read('rol') != 'supervisor') {
       setSupervisor(false);
     } else {
@@ -141,13 +141,24 @@ class ShowTasks extends HookConsumerWidget {
 
       );
     },
-    error: (err, stack) => CustomText.h4(
-                            context,
-                            tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-                            color: AppColors.grey,
-                            alignment: Alignment.center,
-                            textAlign: TextAlign.center,
-                            ),
+    error: (err, stack) => Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomText.h4(
+                    context,
+                    tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
+                    color: AppColors.grey,
+                    alignment: Alignment.center,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: Sizes.vMarginMedium(context),),
+                  CustomButton(
+                      text: tr(context).recharge,
+                      onPressed: (){
+                        ref.refresh(taskMultipleToDoStreamProviderNOTDONE);
+                        ref.refresh(taskMultipleToDoStreamProviderDONE);
+                      })
+                ]),
     loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
 
 

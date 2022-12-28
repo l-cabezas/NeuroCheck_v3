@@ -48,7 +48,7 @@ class ModTaskComponent extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     var toggleValue = ref.watch(toggleButtonProvider.notifier);
     var choice = 0;
-
+//todo: info icon
     return PopUpPage(
         body: SingleChildScrollView(
             child: Column(

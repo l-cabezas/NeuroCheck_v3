@@ -47,7 +47,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final PageController controller = PageController(initialPage: 1);
     final int menuIndex = ref.watch(indexProvider) as int;
-
+//todo: info icon add sup
     if (GetStorage().read('rol') != 'supervisor') {
       setSupervisor(false);
     } else {

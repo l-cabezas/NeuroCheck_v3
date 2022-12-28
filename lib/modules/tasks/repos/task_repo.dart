@@ -80,16 +80,23 @@ class TasksRepo {
 // static String taskPathBoss(String uid) => 'users/$uid/tasksBoss';
 //tareas hechas por el supervisados hechas por el mismo
   Stream<List<TaskModel>> getTasksBossStream() {
-    String uidSup = '';
-    if(GetStorage().read('uidSup') != ''){
-      uidSup = GetStorage().read('uidSup');
-    }
-    log('**** GET TASK BOSS STREAM ${uidSup}');
     return  _firebaseCaller.collectionStream<TaskModel>(
-      //uid de usuario
-      path: FirestorePaths.taskPathBoss(uidSup),
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidSup')),
       queryBuilder: (query) => query
           .where("done", isEqualTo: "false"),
+      builder: (snapshotData, snapshotId) {
+        return TaskModel.fromMap(snapshotData!, snapshotId);
+      },
+    );
+  }
+
+  Stream<List<TaskModel>> getTasksDoneStreamBoss() {
+    // final _userRepo = ref.watch(userRepoProvider).uidSuper;
+    return  _firebaseCaller.collectionStream<TaskModel>(
+      //uid de usuario
+      path: FirestorePaths.taskPathBoss(GetStorage().read('uidSup')),
+      queryBuilder: (query) => query
+          .where("done", isEqualTo: "true"),
       builder: (snapshotData, snapshotId) {
         return TaskModel.fromMap(snapshotData!, snapshotId);
       },
@@ -110,18 +117,7 @@ class TasksRepo {
  Future<String?> getUIDSup()async{
    return await _userRepo.getUidSup();
  }
-  Stream<List<TaskModel>> getTasksDoneStreamBoss() {
-   // final _userRepo = ref.watch(userRepoProvider).uidSuper;
-    return  _firebaseCaller.collectionStream<TaskModel>(
-      //uid de usuario
-      path: FirestorePaths.taskPathBoss(GetStorage().read('uidSup')),
-      queryBuilder: (query) => query
-          .where("done", isEqualTo: "true"),
-      builder: (snapshotData, snapshotId) {
-        return TaskModel.fromMap(snapshotData!, snapshotId);
-      },
-    );
-  }
+
 
   Stream<List<TaskModel>> getTasksDoneStreamBossS() {
     return  _firebaseCaller.collectionStream<TaskModel>(

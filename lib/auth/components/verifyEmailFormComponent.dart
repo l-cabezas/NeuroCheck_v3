@@ -29,6 +29,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
      if(authValid!){
        return Column(
            children: [
+             //todo: tr
              Center(
                child: CustomText.h2(
                    context, color: AppColors.darkGray,
@@ -59,6 +60,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
      else{
        return Column(
              children: [
+               //todo: icon info
                Center(
                  child: CustomText.h2(
                      context, color: AppColors.darkGray,

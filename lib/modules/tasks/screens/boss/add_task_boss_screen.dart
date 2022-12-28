@@ -51,7 +51,7 @@ class AddTaskScreenBoss extends HookConsumerWidget {
     final nametaskFormKey = useMemoized(() => GlobalKey<FormState>());
     final nameController = useTextEditingController(text: '');
 
-
+//todo: info icon
 
     return PopUpPageNested(
       body: SingleChildScrollView(

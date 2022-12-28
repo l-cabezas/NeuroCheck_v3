@@ -20,6 +20,7 @@ class AddSupervisedScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         toolbarHeight: Sizes.appBarDefaultHeight(context),
         actions: [
+          //todo: info
           IconButton(
               alignment: Alignment.topCenter,
               padding: const EdgeInsets.all(20),

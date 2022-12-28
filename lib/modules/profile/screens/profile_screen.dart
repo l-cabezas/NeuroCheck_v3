@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //todo: icon info
     return PopUpPageNested(
       body: Consumer(
         builder: (context, ref, child) {

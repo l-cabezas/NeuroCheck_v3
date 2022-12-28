@@ -13,6 +13,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //todo: icon info
     return PopUpPageNested(
       body: SingleChildScrollView(
         child: Padding(

@@ -75,6 +75,7 @@
   "@_HOME": {
   },
   "home": "Inicio",
+  "recharge": "Recargar la página",
   "please_enable_location_service": "Por favor activa la localización y prueba de nuevo",
   "location_timeout_error": "Tarda mucho, por favor, compruebe su conexión a Internet e inténtelo de nuevo",
   "please_wait": "Por favor espere",
