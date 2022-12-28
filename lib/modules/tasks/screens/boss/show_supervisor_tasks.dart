@@ -21,17 +21,10 @@ class ShowSupervisorTasks extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     GetStorage().write('screen','showBoss');
     final taskToDoStreamAllBoss = ref.watch(taskMultipleToDoStreamProviderBoss);
-    List<Widget> list = [];
+
      int numeroListaCon = 0;
      int numeroListaSin = 0;
 
-    /*IconButton(
-        onPressed: (){
-          //Navigator.pop(context);
-        },
-        icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
-    ),*/
-//todo: info icon
     //por alguna razon solo funciona si hacemos lista de tareas pero no con un
     // provider individual -> ns pq
     return taskToDoStreamAllBoss.when(
@@ -48,13 +41,14 @@ class ShowSupervisorTasks extends HookConsumerWidget {
                   vertical: Sizes.screenVPaddingDefault(context),
                   horizontal: Sizes.screenHPaddingMedium(context),
                 ),
-                separatorBuilder: (context, index) => SizedBox(height: Sizes.vMarginHigh(context),),
+                separatorBuilder: (context, index) =>
+                    SizedBox(height: Sizes.vMarginHigh(context),),
                 itemCount: taskToDo[0].length,
                 itemBuilder: (context, index) {
-
-
+                  List<Widget> list = [];
                   if((taskToDo[0][index].cancelNoti != 'true')) {
                     numeroListaCon += 1;
+                    log('**** ${taskToDo[0][index].taskName}');
                       list.add(CardItemBossComponent(
                         taskModel: taskToDo[0][index],
                       ));
@@ -64,12 +58,12 @@ class ShowSupervisorTasks extends HookConsumerWidget {
                   log('**** con ${numeroListaCon} sin ${numeroListaSin} lenght ${taskToDo[0].length}');
                   return  (numeroListaSin == taskToDo[0].length)
                       ? CustomText.h4(
-                    context,
-                    tr(context).noTask,
-                    color: AppColors.grey,
-                    alignment: Alignment.center,
-                  )
-                  :Column(children: list);
+                          context,
+                          tr(context).noTask,
+                          color: AppColors.grey,
+                          alignment: Alignment.center,
+                       )
+                    : Column(children: list);
             },
 
           );

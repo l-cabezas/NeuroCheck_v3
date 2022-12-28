@@ -44,8 +44,8 @@ class AddTaskScreenBoss extends HookConsumerWidget {
     GetStorage().write('screen','add');
     //empezaría en true
    // var switchValue = !ref.watch(switchButtonProvider);
-    var nameProvider = ref.read(nameTaskProvider.notifier);
 
+    var nameProvider = ref.read(nameTaskProvider.notifier);
     var days = ref.read(selectDaysMultiChoice.notifier);
     var range = ref.read(timeRangeButtonProvider.notifier);
     var repetitions = ref.read(timeRepetitionProvider.notifier);
@@ -65,16 +65,22 @@ class AddTaskScreenBoss extends HookConsumerWidget {
           child: Column(
             children: <Widget>[
               //const UserInfoComponent(),
-              Form(
-                  key: nametaskFormKey,
-                  child: NameTaskTextFieldsSection(
-                    nameController: nameController,
-                    onFieldSubmitted: (value) {
-                      if (nametaskFormKey.currentState!.validate()) {
-                        nameProvider.controllerName(nameController);
-                      }
-                    },
-                  )),
+              GestureDetector(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child:
+                  Form(
+                      key: nametaskFormKey,
+                      child: NameTaskTextFieldsSection(
+                        nameController: nameController,
+                        onFieldSubmitted: (value) {
+                          if (nametaskFormKey.currentState!.validate()) {
+                            nameProvider.controllerName(nameController);
+                          }
+                        },
+                      ))
+              ),
               SizedBox(
                 height: Sizes.vMarginSmallest(context),
               ),
@@ -189,7 +195,7 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                       // no puede repertirse cada más minutos que rango hay
                        //if(range.getSumaRange() > repetitions.getBoth()) {
                               TaskModel task = TaskModel(
-                                  taskName: nameProvider.getNameTask(),
+                                  taskName: nameController.text,
                                   days: saveDays(days.tags.toString()),
                                   idNotification: id,
                                   notiHours: notiHours(range.getIniHour(),
