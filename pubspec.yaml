@@ -42,7 +42,7 @@ dependencies:
   http:
   file_picker: ^4.5.1
   shared_preferences:
-  image_gallery_saver: ^1.7.1
+  #image_gallery_saver: ^1.7.1
   numberpicker: ^2.1.1
   flutter_datetime_picker:
     git:
@@ -83,16 +83,16 @@ dependencies:
 
   flashy_tab_bar2: ^0.0.4
   #example
-  awesome_notifications:
+  awesome_notifications: ^0.7.4+1
   firebase_messaging: ^12.0.0
+  firebase_core_platform_interface: 4.5.1
   device_info_plus: ^4.0.0
   url_launcher: ^6.1.2
   #geeks for geeks
   flutter_local_notifications: ^9.5.3+1
   timezone: ^0.8.0
   #stack
-  flutter_native_timezone: ^2.0.0
-  # youtube estafador
+  #flutter_native_timezone: ^2.0.0
   rxdart:
   loading_gifs: #https://pub.dev/packages/loading_gifs
 
@@ -135,7 +135,7 @@ dependencies:
   lottie: ^1.3.0
   fluttertoast: ^8.0.9
   flutter_hooks: ^0.18.5+1
-  location: ^4.4.0
+  #location: ^4.4.0
   geolocator: ^9.0.1
 
   flutter_localizations: # Add this line

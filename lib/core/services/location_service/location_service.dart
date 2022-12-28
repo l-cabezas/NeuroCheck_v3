@@ -1,9 +1,9 @@
+/*
 import 'dart:developer';
 import 'dart:io';
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator_android/src/types/foreground_settings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:location/location.dart' as loc;
 
 import '../../utils/constants.dart';
 import 'i_location_service.dart';
@@ -110,3 +110,4 @@ class GeoLocatorLocationService implements ILocationService {
     }
   }
 }
+*/

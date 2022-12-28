@@ -27,7 +27,6 @@ class MainCoreProvider {
   MainCoreProvider(this.ref) {
     _userRepo = ref.watch(userRepoProvider);
     _authRepo = ref.watch(authRepoProvider);
-    _locationService = ref.watch(locationService);
     _connectivityService = ref.watch(connectivityService);
   }
 

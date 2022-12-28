@@ -73,7 +73,7 @@ class CustomToast {
       child: toast,
       gravity: toastGravity,
       toastDuration: toastDuration,
-      fadeDuration: fadeDuration,
+      //fadeDuration: fadeDuration,
     );
   }
 
