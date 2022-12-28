@@ -42,6 +42,10 @@
   "emailOrPasswordIsInCorrect":
        "Correo electrónico ou contrasinal incorrectos. Por favor, proba de novo.",
   "register": "Registrarse",
+  "register_user": "Registrar supervisado",
+  "register_text": "Ao usar esta conta como función de supervisor, debes ter un usuario a cargo",
+  "cancelSupAviso": "Aviso",
+  "cancelAddSup": "Se cancelas a túa conta, eliminarase xa que non podes usar a aplicación como supervisor sen un supervisado.",
   "reset": "Restaurar contraseña",
   "questionrol" : "¿Quere desempeñar o rol de supervisor?",
   "yes" : "Sí",
@@ -60,7 +64,7 @@
   "send": "Enviar",
   "re_send" : "Reenviar",
   "cancelBtn": "Cancelar",
-  "verifyTitle": "Verifique o seu email para poder usar a app",
+  "verifyTitle": "Verifique o seu email",
   "verifyMessage" : "Revise se ten o correo electrónico de verificacion (se non lle aparece mire na seccion de spam). Se non ten o correo pulse no botón de reenviar e comprobe de novo",
   "@_PROFILE": {
   },
@@ -129,5 +133,22 @@
   "@_SETTINGS": {
   },
   "change": "Cambiar",
-  "name_settings": "Cambiar nombre usuario"
+  "name_settings": "Cambiar nombre usuario",
+  "@_INFO": {
+  },
+  "info": "Información",
+  "info_login": "Para usar esta aplicación, cómpre rexistrarse con correo electrónico e contrasinal.",
+  "info_registro": "Ao rexistrarse hai dúas funcións, supervisor e supervisado. O rol supervisado é o funcionamento básico da aplicación, mentres que o rol de supervisor será engadir tarefas ao supervisado e ver se as fai ou non, mentres teñas o rol de supervisor non poderás usar a aplicación na aplicación. do mesmo xeito que os supervisados.",
+  "info_reset": "Se esqueciches o teu contrasinal, introduce o teu correo electrónico para restauralo.",
+  "info_verify": "É necesario se vai desempeñar a función de supervisor que verifique a súa identidade.",
+  "info_addSup": "Para usar esta aplicación coa función de supervisor, debes ter un supervisado a cargo. \n Ese supervisado debe ter unha conta xa creada nesta aplicación.",
+  "info_show": "Aquí tes as tarefas que non fixeches. \n Para cada tarefa móstrase o seguinte: o nome, os días, o intervalo de tempo e a frecuencia con que se envía a notificación.\n Dentro de cada tarefa podemos modificala, marcala como feita ou eliminala. Se non o podemos borrar ou modificalo é porque o engadiu un supervisor.",
+  "info_show_boss": "Aquí se muestran las tareas sin hacer de su supervisado. \n Por cada tarea se muestra: el nombre, los días, el rango horario y cada cuanto tiempo se manda la notificación.\n Dentro de cada tarea podremos modificarla, márcala como hecha o borrarla. Si no podemos borrarla o modificarla es porque un supervisor la ha añadido.",
+  "info_completed": "Aquí tes as tarefas que fixeches. \n Para cada tarefa móstrase o seguinte: o nome, os días, o intervalo de tempo e con que frecuencia se envía a notificación Dentro de cada tarefa podemos modificala, desmarcala como feita e eliminala. Se non o podemos borrar ou modificalo é porque o engadiu un supervisor.",
+  "info_completed_boss": "Aquí tes as tarefas realizadas polo teu supervisado. \n Para cada tarefa que amosa: o nome, os días, o intervalo de tempo e con que frecuencia se envía a notificación. Dentro de cada tarefa podemos modificala, desmarcala como feita e eliminala.",
+  "info_add": "Para añadir una tarea necesitamos que tenga un nombre, los días que quieres que se repita la notificación, el rango horario en el que quiere que se repita esa notificación y el número de veces dentro de ese rango.",
+  "info_mod": "Nesta pantalla podemos modificar os días para notificar, o intervalo de tempo e con que frecuencia se notifica a tarefa.",
+  "info_perfil": "Datos da conta utilizando o perfil, neste caso o correo electrónico en uso, o nome (modificable na configuración) e unha foto de perfil que se pode modificar se fai clic nela, cambiándoa por unha foto que xa teña na galería ou facendo unha foto de perfil. foto naquel momento.",
+  "info_perfil_boss":"Datos da conta utilizando o perfil, neste caso o correo electrónico en uso, o nome (modificable na configuración) e unha foto de perfil que se pode modificar se fai clic nela, cambiándoa por unha foto que xa teña na galería ou facendo unha foto de perfil. foto da época. Tamén ten ao seu cargo o seu papel e o correo do supervisado.",
+  "info_config": "Nesta pantalla podes cambiar o modo de uso da aplicación (claro ou escuro), o idioma da aplicación (castelán ou galego) e podes cambiar o teu nome de usuario. Tamén ten un botón para pechar a sesión ou a opción de eliminar a túa conta."
 }

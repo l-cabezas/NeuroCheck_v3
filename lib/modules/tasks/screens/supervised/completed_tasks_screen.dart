@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/services/localization_service.dart';
@@ -19,6 +20,7 @@ class CompletedTasks extends HookConsumerWidget {
 //todo: info icon
   @override
   Widget build(BuildContext context, ref) {
+    GetStorage().write('screen','complete');
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderDONE);
     return taskToDoStreamAll.when(
         data: (taskToDo) {

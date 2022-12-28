@@ -1,8 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/components/register_supervised_text_fields.dart';
+import 'package:neurocheck/auth/repos/auth_repo.dart';
+import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/core/utils/dialogs.dart';
+import 'package:neurocheck/core/viewmodels/main_core_provider.dart';
 
+import '../../core/routing/navigation_service.dart';
+import '../../core/routing/route_paths.dart';
+import '../../core/widgets/custom_text.dart';
+import '../../core/widgets/custom_text_button.dart';
 import 'login_text_fields.dart';
 import '../viewmodels/auth_provider.dart';
 import '../../core/services/localization_service.dart';
@@ -65,8 +75,68 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
               );
             },
           ),
+          SizedBox(height: Sizes.vMarginMedium(context),),
+          (GetStorage().read('uidSup') == '')
+           ? CustomButton(
+                text: tr(context).cancel,
+                buttonColor: AppColors.lightRed,
+                onPressed: () {
+                  showAlertDialogDelete( context, ref);
+                }
+            )
+           : SizedBox()
         ],
       ),
+    );
+  }
+
+  showAlertDialogDelete(BuildContext context, ref) {
+    // set up the buttons
+    Widget okButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).delete,
+          color: AppColors.blue
+      ),
+      onPressed:  () {
+        NavigationService.pushReplacementAll(
+          context,
+          isNamed: true,
+          page: RoutePaths.authLogin,
+        );
+        ref.watch(mainCoreProvider).deleteAccount();
+      },
+    );
+
+    Widget cancelButton = CustomTextButton(
+      child: CustomText.h4(
+          context,
+          tr(context).cancel,
+          color: AppColors.red
+      ),
+      onPressed:  () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: CustomText.h2(context, tr(context).cancelSupAviso),
+      content: CustomText.h3(context,tr(context).cancelAddSup), // todo: tr
+      actions: [
+        cancelButton,
+        okButton,
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

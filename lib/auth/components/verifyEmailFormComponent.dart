@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/repos/auth_repo.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
@@ -13,6 +14,7 @@ import '../../core/routing/navigation_service.dart';
 import '../../core/routing/route_paths.dart';
 import '../../core/services/localization_service.dart';
 import '../../core/styles/sizes.dart';
+import '../../core/utils/dialogs.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/loading_indicators.dart';
 import '../viewmodels/auth_provider.dart';
@@ -29,26 +31,37 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
      if(authValid!){
        return Column(
            children: [
-             //todo: tr
-             Center(
-               child: CustomText.h2(
-                   context, color: AppColors.darkGray,
-                   'Registrar supervisado'),
-             ),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+                 children:[
+                   Center(
+                     child: CustomText.h2(
+                         context, color: AppColors.darkGray,
+                         tr(context).register_user
+                     ),
+                   ),
+                   IconButton(
+                       alignment: Alignment.center,
+                       onPressed: (){
+                         AppDialogs.showInfo(context,message: tr(context).info_verify);
+                       },
+                       icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+                   ),
+                 ]),
              SizedBox(
                height: Sizes.vMarginMedium(context),
              ),
              Center(
                child: CustomText.h3(
                    context, color: AppColors.darkGray,
-                   'A la hora de usar esta cuenta como rol de supervisor tiene que tener un usuario a su cargo'), // todo: tr
+                   tr(context).register_text), // todo: tr
              ),
              SizedBox(
                height: Sizes.vMarginMedium(context),
              ),
                Center(
                  child: CustomButton(
-                       text: 'Registrar supervisado',
+                       text: tr(context).register_user,
                        onPressed: () {
                           navigationToAddSup(context);
                        },
@@ -60,12 +73,22 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
      else{
        return Column(
              children: [
-               //todo: icon info
-               Center(
+               Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children:[
+                     Center(
                  child: CustomText.h2(
                      context, color: AppColors.darkGray,
                      tr(context).verifyTitle),
                ),
+               IconButton(
+               alignment: Alignment.center,
+               onPressed: (){
+               AppDialogs.showInfo(context,message: tr(context).info_verify);
+               },
+               icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+               ),
+                   ]),
                SizedBox(
                  height: Sizes.vMarginMedium(context),
                ),

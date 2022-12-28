@@ -15,7 +15,7 @@ import 'package:neurocheck/core/widgets/custom_text.dart';
 
 class DeleteSupComponent extends HookConsumerWidget {
   const DeleteSupComponent({Key? key}) : super(key: key);
-
+//todo: tr
   @override
   Widget build(BuildContext context, ref){
             return Column(

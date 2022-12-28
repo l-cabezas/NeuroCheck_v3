@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:neurocheck/auth/components/reset_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
+import '../../core/services/localization_service.dart';
 import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
+import '../../core/utils/dialogs.dart';
 
 class ResetScreen extends StatelessWidget {
   const ResetScreen({Key? key}) : super(key: key);
@@ -37,10 +39,11 @@ class ResetScreen extends StatelessWidget {
               ),
               alignment: Alignment.topRight,
               child: IconButton(
+                  alignment: Alignment.center,
                   onPressed: (){
-                    //Navigator.pop(context);
+                    AppDialogs.showInfo(context,message: tr(context).info_reset);
                   },
-                  icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+                  icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
               ),),
           ],),
           Container(

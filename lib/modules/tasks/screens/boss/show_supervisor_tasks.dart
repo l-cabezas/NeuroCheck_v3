@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
 import '../../../../core/services/localization_service.dart';
@@ -18,9 +19,18 @@ class ShowSupervisorTasks extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    GetStorage().write('screen','showBoss');
     final taskToDoStreamAllBoss = ref.watch(taskMultipleToDoStreamProviderBoss);
+    List<Widget> list = [];
      int numeroListaCon = 0;
      int numeroListaSin = 0;
+
+    /*IconButton(
+        onPressed: (){
+          //Navigator.pop(context);
+        },
+        icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+    ),*/
 //todo: info icon
     //por alguna razon solo funciona si hacemos lista de tareas pero no con un
     // provider individual -> ns pq
@@ -41,7 +51,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
                 separatorBuilder: (context, index) => SizedBox(height: Sizes.vMarginHigh(context),),
                 itemCount: taskToDo[0].length,
                 itemBuilder: (context, index) {
-                  List<Widget> list = [];
+
 
                   if((taskToDo[0][index].cancelNoti != 'true')) {
                     numeroListaCon += 1;
@@ -83,8 +93,6 @@ class ShowSupervisorTasks extends HookConsumerWidget {
               })
         ]),
         loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
-
-
     );
   }
 }

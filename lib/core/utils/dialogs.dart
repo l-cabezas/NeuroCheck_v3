@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
 import '../../modules/tasks/screens/supervised/add_task_screen.dart';
@@ -58,6 +59,20 @@ class AppDialogs {
       dialogWidgetState: DialogWidgetState.error,
       title: tr(context).oops,
       description: message!,
+      textButton: tr(context).oK,
+      onPressed: () {
+        NavigationService.goBack(context,rootNavigator: true);
+      },
+    );
+  }
+
+  static Future showInfo(BuildContext context, {String? message}) async {
+    await DialogWidget.showCustomDialog(
+      context: context,
+      dialogWidgetState: DialogWidgetState.info,
+      title: tr(context).info,
+      description: message!,
+      backgroundColor: AppColors.lightThemePrimaryColor,
       textButton: tr(context).oK,
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);

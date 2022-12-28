@@ -4,6 +4,7 @@ import '../../core/services/localization_service.dart';
 import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
+import '../../core/utils/dialogs.dart';
 import '../../core/widgets/custom_image.dart';
 import '../../core/widgets/custom_text.dart';
 
@@ -47,10 +48,11 @@ class AppLogoComponent extends StatelessWidget {
                 ),
                 alignment: Alignment.topRight,
                 child: IconButton(
+                    alignment: Alignment.center,
                     onPressed: (){
-                      //Navigator.pop(context);
+                      AppDialogs.showInfo(context,message: tr(context).info_login);
                     },
-                    icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+                    icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
                 ),
               ),
         ]),

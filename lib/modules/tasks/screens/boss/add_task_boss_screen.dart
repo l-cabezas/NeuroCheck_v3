@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
@@ -40,6 +41,7 @@ class AddTaskScreenBoss extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    GetStorage().write('screen','add');
     //empezaría en true
    // var switchValue = !ref.watch(switchButtonProvider);
     var nameProvider = ref.read(nameTaskProvider.notifier);

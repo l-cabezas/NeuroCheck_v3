@@ -42,14 +42,18 @@
   "emailOrPasswordIsInCorrect":
        "Email o contraseña incorrectos. Por favor prueba otra vez.",
   "register": "Registrarse",
+  "register_user": "Registrar supervisado",
+  "register_text": "A la hora de usar esta cuenta como rol de supervisor tiene que tener un usuario a su cargo",
   "reset": "Restaurar contraseña",
   "questionrol" : "¿Quieres desempeñar el rol de supervisor?",
   "yes" : "Sí",
   "no" : "No",
   "send": "Enviar",
   "re_send" : "Reenviar",
-  "verifyTitle": "Verifique su email para poder usar la app",
+  "verifyTitle": "Verifique su email",
   "cancelBtn": "Cancelar",
+  "cancelSupAviso": "Aviso",
+  "cancelAddSup": "Si cancela su cuenta será borrada ya que no puede usar la app como supervisor sin supervisado.",
   "verifyMessage" : "Revise si tiene el correo electrónico de verificacion (si no le aparece vaya a la seccion de spam). Si no tiene el correo pulse el botón de reenviar y compruebe de nuevo",
   "delete_acc": "Va a borrar esta cuenta, una vez borrada no la podrá recuperar pero si podrá volver a registrarse con ese mismo correo y contraseña",
   "@_GENERAL": {
@@ -129,5 +133,22 @@
   "@_SETTINGS": {
   },
   "change": "Cambiar",
-  "name_settings": "Cambiar nombre usuario"
+  "name_settings": "Cambiar nombre usuario",
+  "@_INFO": {
+  },
+  "info": "Información",
+  "info_login": "Para usar esta app necesitas estar registrado con correo y contraseña.",
+  "info_registro": "A la hora de registrarse hay dos roles, supervisor y supervisado. El rol de supervisado es el funcionamiento básico de la app mientras que el rol de supervisor, será para añadir tareas al supervisado y ver si las hace o no, mientras tengas el rol de supervisor no podrás usar la app de la misma manera que el supervisado.",
+  "info_reset": "Si se le ha olvidado la contraseña introduzca el correo para restaurarla.",
+  "info_verify": "Es necesario si va a desempeñar la función de supervisor que verifique su identidad.",
+  "info_addSup": "Para usar esta app con el rol de supervisor tiene que tener un supervisado a su cargo. \n Ese supervisado tiene que tener cuenta ya hecha en esta aplicación.",
+  "info_show": "Aquí se muestran las tareas que tiene sin hacer. \n Por cada tarea se muestra: el nombre, los días, el rango horario y cada cuanto tiempo se manda la notificación.\n Dentro de cada tarea podremos modificarla, márcala como hecha o borrarla. Si no podemos borrarla o modificarla es porque un supervisor la ha añadido.",
+  "info_show_boss": "Aquí se muestran las tareas sin hacer de su supervisado. \n Por cada tarea se muestra: el nombre, los días, el rango horario y cada cuanto tiempo se manda la notificación.\n Dentro de cada tarea podremos modificarla, márcala como hecha o borrarla. Si no podemos borrarla o modificarla es porque un supervisor la ha añadido.",
+  "info_completed": "Aquí se muestran las tareas que tiene hechas. \n Por cada tarea se muestra: el nombre, los días, el rango horario y cada cuanto tiempo se manda la notificación.Dentro de cada tarea podremos modificarla, desmarcarla como hecha y borrarla. Si no podemos borrarla o modificarla es porque un supervisor la ha añadido.",
+  "info_completed_boss": "Aquí se muestran las tareas hechas de su supervisado. \n Por cada tarea se muestra: el nombre, los días, el rango horario y cada cuanto tiempo se manda la notificación.Dentro de cada tarea podremos modificarla, desmarcarla como hecha y borrarla.",
+  "info_add": "Para añadir una tarea necesitamos que tenga un nombre, los días que quieres que se repita la notificación, el rango horario en el que quiere que se repita esa notificación y el número de veces dentro de ese rango.",
+  "info_mod": "En esta pantalla podemos modificar los día a notificar, el rango horario y cada cuanto se notifica la tarea.",
+  "info_perfil": "Datos de la cuenta usando el perfil en este caso el correo en uso, el nombre (modificable en configuración) y una foto de perfil la cual se podrá modificar si se pulsa sobre ella cambiándola por una foto que ya tenga en la galería o bien tomando una foto en ese momento.",
+  "info_perfil_boss":"Datos de la cuenta usando el perfil en este caso el correo en uso, el nombre (modificable en configuración) y una foto de perfil la cual se podrá modificar si se pulsa sobre ella cambiándola por una foto que ya tenga en la galería o bien tomando una foto en ese momento. Además tiene su rol y el correo del supervisado a su cargo.",
+  "info_config": "En esta pantalla podrá cambiar el modo de uso de la app (claro u oscuro) el idioma de la app (castellano o galego) y puede cambiar su nombre de usuario. Además tiene un botón para cerrar sesión o bien la opción de poder borrar su cuenta."
 }

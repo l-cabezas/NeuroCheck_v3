@@ -32,6 +32,7 @@ class ShowTasks extends HookConsumerWidget {
   }
   @override
   Widget build(BuildContext context, ref) {
+    GetStorage().write('screen','show');
     final _taskRepo = ref.watch(tasksRepoProvider);
     final taskToDoStreamAll = ref.watch(taskMultipleToDoStreamProviderNOTDONE);
 //todo: info icon

@@ -128,6 +128,7 @@ class TimeRepetitionButton extends StateNotifier<String> {
               child: const Text('Minutos'),//Icon(Icons.more_vert),
             ))
       ],
+      //todo: tr
       hideHeader: true,
       title: const Text("Selecciona cada cuanto quieres que se repita"),
       selectedTextStyle: const TextStyle(color: Colors.blue),

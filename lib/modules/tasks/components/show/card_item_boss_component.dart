@@ -108,7 +108,6 @@ class CardItemBossComponent extends ConsumerWidget {
   }
 
   showAlertDialogDelete(BuildContext context, ref) {
-// todo: tr
     // set up the buttons
     Widget okButton = CustomTextButton(
       child: CustomText.h4(

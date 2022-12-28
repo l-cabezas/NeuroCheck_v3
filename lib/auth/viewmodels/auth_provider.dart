@@ -156,7 +156,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
       );
   }
-//TODO: save passw nuevo
+//TODO: save passw nuevo,, pero ya lo guardo en login ??
   sendPasswordResetEmail(
       BuildContext context, {
         required String email,

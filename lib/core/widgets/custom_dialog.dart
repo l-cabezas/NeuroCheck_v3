@@ -57,7 +57,7 @@ class CustomDialog extends AlertDialog {
                     CustomImage.s2(
                       context,
                       image,
-                      color: const Color(0xffcca76a),
+                      //color: const Color(0xffcca76a),
                     ),
                   SizedBox(
                     height: Sizes.vMarginSmall(context),

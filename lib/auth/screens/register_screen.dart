@@ -3,9 +3,11 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/auth/components/register_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
+import '../../core/services/localization_service.dart';
 import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
+import '../../core/utils/dialogs.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -40,10 +42,11 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     alignment: Alignment.topRight,
                     child: IconButton(
+                        alignment: Alignment.center,
                         onPressed: (){
-                          //Navigator.pop(context);
+                          AppDialogs.showInfo(context,message: tr(context).info_registro);
                         },
-                        icon: const Icon(Icons.info_outline, color: AppColors.lightBlue,)
+                        icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
                     ),),
                 ],),
                 //const AppLogoComponent(),

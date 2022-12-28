@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../core/services/localization_service.dart';
 import '../../../../core/styles/app_colors.dart';
@@ -17,6 +18,7 @@ class CompletedBossTasks extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    GetStorage().write('screen','completeBoss');
     final taskToDoStreamAllCompleted = ref.watch(taskMultipleToDoCompleteStreamProviderBoss);
 //todo: info icon
     int numeroListaCon = 0;
