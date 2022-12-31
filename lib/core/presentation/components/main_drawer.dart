@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../modules/home/viewmodels/home_base_nav_providers.dart';
+import '../../../features/home/presentation/providers/home_base_nav_providers.dart';
 import '../services/localization_service.dart';
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';

@@ -13,7 +13,7 @@ import '../../../core/data/error/failures.dart';
 import '../../../core/presentation/services/firebase_services/firebase_caller.dart';
 import '../../../core/presentation/services/firebase_services/firestore_paths.dart';
 import '../../../core/presentation/services/firebase_services/i_firebase_caller.dart';
-import '../../../modules/tasks/models/task_model.dart';
+import '../../../features/tasks/data/models/task_model.dart';
 import '../../data/models/user_model.dart';
 
 //manejar datos de usuario
