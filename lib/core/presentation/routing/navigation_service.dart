@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../widgets/custom_toast.dart';
+import '../widgets/custom_toast.dart';
 
 abstract class NavigationService {
   static final GlobalKey<NavigatorState> navigationKey =

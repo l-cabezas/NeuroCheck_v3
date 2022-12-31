@@ -4,11 +4,11 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/profile/components/profile_text_fields_section.dart';
 
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
+import '../../../auth/domain/repos/user_repo.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
 import '../../../general/settings/components/light_button_component.dart';
 import '../viewmodels/profile_provider.dart';
 

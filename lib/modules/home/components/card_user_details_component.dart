@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:neurocheck/core/styles/app_images.dart';
+import 'package:neurocheck/core/presentation/styles/app_images.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/cached_network_image_circular.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/cached_network_image_circular.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 import '../../tasks/models/task_model.dart';
 
 class CardUserDetailsComponent extends StatelessWidget {

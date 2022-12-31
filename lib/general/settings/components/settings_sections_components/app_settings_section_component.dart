@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/routing/navigation_service.dart';
-import '../../../../core/routing/route_paths.dart';
-import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/viewmodels/app_locale_provider.dart';
-import '../../../../core/viewmodels/app_theme_provider.dart';
-import '../../../../core/widgets/custom_tile_component.dart';
+import '../../../../core/presentation/providers/app_theme_provider.dart';
+import '../../../../core/presentation/routing/navigation_service.dart';
+import '../../../../core/presentation/routing/route_paths.dart';
+import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/providers/app_locale_provider.dart';
+import '../../../../core/presentation/widgets/custom_tile_component.dart';
 import '../../utils/language.dart';
 import '../settings_section_component.dart';
 

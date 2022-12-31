@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/core/widgets/custom_button.dart';
-import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/widgets/custom_text.dart';
-import '../../../../core/widgets/loading_indicators.dart';
+import 'package:neurocheck/core/presentation/widgets/custom_button.dart';
+import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/widgets/custom_text.dart';
+import '../../../../core/presentation/widgets/loading_indicators.dart';
 import '../../components/show/card_item_boss_component.dart';
 import '../../viewmodels/task_to_do.dart';
 

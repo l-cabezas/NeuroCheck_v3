@@ -5,19 +5,19 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/data/repos/auth_repo.dart';
 import 'package:neurocheck/auth/presentation/components/register_supervised_text_fields.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/core/utils/dialogs.dart';
-import 'package:neurocheck/core/viewmodels/main_core_provider.dart';
+import 'package:neurocheck/core/presentation/styles/app_colors.dart';
+import 'package:neurocheck/core/presentation/utils/dialogs.dart';
+import 'package:neurocheck/core/presentation/providers/main_core_provider.dart';
 
 import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/presentation/routing/route_paths.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../../../core/widgets/custom_text_button.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
+import '../../../core/presentation/widgets/custom_text_button.dart';
 import '../providers/auth_provider.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/loading_indicators.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
+import '../../../core/presentation/widgets/loading_indicators.dart';
 
 class RegisterSupervisedFormComponent extends HookConsumerWidget {
   const RegisterSupervisedFormComponent({Key? key}) : super(key: key);

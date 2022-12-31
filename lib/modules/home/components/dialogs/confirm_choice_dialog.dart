@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/routing/navigation_service.dart';
-import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/font_styles.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text.dart';
+import '../../../../core/presentation/routing/navigation_service.dart';
+import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
+import '../../../../core/presentation/styles/font_styles.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/widgets/custom_button.dart';
+import '../../../../core/presentation/widgets/custom_text.dart';
+
 
 
 class ConfirmChoiceDialog extends StatelessWidget {
@@ -29,7 +30,7 @@ class ConfirmChoiceDialog extends StatelessWidget {
           children: [
             CustomText.h3(
               context,
-              'Estás seguro',
+              'Estás seguro', //todo: tr
               weight: FontStyles.fontWeightMedium,
             ),
             SizedBox(

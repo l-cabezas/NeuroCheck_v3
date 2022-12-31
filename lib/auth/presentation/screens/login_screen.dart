@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/presentation/routing/route_paths.dart';
-import '../../../core/screens/popup_page.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_images.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
+import '../../../core/presentation/screens/popup_page.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_images.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
 import '../components/app_logo_component.dart';
 import '../components/login_form_component.dart';
 import '../components/welcome_component.dart';

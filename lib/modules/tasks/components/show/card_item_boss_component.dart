@@ -1,18 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/core/routing/app_router.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/core/presentation/routing/app_router.dart';
+import 'package:neurocheck/core/presentation/styles/app_colors.dart';
 
-import '../../../../core/routing/navigation_service.dart';
-import '../../../../core/routing/route_paths.dart';
-import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/widgets/custom_text.dart';
-import '../../../../core/widgets/custom_text_button.dart';
+import '../../../../core/presentation/routing/navigation_service.dart';
+import '../../../../core/presentation/routing/route_paths.dart';
+import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/widgets/custom_text.dart';
+import '../../../../core/presentation/widgets/custom_text_button.dart';
 import '../../../home/components/card_button_component.dart';
 import '../../../home/components/card_user_details_component.dart';
-import '../../../notifications/viewmodels/notiControl_provider.dart';
 import '../../models/task_model.dart';
 import '../../repos/task_repo.dart';
 import '../../viewmodels/task_provider.dart';

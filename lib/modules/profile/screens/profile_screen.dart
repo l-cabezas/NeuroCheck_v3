@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../core/screens/popup_page_nested.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/loading_indicators.dart';
+import '../../../core/presentation/screens/popup_page_nested.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/loading_indicators.dart';
 import '../components/profile_form_component.dart';
 import '../components/user_details_component.dart';
 import '../components/user_image_component.dart';

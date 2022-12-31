@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
+
 
 class RetryAgainComponent extends ConsumerWidget {
   final String description;

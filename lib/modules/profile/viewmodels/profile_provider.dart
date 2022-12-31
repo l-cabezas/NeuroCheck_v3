@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/modules/profile/viewmodels/profile_state.dart';
 
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/services/image_selector.dart';
-import '../../../core/utils/dialogs.dart';
+import '../../../auth/domain/repos/user_repo.dart';
+import '../../../core/data/local/image_selector.dart';
+import '../../../core/presentation/utils/dialogs.dart';
 
 final profileProvider =
     StateNotifierProvider.autoDispose<ProfileNotifier, ProfileState>((ref) {

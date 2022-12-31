@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:neurocheck/core/styles/app_images.dart';
+import 'package:neurocheck/core/presentation/styles/app_images.dart';
 
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/components/image_pick_component.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/cached_network_image_circular.dart';
-import '../../../core/widgets/custom_image.dart';
+import '../../../auth/domain/repos/user_repo.dart';
+import '../../../core/presentation/components/image_pick_component.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/cached_network_image_circular.dart';
+import '../../../core/presentation/widgets/custom_image.dart';
 import '../viewmodels/profile_provider.dart';
 
 class UserImageComponent extends ConsumerWidget {

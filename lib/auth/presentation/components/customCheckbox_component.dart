@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/presentation/providers/checkbox_provider.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/core/presentation/styles/app_colors.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 
 class CustomCheckBoxComponent extends ConsumerWidget {
   CustomCheckBoxComponent({Key? key}) : super(key: key);

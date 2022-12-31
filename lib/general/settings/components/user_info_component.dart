@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../auth/domain/repos/user_repo.dart';
-import '../../../core/styles/app_images.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/cached_network_image_circular.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/styles/app_images.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/cached_network_image_circular.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 
 class UserInfoComponent extends ConsumerWidget {
   const UserInfoComponent({Key? key}) : super(key: key);

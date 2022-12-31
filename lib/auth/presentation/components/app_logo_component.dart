@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/app_images.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/widgets/custom_image.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/app_images.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/utils/dialogs.dart';
+import '../../../core/presentation/widgets/custom_image.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 
 class AppLogoComponent extends StatelessWidget {
   const AppLogoComponent({Key? key}) : super(key: key);

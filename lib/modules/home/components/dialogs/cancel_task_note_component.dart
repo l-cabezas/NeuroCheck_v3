@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../../core/styles/app_themes/cupertino_custom_theme.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/widgets/custom_text_field.dart';
+import '../../../../core/presentation/styles/app_themes/cupertino_custom_theme.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/widgets/custom_text_field.dart';
 
 class CancelTaskNoteComponent extends StatelessWidget {
   const CancelTaskNoteComponent({

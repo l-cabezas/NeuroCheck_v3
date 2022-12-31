@@ -8,6 +8,7 @@ import 'package:neurocheck/auth/presentation/screens/reset_screen.dart';
 import 'package:neurocheck/auth/presentation/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/presentation/routing/route_paths.dart';
 import 'package:neurocheck/auth/presentation/screens/add_supervised_screen.dart';
+import 'package:neurocheck/core/presentation/screens/no_internet_connection_screen.dart';
 import 'package:neurocheck/general/settings/screens/edit_name_screen.dart';
 import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/screens/supervised/show_tasks_screen.dart';
@@ -21,8 +22,8 @@ import '../../../modules/home/utils/home_base_nav_utils.dart';
 import '../../../modules/tasks/screens/supervised/completed_tasks_screen.dart';
 import '../../../modules/profile/screens/profile_screen.dart';
 import '../../../modules/tasks/screens/mod_task_screen.dart';
-import '../../screens/no_internet_connection_screen.dart';
-import '../../screens/splash_screen.dart';
+
+import '../screens/splash_screen.dart';
 import 'navigation_service.dart';
 import 'navigation_transitions.dart';
 

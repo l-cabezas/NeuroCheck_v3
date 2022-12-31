@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:neurocheck/core/services/localization_service.dart';
-import 'package:neurocheck/core/widgets/custom_app_bar_widget.dart';
-import 'package:neurocheck/core/widgets/custom_text.dart';
+import 'package:neurocheck/core/presentation/services/localization_service.dart';
+import 'package:neurocheck/core/presentation/widgets/custom_app_bar_widget.dart';
+import 'package:neurocheck/core/presentation/widgets/custom_text.dart';
 
-import '../../../core/screens/popup_page.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
+import '../../../core/presentation/screens/popup_page.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/utils/dialogs.dart';
 import '../components/register_supervised_component.dart';
 
 class AddSupervisedScreen extends StatelessWidget {

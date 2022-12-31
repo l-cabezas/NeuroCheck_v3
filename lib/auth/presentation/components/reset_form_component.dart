@@ -4,10 +4,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/presentation/components/reset_text_field.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/loading_indicators.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
+import '../../../core/presentation/widgets/loading_indicators.dart';
 import '../providers/auth_provider.dart';
 
 

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/core/widgets/custom_text.dart';
+import 'package:neurocheck/core/presentation/styles/app_colors.dart';
+import 'package:neurocheck/core/presentation/widgets/custom_text.dart';
 
-import '../../../../../core/services/localization_service.dart';
-import '../../../../../core/styles/sizes.dart';
-import '../../../../../core/utils/dialogs.dart';
+import '../../../../../core/presentation/services/localization_service.dart';
+import '../../../../../core/presentation/styles/sizes.dart';
+import '../../../../../core/presentation/utils/dialogs.dart';
 
 
 //Create a Provider

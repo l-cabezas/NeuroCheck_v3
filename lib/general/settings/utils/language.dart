@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_images.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_images.dart';
 
 enum Language {
   spanish('es', AppImages.languageIconSpanish),

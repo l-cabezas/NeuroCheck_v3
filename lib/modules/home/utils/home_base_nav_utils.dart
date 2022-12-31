@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/routing/app_router.dart';
-import '../../../core/routing/route_paths.dart';
+import '../../../core/presentation/routing/app_router.dart';
+import '../../../core/presentation/routing/route_paths.dart';
 import '../screens/nested_navigator_screen.dart';
 
 

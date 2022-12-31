@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/widgets/custom_text.dart';
-import '../../../core/widgets/custom_text_button.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/utils/dialogs.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
+import '../../../core/presentation/widgets/custom_text_button.dart';
 import '../viewmodels/settings_viewmodel.dart';
 
 class DeleteComponent extends ConsumerWidget {

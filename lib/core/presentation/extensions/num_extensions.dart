@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/responsive_service.dart';
+import '../services/responsive_service.dart';
 
 extension SizeExtension on num {
   double w(BuildContext context) =>

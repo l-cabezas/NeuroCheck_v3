@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_outlined_button.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_outlined_button.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 
 class CardRedButtonComponent extends StatelessWidget {
   final String title;

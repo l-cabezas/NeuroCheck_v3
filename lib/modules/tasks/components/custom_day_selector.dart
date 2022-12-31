@@ -2,7 +2,7 @@ import 'package:day_picker/day_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
+import '../../../core/presentation/styles/app_colors.dart';
 
 class CustomSelectWeekDays extends Container {
   static List<DayInWeek> days = [

@@ -8,11 +8,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/modules/tasks/components/forms/days/switch_theme_provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../../../../core/services/localization_service.dart';
-import '../../../../../core/styles/app_colors.dart';
-import '../../../../../core/styles/sizes.dart';
-import '../../../../../core/widgets/custom_text.dart';
-import '../../../../../core/widgets/custom_tile_component.dart';
+import '../../../../../core/presentation/services/localization_service.dart';
+import '../../../../../core/presentation/styles/app_colors.dart';
+import '../../../../../core/presentation/styles/sizes.dart';
+import '../../../../../core/presentation/widgets/custom_text.dart';
+import '../../../../../core/presentation/widgets/custom_tile_component.dart';
 import 'multi_choice_provider.dart';
 
 class ChooseDaySectionComponent extends ConsumerWidget {

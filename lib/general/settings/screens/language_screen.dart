@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/screens/popup_page_nested.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/font_styles.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/routing/route_paths.dart';
+import '../../../core/presentation/screens/popup_page_nested.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/font_styles.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/widgets/custom_button.dart';
+import '../../../core/presentation/widgets/custom_text.dart';
 import '../components/language_item_component.dart';
 import '../components/light_button_component.dart';
 import '../utils/language.dart';

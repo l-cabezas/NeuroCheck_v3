@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/routing/route_paths.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
 import '../../home/components/card_button_component.dart';
 import '../../home/components/card_user_details_component.dart';
-import '../../notifications/viewmodels/notiControl_provider.dart';
 import '../../tasks/components/card_red_button_component.dart';
 import '../../tasks/models/task_model.dart';
 import '../../tasks/repos/task_repo.dart';
@@ -78,7 +77,7 @@ class SupervisedCardItemComponent extends ConsumerWidget {
                   title: tr(context).delete,
                   isColored: false,
                   onPressed: () {
-                    ref.watch(notiControlProvider.notifier).checkDelete(taskModel: taskModel);
+                   // ref.watch(notiControlProvider.notifier).checkDelete(taskModel: taskModel);
                   },
                 )
                     : const SizedBox()

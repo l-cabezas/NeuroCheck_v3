@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/modules/simple_notifications/notifications.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
-import '../../../core/viewmodels/main_core_provider.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/routing/route_paths.dart';
+import '../../../core/presentation/providers/main_core_provider.dart';
 
 final settingsViewModel =
     Provider<SettingsViewModel>((ref) => SettingsViewModel(ref));

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/routing/navigator_route_observer.dart';
-import '../../../core/routing/route_paths.dart';
+import '../../../core/presentation/routing/navigator_route_observer.dart';
+import '../../../core/presentation/routing/route_paths.dart';
 
 class HomeBaseNavProviders {
   static final currentIndex = StateProvider.autoDispose<int>((ref) => 1);

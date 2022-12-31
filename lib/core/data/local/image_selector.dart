@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../error/exceptions.dart';
 import '../error/failures.dart';
-import '../../styles/sizes.dart';
+import '../../presentation/styles/sizes.dart';
 
 class ImageSelector {
   ImageSelector._();

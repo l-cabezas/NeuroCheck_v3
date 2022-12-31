@@ -10,9 +10,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/data/error/failures.dart';
-import '../../../core/services/firebase_services/firebase_caller.dart';
-import '../../../core/services/firebase_services/firestore_paths.dart';
-import '../../../core/services/firebase_services/i_firebase_caller.dart';
+import '../../../core/presentation/services/firebase_services/firebase_caller.dart';
+import '../../../core/presentation/services/firebase_services/firestore_paths.dart';
+import '../../../core/presentation/services/firebase_services/i_firebase_caller.dart';
 import '../../../modules/tasks/models/task_model.dart';
 import '../../data/models/user_model.dart';
 

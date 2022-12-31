@@ -6,10 +6,10 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 
 
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/validators.dart';
-import '../../../core/widgets/custom_text_field.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/utils/validators.dart';
+import '../../../core/presentation/widgets/custom_text_field.dart';
 import 'customCheckbox_component.dart';
 
 class RegisterTextFieldsSection extends StatelessWidget {

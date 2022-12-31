@@ -5,10 +5,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/presentation/routing/route_paths.dart';
-import '../../../core/services/init_services/firebase_messaging_service.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/viewmodels/main_core_provider.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/utils/dialogs.dart';
+import '../../../core/presentation/providers/main_core_provider.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repos/auth_repo.dart';
 import '../../domain/repos/user_repo.dart';
@@ -70,7 +69,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         GetStorage().write('rol', user.rol);
 
         // TODO: nombre
-        subscribeUserToTopic();
+        //subscribeUserToTopic();
         navigationToHomeScreen(context);
         //await submitLogin(context, userModel);
       },
@@ -100,7 +99,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         GetStorage().write('passwSup',passwordSupervised);
         _mainCoreProvider.setSupervisedUid(userModel);
         //
-        subscribeUserToTopic();
+       // subscribeUserToTopic();
         UserModel? sup = await _mainCoreProvider.getUserData();
         // si el supervisado tiene un supervisado mala cosa
         log ('**** signSupervisedIn UID ${sup?.uidSupervised} y ROL ${sup?.rol}'
@@ -211,7 +210,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
         (isSet) async {
           //openCollection(userModel);
-          subscribeUserToTopic();
+          //subscribeUserToTopic();
           //que solo se lo pida al supervisor
           if((userModel.rol == 'supervisor')) {
           await _authRepo.sendEmailVerification(context);
@@ -230,12 +229,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
     );
   }
-
+/*
   subscribeUserToTopic() {
     FirebaseMessagingService.instance.subscribeToTopic(
       topic: 'general',
     );
-  }
+  }*/
 
   navigationToHomeScreen(BuildContext context) {
     NavigationService.pushReplacement(

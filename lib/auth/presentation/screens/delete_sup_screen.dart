@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/screens/popup_page.dart';
-import '../../../core/styles/sizes.dart';
+import '../../../core/presentation/screens/popup_page.dart';
+import '../../../core/presentation/styles/sizes.dart';
 import '../components/delete_sup_component.dart';
 
 class DeleteSupScreen extends ConsumerWidget {

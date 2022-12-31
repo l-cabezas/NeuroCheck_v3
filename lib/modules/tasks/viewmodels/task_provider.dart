@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,17 +15,14 @@ import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../core/data/error/failures.dart';
 import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/presentation/routing/route_paths.dart';
-import '../../../core/services/firebase_services/firebase_caller.dart';
-import '../../../core/services/firebase_services/firestore_paths.dart';
-import '../../../core/services/firebase_services/i_firebase_caller.dart';
-import '../../../core/services/init_services/firebase_messaging_service.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/utils/dialog_message_state.dart';
-import '../../../core/utils/dialogs.dart';
-import '../../../core/viewmodels/main_core_provider.dart';
-import '../../../core/widgets/dialog_widget.dart';
-import '../../notifications/models/notiControl_model.dart';
-import '../../notifications/viewmodels/notiControl_provider.dart';
+import '../../../core/presentation/services/firebase_services/firebase_caller.dart';
+import '../../../core/presentation/services/firebase_services/firestore_paths.dart';
+import '../../../core/presentation/services/firebase_services/i_firebase_caller.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/utils/dialog_message_state.dart';
+import '../../../core/presentation/utils/dialogs.dart';
+import '../../../core/presentation/providers/main_core_provider.dart';
+import '../../../core/presentation/widgets/dialog_widget.dart';
 import '../models/task_model.dart';
 
 
@@ -621,9 +619,9 @@ class TaskNotifier extends StateNotifier<TareaState> {
   }
 
   subscribeUserToTopic() {
-    FirebaseMessagingService.instance.subscribeToTopic(
+    /*FirebaseMessagingService.instance.subscribeToTopic(
       topic: 'general',
-    );
+    );*/
   }
 
 

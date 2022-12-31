@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:neurocheck/general/settings/components/delete_component.dart';
 
-import '../../../core/screens/popup_page_nested.dart';
-import '../../../core/styles/sizes.dart';
+import '../../../core/presentation/screens/popup_page_nested.dart';
+import '../../../core/presentation/styles/sizes.dart';
 import '../components/logout_component.dart';
 import '../components/settings_sections_components/app_settings_section_component.dart';
 import '../components/user_info_component.dart';

@@ -3,11 +3,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 
 import '../../../../core/presentation/routing/navigation_service.dart';
-import '../../../../core/styles/app_colors.dart';
-import '../../../../core/styles/font_styles.dart';
-import '../../../../core/styles/sizes.dart';
-import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
+import '../../../../core/presentation/styles/font_styles.dart';
+import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/widgets/custom_button.dart';
+import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../tasks/models/task_model.dart';
 
 
@@ -57,7 +57,7 @@ class CancelTaskDialog extends HookWidget {
                     },
                     child: CustomText.h4(
                       context,
-                      'Cancel',
+                      'Cancel', //todo: tr
                       color: const Color(0xffffffff),
                       weight: FontStyles.fontWeightMedium,
                       alignment: Alignment.center,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:neurocheck/auth/presentation/components/reset_form_component.dart';
 
-import '../../../core/screens/popup_page.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/app_images.dart';
-import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
+import '../../../core/presentation/screens/popup_page.dart';
+import '../../../core/presentation/services/localization_service.dart';
+import '../../../core/presentation/styles/app_colors.dart';
+import '../../../core/presentation/styles/app_images.dart';
+import '../../../core/presentation/styles/sizes.dart';
+import '../../../core/presentation/utils/dialogs.dart';
 
 class ResetScreen extends StatelessWidget {
   const ResetScreen({Key? key}) : super(key: key);

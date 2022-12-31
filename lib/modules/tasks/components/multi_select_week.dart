@@ -6,7 +6,7 @@ import 'package:getwidget/components/dropdown/gf_multiselect.dart';
 import 'package:getwidget/types/gf_checkbox_type.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/widgets/custom_outlined_button.dart';
+import '../../../core/presentation/widgets/custom_outlined_button.dart';
 import '../../home/components/card_button_component.dart';
 
 class MultiSelectWeek extends StatefulWidget {

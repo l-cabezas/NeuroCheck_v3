@@ -10,17 +10,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:neurocheck/auth/viewmodels/auth_provider.dart';
-import 'package:neurocheck/core/services/init_services/awesome_notification.dart';
+import 'package:neurocheck/auth/presentation/providers/auth_provider.dart';
 import 'package:neurocheck/modules/tasks/repos/utilities.dart';
 import 'package:path/path.dart';
 
-import '../../../auth/models/user_model.dart';
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/errors/failures.dart';
-import '../../../core/services/firebase_services/firebase_caller.dart';
-import '../../../core/services/firebase_services/firestore_paths.dart';
-import '../../../core/services/firebase_services/i_firebase_caller.dart';
+import '../../../auth/data/models/user_model.dart';
+import '../../../auth/domain/repos/user_repo.dart';
+import '../../../core/data/error/failures.dart';
+import '../../../core/presentation/services/firebase_services/firebase_caller.dart';
+import '../../../core/presentation/services/firebase_services/firestore_paths.dart';
+import '../../../core/presentation/services/firebase_services/i_firebase_caller.dart';
 import '../../simple_notifications/notifications.dart';
 import '../models/task_model.dart';
 
