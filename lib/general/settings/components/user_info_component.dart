@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../auth/repos/user_repo.dart';
+import '../../../auth/domain/repos/user_repo.dart';
 import '../../../core/styles/app_images.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';

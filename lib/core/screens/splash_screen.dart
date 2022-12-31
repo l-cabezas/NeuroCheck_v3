@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:neurocheck/core/screens/popup_page.dart';
 
 import '../../modules/home/components/upcoming_tasks_component.dart';
-import '../hooks/fade_in_controller_hook.dart';
+import '../presentation/hooks/fade_in_controller_hook.dart';
 import '../services/localization_service.dart';
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';

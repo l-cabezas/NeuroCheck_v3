@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../errors/exceptions.dart';
-import '../../errors/failures.dart';
+import '../../data/error/exceptions.dart';
+import '../../data/error/failures.dart';
 import 'i_firebase_caller.dart';
 
 final firebaseCaller = Provider<IFirebaseCaller>(

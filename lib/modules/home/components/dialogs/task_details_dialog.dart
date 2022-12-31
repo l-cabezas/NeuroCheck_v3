@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../core/routing/navigation_service.dart';
+import '../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../core/services/localization_service.dart';
 import '../../../../core/styles/font_styles.dart';
 import '../../../../core/styles/sizes.dart';

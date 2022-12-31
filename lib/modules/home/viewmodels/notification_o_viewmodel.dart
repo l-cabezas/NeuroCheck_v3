@@ -2,7 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:neurocheck/modules/home/viewmodels/task_dialogs_viewmodels.dart';
 
-import '../../../core/routing/navigation_service.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../tasks/repos/task_repo.dart';
 

@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/core/routing/app_router.dart';
+import 'package:neurocheck/core/presentation/routing/app_router.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
 
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/routing/route_paths.dart';
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
 import '../../home/components/card_button_component.dart';

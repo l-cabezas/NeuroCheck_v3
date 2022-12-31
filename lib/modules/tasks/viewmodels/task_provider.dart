@@ -8,12 +8,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:neurocheck/modules/tasks/viewmodels/tarea_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../auth/repos/auth_repo.dart';
-import '../../../auth/repos/user_repo.dart';
-import '../../../auth/viewmodels/auth_provider.dart';
-import '../../../core/errors/failures.dart';
-import '../../../core/routing/navigation_service.dart';
-import '../../../core/routing/route_paths.dart';
+import '../../../auth/data/repos/auth_repo.dart';
+import '../../../auth/domain/repos/user_repo.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
+import '../../../core/data/error/failures.dart';
+import '../../../core/presentation/routing/navigation_service.dart';
+import '../../../core/presentation/routing/route_paths.dart';
 import '../../../core/services/firebase_services/firebase_caller.dart';
 import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../../core/services/firebase_services/i_firebase_caller.dart';

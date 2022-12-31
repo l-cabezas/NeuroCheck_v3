@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 
-import '../../../../core/routing/navigation_service.dart';
+import '../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/font_styles.dart';
 import '../../../../core/styles/sizes.dart';
