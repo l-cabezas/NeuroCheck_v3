@@ -21,7 +21,7 @@ import 'core/presentation/styles/app_themes/light_theme.dart';
 import 'core/presentation/providers/app_locale_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'l10n/l10n.dart';
-import 'modules/tasks/repos/task_repo.dart';
+import 'features/tasks/data/repos/task_repo.dart';
 import 'package:get_storage/get_storage.dart';
 
 void main() async {
