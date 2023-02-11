@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:neurocheck/auth/domain/repos/user_repo.dart';
 import 'package:neurocheck/auth/presentation/providers/auth_state.dart';
 
 import '../../../core/data/error/exceptions.dart';

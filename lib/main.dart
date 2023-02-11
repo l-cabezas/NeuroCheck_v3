@@ -1,14 +1,18 @@
 
 
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:neurocheck/core/core_features/presentation/utils/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'auth/domain/repos/user_repo.dart';
+import 'core/core_features/presentation/providers/current_app_theme_provider.dart';
+import 'core/core_features/presentation/providers/provider_observer.dart';
+import 'core/data/local/local_storage_caller/shared_pref_local_storage_caller.dart';
+import 'core/presentation/providers/app_locale_provider.dart';
 import 'core/presentation/providers/app_theme_provider.dart';
 import 'core/presentation/routing/app_router.dart';
 import 'core/presentation/routing/navigation_service.dart';
@@ -18,16 +22,20 @@ import 'core/presentation/services/theme_service.dart';
 import 'core/presentation/styles/app_colors.dart';
 import 'core/presentation/styles/app_themes/dark_theme.dart';
 import 'core/presentation/styles/app_themes/light_theme.dart';
-import 'core/presentation/providers/app_locale_provider.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'l10n/l10n.dart';
-import 'features/tasks/data/repos/task_repo.dart';
-import 'package:get_storage/get_storage.dart';
 
 void main() async {
   //This let us access providers before runApp (read only)
-  final container = ProviderContainer();
+  //final container = ProviderContainer();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  //This let us access providers before runApp
+  final ProviderContainer container = ProviderContainer(
+    overrides: [sharedPrefsProvider.overrideWithValue(prefs)],
+    observers: [LogProviderObserver()],
+  );
+
   await ServicesInitializer.instance.init(widgetsBinding, container);
   await GetStorage.init();
 
@@ -91,25 +99,28 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final platformBrightness = usePlatformBrightness();
-    final appLocale = ref.watch(appLocaleProvider);
-    final appTheme = ref.watch(appThemeProvider);
 
+    useOnPlatformBrightnessChange((previous, current) {
+      ref.read(platformBrightnessProvider.notifier).state = current;
+    });
+
+    final appLocale = ref.watch(appLocaleProvider);
+    final theme = ref.watch(currentAppThemeProvider);
+
+    //final appTheme = ref.watch(appThemeProvider);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Theme(
-        data: ThemeService.instance.isDarkMode(appTheme, platformBrightness)
-            ? DarkTheme.darkTheme
-            : LightTheme.lightTheme,
+        data: theme.getThemeData(),
         //esto nos sirve para tener cosas distintas según la plataforma
         child: PlatformApp(
 
           navigatorKey: NavigationService.navigationKey,
           debugShowCheckedModeBanner: false,
           //title: 'NeuroCheck',
-          color: AppColors.lightThemePrimary,
-
+          color: Theme.of(context).colorScheme.primary,
           locale: appLocale,
           supportedLocales: L10n.all,
           localizationsDelegates: L10n.localizationsDelegates,

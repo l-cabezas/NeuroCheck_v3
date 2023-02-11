@@ -1,5 +1,6 @@
-import '../../services/platform_service.dart';
 import 'package:flutter/material.dart';
+
+import '../../services/platform_service.dart';
 
 abstract class PlatformBaseWidget<I extends Widget, A extends Widget>
     extends StatelessWidget {

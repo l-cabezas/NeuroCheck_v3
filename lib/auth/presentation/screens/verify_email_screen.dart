@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,13 +9,9 @@ import '../../../core/presentation/screens/popup_page.dart';
 import '../../../core/presentation/services/localization_service.dart';
 import '../../../core/presentation/styles/sizes.dart';
 import '../../../core/presentation/widgets/custom_button.dart';
-import '../../../core/presentation/widgets/custom_text.dart';
-import '../../../core/presentation/widgets/loading_indicators.dart';
-import '../components/verifyEmailFormComponent.dart';
 import '../../data/repos/auth_repo.dart';
 import '../../domain/repos/user_repo.dart';
-import '../providers/auth_provider.dart';
-import '../providers/auth_state.dart';
+import '../components/verifyEmailFormComponent.dart';
 
 class VerifyEmailScreen extends ConsumerWidget {
   const VerifyEmailScreen({

@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../core/presentation/screens/popup_page_nested.dart';
 import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../profile/presentation/components/profile_form_component.dart';
-import '../components/light_button_component.dart';
 
 class EditNameScreen extends StatelessWidget {
   const EditNameScreen({Key? key}) : super(key: key);

@@ -9,7 +9,6 @@ import '../../../core/presentation/services/localization_service.dart';
 import '../../../core/presentation/styles/sizes.dart';
 import '../../../core/presentation/widgets/custom_button.dart';
 import '../../../core/presentation/widgets/loading_indicators.dart';
-import '../../../features/settings/presentation/components/light_button_component.dart';
 import '../providers/auth_provider.dart';
 import 'login_text_fields.dart';
 

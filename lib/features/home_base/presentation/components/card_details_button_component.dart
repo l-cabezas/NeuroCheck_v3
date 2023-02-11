@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/font_styles.dart';
 import '../../../../core/presentation/styles/sizes.dart';
-
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../../core/presentation/widgets/custom_text_button.dart';
 

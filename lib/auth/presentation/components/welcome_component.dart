@@ -5,7 +5,6 @@ import '../../../core/presentation/styles/app_colors.dart';
 import '../../../core/presentation/styles/app_images.dart';
 import '../../../core/presentation/styles/font_styles.dart';
 import '../../../core/presentation/styles/sizes.dart';
-import '../../../core/presentation/widgets/custom_image.dart';
 import '../../../core/presentation/widgets/custom_text.dart';
 
 

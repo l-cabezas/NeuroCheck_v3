@@ -6,9 +6,9 @@ import '../../../../core/presentation/components/bottom_nav_bar_component.dart';
 import '../../../../core/presentation/components/main_drawer.dart';
 import '../../../../core/presentation/screens/popup_page.dart';
 import '../../../../core/presentation/styles/sizes.dart';
+import '../providers/home_base_nav_providers.dart';
 import '../utils/home_base_nav_appbar.dart';
 import '../utils/home_base_nav_utils.dart';
-import '../providers/home_base_nav_providers.dart';
 
 /*
 * Hooks son una nueva característica en React 16.8.

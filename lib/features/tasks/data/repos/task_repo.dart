@@ -2,17 +2,12 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cron/cron.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:neurocheck/auth/presentation/providers/auth_provider.dart';
 import 'package:neurocheck/features/tasks/presentation/utils/utilities.dart';
-import 'package:path/path.dart';
 
 import '../../../../auth/data/models/user_model.dart';
 import '../../../../auth/domain/repos/user_repo.dart';

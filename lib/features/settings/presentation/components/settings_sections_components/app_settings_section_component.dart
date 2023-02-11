@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../../core/presentation/providers/app_locale_provider.dart';
 import '../../../../../core/presentation/providers/app_theme_provider.dart';
 import '../../../../../core/presentation/routing/navigation_service.dart';

@@ -9,7 +9,6 @@ import '../../../core/presentation/styles/sizes.dart';
 import '../../../core/presentation/widgets/custom_button.dart';
 import '../components/app_logo_component.dart';
 import '../components/login_form_component.dart';
-import '../components/welcome_component.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

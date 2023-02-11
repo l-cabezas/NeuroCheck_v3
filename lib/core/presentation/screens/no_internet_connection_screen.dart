@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/screens/popup_page.dart';
-import '../services/localization_service.dart';
-import '../styles/sizes.dart';
+
 import '../components/data_error_component.dart';
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';
 import '../services/init_services/connectivity_service.dart';
+import '../services/localization_service.dart';
+import '../styles/sizes.dart';
 
 
 class NoInternetConnection extends ConsumerWidget {

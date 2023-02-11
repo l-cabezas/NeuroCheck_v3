@@ -8,9 +8,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/styles/app_colors.dart';
 import 'package:neurocheck/core/presentation/widgets/custom_button.dart';
+import 'package:neurocheck/features/tasks/data/models/task_model.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/name_task_provider.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/time_range_picker_provider.dart';
-import 'package:neurocheck/features/tasks/data/models/task_model.dart';
 
 import '../../../../../core/presentation/screens/popup_page_nested.dart';
 import '../../../../../core/presentation/services/localization_service.dart';
@@ -18,14 +18,14 @@ import '../../../../../core/presentation/styles/sizes.dart';
 import '../../../../../core/presentation/utils/dialogs.dart';
 import '../../../../../core/presentation/widgets/custom_tile_component.dart';
 import '../../../../../core/presentation/widgets/loading_indicators.dart';
-import '../../providers/multi_choice_provider.dart';
+import '../../components/repe_noti_component.dart';
 import '../../components/switch_setting_section_component.dart';
 import '../../components/task_name_text_fields.dart';
 import '../../components/time_picker_component.dart';
-import '../../components/repe_noti_component.dart';
+import '../../providers/multi_choice_provider.dart';
 import '../../providers/repe_noti_provider.dart';
-import '../../utils/utilities.dart';
 import '../../providers/task_provider.dart';
+import '../../utils/utilities.dart';
 
 class AddTaskScreenBoss extends HookConsumerWidget {
   const AddTaskScreenBoss({Key? key}) : super(key: key);

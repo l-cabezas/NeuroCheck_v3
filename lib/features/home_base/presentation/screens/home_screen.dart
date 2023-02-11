@@ -1,19 +1,13 @@
-import 'dart:developer';
-
-import 'package:cron/cron.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/services/localization_service.dart';
-import 'package:neurocheck/features/tasks/data/repos/task_repo.dart';
 import 'package:neurocheck/features/tasks/presentation/screens/boss/completed_boss_tasks_screen.dart';
-import '../../../../auth/domain/repos/user_repo.dart';
-import '../../../../auth/presentation/screens/add_supervised_screen.dart';
-import '../../../tasks/presentation/screens/supervised/add_task_screen.dart';
+
 import '../../../tasks/presentation/screens/boss/add_task_boss_screen.dart';
 import '../../../tasks/presentation/screens/boss/show_supervisor_tasks.dart';
+import '../../../tasks/presentation/screens/supervised/add_task_screen.dart';
 import '../../../tasks/presentation/screens/supervised/completed_tasks_screen.dart';
 import '../../../tasks/presentation/screens/supervised/show_tasks_screen.dart';
 
@@ -74,7 +68,7 @@ class HomeScreen extends ConsumerWidget {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.add), label: tr(context).add_screen),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: tr(context).show_screen),
-            BottomNavigationBarItem(icon: Icon(Icons.library_add_check_outlined),
+            BottomNavigationBarItem(icon: Icon(Icons.library_add_check_outlined), //todo: color
                 label: tr(context).show_done_screen),
           ],
           currentIndex: menuIndex,

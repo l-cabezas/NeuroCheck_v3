@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/time_range_picker_provider.dart';
 
 import '../../../../core/presentation/services/localization_service.dart';
-import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../providers/repe_noti_provider.dart';

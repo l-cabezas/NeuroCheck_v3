@@ -1,19 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/data/error/failures.dart';
 import '../../../core/presentation/services/firebase_services/firebase_caller.dart';
 import '../../../core/presentation/services/firebase_services/firestore_paths.dart';
 import '../../../core/presentation/services/firebase_services/i_firebase_caller.dart';
-import '../../../features/tasks/data/models/task_model.dart';
 import '../../data/models/user_model.dart';
 
 //manejar datos de usuario

@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers/app_theme_provider.dart';
+/*
 
 class ThemeService {
   ThemeService._();
@@ -29,3 +30,4 @@ class ThemeService {
     }
   }
 }
+*/

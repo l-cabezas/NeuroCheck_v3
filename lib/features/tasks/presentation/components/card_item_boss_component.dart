@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/core/presentation/routing/app_router.dart';
 import 'package:neurocheck/core/presentation/styles/app_colors.dart';
 
 import '../../../../core/presentation/routing/navigation_service.dart';
@@ -13,7 +12,6 @@ import '../../../../core/presentation/widgets/custom_text_button.dart';
 import '../../../home/presentation/components/card_button_component.dart';
 import '../../../home/presentation/components/card_user_details_component.dart';
 import '../../data/models/task_model.dart';
-import '../../data/repos/task_repo.dart';
 import '../providers/task_provider.dart';
 import 'card_red_button_component.dart';
 

@@ -11,9 +11,9 @@ import '../../../../../core/presentation/styles/sizes.dart';
 import '../../../../../core/presentation/widgets/custom_button.dart';
 import '../../../../../core/presentation/widgets/custom_text.dart';
 import '../../../../../core/presentation/widgets/loading_indicators.dart';
+import '../../../../home_base/presentation/components/card_item_component.dart';
 import '../../providers/task_provider.dart';
 import '../../providers/task_to_do.dart';
-import '../../../../home_base/presentation/components/card_item_component.dart';
 
 class CompletedTasks extends HookConsumerWidget {
   const CompletedTasks({Key? key}) : super(key: key);

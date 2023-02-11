@@ -7,11 +7,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/utils/dialogs.dart';
 
-import '../../../../auth/domain/repos/user_repo.dart';
 import '../../../../core/presentation/components/appbar_with_icon_component.dart';
-import '../../../../core/presentation/routing/app_router.dart';
 import '../../../../core/presentation/routing/navigation_service.dart';
-import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/routing/route_paths.dart';
 import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/services/platform_service.dart';

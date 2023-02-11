@@ -6,7 +6,6 @@ import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/font_styles.dart';
 import '../../../../core/presentation/styles/sizes.dart';
-import '../../../../core/presentation/utils/dialogs.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../providers/settings_viewmodel.dart';
 

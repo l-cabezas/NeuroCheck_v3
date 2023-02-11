@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/presentation/styles/sizes.dart';
-import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../../core/presentation/widgets/custom_tile_component.dart';
 
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/presentation/styles/sizes.dart';
+
 import '../../../../core/presentation/providers/app_locale_provider.dart';
+import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../utils/language.dart';
 

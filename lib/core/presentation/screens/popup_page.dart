@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter/material.dart';
 
 
 class PopUpPage extends StatelessWidget {
@@ -59,10 +59,7 @@ class PopUpPage extends StatelessWidget {
           cupertinoTabChildBuilder: (_, index) {
             return AnnotatedRegion<SystemUiOverlayStyle>(
               value: statusBarColor != null
-                  ? Theme.of(context)
-                  .appBarTheme
-                  .systemOverlayStyle!
-                  .copyWith(statusBarColor: statusBarColor)
+                  ? Theme.of(context).appBarTheme.systemOverlayStyle!.copyWith(statusBarColor: statusBarColor)
                   : Theme.of(context).appBarTheme.systemOverlayStyle!,
               child: SafeArea(
                 top: false,
@@ -73,10 +70,7 @@ class PopUpPage extends StatelessWidget {
           },
           body: AnnotatedRegion<SystemUiOverlayStyle>(
             value: statusBarColor != null
-                ? Theme.of(context)
-                .appBarTheme
-                .systemOverlayStyle!
-                .copyWith(statusBarColor: statusBarColor)
+                ? Theme.of(context).appBarTheme.systemOverlayStyle!.copyWith(statusBarColor: statusBarColor)
                 : Theme.of(context).appBarTheme.systemOverlayStyle!,
             child: body,
           ),

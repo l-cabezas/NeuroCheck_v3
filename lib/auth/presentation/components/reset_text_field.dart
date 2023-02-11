@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-
-
 import '../../../core/presentation/services/localization_service.dart';
 import '../../../core/presentation/styles/sizes.dart';
 import '../../../core/presentation/utils/validators.dart';

@@ -6,10 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-
+import '../../presentation/styles/sizes.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
-import '../../presentation/styles/sizes.dart';
 
 class ImageSelector {
   ImageSelector._();

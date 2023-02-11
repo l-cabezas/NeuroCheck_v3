@@ -2,17 +2,15 @@ import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/tarea_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../auth/data/repos/auth_repo.dart';
 import '../../../../auth/domain/repos/user_repo.dart';
-import '../../../../auth/presentation/providers/auth_provider.dart';
 import '../../../../core/data/error/failures.dart';
+import '../../../../core/presentation/providers/main_core_provider.dart';
 import '../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../core/presentation/routing/route_paths.dart';
 import '../../../../core/presentation/services/firebase_services/firebase_caller.dart';
@@ -21,7 +19,6 @@ import '../../../../core/presentation/services/firebase_services/i_firebase_call
 import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/utils/dialog_message_state.dart';
 import '../../../../core/presentation/utils/dialogs.dart';
-import '../../../../core/presentation/providers/main_core_provider.dart';
 import '../../../../core/presentation/widgets/dialog_widget.dart';
 import '../../data/models/task_model.dart';
 

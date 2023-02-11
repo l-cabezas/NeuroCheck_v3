@@ -3,15 +3,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/services/init_services/storage_service.dart';
+import 'package:neurocheck/firebase_options.dart';
+
 import '../../providers/app_theme_provider.dart';
-import '../theme_service.dart';
+import '../../routing/navigation_service.dart';
 import '../../styles/app_colors.dart';
 import '../../styles/app_images.dart';
-import '../../routing/navigation_service.dart';
+import '../theme_service.dart';
 import 'connectivity_service.dart';
-
 import 'local_notification_service.dart';
-import 'package:neurocheck/firebase_options.dart';
 
 
 class ServicesInitializer {
@@ -69,7 +69,7 @@ class ServicesInitializer {
   }
 
   _initializeServicesRef() {
-    ThemeService(container.read);
+   // ThemeService(container.read);
   }
 
   _initializeCustomSplashImages(BuildContext context) async {

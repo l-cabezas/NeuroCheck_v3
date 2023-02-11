@@ -9,10 +9,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../core/presentation/screens/popup_page.dart';
 import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
-import '../components/cardMod_item_component.dart';
-import '../providers/switch_theme_provider.dart';
-import '../components/toggle_choice_component.dart';
 import '../../data/models/task_model.dart';
+import '../components/cardMod_item_component.dart';
+import '../components/toggle_choice_component.dart';
+import '../providers/switch_theme_provider.dart';
 
 class ModTaskComponent extends HookConsumerWidget {
   const ModTaskComponent({

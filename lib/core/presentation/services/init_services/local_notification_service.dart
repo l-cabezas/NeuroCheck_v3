@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/routing/route_paths.dart';
-import '../../styles/app_colors.dart';
+
 import '../../routing/navigation_service.dart';
+import '../../styles/app_colors.dart';
 
 
 class LocalNotificationService {

@@ -8,10 +8,8 @@ import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../home/presentation/components/card_button_component.dart';
 import '../../../home/presentation/components/card_user_details_component.dart';
-import '../../../tasks/presentation/components/card_red_button_component.dart';
 import '../../../tasks/data/models/task_model.dart';
-import '../../../tasks/data/repos/task_repo.dart';
-import '../../../tasks/presentation/providers/task_provider.dart';
+import '../../../tasks/presentation/components/card_red_button_component.dart';
 
 class SupervisedCardItemComponent extends ConsumerWidget {
 

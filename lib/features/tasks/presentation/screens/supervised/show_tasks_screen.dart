@@ -5,22 +5,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/auth/domain/repos/user_repo.dart';
 import 'package:neurocheck/core/presentation/widgets/custom_button.dart';
-import 'package:neurocheck/features/tasks/data/models/task_model.dart';
 import 'package:neurocheck/features/tasks/data/repos/task_repo.dart';
-import 'package:neurocheck/features/tasks/presentation/utils/utilities.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/task_provider.dart';
-import 'package:rxdart/rxdart.dart';
-import '../../../../../auth/data/models/user_model.dart';
+
 import '../../../../../core/presentation/services/localization_service.dart';
 import '../../../../../core/presentation/styles/app_colors.dart';
 import '../../../../../core/presentation/styles/sizes.dart';
 import '../../../../../core/presentation/widgets/custom_text.dart';
 import '../../../../../core/presentation/widgets/loading_indicators.dart';
-import '../../../../notifications/presentation/utils/notifications.dart';
-import '../../providers/task_to_do.dart';
 import '../../../../home_base/presentation/components/card_item_component.dart';
+import '../../providers/task_to_do.dart';
 
 class ShowTasks extends HookConsumerWidget {
   const ShowTasks({Key? key}) : super(key: key);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-
 import '../../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../../core/presentation/styles/app_colors.dart';
 import '../../../../../core/presentation/styles/font_styles.dart';

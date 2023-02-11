@@ -1,28 +1,23 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:neurocheck/auth/presentation/screens/add_supervised_screen.dart';
 import 'package:neurocheck/auth/presentation/screens/delete_sup_screen.dart';
 import 'package:neurocheck/auth/presentation/screens/register_screen.dart';
 import 'package:neurocheck/auth/presentation/screens/reset_screen.dart';
 import 'package:neurocheck/auth/presentation/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/presentation/routing/route_paths.dart';
-import 'package:neurocheck/auth/presentation/screens/add_supervised_screen.dart';
 import 'package:neurocheck/core/presentation/screens/no_internet_connection_screen.dart';
 import 'package:neurocheck/features/settings/presentation/screens/edit_name_screen.dart';
 import 'package:neurocheck/features/tasks/data/models/task_model.dart';
-import 'package:neurocheck/features/tasks/presentation/screens/supervised/show_tasks_screen.dart';
-import 'package:neurocheck/features/tasks/presentation/screens/supervised/add_task_screen.dart';
+
 import '../../../auth/presentation/screens/login_screen.dart';
+import '../../../features/home/presentation/screens/home_base_screen.dart';
+import '../../../features/home/presentation/utils/home_base_nav_utils.dart';
+import '../../../features/home_base/presentation/screens/home_screen.dart';
+import '../../../features/profile/presentation/screens/profile_screen.dart';
 import '../../../features/settings/presentation/screens/language_screen.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
-import '../../../features/home/presentation/screens/home_base_screen.dart';
-import '../../../features/home_base/presentation/screens/home_screen.dart';
-import '../../../features/home/presentation/utils/home_base_nav_utils.dart';
-import '../../../features/tasks/presentation/screens/supervised/completed_tasks_screen.dart';
-import '../../../features/profile/presentation/screens/profile_screen.dart';
 import '../../../features/tasks/presentation/screens/mod_task_screen.dart';
-
 import '../screens/splash_screen.dart';
 import 'navigation_service.dart';
 import 'navigation_transitions.dart';

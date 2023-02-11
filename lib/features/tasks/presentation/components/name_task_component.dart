@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/features/tasks/presentation/providers/name_task_provider.dart';
 import 'package:neurocheck/features/tasks/presentation/components/task_name_text_fields.dart';
-
-import '../../../../core/presentation/styles/sizes.dart';
+import 'package:neurocheck/features/tasks/presentation/providers/name_task_provider.dart';
 
 class NameTaskComponent extends HookConsumerWidget {
   const NameTaskComponent( {Key? key}) : super(key: key);

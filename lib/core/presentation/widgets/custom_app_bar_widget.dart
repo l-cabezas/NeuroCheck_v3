@@ -1,6 +1,6 @@
 
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../routing/navigation_service.dart';
 import '../styles/app_colors.dart';

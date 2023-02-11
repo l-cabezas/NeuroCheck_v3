@@ -1,18 +1,9 @@
-import 'dart:developer';
-
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/features/tasks/presentation/providers/switch_theme_provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../../../core/presentation/services/localization_service.dart';
-import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
-import '../../../../core/presentation/widgets/custom_text.dart';
-import '../../../../core/presentation/widgets/custom_tile_component.dart';
 import '../providers/multi_choice_provider.dart';
 
 class ChooseDaySectionComponent extends ConsumerWidget {

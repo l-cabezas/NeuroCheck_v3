@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:neurocheck/core/presentation/screens/popup_page.dart';
 
+import '../hooks/fade_in_controller_hook.dart';
+import '../providers/splash_provider.dart';
 import '../services/localization_service.dart';
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
-import '../providers/splash_provider.dart';
 import '../widgets/custom_text.dart';
-import '../hooks/fade_in_controller_hook.dart';
 
 
 //pantalla de carga

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:neurocheck/core/presentation/widgets/platform_widgets/platform_circular_progress_indicator.dart';
+
 import '../styles/app_colors.dart';
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';

@@ -1,13 +1,14 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/presentation/providers/main_core_provider.dart';
 import '../../../core/presentation/routing/navigation_service.dart';
 import '../../../core/presentation/routing/route_paths.dart';
 import '../../../core/presentation/services/localization_service.dart';
 import '../../../core/presentation/utils/dialogs.dart';
-import '../../../core/presentation/providers/main_core_provider.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repos/auth_repo.dart';
 import '../../domain/repos/user_repo.dart';

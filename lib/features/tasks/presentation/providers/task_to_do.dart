@@ -1,9 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/auth/domain/repos/user_repo.dart';
 import 'package:neurocheck/features/tasks/data/repos/task_repo.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../../../auth/data/models/user_model.dart';
 import '../../data/models/task_model.dart';
 
 final taskMultipleToDoStreamProviderNOTDONE = StreamProvider<List<List<TaskModel>>>((ref) {

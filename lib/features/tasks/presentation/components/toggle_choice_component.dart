@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/routing/navigation_service.dart';
-import 'package:neurocheck/features/tasks/presentation/providers/toggle_theme_provider.dart';
 import 'package:neurocheck/features/tasks/presentation/providers/task_provider.dart';
+import 'package:neurocheck/features/tasks/presentation/providers/toggle_theme_provider.dart';
 
 import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../../core/presentation/widgets/loading_indicators.dart';
 import '../../data/models/task_model.dart';
-import 'repe_noti_component.dart';
-import 'switch_setting_section_component.dart';
-import 'time_picker_component.dart';
 import '../providers/multi_choice_provider.dart';
 import '../providers/repe_noti_provider.dart';
 import '../providers/time_range_picker_provider.dart';
 import '../utils/utilities.dart';
+import 'repe_noti_component.dart';
+import 'switch_setting_section_component.dart';
+import 'time_picker_component.dart';
 
 
 class ToggleChoiceComponent extends ConsumerWidget {

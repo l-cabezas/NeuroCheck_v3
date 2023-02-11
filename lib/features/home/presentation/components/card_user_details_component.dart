@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/core/presentation/styles/app_images.dart';
 
 import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/styles/font_styles.dart';
 import '../../../../core/presentation/styles/sizes.dart';
-import '../../../../core/presentation/widgets/cached_network_image_circular.dart';
 import '../../../../core/presentation/widgets/custom_text.dart';
 import '../../../tasks/data/models/task_model.dart';
 
