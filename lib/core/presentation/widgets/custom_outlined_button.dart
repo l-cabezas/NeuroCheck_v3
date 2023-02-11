@@ -47,7 +47,7 @@ class CustomOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        shape: shape ??
+        foregroundColor: splashColor, shape: shape ??
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 Sizes.roundedButtonDefaultRadius(context),
@@ -56,7 +56,6 @@ class CustomOutlinedButton extends StatelessWidget {
         side: side,
         elevation: elevation ?? 0,
         backgroundColor: buttonColor,
-        primary: splashColor,
         shadowColor: shadowColor,
         padding: padding ??
             EdgeInsets.zero, //Not necessary if you added height and width.
@@ -74,7 +73,10 @@ class CustomOutlinedButton extends StatelessWidget {
                 borderRadius: gradientBorderRadius ??
                     BorderRadius.circular(
                         Sizes.roundedButtonDefaultRadius(context)),
-                gradient: gradientColor ?? AppColors.primaryIngredientColor,
+                gradient: LinearGradient(colors:
+                  [Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.secondary]
+                ),
               )
             : null,
         child: child ??

@@ -9,7 +9,7 @@ class AppThemes {
       primary: AppColors.lightThemePrimary,
       secondary: AppColors.accentColor,
     ),
-    iconTheme: const IconThemeData(color: AppColors.red),
+    iconTheme: const IconThemeData(color: AppColors.lightThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.lightThemePrimary,
       disabledColor: AppColors.grey,
@@ -53,11 +53,11 @@ class AppThemes {
   static final darkTheme = ThemeData.dark().copyWith(
     primaryColor: AppColors.darkThemePrimaryColor,
     scaffoldBackgroundColor: AppColors.darkThemeScaffoldBGColor,
-    colorScheme: const ColorScheme.dark().copyWith(
-      primary: AppColors.darkThemePrimary,
-      secondary: AppColors.accentColor,
+    colorScheme:  ColorScheme.dark().copyWith(
+      primary: Color(0xff8b58f0),
+      secondary: Color(0xFF6E21F3),
     ),
-    iconTheme: const IconThemeData(color: AppColors.red),
+    iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.darkThemePrimary,
       disabledColor: AppColors.grey,

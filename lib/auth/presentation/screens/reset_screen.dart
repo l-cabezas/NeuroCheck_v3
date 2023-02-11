@@ -43,7 +43,9 @@ class ResetScreen extends StatelessWidget {
                   onPressed: (){
                     AppDialogs.showInfo(context,message: tr(context).info_reset);
                   },
-                  icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
+                  icon: Icon(Icons.info_outline,
+                    color: Theme.of(context).iconTheme.color,
+                  )
               ),),
           ],),
           Container(

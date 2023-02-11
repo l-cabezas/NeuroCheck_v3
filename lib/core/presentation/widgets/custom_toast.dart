@@ -40,7 +40,7 @@ class CustomToast {
           ),
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color(0xFF303030),
-        gradient: backgroundGradient ?? AppColors.primaryIngredientColor,
+        gradient: backgroundGradient ?? AppColors.primaryIngredientColorLight,
         borderRadius: BorderRadius.circular(
           borderRadius ?? Sizes.toastRadius(context),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
+import '../styles/app_colors.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 import 'custom_text.dart';
@@ -54,6 +55,8 @@ class CustomButton extends StatelessWidget {
       material: (_, __) {
         return MaterialElevatedButtonData(
           style: ElevatedButton.styleFrom(
+            foregroundColor: splashColor,
+            backgroundColor: buttonColor ?? Theme.of(context).buttonTheme.colorScheme?.primary,
             minimumSize: Size(
               minHeight ?? Sizes.roundedButtonMinHeight(context),
               minWidth ?? Sizes.roundedButtonMinWidth(context),
@@ -65,10 +68,8 @@ class CustomButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(
                     Sizes.roundedButtonDefaultRadius(context),
                   ),
-                ),
-            primary: buttonColor ?? const Color(0xff2196f3), //color of cupertino button
+                ), //color of cupertino button
             elevation: elevation ?? 5,
-            onPrimary: splashColor,
             shadowColor: shadowColor,
           ),
           onLongPress: onLongPress,
