@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../services/localization_service.dart';
-import '../styles/app_colors.dart';
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
@@ -22,7 +21,7 @@ class MainDrawerBottomComponent extends ConsumerWidget {
             context,
             tr(context).appName,
             weight: FontStyles.fontWeightExtraBold,
-            color: AppColors.lightThemePrimary,
+           // color: AppColors.lightThemePrimary,
           ),
           SizedBox(
             width: Sizes.hMarginComment(context),

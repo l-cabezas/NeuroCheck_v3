@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/services/localization_service.dart';
-import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/utils/dialogs.dart';
@@ -36,7 +35,6 @@ class AppLogoComponent extends StatelessWidget {
               //tr(context).welcome,
               alignment: Alignment.center,
               tr(context).signInToYourAccount,
-              color: AppColors.grey,
             ),),
           //SizedBox(width: Sizes.vMarginExtreme(context),),
               Container(
@@ -52,7 +50,7 @@ class AppLogoComponent extends StatelessWidget {
                     onPressed: (){
                       AppDialogs.showInfo(context,message: tr(context).info_login);
                     },
-                    icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
+                    icon: const Icon(Icons.info_outline)
                 ),
               ),
         ]),

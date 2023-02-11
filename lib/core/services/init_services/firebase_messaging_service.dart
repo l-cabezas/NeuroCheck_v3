@@ -1,10 +1,10 @@
-import 'dart:developer';
 import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-import '../../styles/app_colors.dart';
 import 'local_notification_service.dart';
 
 class FirebaseMessagingService {
@@ -100,7 +100,7 @@ class FirebaseMessagingService {
         channelDescription: channel.description,
         importance: channel.importance,
         priority: Priority.high,
-        color: AppColors.lightThemePrimary,
+        //color: AppColors.lightThemePrimary,
         playSound: true,
       ),
       iOS: const IOSNotificationDetails(),

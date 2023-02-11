@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-import '../styles/app_colors.dart';
 import '../styles/sizes.dart';
 import 'custom_text.dart';
 
@@ -51,7 +49,7 @@ class CustomTextButton extends StatelessWidget {
             shape: shape,
             elevation: elevation ?? 0,
             backgroundColor: buttonColor,
-            primary: splashColor ?? AppColors.lightThemePrimary,
+            primary: splashColor ?? Theme.of(context).colorScheme.primary,
             shadowColor: shadowColor,
             padding: padding ??
                 EdgeInsets.symmetric(
@@ -83,7 +81,7 @@ class CustomTextButton extends StatelessWidget {
           CustomText.h5(
             context,
             text!,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
             alignment: Alignment.center,
           ),
     );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/auth/components/register_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
 import '../../core/services/localization_service.dart';
-import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/utils/dialogs.dart';
@@ -31,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
                         onPressed: (){
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+                        icon: Icon(Icons.arrow_back_outlined)
                     ),),
                   SizedBox(width: Sizes.fullScreenWidth(context)/1.6,),
                   Container(
@@ -46,7 +44,7 @@ class RegisterScreen extends StatelessWidget {
                         onPressed: (){
                           AppDialogs.showInfo(context,message: tr(context).info_registro);
                         },
-                        icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
+                        icon: const Icon(Icons.info_outline,)
                     ),),
                 ],),
                 //const AppLogoComponent(),

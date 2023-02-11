@@ -7,20 +7,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/utils/dialogs.dart';
 
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/components/appbar_with_icon_component.dart';
-import '../../../core/routing/app_router.dart';
-import '../../../core/routing/navigation_service.dart';
 import '../../../../core/services/localization_service.dart';
+import '../../../core/components/appbar_with_icon_component.dart';
+import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
-import '../../../core/services/localization_service.dart';
 import '../../../core/services/platform_service.dart';
-import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/app_images.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_app_bar_widget.dart';
 import '../../../core/widgets/custom_text.dart';
-import '../screens/nested_navigator_screen.dart';
 import '../viewmodels/home_base_nav_providers.dart';
 
 /// The default height of the toolbar component of the [AppBar].
@@ -84,7 +79,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
           customTitle: CustomText.h2(
             context,
             tr(context).appName,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
             alignment: Alignment.center,
           ),
           centerTitle: true,
@@ -100,14 +95,14 @@ class HomeBaseNavAppBar extends ConsumerWidget
                   //Navigator.pop(context);
                   //todo: segun pantalla
                 },
-                icon: const Icon(
+                icon:  Icon(
                   Icons.info_outline,
-                  color: AppColors.lightThemePrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 )),
             (supervisor)
                 ? IconButton(
                     alignment: Alignment.centerRight,
-                    color: AppColors.lightThemePrimary,
+                    color: Theme.of(context).colorScheme.primary,
                     icon: Icon(PlatformIcons(context).personAdd),
                     onPressed: () {
                       NavigationService.push(
@@ -132,6 +127,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
               PlatformService.instance.isMaterialApp() ? true : false,
           customTitle: CustomText.h2(
             context,
+
             tr(context).myProfile,
             alignment: Alignment.centerLeft,
           ),
@@ -149,9 +145,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
                           message: tr(context).info_perfil);
                     }
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.info_outline,
-                    color: AppColors.lightBlack,
+                    color: Theme.of(context).hintColor,
                   )),
             )
           ],
@@ -178,9 +174,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
                     AppDialogs.showInfo(context,
                         message: tr(context).info_config);
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.info_outline,
-                    color: AppColors.lightBlack,
+                    color: Theme.of(context).hintColor,
                   )),
             )
           ],

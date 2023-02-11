@@ -32,7 +32,14 @@ class Sizes {
         "h5": 14.0.sp(context),
         "h6": 12.0.sp(context),
       };
-
+  //Font Size
+  static double font32(BuildContext context) => 32.sp(context);
+  static double font24(BuildContext context) => 24.sp(context);
+  static double font20(BuildContext context) => 20.sp(context);
+  static double font18(BuildContext context) => 18.sp(context);
+  static double font16(BuildContext context) => 16.sp(context);
+  static double font14(BuildContext context) => 14.sp(context);
+  static double font12(BuildContext context) => 12.sp(context);
   //Icons sizes
   static iconsSizes(BuildContext context) => {
         "s1": 95.r(context),
@@ -63,6 +70,16 @@ class Sizes {
   static hPaddingSmall(BuildContext context) => 16.w(context);
   static hPaddingSmallest(BuildContext context) => 10.w(context);
   static hPaddingTiny(BuildContext context) => 5.w(context);
+
+  //BottomNavigationBar
+  static double bottomNavBarHeight(BuildContext context) => 64.h(context);
+  static double bottomNavBarIconRadius(BuildContext context) => 24.r(context);
+
+  //Screen Padding
+  static double screenPaddingV20(BuildContext context) => 20.h(context);
+  static double screenPaddingV80(BuildContext context) => 80.h(context);
+  static double screenPaddingH40(BuildContext context) => 40.w(context);
+  static double screenPaddingH36(BuildContext context) => 36.w(context);
 
   //Widgets Margin
   static vMarginExtreme(BuildContext context) => 80.h(context);
@@ -98,6 +115,14 @@ class Sizes {
   static roundedButtonSmallWidth(BuildContext context) => 116.w(context);
   static textButtonMinWidth(BuildContext context) => 60.w(context);
   static textButtonMinHeight(BuildContext context) => 34.h(context);
+
+  //Dialog
+  static double dialogRadius20(BuildContext context) => 20.r(context);
+  static double dialogRadius6(BuildContext context) => 6.r(context);
+  static double dialogPaddingV30(BuildContext context) => 30.h(context);
+  static double dialogPaddingH20(BuildContext context) => 20.w(context);
+  static double dialogPaddingH10(BuildContext context) => 10.w(context);
+  static double dialogPaddingH4(BuildContext context) => 4.w(context);
 
   //TextFields
   static textFieldDefaultRadius(BuildContext context) => 12.r(context);

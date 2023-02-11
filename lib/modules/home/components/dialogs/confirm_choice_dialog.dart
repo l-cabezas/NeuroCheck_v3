@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/features/theme/presentation/utils/colors/custom_colors.dart';
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/font_styles.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -55,7 +55,7 @@ class ConfirmChoiceDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                    buttonColor: AppColors.grey,
+                    buttonColor: customColors(context).greyColor,
                     height: Sizes.roundedButtonDialogHeight(context),
                     width: Sizes.roundedButtonSmallWidth(context),
                     onPressed: () {

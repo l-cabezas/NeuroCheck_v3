@@ -1,9 +1,8 @@
 
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import '../routing/navigation_service.dart';
-import '../styles/app_colors.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 import 'custom_text.dart';
@@ -53,7 +52,7 @@ class CustomAppBar extends PlatformAppBar {
           context,
           title,
           weight: FontStyles.fontWeightBold,
-          color: AppColors.white,
+          color: Theme.of(context).primaryColor,
           alignment: centerTitle ? Alignment.center : null,
         )
             : customTitle,
@@ -70,7 +69,7 @@ class CustomAppBar extends PlatformAppBar {
           context,
           title,
           weight: FontStyles.fontWeightBold,
-          color: AppColors.white,
+          color: Theme.of(context).primaryColor,
           alignment: Alignment.center,
         )
             : customTitle,
@@ -96,7 +95,7 @@ class _MenuButton extends StatelessWidget {
       icon: Icon(
         Icons.menu_rounded,
         size: Sizes.appBarMenuButtonRadius(context),
-        color: AppColors.lightThemePrimary,
+        color: Theme.of(context).colorScheme.primary,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: Sizes.appBarMenuButtonRadius(context) / 2,

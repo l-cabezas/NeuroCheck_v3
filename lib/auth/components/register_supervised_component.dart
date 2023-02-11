@@ -4,21 +4,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/components/register_supervised_text_fields.dart';
-import 'package:neurocheck/auth/repos/auth_repo.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/core/utils/dialogs.dart';
 import 'package:neurocheck/core/viewmodels/main_core_provider.dart';
 
 import '../../core/routing/navigation_service.dart';
 import '../../core/routing/route_paths.dart';
-import '../../core/widgets/custom_text.dart';
-import '../../core/widgets/custom_text_button.dart';
-import 'login_text_fields.dart';
-import '../viewmodels/auth_provider.dart';
 import '../../core/services/localization_service.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/widgets/custom_button.dart';
+import '../../core/widgets/custom_text.dart';
+import '../../core/widgets/custom_text_button.dart';
 import '../../core/widgets/loading_indicators.dart';
+import '../viewmodels/auth_provider.dart';
 
 class RegisterSupervisedFormComponent extends HookConsumerWidget {
   const RegisterSupervisedFormComponent({Key? key}) : super(key: key);
@@ -55,7 +51,7 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
                     state.maybeWhen(loading: () => true, orElse: () => false)),
               );
               return authLoading
-                  ? LoadingIndicators.instance.smallLoadingAnimation(
+                  ? LoadingIndicators.smallLoadingAnimation(
                 context,
                 width: Sizes.loadingAnimationButton(context),
                 height: Sizes.loadingAnimationButton(context),
@@ -79,7 +75,7 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
           (GetStorage().read('uidSup') == '')
            ? CustomButton(
                 text: tr(context).cancel,
-                buttonColor: AppColors.lightRed,
+                buttonColor: Colors.redAccent,
                 onPressed: () {
                   showAlertDialogDelete( context, ref);
                 }
@@ -96,7 +92,7 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).delete,
-          color: AppColors.blue
+          color: Theme.of(context).colorScheme.primary,
       ),
       onPressed:  () {
         NavigationService.pushReplacementAll(
@@ -112,7 +108,7 @@ class RegisterSupervisedFormComponent extends HookConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).cancel,
-          color: AppColors.red
+          color: Colors.red
       ),
       onPressed:  () {
         NavigationService.goBack(context,rootNavigator: true);

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/sizes.dart';
-import '../../tasks/models/task_model.dart';
+import '../../../features/home/data/models/task_model.dart';
 
 class CardOrderDetailsComponent extends StatelessWidget {
   final TaskModel taskModel;

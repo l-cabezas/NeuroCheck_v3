@@ -1,26 +1,28 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:neurocheck/auth/screens/add_supervised_screen.dart';
 import 'package:neurocheck/auth/screens/delete_sup_screen.dart';
 import 'package:neurocheck/auth/screens/register_screen.dart';
 import 'package:neurocheck/auth/screens/reset_screen.dart';
 import 'package:neurocheck/auth/screens/verify_email_screen.dart';
 import 'package:neurocheck/core/routing/route_paths.dart';
-import 'package:neurocheck/auth/screens/add_supervised_screen.dart';
+import 'package:neurocheck/features/home/data/models/task_model.dart';
 import 'package:neurocheck/general/settings/screens/edit_name_screen.dart';
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
-import 'package:neurocheck/modules/tasks/screens/supervised/show_tasks_screen.dart';
 import 'package:neurocheck/modules/tasks/screens/supervised/add_task_screen.dart';
+import 'package:neurocheck/modules/tasks/screens/supervised/show_tasks_screen.dart';
+
 import '../../auth/screens/login_screen.dart';
+import '../../features/home_base/presentation/screens/home_base_screen.dart';
 import '../../general/settings/screens/language_screen.dart';
 import '../../general/settings/screens/settings_screen.dart';
-import '../../modules/home/screens/home_base_screen.dart';
-import '../../modules/navBar/screens/home_screen.dart';
 import '../../modules/home/utils/home_base_nav_utils.dart';
-import '../../modules/tasks/screens/supervised/completed_tasks_screen.dart';
 import '../../modules/profile/screens/profile_screen.dart';
+import '../../modules/tasks/screens/boss/add_task_boss_screen.dart';
+import '../../modules/tasks/screens/boss/completed_boss_tasks_screen.dart';
+import '../../modules/tasks/screens/boss/show_supervisor_tasks.dart';
 import '../../modules/tasks/screens/mod_task_screen.dart';
+import '../../modules/tasks/screens/supervised/completed_tasks_screen.dart';
 import '../screens/no_internet_connection_screen.dart';
 import '../screens/splash_screen.dart';
 import 'navigation_service.dart';
@@ -28,7 +30,14 @@ import 'navigation_transitions.dart';
 
 class AppRouter {
   ///Root Navigator
+  static bool supervisor = false;
   static Route<dynamic> generateRoute(RouteSettings settings) {
+
+    if (GetStorage().read('rol') != 'supervisor') {
+      supervisor = false;
+    } else {
+      supervisor = true;
+    }
 
     switch (settings.name) {
       //Core
@@ -112,10 +121,32 @@ class AppRouter {
           transitionDuration: const Duration(microseconds: 700),
         );
 
-      case RoutePaths.map:
+
+      case RoutePaths.show:
         return platformPageRoute(
           context: NavigationService.context,
-          builder: (_) =>  HomeScreen(),
+          builder: (_) =>
+          (supervisor)
+              ? ShowSupervisorTasks()
+              : ShowTasks(),
+          settings: settings,
+        );
+
+      case RoutePaths.add:
+        return platformPageRoute(
+          context: NavigationService.context,
+          builder: (_) =>  (supervisor)
+              ? AddTaskScreenBoss()
+              : AddTaskScreen(),
+          settings: settings,
+        );
+
+      case RoutePaths.comp:
+        return platformPageRoute(
+          context: NavigationService.context,
+          builder: (_) =>  (supervisor)
+              ? CompletedBossTasks()
+              : CompletedTasks(),
           settings: settings,
         );
 
@@ -131,13 +162,13 @@ class AppRouter {
 
   ///Nested Navigators
   static Route<dynamic> generateHomeNestedRoute(RouteSettings settings) {
+    if (GetStorage().read('rol') != 'supervisor') {
+      supervisor = false;
+    } else {
+      supervisor = true;
+    }
     switch (settings.name) {
-      //Home
-      case RoutePaths.home:
-        return NavigationFadeTransition(
-           HomeScreen(),
-          settings: settings,
-        );
+
 
       case RoutePaths.modScreen:
         final args = settings.arguments as TaskModel?;
@@ -149,13 +180,18 @@ class AppRouter {
 
       default:
         return NavigationFadeTransition(
-           HomeScreen(),
+          HomeBaseScreen(),
           settings: settings,
         );
     }
   }
 
   static Route<dynamic> generateProfileNestedRoute(RouteSettings settings) {
+    if (GetStorage().read('rol') != 'supervisor') {
+      supervisor = false;
+    } else {
+      supervisor = true;
+    }
     switch (settings.name) {
       //Profile
       case RoutePaths.profile:
@@ -175,6 +211,11 @@ class AppRouter {
   }
 
   static Route<dynamic> generateSettingsNestedRoute(RouteSettings settings) {
+    if (GetStorage().read('rol') != 'supervisor') {
+      supervisor = false;
+    } else {
+      supervisor = true;
+    }
     switch (settings.name) {
       //Settings
       case RoutePaths.settings:

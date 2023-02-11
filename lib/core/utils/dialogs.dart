@@ -3,22 +3,22 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
 
-import '../../modules/tasks/screens/supervised/add_task_screen.dart';
 import '../../modules/tasks/viewmodels/task_provider.dart';
-import '../routing/app_router.dart';
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';
 import '../services/localization_service.dart';
+import '../styles/font_styles.dart';
+import '../styles/sizes.dart';
+import '../widgets/custom_dialog.dart';
+import '../widgets/custom_text.dart';
 import '../widgets/dialog_widget.dart';
+import '../widgets/loading_indicators.dart';
 import 'dialog_message_state.dart';
-import 'dialog_widget_state.dart';
 
 
 
-class AppDialogs {
+abstract class AppDialogs {
   static Future showErrorDialog(BuildContext context, {String? message}) async {
     await DialogWidget.showCustomDialog(
       context: context,
@@ -72,7 +72,7 @@ class AppDialogs {
       dialogWidgetState: DialogWidgetState.info,
       title: tr(context).info,
       description: message!,
-      backgroundColor: AppColors.lightThemePrimaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       textButton: tr(context).oK,
       onPressed: () {
         NavigationService.goBack(context,rootNavigator: true);
@@ -108,6 +108,43 @@ class AppDialogs {
           page: RoutePaths.authLogin,
         );
       },
+    );
+  }
+
+  static Future showLoadingDialog(BuildContext context) async {
+    return await NewCustomDialog.showDialog(
+      context,
+      barrierDismissible: false,
+      contentPadding: EdgeInsets.symmetric(
+        vertical: Sizes.dialogPaddingV30(context),
+        horizontal: Sizes.dialogPaddingH20(context),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          Sizes.dialogRadius20(context),
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          LoadingIndicators.smallLoadingAnimation(
+            context,
+            width: Sizes.loadingAnimationButton(context),
+            height: Sizes.loadingAnimationButton(context),
+          ),
+          SizedBox(
+            height: Sizes.vPaddingSmall(context),
+          ),
+          CustomText.f18(
+            context,
+            'Cargando', //todo: tr
+            alignment: Alignment.center,
+            weight: FontStyles.fontWeightMedium,
+          ),
+        ],
+      ),
     );
   }
 

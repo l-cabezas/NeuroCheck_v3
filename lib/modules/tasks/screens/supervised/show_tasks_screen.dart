@@ -5,22 +5,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/auth/repos/user_repo.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
 import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
-import 'package:neurocheck/modules/tasks/repos/utilities.dart';
 import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
-import 'package:rxdart/rxdart.dart';
-import '../../../../auth/models/user_model.dart';
+
 import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
-import '../../../simple_notifications/notifications.dart';
+import '../../components/card_item_component.dart';
 import '../../viewmodels/task_to_do.dart';
-import '../../../navBar/components/card_item_component.dart';
 
 class ShowTasks extends HookConsumerWidget {
   const ShowTasks({Key? key}) : super(key: key);
@@ -85,7 +79,7 @@ class ShowTasks extends HookConsumerWidget {
           ? CustomText.h4(
               context,
               tr(context).noTask,
-              color: AppColors.grey,
+              color: Theme.of(context).hintColor,
               alignment: Alignment.center,
             )
           : ListView.separated(
@@ -154,7 +148,7 @@ class ShowTasks extends HookConsumerWidget {
                   CustomText.h4(
                     context,
                     tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-                    color: AppColors.grey,
+                    color: Theme.of(context).hintColor,
                     alignment: Alignment.center,
                     textAlign: TextAlign.center,
                   ),
@@ -166,7 +160,7 @@ class ShowTasks extends HookConsumerWidget {
                         ref.refresh(taskMultipleToDoStreamProviderDONE);
                       })
                 ]),
-    loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
+    loading: () => LoadingIndicators.smallLoadingAnimation(context)
 
 
     );

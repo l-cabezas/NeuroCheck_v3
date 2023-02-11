@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
@@ -17,6 +15,13 @@ abstract class NavigationService {
 
   static removeOverlays() {
     CustomToast.instance.fToast.removeQueuedCustomToasts();
+  }
+
+  static Future<dynamic> dismissDialog(BuildContext context) async {
+    //If the application has multiple Navigator objects, it may be necessary
+    //to call Navigator.of(context, rootNavigator: true).pop(result)
+    //to close the dialog rather just Navigator.pop(context, result).
+    return await goBack(context, rootNavigator: true, maybePop: false);
   }
 
   static Future<dynamic> push(

@@ -1,33 +1,37 @@
 
 
-import 'dart:developer';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:neurocheck/core/features/theme/presentation/utils/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'auth/repos/user_repo.dart';
+import 'core/data/local/local_storage_caller/shared_pref_local_storage_caller.dart';
+import 'core/features/theme/presentation/providers/current_app_theme_provider.dart';
+import 'core/providers/provider_observers.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/navigation_service.dart';
 import 'core/routing/route_paths.dart';
 import 'core/services/init_services/services_initializer.dart';
-import 'core/services/theme_service.dart';
-import 'core/styles/app_colors.dart';
-import 'core/styles/app_themes/dark_theme.dart';
-import 'core/styles/app_themes/light_theme.dart';
+import 'core/services/new_services_initializer.dart';
 import 'core/viewmodels/app_locale_provider.dart';
-import 'core/viewmodels/app_theme_provider.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'l10n/l10n.dart';
-import 'modules/tasks/repos/task_repo.dart';
-import 'package:get_storage/get_storage.dart';
 
 void main() async {
   //This let us access providers before runApp (read only)
-  final container = ProviderContainer();
+  //final container = ProviderContainer();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  //This let us access providers before runApp
+  final ProviderContainer container = ProviderContainer(
+    overrides: [sharedPrefsProvider.overrideWithValue(prefs)],
+    observers: [LogProviderObserver()],
+  );
+
   await ServicesInitializer.instance.init(widgetsBinding, container);
   await GetStorage.init();
 
@@ -47,12 +51,12 @@ void main() async {
         channelKey: 'scheduled_channel',
         channelName: 'Scheduled Notifications',
         channelGroupKey: 'scheduled_channel_group',
-        defaultColor: AppColors.blue,
+        //defaultColor: AppColors.blue,
         playSound:true,
         locked: true,
         importance: NotificationImportance.High,
         soundSource: 'resource://raw/res_custom_notification',
-        channelDescription: '',
+        channelDescription: 'scheduled_channel',
       ),
     ],
   );
@@ -66,17 +70,8 @@ void main() async {
     }
   });
 
-  /*////Notification Listener
+  await container.read(newServicesInitializerProvider).init(widgetsBinding);
 
-  AwesomeNotifications()
-      .actionStream
-      .listen((ReceivedNotification receivedNotification) {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavBar()),
-          (Route<dynamic> route) => false,
-    );
-  });*/
   runApp(
     //All Flutter applications using Riverpod
     UncontrolledProviderScope(
@@ -88,27 +83,28 @@ void main() async {
 
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, ref) {
-    final platformBrightness = usePlatformBrightness();
+    useOnPlatformBrightnessChange((previous, current) {
+      ref.read(platformBrightnessProvider.notifier).state = current;
+    });
     final appLocale = ref.watch(appLocaleProvider);
-    final appTheme = ref.watch(appThemeProvider);
+    final theme = ref.watch(currentAppThemeProvider);
 
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Theme(
-        data: ThemeService.instance.isDarkMode(appTheme, platformBrightness)
-            ? DarkTheme.darkTheme
-            : LightTheme.lightTheme,
+        data: theme.getThemeData(),
         //esto nos sirve para tener cosas distintas según la plataforma
         child: PlatformApp(
 
           navigatorKey: NavigationService.navigationKey,
           debugShowCheckedModeBanner: false,
           //title: 'NeuroCheck',
-          color: AppColors.lightThemePrimary,
+          //color: AppColors.lightThemePrimary,
 
           locale: appLocale,
           supportedLocales: L10n.all,
@@ -121,4 +117,6 @@ class MyApp extends HookConsumerWidget {
       ),
     );
   }
+
+
 }

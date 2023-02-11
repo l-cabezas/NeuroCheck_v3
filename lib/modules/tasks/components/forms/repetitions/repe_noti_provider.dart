@@ -4,11 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/core/widgets/custom_button.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
-import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
 
 import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/sizes.dart';
@@ -159,14 +155,17 @@ class TimeRepetitionButton extends StateNotifier<String> {
                       crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
                       children: [
                     CupertinoButton(
-                        child: CustomText.h3(context,tr(context).cancel,color: AppColors.red),
+                        child: CustomText.h3(context,tr(context).cancel,
+                            color: Colors.red),
                         onPressed: (){
                           //ref.refresh(timeRepetitionProvider);
                           navigationPop(context);
                         }),
                     SizedBox(width: Sizes.vMarginHigh(context),),
                     CupertinoButton(
-                        child: CustomText.h3(context,tr(context).oK,color: AppColors.blue),
+                        child: CustomText.h3(context,tr(context).oK,
+                            color: Theme.of(context).colorScheme.secondary
+                        ),
                         onPressed: (){
                           //log('okey');
                           ps.onConfirm!(ps, ps.selecteds);

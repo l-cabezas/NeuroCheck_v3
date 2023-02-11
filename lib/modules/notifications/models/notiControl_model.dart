@@ -1,7 +1,5 @@
 
-import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 // esto es necesario para borrar las notificaciones del supervisado si se borra
 // la tarea, más adelante se podrá usar tb para avisar al supervisor de tarea hecha

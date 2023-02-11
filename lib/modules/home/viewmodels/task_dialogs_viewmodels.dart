@@ -5,16 +5,12 @@ import 'package:neurocheck/modules/tasks/repos/task_repo.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
-import '../../../core/services/localization_service.dart';
-import '../../../core/utils/dialogs.dart';
 import '../../../core/widgets/dialog_widget.dart';
-import '../../navBar/components/dialogs/cancel_order_dialog.dart';
-import '../../tasks/models/task_model.dart';
+import '../../../features/home/data/models/task_model.dart';
 import '../components/dialogs/task_details_dialog.dart';
 import '../models/noti_model.dart';
 import 'home_state_providers.dart';
 import 'noti_providers.dart';
-import 'package:collection/collection.dart';
 
 final taskDialogsViewModel =
 Provider<TaskDialogsViewModel>((ref) => TaskDialogsViewModel(ref));

@@ -5,18 +5,15 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/models/user_model.dart';
 import '../../auth/repos/auth_repo.dart';
 import '../../auth/repos/user_repo.dart';
-import '../../auth/viewmodels/auth_provider.dart';
 import '../errors/failures.dart';
 import '../services/init_services/connectivity_service.dart';
 import '../services/init_services/firebase_messaging_service.dart';
-import 'package:geolocator/geolocator.dart';
-
 import '../services/location_service/i_location_service.dart';
 import '../services/location_service/location_service.dart';
 

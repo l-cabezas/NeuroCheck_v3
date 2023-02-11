@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
+import '../../../core/features/theme/presentation/utils/colors/custom_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_outlined_button.dart';
@@ -23,16 +23,19 @@ class CardButtonComponent extends StatelessWidget {
     return CustomOutlinedButton(
       height: Sizes.roundedButtonMediumHeight(context),
       width: Sizes.roundedButtonMediumWidth(context),
-      side: isColored ? null : const BorderSide(color: AppColors.grey),
-      buttonColor: isColored ? null : Colors.transparent,
-      splashColor: isColored ? null : AppColors.lightThemePrimary,
+      side: BorderSide(color: customColors(context).greyColor!,),
+      buttonColor:
+      isColored
+          ? Colors.transparent
+          : Theme.of(context).colorScheme.primary,
+      splashColor: isColored
+          ? null
+          : Theme.of(context).colorScheme.primary,
       onPressed: onPressed,
       child: CustomText.h5(
         context,
         title,
-        color: isColored
-            ? AppColors.white
-            : Theme.of(context).textTheme.headline4!.color,
+        color:  Theme.of(context).textTheme.headline4!.color,
         weight: FontStyles.fontWeightBold,
         alignment: Alignment.center,
       ),

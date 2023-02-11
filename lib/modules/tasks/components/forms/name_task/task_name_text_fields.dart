@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
 
 import '../../../../../core/services/localization_service.dart';
-import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/utils/validators.dart';
 import '../../../../../core/widgets/custom_text_field.dart';
 

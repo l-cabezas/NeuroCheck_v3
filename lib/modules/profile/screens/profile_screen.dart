@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/screens/popup_page_nested.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/loading_indicators.dart';
-import '../components/profile_form_component.dart';
 import '../components/user_details_component.dart';
 import '../components/user_image_component.dart';
 import '../viewmodels/profile_provider.dart';
@@ -24,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
                 state.maybeWhen(loading: () => true, orElse: () => false)),
           );
           return profileIsLoading
-              ? LoadingIndicators.instance.smallLoadingAnimation(context)
+              ? LoadingIndicators.smallLoadingAnimation(context)
               : SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     vertical: Sizes.screenVPaddingDefault(context),

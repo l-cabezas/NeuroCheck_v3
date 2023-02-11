@@ -3,11 +3,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 import 'package:neurocheck/modules/tasks/components/forms/range/time_range_picker_provider.dart';
+import 'package:neurocheck/modules/tasks/components/forms/repetitions/repe_noti_provider.dart';
 
 import '../../../../../core/services/localization_service.dart';
-import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/widgets/custom_text.dart';
 

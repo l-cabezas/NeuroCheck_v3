@@ -22,10 +22,12 @@ class RoutePaths {
   static const settingsLanguage = '$settings/language';
   static const settingsName = '$settings/name';
 
+  ///SettingsNestedRoutes
+  static const show = 'show';
+  static const comp = 'complete';
+  static const add = 'add';
+
   //testing stuff
-  static const red = 'red';
-  static const blue = 'blue';
-  static const green = 'green';
   static const navBar = 'navBar';
   static const modScreen = '/modScreen';
 

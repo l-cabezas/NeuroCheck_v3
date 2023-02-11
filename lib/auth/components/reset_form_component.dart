@@ -47,7 +47,7 @@ class ResetFormComponent extends HookConsumerWidget {
                     state.maybeWhen(loading: () => true, orElse: () => false)),
               );
               return authLoading
-                  ? LoadingIndicators.instance.smallLoadingAnimation(
+                  ? LoadingIndicators.smallLoadingAnimation(
                 context,
                 width: Sizes.loadingAnimationButton(context),
                 height: Sizes.loadingAnimationButton(context),

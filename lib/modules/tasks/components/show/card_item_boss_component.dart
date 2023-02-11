@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/core/routing/app_router.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
+import 'package:neurocheck/core/features/theme/presentation/utils/colors/custom_colors.dart';
 
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
@@ -10,11 +9,9 @@ import '../../../../core/services/localization_service.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/custom_text_button.dart';
+import '../../../../features/home/data/models/task_model.dart';
 import '../../../home/components/card_button_component.dart';
 import '../../../home/components/card_user_details_component.dart';
-import '../../../notifications/viewmodels/notiControl_provider.dart';
-import '../../models/task_model.dart';
-import '../../repos/task_repo.dart';
 import '../../viewmodels/task_provider.dart';
 import '../card_red_button_component.dart';
 
@@ -113,7 +110,6 @@ class CardItemBossComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).delete,
-          color: AppColors.blue
       ),
       onPressed:  () {
         ref.read(taskProvider.notifier).checkDeleteNoti(taskModel: taskModel);
@@ -126,7 +122,7 @@ class CardItemBossComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).cancel,
-          color: AppColors.red
+          color: customColors(context).redColor
       ),
       onPressed:  () {
         NavigationService.goBack(context,rootNavigator: true);

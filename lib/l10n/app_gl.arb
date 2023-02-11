@@ -2,6 +2,21 @@
   "@_CORE": {
   },
   "appName": "NeuroCheck",
+
+  "unknownError": "Error inesperado!",
+  "unauthorizedError": "Account not found or password invalid",
+  "forbiddenError": "You don't have permission to access this service",
+  "notFoundError": "Request page not found. Please contact support for more details.",
+  "conflictError": "The request could not be processed because of conflict in the request. Please try again later.",
+  "internalError": "Internal server error. Please contact support for more details.",
+  "serviceUnavailableError": "The server is temporarily unavailable. Please try again later.",
+  "timeoutError": "Looks like the server is taking too long to respond. This can be caused by either poor connectivity or an error with our servers. Please try again in a while.",
+  "noInternetError": "No Internet connection. Make sure Wi-Fi or cellular data is turned on, then try again.",
+  "authInvalidEmailError": "Your email is not valid. Please enter a valid email.",
+  "authWrongPasswordError": "Your password is incorrect. Please try again.",
+  "authUserNotFoundError": "User with this email doesn't exist.",
+  "authUserDisabledError": "Your account has been disabled. Please contact support.",
+
   "fontFamily": "SanFrancisco",
   "noInternetConnection": "Non hai conexión a internet",
   "pleaseCheckYourDeviceNetwork": "Comproba a conexión do teu dispositivo",

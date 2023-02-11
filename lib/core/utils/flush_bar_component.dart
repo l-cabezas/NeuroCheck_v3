@@ -1,3 +1,4 @@
+/*
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:neurocheck/core/styles/app_colors.dart';
@@ -54,10 +55,12 @@ class FlushBarComponent extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
-      backgroundGradient: LinearGradient(
+      */
+/*backgroundGradient: LinearGradient(
         colors: [AppColors.blue, Colors.white],
         stops: const [1, 1],
-      ),
+      ),*//*
+
       boxShadows: const [
         BoxShadow(
           color: Colors.black45,
@@ -75,9 +78,9 @@ class FlushBarComponent extends StatelessWidget {
       icon: Icon(
         Icons.done_outline,
         size: 28,
-        color: AppColors.lightBlue,
+        //color: AppColors.lightBlue,
       ),
     );
   }
 
-}
+}*/

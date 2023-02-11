@@ -1,7 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
-
-import '../models/noti_model.dart';
+import 'package:neurocheck/features/home/data/models/task_model.dart';
 
 // selectedOrderProvider
 

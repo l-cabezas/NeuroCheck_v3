@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../core/services/localization_service.dart';
-import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/font_styles.dart';
 import '../../core/styles/sizes.dart';
-import '../../core/widgets/custom_image.dart';
 import '../../core/widgets/custom_text.dart';
 
 
@@ -53,7 +51,6 @@ class WelcomeComponent extends StatelessWidget {
         CustomText.h4(
           context,
           tr(context).signInToYourAccount,
-          color: AppColors.grey,
           weight: FontStyles.fontWeightMedium,
         ),
       ],

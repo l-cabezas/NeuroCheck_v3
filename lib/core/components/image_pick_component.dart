@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../routing/navigation_service.dart';
 import '../services/localization_service.dart';
-import '../styles/app_colors.dart';
 import '../styles/app_images.dart';
 import '../styles/sizes.dart';
 import '../widgets/custom_text.dart';
@@ -101,7 +100,7 @@ class ImagePickComponent extends StatelessWidget {
       child: ImageIcon(
         const AssetImage(AppImages.cameraIcon),
         size: Sizes.iconsSizes(context)['s7'],
-        color: AppColors.grey,
+        //color: AppColors.grey,
       ),
     );
   }

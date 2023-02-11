@@ -1,7 +1,13 @@
 import 'dart:developer';
+import 'dart:isolate';
 
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:neurocheck/core/services/firebase_services/firebase_caller.dart';
+import 'package:neurocheck/features/home/data/models/task_model.dart';
 
+import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../simple_notifications/notifications.dart';
 
 bool checkRange(String ini, String fin, String avisar){
@@ -22,20 +28,40 @@ bool checkRange(String ini, String fin, String avisar){
   return true;
 }
 
-int getNumDay(String day){
-  int num = 0;
-  switch(day){
-    case 'Lunes': num = 1; break;
-    case 'Martes': num = 2; break;
-    case 'Miércoles': num = 3; break;
-    case 'Jueves': num = 4; break;
-    case 'Viernes': num = 5; break;
-    case 'Sábado': num = 6; break;
-    case 'Domingo': num = 7; break;
-  }
+readDBU(SendPort sendPort) async {
+  var db = await FirebaseFirestore.instance.collection('users/XaEKsoOcAjPLJg5YriKs6RRxvHz2/tasks');
+  db.snapshots().listen(
+        (event) {
+      print("current data: ${event.docs.asMap()}");
+      event.docs.forEach((element) {
 
-  return num;
+        print("list data: ${element.id}");
+        db.doc(element.id).get().then(
+              (DocumentSnapshot doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            var task = TaskModel.fromMap(data, element.id);
+            //hacemos las notis y obtenemos su id
+            if(task.isNotificationSet == 'false'){
+
+            }
+            print("list2 data: ${task.taskName}");
+            // ...
+          },);
+        //TaskModel.fromMap(task, element.id)
+
+      });
+
+    },
+    onError: (error) => print("Listen failed: $error"),
+  );
+
+  var dBss = await FirebaseFirestore.instance.collection('users/XaEKsoOcAjPLJg5YriKs6RRxvHz2/tasksBoss');
+  dBss.snapshots().listen(
+        (event) => print("current data: ${event.size}"),
+    onError: (error) => print("Listen failed: $error"),
+  );
 }
+
 
 String getStrDay(int day){
   String d = '';
@@ -186,4 +212,101 @@ String getTranslateDay(){
       break;
   }
   return day;
+}
+
+Future<List<int>> setNotification(TaskModel taskModel) async {
+  log('**** SET NOTIFICATION');
+  List<int> allIds = [];
+  var splitIni = taskModel.begin?.split(':');
+  //pasamos all a minutos
+  int iniH = int.parse(splitIni![0])*60 + int.parse(splitIni[1]);
+
+  var splitFin = taskModel.end?.split(':');
+  //pasamos all a minutos
+  int finH = int.parse(splitFin![0])*60 + int.parse(splitFin[1]);
+
+  int? cantDias = taskModel.days?.length;
+  //notificacion por cada día
+  for(int j = 0; j< cantDias!;j++) {
+
+    int chooseDay = getNumDay(taskModel.days?.elementAt(j));
+
+    // 13:00 hasta 14:00 cada 4 min
+    for (int i = iniH; i <= finH; i += taskModel.numRepetition!) {
+      int idNotification = DateTime.now().millisecondsSinceEpoch.remainder(100000);
+      allIds.add(idNotification);
+      var duration = Duration(minutes: i);
+      await makeNotiAwesome(idNotification,taskModel.taskName,
+          chooseDay, duration.inHours,(duration.inMinutes-60*duration.inHours));
+    }
+  }
+
+  if(taskModel.editable == 'true') {
+    await FirebaseCaller().updateData(
+      path: FirestorePaths.taskById(GetStorage().read('uidUsuario')!,
+          taskId: taskModel.taskId),
+      data: {
+        'idNotification': allIds,
+      },
+      builder: (data) {},
+    );
+  } else{
+    await FirebaseCaller().updateData(
+      path: FirestorePaths.taskBossById(GetStorage().read('uidUsuario')!,
+          taskId: taskModel.taskId),
+      data: {
+        'idNotification': allIds,
+      },
+      builder: (data) {  },
+    );
+  }
+
+  return allIds;
+
+}
+
+makeNotiAwesome(int idNotification, String taskName, int day, int hour, int minute ) async {
+  //int idNotification, String taskName, int day, int hour, int minute
+
+  log('**** MAKENOTI ${idNotification} ${taskName} ${day} ${hour} ${minute}');
+  await AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: idNotification,
+      channelKey: 'scheduled_channel',
+      title: 'Do ${taskName} ',
+      body: 'venga va que toca',//'Rango horario ${taskModel.begin} ${taskModel.end}',
+      notificationLayout: NotificationLayout.Default,
+      wakeUpScreen: true,
+    ),
+    actionButtons: [
+      NotificationActionButton(
+        key: 'MARK_DONE',
+        label: 'Hecho',
+      ),
+    ],
+    schedule: NotificationCalendar(
+      weekday: day,
+      hour: hour,
+      minute: minute,
+      second: 0,
+      millisecond: 0,
+      repeats: true,
+      preciseAlarm: true,
+    ),
+  );
+}
+
+int getNumDay(String day){
+  int num = 0;
+  switch(day){
+    case 'Lunes': num = 1; break;
+    case 'Martes': num = 2; break;
+    case 'Miércoles': num = 3; break;
+    case 'Jueves': num = 4; break;
+    case 'Viernes': num = 5; break;
+    case 'Sábado': num = 6; break;
+    case 'Domingo': num = 7; break;
+  }
+
+  return num;
 }

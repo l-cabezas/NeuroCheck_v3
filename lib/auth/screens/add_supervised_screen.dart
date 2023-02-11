@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:neurocheck/core/services/localization_service.dart';
-import 'package:neurocheck/core/widgets/custom_app_bar_widget.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 
-import '../../core/screens/popup_page.dart';
-import '../../core/styles/app_colors.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/utils/dialogs.dart';
 import '../components/register_supervised_component.dart';
@@ -22,12 +18,12 @@ class AddSupervisedScreen extends StatelessWidget {
         elevation: 0,
         title: CustomText(
           context,tr(context).addSupervised,
-          color: AppColors.lightThemePrimary,
+          color: Theme.of(context).colorScheme.primary,
         ),
         centerTitle: true,
         leading: (GetStorage().read('uidSup') == '')
               ? SizedBox()
-              : BackButton(color: AppColors.lightThemePrimary),
+              : BackButton(color: Theme.of(context).colorScheme.primary),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         toolbarHeight: Sizes.appBarDefaultHeight(context),
         actions: [
@@ -38,7 +34,8 @@ class AddSupervisedScreen extends StatelessWidget {
               onPressed: (){
                 AppDialogs.showInfo(context,message: tr(context).info_verify);
               },
-              icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
+              icon:  Icon(Icons.info_outline,
+                color: Theme.of(context).colorScheme.secondary)
           ),)
         ],
       ),

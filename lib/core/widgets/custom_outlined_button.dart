@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../styles/app_colors.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 import 'custom_text.dart';
@@ -74,7 +73,7 @@ class CustomOutlinedButton extends StatelessWidget {
                 borderRadius: gradientBorderRadius ??
                     BorderRadius.circular(
                         Sizes.roundedButtonDefaultRadius(context)),
-                gradient: gradientColor ?? AppColors.primaryIngredientColor,
+                gradient: gradientColor,
               )
             : null,
         child: child ??

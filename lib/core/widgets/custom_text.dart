@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../features/theme/presentation/utils/colors/custom_colors.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 
@@ -261,4 +262,36 @@ class CustomText extends Container {
           textAlign: textAlign,
           alignment: alignment,
         );
+
+  CustomText.f18(
+      BuildContext context,
+      String text, {
+        Key? key,
+        Color? color,
+        FontWeight? weight,
+        TextAlign? textAlign,
+        EdgeInsetsGeometry? margin,
+        EdgeInsetsGeometry? padding,
+        double? height,
+        bool underline = false,
+        dynamic overflow,
+        int? maxLines,
+        Alignment? alignment,
+      }) : this(
+    context,
+    text,
+    key: key,
+    padding: padding,
+    margin: margin,
+    size: Sizes.font18(context),
+    color: color ?? customColors(context).font17Color,
+    weight: weight,
+    height: height,
+    textAlign: textAlign,
+    underline: underline,
+    maxLines: maxLines,
+    overflow: overflow,
+    alignment: alignment,
+  );
+
 }

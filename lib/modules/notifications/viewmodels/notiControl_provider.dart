@@ -1,26 +1,19 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:neurocheck/features/home/data/models/task_model.dart';
 import 'package:neurocheck/modules/notifications/models/notiControl_model.dart';
 import 'package:neurocheck/modules/notifications/viewmodels/notiControl_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/modules/tasks/models/task_model.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '../../../auth/repos/auth_repo.dart';
 import '../../../auth/repos/user_repo.dart';
-import '../../../core/errors/exceptions.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/services/firebase_services/firebase_caller.dart';
 import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../../core/services/firebase_services/i_firebase_caller.dart';
 import '../../../core/viewmodels/main_core_provider.dart';
-import '../repo/notiControl_repo.dart';
-import 'notiControl_to_do.dart';
 
 final notiControlProvider =
 StateNotifierProvider.autoDispose<NotiControlNotifier, NotiControlState>((ref) {

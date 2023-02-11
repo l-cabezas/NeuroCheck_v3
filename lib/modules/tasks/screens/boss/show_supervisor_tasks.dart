@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/widgets/custom_button.dart';
+
 import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
@@ -33,7 +33,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
               ? CustomText.h4(
             context,
             tr(context).noTask,
-            color: AppColors.grey,
+            color: Theme.of(context).hintColor,
             alignment: Alignment.center,
           )
           : ListView.separated(
@@ -60,7 +60,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
                       ? CustomText.h4(
                           context,
                           tr(context).noTask,
-                          color: AppColors.grey,
+                          color: Theme.of(context).hintColor,
                           alignment: Alignment.center,
                        )
                     : Column(children: list);
@@ -74,7 +74,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
           CustomText.h4(
           context,
           tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-          color: AppColors.grey,
+          color: Theme.of(context).hintColor,
           alignment: Alignment.center,
           textAlign: TextAlign.center,
         ),
@@ -86,7 +86,7 @@ class ShowSupervisorTasks extends HookConsumerWidget {
                 ref.refresh(taskMultipleToDoStreamProviderBoss);
               })
         ]),
-        loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
+        loading: () => LoadingIndicators.smallLoadingAnimation(context)
     );
   }
 }

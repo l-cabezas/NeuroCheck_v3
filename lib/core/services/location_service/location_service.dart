@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:geolocator_android/src/types/foreground_settings.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -72,11 +73,11 @@ class GeoLocatorLocationService implements ILocationService {
         intervalDuration: Duration(seconds: interval ?? locationChangeInterval),
         //Set foreground notification config to keep app alive in background
         foregroundNotificationConfig: const ForegroundNotificationConfig(
-          notificationTitle: 'Deliverzler Attendance Service',
+          notificationTitle: 'NeuroCheck',
           notificationText:
-          'Deliverzler will receive your location in background.',
+          'Neurocheck will receive your location in background.',
           notificationIcon:
-          AndroidResource(name: 'notification_icon', defType: 'drawable'),
+          AndroidResource(name: 'ic_launcher', defType: 'drawable'),
           enableWakeLock: true,
         ),
       );

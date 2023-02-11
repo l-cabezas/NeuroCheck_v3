@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../services/localization_service.dart';
-import '../styles/app_colors.dart';
 import '../styles/sizes.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
@@ -24,7 +23,7 @@ class DataErrorComponent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        LoadingIndicators.instance.smallLoadingAnimation(context),
+        LoadingIndicators.smallLoadingAnimation(context),
         SizedBox(
           height: Sizes.vMarginHigh(context),
         ),
@@ -49,7 +48,7 @@ class DataErrorComponent extends StatelessWidget {
         CustomButton(
           text: tr(context).retry,
           onPressed: onPressed,
-          buttonColor: AppColors.lightThemePrimary,
+          //buttonColor: AppColors.lightThemePrimary,
         ),
       ],
     );

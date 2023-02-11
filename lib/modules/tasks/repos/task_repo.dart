@@ -2,18 +2,12 @@
 import 'dart:developer';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cron/cron.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
-import 'package:neurocheck/auth/viewmodels/auth_provider.dart';
-import 'package:neurocheck/core/services/init_services/awesome_notification.dart';
 import 'package:neurocheck/modules/tasks/repos/utilities.dart';
-import 'package:path/path.dart';
 
 import '../../../auth/models/user_model.dart';
 import '../../../auth/repos/user_repo.dart';
@@ -21,8 +15,8 @@ import '../../../core/errors/failures.dart';
 import '../../../core/services/firebase_services/firebase_caller.dart';
 import '../../../core/services/firebase_services/firestore_paths.dart';
 import '../../../core/services/firebase_services/i_firebase_caller.dart';
+import '../../../features/home/data/models/task_model.dart';
 import '../../simple_notifications/notifications.dart';
-import '../models/task_model.dart';
 
 //manejar datos de tasks
 

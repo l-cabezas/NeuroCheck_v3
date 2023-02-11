@@ -1,10 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cron/cron.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:neurocheck/core/utils/dialogs.dart';
 
 import '../routing/navigation_service.dart';
 import '../routing/route_paths.dart';

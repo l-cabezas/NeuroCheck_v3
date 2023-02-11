@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
 
 import '../../../auth/repos/user_repo.dart';
 import '../../../core/services/localization_service.dart';
@@ -34,7 +33,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_email,
           alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          color: Theme.of(context).textTheme.subtitle1?.color,
         ),
         SizedBox(
           height: Sizes.vMarginSmall(context),
@@ -43,7 +42,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.email}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).hintColor,
         ),
         (userModel.rol != 'supervisor')
         ? SizedBox()
@@ -56,7 +55,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_rol,
         alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          color: Theme.of(context).textTheme.subtitle1?.color,
         ),
         SizedBox(
           height: Sizes.vMarginSmallest(context),
@@ -65,7 +64,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.rol}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).hintColor,
         ),
 
         SizedBox(
@@ -75,7 +74,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_sup,
           alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          color: Theme.of(context).textTheme.subtitle1?.color,
         ),
         SizedBox(
           height: Sizes.vMarginSmall(context),
@@ -84,7 +83,7 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.emailSup}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).hintColor,
         ),])
       ],
     );

@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
-
 import '../errors/exceptions.dart';
 import '../errors/failures.dart';
 import '../styles/sizes.dart';

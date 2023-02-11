@@ -1,11 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../core/routing/navigation_service.dart';
+
 import '../../../core/routing/route_paths.dart';
 import '../../../core/services/init_services/local_notification_service.dart';
-import '../../../core/services/localization_service.dart';
 import '../../notifications/models/notification_model.dart';
 import '../models/noti_model.dart';
-import 'package:collection/collection.dart';
 
 final notificationTaskProvider =
 StateNotifierProvider<NotiTaskNotifier, List<NotiModel>>(

@@ -2,11 +2,7 @@
 
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/dropdown/gf_multiselect.dart';
-import 'package:getwidget/types/gf_checkbox_type.dart';
-import 'package:intl/intl.dart';
 
-import '../../../core/widgets/custom_outlined_button.dart';
 import '../../home/components/card_button_component.dart';
 
 class MultiSelectWeek extends StatefulWidget {
@@ -66,7 +62,7 @@ class _MultiSelectWeekState extends State<MultiSelectWeek> {
                       ),
                       wrapped: true,
                       choiceStyle: C2ChoiceStyle(
-                          color: Colors.blue),
+                          color: Colors.blue), // todo: blue
                     ),
                   ),
           CardButtonComponent(

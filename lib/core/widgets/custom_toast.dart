@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../routing/navigation_service.dart';
-import '../styles/app_colors.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
 import 'custom_text.dart';
@@ -40,7 +39,7 @@ class CustomToast {
           ),
       decoration: BoxDecoration(
         color: backgroundColor ?? const Color(0xFF303030),
-        gradient: backgroundGradient ?? AppColors.primaryIngredientColor,
+        //gradient: backgroundGradient ?? AppColors.primaryIngredientColor,
         borderRadius: BorderRadius.circular(
           borderRadius ?? Sizes.toastRadius(context),
         ),
@@ -54,7 +53,7 @@ class CustomToast {
             context,
             title,
             weight: FontStyles.fontWeightSemiBold,
-            color: AppColors.lightBlack,
+           // color: AppColors.lightBlack,
           ),
           SizedBox(
             height: Sizes.vMarginTiny(context),
@@ -62,7 +61,7 @@ class CustomToast {
           CustomText.h5(
             context,
             description,
-            color: AppColors.lightBlack,
+            //color: AppColors.lightBlack,
           ),
         ],
       ),
@@ -86,8 +85,8 @@ class CustomToast {
     await Fluttertoast.showToast(
       msg: msg,
       fontSize: Sizes.fontSizes(NavigationService.context)['h4'],
-      textColor: AppColors.lightBlack,
-      backgroundColor: backgroundColor ?? AppColors.toastColor,
+      textColor: Colors.black54,
+      backgroundColor: backgroundColor ?? Colors.blue,
       toastLength: toastLength,
       gravity: toastGravity,
       timeInSecForIosWeb: 1,

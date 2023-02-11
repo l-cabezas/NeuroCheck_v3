@@ -1,13 +1,6 @@
-import 'dart:async';
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:neurocheck/auth/repos/auth_repo.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
-import 'package:neurocheck/core/viewmodels/main_core_provider.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 
 import '../../core/routing/navigation_service.dart';
@@ -18,7 +11,6 @@ import '../../core/utils/dialogs.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/loading_indicators.dart';
 import '../viewmodels/auth_provider.dart';
-import '../viewmodels/auth_state.dart';
 
 class VerifyEmailFormComponent extends HookConsumerWidget {
    const VerifyEmailFormComponent({Key? key}) : super(key: key);
@@ -36,7 +28,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                  children:[
                    Center(
                      child: CustomText.h2(
-                         context, color: AppColors.darkGray,
+                         context,
                          tr(context).register_user
                      ),
                    ),
@@ -45,7 +37,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                        onPressed: (){
                          AppDialogs.showInfo(context,message: tr(context).info_verify);
                        },
-                       icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+                       icon: const Icon(Icons.info_outline,)
                    ),
                  ]),
              SizedBox(
@@ -53,7 +45,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
              ),
              Center(
                child: CustomText.h3(
-                   context, color: AppColors.darkGray,
+                   context,
                    tr(context).register_text), // todo: tr
              ),
              SizedBox(
@@ -78,7 +70,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                    children:[
                      Center(
                  child: CustomText.h2(
-                     context, color: AppColors.darkGray,
+                     context,
                      tr(context).verifyTitle),
                ),
                IconButton(
@@ -86,7 +78,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                onPressed: (){
                AppDialogs.showInfo(context,message: tr(context).info_verify);
                },
-               icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+               icon: const Icon(Icons.info_outline, )
                ),
                    ]),
                SizedBox(
@@ -94,7 +86,7 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                ),
                Center(
                  child: CustomText.h3(
-                     context, color: AppColors.darkGray,
+                     context,
                      tr(context).verifyMessage),
                ),
                SizedBox(
@@ -118,11 +110,10 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
       error: (err, stack) => CustomText.h4(
     context,
       tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-      color: AppColors.grey,
       alignment: Alignment.center,
       textAlign: TextAlign.center,
     ),
-      loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
+      loading: () => LoadingIndicators.smallLoadingAnimation(context)
       );
   }
 

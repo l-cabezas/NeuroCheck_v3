@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'notiControl_state.freezed.dart';
 @Freezed()
 class NotiControlState with _$NotiControlState {

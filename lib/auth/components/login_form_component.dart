@@ -9,7 +9,6 @@ import '../../core/services/localization_service.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/loading_indicators.dart';
-import '../../general/settings/components/light_button_component.dart';
 import '../viewmodels/auth_provider.dart';
 import 'login_text_fields.dart';
 
@@ -63,7 +62,7 @@ class LoginFormComponent extends HookConsumerWidget {
                     state.maybeWhen(loading: () => true, orElse: () => false)),
               );
               return authLoading
-                  ? LoadingIndicators.instance.smallLoadingAnimation(
+                  ? LoadingIndicators.smallLoadingAnimation(
                 context,
                 width: Sizes.loadingAnimationButton(context),
                 height: Sizes.loadingAnimationButton(context),

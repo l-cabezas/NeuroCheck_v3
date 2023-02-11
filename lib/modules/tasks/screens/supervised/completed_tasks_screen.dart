@@ -6,14 +6,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text.dart';
 import '../../../../core/widgets/loading_indicators.dart';
+import '../../components/card_item_component.dart';
 import '../../viewmodels/task_provider.dart';
 import '../../viewmodels/task_to_do.dart';
-import '../../../navBar/components/card_item_component.dart';
 
 class CompletedTasks extends HookConsumerWidget {
   const CompletedTasks({Key? key}) : super(key: key);
@@ -29,7 +28,7 @@ class CompletedTasks extends HookConsumerWidget {
               ? CustomText.h4(
                   context,
                   tr(context).noTask,
-                  color: AppColors.grey,
+                  color: Theme.of(context).hintColor,
                   alignment: Alignment.center,
                 )
               : ListView.separated(
@@ -70,7 +69,7 @@ class CompletedTasks extends HookConsumerWidget {
               CustomText.h4(
                 context,
                 tr(context).somethingWentWrong + '\n' + tr(context).pleaseTryAgainLater,
-                color: AppColors.grey,
+                color: Theme.of(context).hintColor,
                 alignment: Alignment.center,
                 textAlign: TextAlign.center,
               ),
@@ -83,6 +82,6 @@ class CompletedTasks extends HookConsumerWidget {
                   })
             ]),
         loading: () =>
-            LoadingIndicators.instance.smallLoadingAnimation(context));
+            LoadingIndicators.smallLoadingAnimation(context));
   }
 }

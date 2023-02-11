@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
+import '../../../core/features/theme/presentation/utils/colors/custom_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_text.dart';
@@ -22,14 +22,14 @@ class CardDetailsButtonComponent extends StatelessWidget {
       elevation: 1,
       minWidth: Sizes.textButtonMinWidth(context),
       minHeight: Sizes.textButtonMinHeight(context),
-      buttonColor: AppColors.accentColor,
+      buttonColor: Theme.of(context).colorScheme.secondary,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       onPressed: onPressed,
       child: CustomText.h5(
         context,
         title,
         weight: FontStyles.fontWeightMedium,
-        color: AppColors.white,
+        color: customColors(context).whiteColor,
         alignment: Alignment.center,
       ),
     );

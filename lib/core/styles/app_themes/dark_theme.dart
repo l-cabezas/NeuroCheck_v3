@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,18 +7,18 @@ import '../app_colors.dart';
 class DarkTheme {
   static final darkTheme = ThemeData.dark().copyWith(
     appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.darkThemeScaffoldBGColor,
+      //backgroundColor: AppColors.darkThemeScaffoldBGColor,
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppColors.darkThemeStatusBarColor,
+        //statusBarColor: AppColors.darkThemeStatusBarColor,
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
     ),
-    primaryColor: AppColors.darkThemeMajorBGColor,
-    scaffoldBackgroundColor: AppColors.darkThemeScaffoldBGColor,
+    //primaryColor: AppColors.darkThemeMajorBGColor,
+    //scaffoldBackgroundColor: AppColors.darkThemeScaffoldBGColor,
     colorScheme: const ColorScheme.dark().copyWith(
-      primary: AppColors.darkThemePrimary,
-      secondary: AppColors.accentColor,
+      //primary: AppColors.darkThemePrimary,
+      //secondary: AppColors.accentColor,
     ),
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(
@@ -82,3 +83,4 @@ class DarkTheme {
     ),
   );
 }
+*/

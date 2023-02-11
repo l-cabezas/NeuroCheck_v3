@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:neurocheck/core/widgets/platform_widgets/platform_circular_progress_indicator.dart';
-import '../styles/app_colors.dart';
+
 import '../styles/app_images.dart';
 import '../styles/font_styles.dart';
 import '../styles/sizes.dart';
@@ -20,12 +20,12 @@ class LoadingIndicators {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const PlatformCircularProgressIndicator(
+           PlatformCircularProgressIndicator(
             strokeWidth: 3,
             backgroundColor: Colors.transparent,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
             valueColor: AlwaysStoppedAnimation<Color>(
-              AppColors.lightThemePrimary,
+              Theme.of(context).colorScheme.primary,
             ),
             radius: 20,
           ),
@@ -43,7 +43,7 @@ class LoadingIndicators {
     );
   }
 
-  Widget smallLoadingAnimation(
+  static Widget smallLoadingAnimation(
     BuildContext context, {
     double? height,
     double? width,

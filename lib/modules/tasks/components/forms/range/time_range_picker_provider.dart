@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
 import 'package:neurocheck/core/widgets/custom_text.dart';
 
 import '../../../../../core/services/localization_service.dart';
 import '../../../../../core/styles/sizes.dart';
-import '../../../../../core/utils/dialogs.dart';
 
 
 //Create a Provider
@@ -127,7 +125,8 @@ class TimeRangeButton extends StateNotifier<String> {
                             width: 120,
                             child: CupertinoButton(
 
-                                child: CustomText.h4(context,'Cancelar',color: AppColors.red,),
+                                child: CustomText.h4(context,'Cancelar',
+                                  color: Colors.red,),
                                 onPressed: (){
                                   // todo borrar hora no valida
                                   ref.refresh(timeRangeButtonProvider);
@@ -142,7 +141,8 @@ class TimeRangeButton extends StateNotifier<String> {
                         height: 50,
                         width: 120,
                         child: CupertinoButton(
-                          child: CustomText.h4(context,'Guardar',color: AppColors.blue,),
+                          child: CustomText.h4(context,'Guardar',
+                            color: Theme.of(context).colorScheme.secondary,),
                           onPressed: (){
                             //log('okey');
 

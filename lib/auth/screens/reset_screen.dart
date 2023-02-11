@@ -3,7 +3,6 @@ import 'package:neurocheck/auth/components/reset_form_component.dart';
 
 import '../../core/screens/popup_page.dart';
 import '../../core/services/localization_service.dart';
-import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_images.dart';
 import '../../core/styles/sizes.dart';
 import '../../core/utils/dialogs.dart';
@@ -28,7 +27,7 @@ class ResetScreen extends StatelessWidget {
                   onPressed: (){
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+                  icon: Icon(Icons.arrow_back_outlined, )
               ),),
             SizedBox(width: Sizes.fullScreenWidth(context)/1.6,),
             Container(
@@ -43,7 +42,7 @@ class ResetScreen extends StatelessWidget {
                   onPressed: (){
                     AppDialogs.showInfo(context,message: tr(context).info_reset);
                   },
-                  icon: const Icon(Icons.info_outline, color: AppColors.lightThemePrimary,)
+                  icon: const Icon(Icons.info_outline,)
               ),),
           ],),
           Container(

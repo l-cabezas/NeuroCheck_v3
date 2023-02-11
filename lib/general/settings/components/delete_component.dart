@@ -4,10 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../../../core/widgets/custom_text_button.dart';
 import '../viewmodels/settings_viewmodel.dart';
@@ -49,7 +47,7 @@ class DeleteComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).delete,
-          color: AppColors.blue
+          color: Theme.of(context).colorScheme.secondary,
       ),
       onPressed:  () async {
         await settingsVM.deleteAccount();
@@ -60,7 +58,7 @@ class DeleteComponent extends ConsumerWidget {
       child: CustomText.h4(
           context,
           tr(context).cancel,
-          color: AppColors.red
+          color: Colors.red
       ),
       onPressed:  () {
         NavigationService.goBack(context,rootNavigator: true);
@@ -103,13 +101,13 @@ class _SharedItemComponent extends StatelessWidget {
         vertical: Sizes.vPaddingSmall(context),
       ),
       decoration: BoxDecoration(
-        color: AppColors.red,
+        color: Colors.red,
         borderRadius: BorderRadius.circular(
           Sizes.dialogSmallRadius(context),
         ),
         border: Border.all(
           width: 2,
-          color: AppColors.white,
+          color: Theme.of(context).primaryColor,
         ),
         boxShadow: [
           BoxShadow(
@@ -122,9 +120,9 @@ class _SharedItemComponent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
+           Icon(
             Icons.delete,
-            color: AppColors.white,
+            color: Theme.of(context).primaryColor,
           ),
           SizedBox(
             width: Sizes.hMarginSmall(context),
@@ -134,7 +132,7 @@ class _SharedItemComponent extends StatelessWidget {
             'Borrar Cuenta', //todo: tr
             alignment: Alignment.center,
             weight: FontStyles.fontWeightExtraBold,
-            color: AppColors.white,
+            color: Theme.of(context).primaryColor,
           ),
         ],
       ),

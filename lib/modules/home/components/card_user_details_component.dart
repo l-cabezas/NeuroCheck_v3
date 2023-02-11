@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/core/styles/app_images.dart';
 
 import '../../../core/services/localization_service.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
-import '../../../core/widgets/cached_network_image_circular.dart';
 import '../../../core/widgets/custom_text.dart';
-import '../../tasks/models/task_model.dart';
+import '../../../features/home/data/models/task_model.dart';
 
 class CardUserDetailsComponent extends StatelessWidget {
   final TaskModel taskModel;
@@ -43,7 +41,7 @@ class CardUserDetailsComponent extends StatelessWidget {
                 taskModel.taskName.isEmpty
                     ? 'No name'
                     : taskModel.taskName,
-                color: Theme.of(context).textTheme.headline4!.color,
+                color: Theme.of(context).textSelectionTheme.cursorColor,
                 weight: FontStyles.fontWeightBold,
                 overflow: TextOverflow.ellipsis,
               ),

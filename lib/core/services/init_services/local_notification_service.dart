@@ -7,7 +7,6 @@ import 'package:neurocheck/core/routing/route_paths.dart';
 
 import '../../../modules/notifications/models/notification_model.dart';
 import '../../routing/navigation_service.dart';
-import '../../styles/app_colors.dart';
 
 class LocalNotificationService {
   LocalNotificationService._();
@@ -25,7 +24,7 @@ class LocalNotificationService {
 
   Future init() async {
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings('notification_icon');
+    AndroidInitializationSettings('ic_launcher');
     const IOSInitializationSettings iosInitializationSettings =
     IOSInitializationSettings(
       requestAlertPermission: true,
@@ -45,7 +44,6 @@ class LocalNotificationService {
 
   onSelectNotification(String? payload) async {
     if (FirebaseAuth.instance.currentUser == null) return;
-
     if (payload != null) {
       final decodedPayload = jsonDecode(payload) as Map<String, dynamic>;
       if (decodedPayload.isNotEmpty) {
@@ -88,7 +86,7 @@ class LocalNotificationService {
         channelDescription: 'This channel is used for important notifications.',
         importance: Importance.max,
         priority: Priority.high,
-        color: AppColors.lightThemePrimary,
+        //color: Theme.of(context).colorScheme.primary,
         playSound: true,
       ),
       iOS: IOSNotificationDetails(),

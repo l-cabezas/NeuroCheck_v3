@@ -1,10 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/auth/viewmodels/checkbox_provider.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
 
 import '../../core/services/localization_service.dart';
 import '../../core/styles/sizes.dart';
@@ -18,7 +16,7 @@ class CustomCheckBoxComponent extends ConsumerWidget {
     final checkBoxValue = ref.watch(checkBoxProvider);
     return Column(children: [
       CustomText.h3(context, tr(context).questionrol,
-          color: AppColors.lightBlack),
+          ),
       SizedBox(
         height: Sizes.vMarginSmall(context),
       ),
@@ -31,7 +29,7 @@ class CustomCheckBoxComponent extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
               // CHANGE BORDER RADIUS HERE
-              side: BorderSide(width: 30, color: AppColors.red),
+              side: BorderSide(width: 30),
             ), // Rounded Checkbox
             value: checkBoxValue,
             onChanged: (inputValue) {
@@ -49,7 +47,7 @@ class CustomCheckBoxComponent extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30.0),
               // CHANGE BORDER RADIUS HERE
-              side: BorderSide(width: 30, color: AppColors.red),
+              side: BorderSide(width: 30),
             ), // Rounded Checkbox
             value: !checkBoxValue,
             onChanged: (inputValue) {

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_text.dart';
@@ -33,7 +32,7 @@ class LightButtonComponent extends StatelessWidget {
         ),
         border: Border.all(
           width: 1,
-          color: color ?? AppColors.lightThemePrimary,
+          color: color ?? Theme.of(context).colorScheme.primary,
         ),
         boxShadow: [
           BoxShadow(
@@ -49,7 +48,7 @@ class LightButtonComponent extends StatelessWidget {
           (icon != null)
               ?Icon(
                   icon,
-                  color: AppColors.lightThemePrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 )
           : SizedBox(),
           SizedBox(
@@ -60,7 +59,7 @@ class LightButtonComponent extends StatelessWidget {
             text,
             alignment: Alignment.center,
             weight: FontStyles.fontWeightExtraBold,
-            color: textColor ?? AppColors.lightThemePrimary,
+            color: textColor ?? Theme.of(context).colorScheme.primary,
           ),
         ],
       ),

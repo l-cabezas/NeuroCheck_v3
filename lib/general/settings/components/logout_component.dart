@@ -3,10 +3,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
-import '../../../core/utils/dialogs.dart';
 import '../../../core/widgets/custom_text.dart';
 import '../viewmodels/settings_viewmodel.dart';
 
@@ -58,7 +56,7 @@ class _SharedItemComponent extends StatelessWidget {
         ),
         border: Border.all(
           width: 1,
-          color: AppColors.lightThemePrimary,
+          color: Theme.of(context).colorScheme.primary,
         ),
         boxShadow: [
           BoxShadow(
@@ -71,9 +69,9 @@ class _SharedItemComponent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
+           Icon(
             Icons.logout,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
           ),
           SizedBox(
             width: Sizes.hMarginSmall(context),
@@ -83,7 +81,7 @@ class _SharedItemComponent extends StatelessWidget {
             tr(context).logOut,
             alignment: Alignment.center,
             weight: FontStyles.fontWeightExtraBold,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ],
       ),

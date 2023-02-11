@@ -1,8 +1,9 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../core/routing/navigation_service.dart';
 import '../../core/routing/route_paths.dart';
 import '../../core/services/init_services/firebase_messaging_service.dart';

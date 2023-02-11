@@ -5,12 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/routing/navigation_service.dart';
 import '../../../../core/routing/route_paths.dart';
 import '../../../../core/services/localization_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/viewmodels/app_locale_provider.dart';
 import '../../../../core/viewmodels/app_theme_provider.dart';
 import '../../../../core/widgets/custom_tile_component.dart';
-import '../../utils/language.dart';
 import '../settings_section_component.dart';
 
 
@@ -42,13 +40,13 @@ class AppSettingsSectionComponent extends ConsumerWidget {
               },
               material: (_, __) {
                 return MaterialSwitchData(
-                  activeColor: AppColors.white,
-                  activeTrackColor: AppColors.blue,
+                  activeColor: Theme.of(context).primaryColor,
+                  activeTrackColor: Theme.of(context).colorScheme.secondary
                 );
               },
               cupertino: (_, __) {
                 return CupertinoSwitchData(
-                  activeColor: AppColors.blue,
+                  activeColor: Theme.of(context).colorScheme.secondary
                 );
               },
             ),
@@ -57,7 +55,8 @@ class AppSettingsSectionComponent extends ConsumerWidget {
         CustomTileComponent(
           title: tr(context).language,
           leadingIcon: Icons.translate,
-          customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
+          customTrailing:SizedBox(width:43,child:
+          Icon(Icons.touch_app_outlined,color: Theme.of(context).colorScheme.secondary)),
           onTap: () {
             NavigationService.push(
               context,
@@ -69,7 +68,10 @@ class AppSettingsSectionComponent extends ConsumerWidget {
         CustomTileComponent(
           title: '${tr(context).change_name} ',
           leadingIcon: PlatformIcons(context).edit,
-          customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
+          customTrailing:SizedBox(width:43,child:
+          Icon(Icons.touch_app_outlined,
+              color: Theme.of(context).colorScheme.secondary)
+          ),
           onTap: () {
             NavigationService.push(
               context,

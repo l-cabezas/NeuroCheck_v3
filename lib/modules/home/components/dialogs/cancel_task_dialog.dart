@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
+import 'package:neurocheck/core/features/theme/presentation/utils/colors/custom_colors.dart';
 
 import '../../../../core/routing/navigation_service.dart';
-import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/font_styles.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text.dart';
-import '../../../tasks/models/task_model.dart';
+import '../../../../features/home/data/models/task_model.dart';
 
 
 class CancelTaskDialog extends HookWidget {
@@ -49,7 +48,7 @@ class CancelTaskDialog extends HookWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomButton(
-                    buttonColor: AppColors.grey,
+                    buttonColor: customColors(context).greyColor,
                     height: Sizes.roundedButtonDialogHeight(context),
                     width: Sizes.roundedButtonSmallWidth(context),
                     onPressed: () {

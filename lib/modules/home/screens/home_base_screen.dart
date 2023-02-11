@@ -30,8 +30,8 @@ import '../viewmodels/home_base_nav_providers.dart';
       useValueChanged
 * */
 
-class HomeBaseScreen extends HookConsumerWidget {
-  const HomeBaseScreen({Key? key}) : super(key: key);
+class HomeBaseScreen2 extends HookConsumerWidget {
+  const HomeBaseScreen2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
@@ -82,7 +82,7 @@ class HomeBaseScreen extends HookConsumerWidget {
       cupertinoTabChildBuilder: (context, index) {
         return HomeBaseNavUtils.navScreens[index];
       },
-      bottomNavigationBar: bottomNavBarComponent(
+      bottomNavigationBar: newbottomNavBarComponent(
         context,
         currentIndex: _currentIndex,
         itemChanged: (index) {

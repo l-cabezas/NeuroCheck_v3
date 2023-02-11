@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/services/localization_service.dart';
-import '../../../core/styles/app_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -40,7 +39,7 @@ class RetryAgainComponent extends ConsumerWidget {
             text: tr(context).retry,
             onPressed:(){},
                 //ref.watch(locationServiceProvider.notifier).getCurrentLocation,
-            buttonColor: AppColors.lightThemePrimary,
+            buttonColor: Theme.of(context).colorScheme.primary,
           ),
         ],
       ),

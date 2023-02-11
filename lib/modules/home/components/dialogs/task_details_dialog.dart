@@ -7,7 +7,7 @@ import '../../../../core/styles/font_styles.dart';
 import '../../../../core/styles/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/widgets/custom_text.dart';
-import '../../../tasks/models/task_model.dart';
+import '../../../../features/home/data/models/task_model.dart';
 
 
 class TaskDetailsDialog extends StatelessWidget {

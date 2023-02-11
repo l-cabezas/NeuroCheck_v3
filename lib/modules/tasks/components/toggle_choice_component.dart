@@ -1,29 +1,18 @@
 import 'dart:developer';
 
-import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/routing/navigation_service.dart';
-import 'package:neurocheck/modules/simple_notifications/notifications.dart';
-import 'package:neurocheck/modules/tasks/components/forms/days/switch_theme_provider.dart';
 import 'package:neurocheck/modules/tasks/components/toggle_theme_provider.dart';
 import 'package:neurocheck/modules/tasks/viewmodels/task_provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../../../../core/services/localization_service.dart';
-import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/styles/sizes.dart';
 import '../../../../../core/widgets/custom_text.dart';
-import '../../../../../core/widgets/custom_tile_component.dart';
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/utils/flush_bar_component.dart';
 import '../../../core/widgets/loading_indicators.dart';
-import '../models/task_model.dart';
-import '../repos/task_repo.dart';
+import '../../../features/home/data/models/task_model.dart';
 import '../repos/utilities.dart';
 import 'forms/days/multi_choice_provider.dart';
 import 'forms/days/switch_setting_section_component.dart';
@@ -76,7 +65,8 @@ class ToggleChoiceComponent extends ConsumerWidget {
                             children: [
                               SizedBox(width: Sizes.vMarginHighest(context)*1.2,),
                               CupertinoButton(
-                                  child: CustomText.h4(context,'Cancelar',color: AppColors.red),
+                                  child: CustomText.h4(context,'Cancelar',
+                                      color: Colors.red),
                                   onPressed: (){
                                     NavigationService.goBack(context,rootNavigator: true);
                                   }),
@@ -88,13 +78,14 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                           state.maybeWhen(loading: () => true, orElse: () => false)),
                                     );
                                     return taskLoading
-                                        ? LoadingIndicators.instance.smallLoadingAnimation(
+                                        ? LoadingIndicators.smallLoadingAnimation(
                                       context,
                                       width: Sizes.loadingAnimationButton(context),
                                       height: Sizes.loadingAnimationButton(context),
                                     )
                                   : CupertinoButton(
-                                  child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                  child: CustomText.h4(context,'Ok',
+                                      color: Theme.of(context).colorScheme.secondary),
                                   onPressed: () async {
                                     //para luego poder cancelar las notificaciones
                                     //si no es supervisor activamos las notis
@@ -142,7 +133,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
 
                   child: Card(
                     elevation: 6,
-                    shadowColor: AppColors.blue,
+                    shadowColor: Theme.of(context).colorScheme.secondary,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -156,7 +147,8 @@ class ToggleChoiceComponent extends ConsumerWidget {
                           children: [
                             SizedBox(width: Sizes.vMarginHighest(context)*1.2,),
                             CupertinoButton(
-                                child: CustomText.h4(context,'Cancelar',color: AppColors.red),
+                                child: CustomText.h4(context,'Cancelar',
+                                    color: Colors.red),
                                 onPressed: (){
                                   NavigationService.goBack(context,rootNavigator: true);
                                 }),
@@ -168,13 +160,14 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                         state.maybeWhen(loading: () => true, orElse: () => false)),
                                   );
                                   return taskLoading
-                                      ? LoadingIndicators.instance.smallLoadingAnimation(
+                                      ? LoadingIndicators.smallLoadingAnimation(
                                     context,
                                     width: Sizes.loadingAnimationButton(context),
                                     height: Sizes.loadingAnimationButton(context),
                                   )
                                       : CupertinoButton(
-                                child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                child: CustomText.h4(context,'Ok',
+                                    color: Theme.of(context).colorScheme.secondary),
                                 onPressed: (){
                                   if(GetStorage().read('uidSup') != ''){
                                     //disp boss no hay notis
@@ -221,7 +214,7 @@ class ToggleChoiceComponent extends ConsumerWidget {
             child: Container(
                 child: Card(
                   elevation: 6,
-                  shadowColor: AppColors.blue,
+                  shadowColor: Theme.of(context).colorScheme.secondary,
                   margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius:
@@ -235,7 +228,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
                         children: [
                           SizedBox(width: Sizes.vMarginHighest(context)*1.2,),
                           CupertinoButton(
-                              child: CustomText.h4(context,'Cancelar',color: AppColors.red),
+                              child: CustomText.h4(context,'Cancelar',
+                                  color: Colors.red
+                              ),
                               onPressed: (){
                                 NavigationService.goBack(context,rootNavigator: true);
                               }),
@@ -247,13 +242,15 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                       state.maybeWhen(loading: () => true, orElse: () => false)),
                                 );
                                 return taskLoading
-                                    ? LoadingIndicators.instance.smallLoadingAnimation(
+                                    ? LoadingIndicators.smallLoadingAnimation(
                                   context,
                                   width: Sizes.loadingAnimationButton(context),
                                   height: Sizes.loadingAnimationButton(context),
                                 )
                                     : CupertinoButton(
-                                    child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                    child: CustomText.h4(context,'Ok',
+                                    //    color: AppColors.blue
+                                    ),
                                     onPressed: (){
                                       if(GetStorage().read('uidSup') != ''){
 

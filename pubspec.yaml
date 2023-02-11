@@ -30,13 +30,29 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   firebase_storage: ^10.2.15
   firebase_core: ^1.18.0
   firebase_auth: ^3.3.20
 
+  #StateManagement & DI
+  flutter_hooks: ^0.18.5+1
+  hooks_riverpod: ^2.1.3
+  riverpod_annotation: ^1.1.1
+  get_it: ^7.2.0
+
+  #FP
+  fpdart: ^0.4.0
+  rxdart: ^0.27.7
 
 
+  #Location
+  google_maps_flutter: ^2.1.1
+  flutter_polyline_points: ^1.0.0
+  location: ^4.4.0
+  geolocator: ^9.0.1
+
+  #Apis
+  dio: ^4.0.6
 
   #gen_lang: ^0.1.3
   http:
@@ -81,9 +97,10 @@ dependencies:
   circular_check_box: ^1.0.4
 
 
+
   flashy_tab_bar2: ^0.0.4
   #example
-  awesome_notifications:
+  awesome_notifications: 0.7.4+1
   firebase_messaging: ^12.0.0
   device_info_plus: ^4.0.0
   url_launcher: ^6.1.2
@@ -92,12 +109,11 @@ dependencies:
   timezone: ^0.8.0
   #stack
   flutter_native_timezone: ^2.0.0
-  # youtube estafador
-  rxdart:
+
+
   loading_gifs: #https://pub.dev/packages/loading_gifs
 
   #clean
-  get_it: ^7.2.0
   provider: ^6.0.3
 
   #snackbar_extension:
@@ -123,10 +139,9 @@ dependencies:
     git:
       url: https://github.com/DPLYR-dev/SplashScreenFlutterPackage.git
       ref: master
-  hooks_riverpod: ^1.0.4
+
   dartz: ^0.10.1
   equatable: ^2.0.3
-  dio: ^4.0.6
   flutter_platform_widgets: ^2.0.0
   freezed_annotation: any
   connectivity_plus: ^2.3.5
@@ -134,9 +149,8 @@ dependencies:
   flutter_fadein: ^2.0.0
   lottie: ^1.3.0
   fluttertoast: ^8.0.9
-  flutter_hooks: ^0.18.5+1
-  location: ^4.4.0
-  geolocator: ^9.0.1
+
+
 
   flutter_localizations: # Add this line
     sdk: flutter
@@ -159,6 +173,9 @@ dependencies:
     git:
       url: https://github.com/Davenchy/flutter_launcher_icons.git
       ref: fixMinSdkParseFlutter2.8
+  workmanager: ^0.5.1
+  fast_immutable_collections: ^8.1.0
+  intl_utils: ^2.8.1
 
 
 
@@ -176,6 +193,7 @@ dev_dependencies:
   freezed: any
   build_runner: any
   json_serializable: any
+  riverpod_generator: ^1.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

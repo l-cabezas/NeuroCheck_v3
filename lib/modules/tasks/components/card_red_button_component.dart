@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/styles/app_colors.dart';
+import '../../../core/features/theme/presentation/utils/colors/custom_colors.dart';
 import '../../../core/styles/font_styles.dart';
 import '../../../core/styles/sizes.dart';
 import '../../../core/widgets/custom_outlined_button.dart';
@@ -24,16 +24,19 @@ class CardRedButtonComponent extends StatelessWidget {
     return CustomOutlinedButton(
       height: Sizes.roundedButtonMediumHeight(context),
       width: Sizes.roundedButtonMediumWidth(context),
-      side: isColored ? null : const BorderSide(color: AppColors.carbonic),
-      buttonColor: isColored ? null : Colors.red,
-      splashColor: isColored ? null : AppColors.lightThemePrimary,
+      side: isColored ? null :  BorderSide(
+          color: customColors(context).redColor!,
+      ),
+      buttonColor:
+      isColored
+          ? null
+          : customColors(context).redColor,
+      splashColor: isColored ? null : Theme.of(context).colorScheme.primary,
       onPressed: onPressed,
       child: CustomText.h5(
         context,
         title,
-        color: isColored
-            ? Theme.of(context).textTheme.headline4!.color
-            : AppColors.white,
+        color: customColors(context).whiteColor,
         weight: FontStyles.fontWeightBold,
         alignment: Alignment.center,
       ),

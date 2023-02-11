@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:neurocheck/core/widgets/platform_widgets/platform_base_widget.dart';
+
 
 class PlatformCircularProgressIndicator extends PlatformBaseWidget<
     CupertinoActivityIndicator, CircularProgressIndicator> {
@@ -28,7 +29,7 @@ class PlatformCircularProgressIndicator extends PlatformBaseWidget<
   }) : super(key: key);
 
   @override
-  CupertinoActivityIndicator createCupertinoWidget(BuildContext context) {
+  CupertinoActivityIndicator createMaterialWidget(BuildContext context) {
     return CupertinoActivityIndicator(
       key: key,
       color: color,
@@ -38,7 +39,7 @@ class PlatformCircularProgressIndicator extends PlatformBaseWidget<
   }
 
   @override
-  CircularProgressIndicator createMaterialWidget(BuildContext context) {
+  CircularProgressIndicator createCupertinoWidget(BuildContext context) {
     return CircularProgressIndicator(
       key: key,
       value: value,

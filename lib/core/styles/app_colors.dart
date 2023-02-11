@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -81,3 +82,4 @@ class AppColors {
     stops: [0, 1],
   );
 }
+*/

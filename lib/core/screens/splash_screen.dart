@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:neurocheck/core/screens/popup_page.dart';
 
-import '../../modules/home/components/upcoming_tasks_component.dart';
 import '../hooks/fade_in_controller_hook.dart';
 import '../services/localization_service.dart';
 import '../styles/app_images.dart';
@@ -22,19 +21,12 @@ class SplashScreen extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final fadeController = useFadeInController();
     ref.watch(splashProvider);
-
     return PopUpPage(
       body: FadeIn(
         curve: Curves.easeIn,
         controller: fadeController,
         child: Stack(
           children: [
-            /*Image.asset(
-              AppImages.splash,
-              height: Sizes.fullScreenHeight(context),
-              width: Sizes.fullScreenWidth(context),
-              fit: BoxFit.cover,
-            ),*/
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -58,4 +50,5 @@ class SplashScreen extends HookConsumerWidget {
       ),
     );
   }
+
 }

@@ -7,7 +7,7 @@ import '../services/platform_service.dart';
 import '../styles/sizes.dart';
 
 //barra de la izquierda
-PlatformNavBar? bottomNavBarComponent(
+PlatformNavBar? newbottomNavBarComponent(
   BuildContext context, {
   required int currentIndex,
   required Function(int) itemChanged,

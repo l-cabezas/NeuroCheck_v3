@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:neurocheck/modules/home/viewmodels/noti_providers.dart';
 
-import '../../../auth/repos/user_repo.dart';
-import '../../../core/services/localization_service.dart';
 import '../../../core/widgets/dialog_widget.dart';
-import '../../navBar/components/dialogs/confirm_choice_dialog.dart';
-import '../../tasks/models/task_model.dart';
+import '../../../features/home/data/models/task_model.dart';
 import '../../tasks/repos/task_repo.dart';
 import '../components/dialogs/cancel_task_dialog.dart';
+import '../components/dialogs/confirm_choice_dialog.dart';
 import '../components/dialogs/task_details_dialog.dart';
 import '../models/noti_model.dart';
-import 'home_state_providers.dart';
 
 final orderDialogsViewModel =
     Provider<OrderDialogsViewModel>((ref) => OrderDialogsViewModel(ref));

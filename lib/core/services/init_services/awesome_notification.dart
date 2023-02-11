@@ -1,5 +1,4 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:neurocheck/core/styles/app_colors.dart';
 
 class AweNotification{
   AweNotification._();

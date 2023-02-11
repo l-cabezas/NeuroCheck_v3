@@ -1,16 +1,14 @@
 import 'dart:developer';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:neurocheck/modules/tasks/viewmodels/tarea_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../auth/repos/auth_repo.dart';
 import '../../../auth/repos/user_repo.dart';
-import '../../../auth/viewmodels/auth_provider.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/routing/navigation_service.dart';
 import '../../../core/routing/route_paths.dart';
@@ -23,9 +21,7 @@ import '../../../core/utils/dialog_message_state.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/viewmodels/main_core_provider.dart';
 import '../../../core/widgets/dialog_widget.dart';
-import '../../notifications/models/notiControl_model.dart';
-import '../../notifications/viewmodels/notiControl_provider.dart';
-import '../models/task_model.dart';
+import '../../../features/home/data/models/task_model.dart';
 
 
 final taskProvider =
@@ -86,7 +82,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
             taskId: taskModel.taskId),
         data: {
           'done': 'true',
-          'isSetNotification': 'false',
+          'isNotificationSet': 'false',
           'idNotification': [],
         },
         builder: (data) {
@@ -107,7 +103,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
           taskId: taskModel.taskId),
       data: {
         'done': 'true',
-        'isSetNotification': 'false',
+        'isNotificationSet': 'false',
         'idNotification': [],
       },
       builder: (data) {
@@ -127,7 +123,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
             taskId: taskModel.taskId),
         data: {
           'done': 'false',
-          'isSetNotification': 'false',
+          'isNotificationSet': 'false',
           'idNotification': [],
         },
         builder: (data) {
@@ -147,7 +143,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
             taskId: taskModel.taskId),
         data: {
           'done': 'false',
-          'isSetNotification': 'false',
+          'isNotificationSet': 'false',
           'idNotification': [],
         },
         builder: (data) {
@@ -164,7 +160,7 @@ class TaskNotifier extends StateNotifier<TareaState> {
             taskId: taskModel.taskId),
         data: {
           'done': 'false',
-          'isSetNotification': 'false',
+          'isNotificationSet': 'false',
           'idNotification': [],
         },
         builder: (data) {
