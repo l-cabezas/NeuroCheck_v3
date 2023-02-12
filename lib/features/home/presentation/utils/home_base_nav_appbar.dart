@@ -83,7 +83,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
           customTitle: CustomText.h2(
             context,
             tr(context).appName,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).colorScheme.primary,
             alignment: Alignment.center,
           ),
           centerTitle: true,
@@ -95,18 +95,18 @@ class HomeBaseNavAppBar extends ConsumerWidget
                   var message =
                       getMessage(GetStorage().read('screen'), context);
                   AppDialogs.showInfo(context, message: message);
-                  log('HOMEBASENAV ${GetStorage().read('screen')}');
+                  //log('HOMEBASENAV ${GetStorage().read('screen')}');
                   //Navigator.pop(context);
                   //todo: segun pantalla
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.info_outline,
-                  color: AppColors.lightThemePrimary,
+                  color: Theme.of(context).iconTheme.color,
                 )),
             (supervisor)
                 ? IconButton(
                     alignment: Alignment.centerRight,
-                    color: AppColors.lightThemePrimary,
+                    color: Theme.of(context).iconTheme.color,
                     icon: Icon(PlatformIcons(context).personAdd),
                     onPressed: () {
                       NavigationService.push(
@@ -167,6 +167,7 @@ class HomeBaseNavAppBar extends ConsumerWidget
             context,
             tr(context).settings,
             alignment: Alignment.centerLeft,
+            color: Theme.of(context).colorScheme.primary,
           ),
           trailingActions: [
             Container(
@@ -177,9 +178,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
                     AppDialogs.showInfo(context,
                         message: tr(context).info_config);
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.info_outline,
-                    color: AppColors.lightBlack,
+                    color: Theme.of(context).iconTheme.color,
                   )),
             )
           ],

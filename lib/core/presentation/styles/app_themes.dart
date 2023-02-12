@@ -57,7 +57,6 @@ class AppThemes {
       primary: AppColors.darkThemePrimary,
       secondary: AppColors.accentColorDark,
     ),
-    buttonColor: AppColors.accentColorDark,
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.darkThemePrimary,
