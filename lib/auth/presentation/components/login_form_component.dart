@@ -69,7 +69,6 @@ class LoginFormComponent extends HookConsumerWidget {
                 height: Sizes.loadingAnimationButton(context),
               )
                   : CustomButton(
-                buttonColor: Theme.of(context).buttonTheme.colorScheme?.primary,
                 text: tr(context).signIn,
                 onPressed: () {
                   if (loginFormKey.currentState!.validate()) {

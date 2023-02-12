@@ -31,7 +31,10 @@ class RegisterScreen extends StatelessWidget {
                         onPressed: (){
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_outlined, color: AppColors.lightBlue,)
+                        icon: Icon(
+                          Icons.arrow_back_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        )
                     ),),
                   SizedBox(width: Sizes.fullScreenWidth(context)/1.6,),
                   Container(

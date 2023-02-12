@@ -17,7 +17,7 @@ class DarkTheme {
     scaffoldBackgroundColor: AppColors.darkThemeScaffoldBGColor,
     colorScheme: const ColorScheme.dark().copyWith(
       primary: AppColors.darkThemePrimary,
-      secondary: AppColors.accentColor,
+      secondary: AppColors.accentColorLight,
     ),
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(

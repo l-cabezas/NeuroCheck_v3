@@ -56,7 +56,7 @@ class CustomButton extends StatelessWidget {
         return MaterialElevatedButtonData(
           style: ElevatedButton.styleFrom(
             foregroundColor: splashColor,
-            backgroundColor: buttonColor ?? Theme.of(context).buttonTheme.colorScheme?.primary,
+            backgroundColor: buttonColor ?? Theme.of(context).buttonTheme.colorScheme?.secondary,
             minimumSize: Size(
               minHeight ?? Sizes.roundedButtonMinHeight(context),
               minWidth ?? Sizes.roundedButtonMinWidth(context),

@@ -22,7 +22,7 @@ class CardDetailsButtonComponent extends StatelessWidget {
       elevation: 1,
       minWidth: Sizes.textButtonMinWidth(context),
       minHeight: Sizes.textButtonMinHeight(context),
-      buttonColor: AppColors.accentColor,
+      buttonColor: AppColors.accentColorLight,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       onPressed: onPressed,
       child: CustomText.h5(

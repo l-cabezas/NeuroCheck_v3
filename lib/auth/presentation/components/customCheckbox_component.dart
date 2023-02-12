@@ -32,7 +32,8 @@ class CustomCheckBoxComponent extends ConsumerWidget {
               borderRadius: BorderRadius.circular(30.0),
               // CHANGE BORDER RADIUS HERE
               side: BorderSide(width: 30, color: AppColors.red),
-            ), // Rounded Checkbox
+            ),
+            activeColor: Theme.of(context).iconTheme.color,// Rounded Checkbox
             value: checkBoxValue,
             onChanged: (inputValue) {
               ref
@@ -50,7 +51,8 @@ class CustomCheckBoxComponent extends ConsumerWidget {
               borderRadius: BorderRadius.circular(30.0),
               // CHANGE BORDER RADIUS HERE
               side: BorderSide(width: 30, color: AppColors.red),
-            ), // Rounded Checkbox
+            ),
+            activeColor: Theme.of(context).iconTheme.color,// Rounded Checkbox
             value: !checkBoxValue,
             onChanged: (inputValue) {
               ref

@@ -7,7 +7,7 @@ class AppThemes {
     primaryColor: AppColors.lightThemePrimaryColor,
     colorScheme: const ColorScheme.light().copyWith(
       primary: AppColors.lightThemePrimary,
-      secondary: AppColors.accentColor,
+      secondary: AppColors.accentColorLight,
     ),
     iconTheme: const IconThemeData(color: AppColors.lightThemeIconColor),
     buttonTheme: const ButtonThemeData(
@@ -57,6 +57,7 @@ class AppThemes {
       primary: Color(0xff8b58f0),
       secondary: Color(0xFF6E21F3),
     ),
+    buttonColor: AppColors.accentColorDark,
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.darkThemePrimary,

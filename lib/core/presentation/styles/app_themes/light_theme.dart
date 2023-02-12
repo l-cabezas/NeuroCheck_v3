@@ -21,7 +21,7 @@ class LightTheme {
     primaryColor: AppColors.lightThemeMajorBGColor,
     colorScheme: const ColorScheme.light().copyWith(
       primary: AppColors.lightThemePrimary,
-      secondary: AppColors.accentColor,
+      secondary: AppColors.accentColorLight,
     ),
     iconTheme: const IconThemeData(color: AppColors.lightThemeIconColor),
     buttonTheme: const ButtonThemeData(
