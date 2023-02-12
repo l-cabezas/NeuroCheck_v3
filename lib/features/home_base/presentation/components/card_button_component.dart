@@ -35,7 +35,9 @@ class CardButtonComponent extends StatelessWidget {
       ),
       side: isColored ? null : const BorderSide(color: AppColors.grey),
       buttonColor: isColored ? null : Colors.transparent,
-      splashColor: isColored ? null : AppColors.lightThemePrimary,
+      splashColor: isColored
+          ? null
+          : Colors.transparent, //Theme.of(context).colorScheme.primary,
       onPressed: onPressed,
     );
   }

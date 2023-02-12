@@ -88,7 +88,6 @@ class HomeBaseNavAppBar extends ConsumerWidget
           ),
           centerTitle: true,
           trailingActions: [
-            //todo añadir icon
             IconButton(
                 alignment: Alignment.centerRight,
                 onPressed: () {

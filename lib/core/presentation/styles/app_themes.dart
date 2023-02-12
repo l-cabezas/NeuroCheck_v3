@@ -9,6 +9,8 @@ class AppThemes {
       primary: AppColors.lightThemePrimary,
       secondary: AppColors.accentColorLight,
     ),
+    toggleableActiveColor: AppColors.white,
+    disabledColor: AppColors.lightGray,
     iconTheme: const IconThemeData(color: AppColors.lightThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.lightThemePrimary,
@@ -57,6 +59,8 @@ class AppThemes {
       primary: AppColors.darkThemePrimary,
       secondary: AppColors.accentColorDark,
     ),
+    toggleableActiveColor: AppColors.darkThemeIconColor,
+    disabledColor: AppColors.darkThemeIconColor,
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),
     buttonTheme: const ButtonThemeData(
       buttonColor: AppColors.darkThemePrimary,

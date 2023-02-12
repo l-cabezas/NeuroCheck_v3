@@ -24,7 +24,11 @@ class CardButtonComponent extends StatelessWidget {
       height: Sizes.roundedButtonMediumHeight(context),
       width: Sizes.roundedButtonMediumWidth(context),
       side: isColored ? null : const BorderSide(color: AppColors.grey),
-      buttonColor: isColored ? null : Colors.transparent,
+      buttonColor: isColored
+          ? (Theme.of(context).iconTheme.color == const Color(0xFFAED6F1))
+              ? AppColors.accentColorLight
+              : Theme.of(context).iconTheme.color
+          : Colors.transparent,
       splashColor: isColored ? null : AppColors.lightThemePrimary,
       onPressed: onPressed,
       child: CustomText.h5(
