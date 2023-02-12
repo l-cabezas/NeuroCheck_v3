@@ -96,7 +96,7 @@ class _MenuButton extends StatelessWidget {
       icon: Icon(
         Icons.menu_rounded,
         size: Sizes.appBarMenuButtonRadius(context),
-        color: AppColors.lightThemePrimary,
+        color: Theme.of(context).iconTheme.color,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: Sizes.appBarMenuButtonRadius(context) / 2,
