@@ -54,8 +54,8 @@ class AppThemes {
     primaryColor: AppColors.darkThemePrimaryColor,
     scaffoldBackgroundColor: AppColors.darkThemeScaffoldBGColor,
     colorScheme:  ColorScheme.dark().copyWith(
-      primary: Color(0xff8b58f0),
-      secondary: Color(0xFF6E21F3),
+      primary: AppColors.darkThemePrimary,
+      secondary: AppColors.accentColorDark,
     ),
     buttonColor: AppColors.accentColorDark,
     iconTheme: const IconThemeData(color: AppColors.darkThemeIconColor),

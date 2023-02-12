@@ -74,7 +74,7 @@ class CustomOutlinedButton extends StatelessWidget {
                     BorderRadius.circular(
                         Sizes.roundedButtonDefaultRadius(context)),
                 gradient: LinearGradient(colors:
-                  [Theme.of(context).colorScheme.primary,
+                  [Theme.of(context).colorScheme.secondary,
                   Theme.of(context).colorScheme.secondary]
                 ),
               )
