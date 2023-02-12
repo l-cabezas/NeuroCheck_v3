@@ -71,6 +71,7 @@ class HomeScreen extends ConsumerWidget {
           onPageChanged: (i) => ref.read(indexProvider.notifier).value = i
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).iconTheme.color,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.add), label: tr(context).add_screen),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: tr(context).show_screen),
@@ -82,7 +83,9 @@ class HomeScreen extends ConsumerWidget {
             ref.read(indexProvider.notifier).value = i;
             controller.animateToPage(i,
                 duration: const Duration(microseconds: 500), curve: Curves.easeInOut);
-          }),
+          }
+
+          ),
     );
   }
 
