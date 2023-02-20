@@ -3,7 +3,7 @@ import '../styles/app_images.dart';
 import 'dialog_message_state.dart';
 
 Map<DialogWidgetState, dynamic> dialogMessageData = {
-  DialogWidgetState.error: {"icon": AppImages.error},
+  DialogWidgetState.error: {"icon": AppImages.warning},
   DialogWidgetState.noHeader: {"icon": AppImages.noHeader},
   DialogWidgetState.info: {"icon": AppImages.info},
   DialogWidgetState.infoDark: {"icon": AppImages.infoDark},
