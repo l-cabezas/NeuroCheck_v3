@@ -45,6 +45,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
           //eleccion días
           (toggleValue == 0)
             ? Card(
+              shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                  ? AppColors.lightThemePrimary
+                  : AppColors.darkThemePrimary,
                   elevation: 6,
                   margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
@@ -84,7 +87,11 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                       height: Sizes.loadingAnimationButton(context),
                                     )
                                   : CupertinoButton(
-                                  child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                  child: CustomText.h4(context,'Ok',
+
+                                    color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                                      ? AppColors.accentColorLight
+                                      : AppColors.darkThemeIconColor,),
                                   onPressed: () async {
                                     //para luego poder cancelar las notificaciones
                                     //si no es supervisor activamos las notis
@@ -132,7 +139,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
 
                   child: Card(
                     elevation: 6,
-                    shadowColor: AppColors.blue,
+                      shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                          ? AppColors.lightThemePrimary
+                          : AppColors.darkThemePrimary,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -164,7 +173,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                     height: Sizes.loadingAnimationButton(context),
                                   )
                                       : CupertinoButton(
-                                child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                child: CustomText.h4(context,'Ok',color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                                    ? AppColors.accentColorLight
+                                    : AppColors.darkThemeIconColor),
                                 onPressed: (){
                                   if(GetStorage().read('uidSup') != ''){
                                     //disp boss no hay notis
@@ -211,7 +222,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
             child: Container(
                 child: Card(
                   elevation: 6,
-                  shadowColor: AppColors.blue,
+                  shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightThemePrimary
+                      : AppColors.darkThemePrimary,
                   margin: EdgeInsets.zero,
                   shape: RoundedRectangleBorder(
                     borderRadius:
@@ -243,7 +256,9 @@ class ToggleChoiceComponent extends ConsumerWidget {
                                   height: Sizes.loadingAnimationButton(context),
                                 )
                                     : CupertinoButton(
-                                    child: CustomText.h4(context,'Ok',color: AppColors.blue),
+                                    child: CustomText.h4(context,'Ok',color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                                        ? AppColors.accentColorLight
+                                        : AppColors.darkThemeIconColor),
                                     onPressed: (){
                                       if(GetStorage().read('uidSup') != ''){
 

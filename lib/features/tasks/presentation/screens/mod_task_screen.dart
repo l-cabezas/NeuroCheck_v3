@@ -24,89 +24,110 @@ class ModTaskComponent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    GetStorage().write('screen','mod');
+    GetStorage().write('screen', 'mod');
 
     var toggleValue = ref.watch(toggleButtonProvider.notifier);
     var choice = 0;
 //todo: info icon
     return PopUpPage(
         body: SingleChildScrollView(
-            child: Column(
-                children: [
-      Container(
-        padding: EdgeInsets.only(
-          top: Sizes.hMarginMedium(context),
-          bottom: Sizes.vMarginSmallest(context),
-          left: Sizes.vMarginSmallest(context),
-        ),
-        alignment: Alignment.topLeft,
-        child: IconButton(
-            onPressed: () {
-              ref
-                  .watch(toggleButtonProviderAdd.notifier)
-                  .changeState(change: 0);
-              Navigator.pop(context);
+            child: Column(children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    top: Sizes.hMarginMedium(context),
+                    bottom: Sizes.vMarginSmallest(context),
+                    left: Sizes.vMarginSmallest(context),
+                  ),
+                  alignment: Alignment.topLeft,
+                  child: IconButton(
+                      onPressed: () {
+                        ref
+                            .watch(toggleButtonProviderAdd.notifier)
+                            .changeState(change: 0);
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_outlined,
+                        color: Theme.of(context).iconTheme.color ==
+                                AppColors.lightThemeIconColor
+                            ? AppColors.lightThemePrimary
+                            : AppColors.darkThemePrimary,
+                      )),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    //vertical: Sizes.screenVPaddingHigh(context),
+                    horizontal: Sizes.screenHPaddingDefault(context),
+                  ),
+                  child: CardModItemComponent(
+                    taskModel: taskModel,
+                  ),
+                ),
+                SizedBox(
+                  height: Sizes.vMarginSmall(context),
+                ),
+                Container(
+                  child: Column(
+                      //mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ToggleSwitch(
+                          minWidth: Sizes.availableScreenWidth(context),
+                          cornerRadius: 20.0,
+                          activeBgColors: [
+                            [
+                              Theme.of(context).iconTheme.color ==
+                                      AppColors.lightThemeIconColor
+                                  ? AppColors.accentColorLight
+                                  : AppColors.darkThemePrimary,
+                            ],
+                            [
+                              Theme.of(context).iconTheme.color ==
+                                      AppColors.lightThemeIconColor
+                                  ? AppColors.accentColorLight
+                                  : AppColors.darkThemePrimary,
+                            ],
+                            [
+                              Theme.of(context).iconTheme.color ==
+                                      AppColors.lightThemeIconColor
+                                  ? AppColors.accentColorLight
+                                  : AppColors.darkThemePrimary,
+                            ]
+                          ],
+                          activeFgColor: Colors.white,
+                          inactiveBgColor: Colors.black12,
+                          inactiveFgColor: Theme.of(context).iconTheme.color ==
+                                  AppColors.lightThemeIconColor
+                              ? AppColors.lightBlack
+                              : AppColors.white,
+                          initialLabelIndex: toggleValue.state,
+                          totalSwitches: 3,
+                          radiusStyle: true,
+                          labels: ['Días', 'Rango', 'Repetición'],
+                          //animate: true,
+                          onToggle: (index) {
+                            //print('switched to: $index');
+                            choice = index!;
+                            //print('choice to: $choice');
 
-            },
-            icon: const Icon(
-              Icons.arrow_back_outlined,
-              color: AppColors.lightBlue,
-            )),
-      ),
-      Container(
-        padding: EdgeInsets.symmetric(
-          //vertical: Sizes.screenVPaddingHigh(context),
-          horizontal: Sizes.screenHPaddingDefault(context),
-        ),
-        child: CardModItemComponent(
-          taskModel: taskModel,
-        ),
-      ),
-      SizedBox(
-        height: Sizes.vMarginSmall(context),
-      ),
-      Container(
-        child: Column(
-            //mainAxisSize: MainAxisSize.min,
-            children: [
-              ToggleSwitch(
-                minWidth: Sizes.availableScreenWidth(context),
-                cornerRadius: 20.0,
-                activeBgColors: [
-                  [AppColors.blue],
-                  [AppColors.blue],
-                  [AppColors.blue]
-                ],
-                activeFgColor: Colors.white,
-                inactiveBgColor: Colors.black12,
-                inactiveFgColor: Colors.black,
-                initialLabelIndex: toggleValue.state,
-                totalSwitches: 3,
-                radiusStyle: true,
-                labels: ['Días', 'Rango', 'Repetición'],
-                //animate: true,
-                onToggle: (index) {
-                  //print('switched to: $index');
-                  choice = index!;
-                  //print('choice to: $choice');
-
-                  ref .watch(toggleButtonProviderAdd.notifier)
-                      .changeState(change: index);
-                  toggleValue.state = ref.read(toggleButtonProviderAdd.notifier).state;
-                  //switchValue = ref.read(switchButtonProviderAdd.notifier).state;
-                },
-              ),
-              //const ResetFormComponent(),
-              ToggleChoiceComponent(
-                context: context,
-                taskModel: taskModel,
-              )
-            ]),
-      )
-    ])));
+                            ref
+                                .watch(toggleButtonProviderAdd.notifier)
+                                .changeState(change: index);
+                            toggleValue.state =
+                                ref.read(toggleButtonProviderAdd.notifier).state;
+                            //switchValue = ref.read(switchButtonProviderAdd.notifier).state;
+                          },
+                        ),
+                        //const ResetFormComponent(),
+                        ToggleChoiceComponent(
+                          context: context,
+                          taskModel: taskModel,
+                        )
+                      ]),
+                )
+        ])));
   }
 
-  Widget getSwitchWidget(bool switchButton, SwitchButton  ref){
+  Widget getSwitchWidget(bool switchButton, SwitchButton ref) {
     return PlatformSwitch(
       value: switchButton,
       onChanged: (value) {
@@ -126,17 +147,10 @@ class ModTaskComponent extends HookConsumerWidget {
     );
   }
 
-
-
-  List<String> separateString(String string){
+  List<String> separateString(String string) {
     String delete = string.replaceAll('[', '');
     String delete2 = delete.replaceAll(']', '');
     var split = string.split(',');
     return split;
-
   }
-
-
 }
-
-
