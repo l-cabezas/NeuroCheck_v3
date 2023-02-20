@@ -42,6 +42,8 @@ class AppSettingsSectionComponent extends ConsumerWidget {
                 return MaterialSwitchData(
                   activeColor: AppColors.white,
                   activeTrackColor: AppColors.blue,
+                  inactiveTrackColor: AppColors.darkThemePrimary,
+                  inactiveThumbColor: AppColors.white
                 );
               },
               cupertino: (_, __) {
@@ -55,7 +57,13 @@ class AppSettingsSectionComponent extends ConsumerWidget {
         CustomTileComponent(
           title: tr(context).language,
           leadingIcon: Icons.translate,
-          customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
+          customTrailing:SizedBox(width:43,child:
+          Icon(Icons.touch_app_outlined,
+            color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                ? AppColors.blue
+                : AppColors.darkThemePrimary,
+          )
+          ),
           onTap: () {
             NavigationService.push(
               context,
@@ -67,7 +75,14 @@ class AppSettingsSectionComponent extends ConsumerWidget {
         CustomTileComponent(
           title: '${tr(context).change_name} ',
           leadingIcon: PlatformIcons(context).edit,
-          customTrailing:SizedBox(width:43,child:Icon(Icons.touch_app_outlined,color: AppColors.blue,)),
+          customTrailing:SizedBox(
+              width:43,
+              child:
+              Icon(Icons.touch_app_outlined,
+                color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                    ? AppColors.blue
+                    : AppColors.darkThemePrimary,
+              )),
           onTap: () {
             NavigationService.push(
               context,
