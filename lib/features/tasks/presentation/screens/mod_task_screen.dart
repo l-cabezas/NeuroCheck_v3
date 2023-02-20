@@ -7,8 +7,10 @@ import 'package:neurocheck/features/tasks/presentation/providers/toggle_theme_pr
 import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../../core/presentation/screens/popup_page.dart';
+import '../../../../core/presentation/services/localization_service.dart';
 import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
+import '../../../../core/presentation/utils/dialogs.dart';
 import '../components/cardMod_item_component.dart';
 import '../providers/switch_theme_provider.dart';
 import '../components/toggle_choice_component.dart';
@@ -32,7 +34,10 @@ class ModTaskComponent extends HookConsumerWidget {
     return PopUpPage(
         body: SingleChildScrollView(
             child: Column(children: [
-                Container(
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                  Container(
                   padding: EdgeInsets.only(
                     top: Sizes.hMarginMedium(context),
                     bottom: Sizes.vMarginSmallest(context),
@@ -49,10 +54,35 @@ class ModTaskComponent extends HookConsumerWidget {
                       icon: Icon(
                         Icons.arrow_back_outlined,
                         color: Theme.of(context).iconTheme.color ==
-                                AppColors.lightThemeIconColor
-                            ? AppColors.lightThemePrimary
-                            : AppColors.darkThemePrimary,
+                            AppColors.lightThemeIconColor
+                            ? AppColors.lightBlack
+                            : AppColors.white,
                       )),
+                ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: Sizes.hMarginMedium(context),
+                      bottom: Sizes.vMarginSmallest(context),
+                      left: Sizes.vMarginSmallest(context),
+                      right: Sizes.vMarginSmallest(context),
+                    ),
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        alignment: Alignment.center,
+                        onPressed: () {
+                          AppDialogs.showInfo(context,
+                              message: tr(context).info_mod);
+                        },
+                        icon: Icon(
+                          Icons.info_outline,
+                          color: Theme.of(context).iconTheme.color ==
+                              AppColors.lightThemeIconColor
+                              ? AppColors.lightBlack
+                              : AppColors.white,
+                        )),
+                  ),
+                ]
+
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
