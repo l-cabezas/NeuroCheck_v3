@@ -58,7 +58,9 @@ class _SharedItemComponent extends StatelessWidget {
         ),
         border: Border.all(
           width: 1,
-          color: AppColors.lightThemePrimary,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightThemePrimary
+              : AppColors.darkThemePrimary,
         ),
         boxShadow: [
           BoxShadow(
@@ -71,9 +73,11 @@ class _SharedItemComponent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(
+           Icon(
             Icons.logout,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                ? AppColors.lightThemePrimary
+                : AppColors.darkThemePrimary,
           ),
           SizedBox(
             width: Sizes.hMarginSmall(context),
@@ -83,7 +87,9 @@ class _SharedItemComponent extends StatelessWidget {
             tr(context).logOut,
             alignment: Alignment.center,
             weight: FontStyles.fontWeightExtraBold,
-            color: AppColors.lightThemePrimary,
+            color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                ? AppColors.lightThemePrimary
+                : AppColors.darkThemePrimary,
           ),
         ],
       ),
