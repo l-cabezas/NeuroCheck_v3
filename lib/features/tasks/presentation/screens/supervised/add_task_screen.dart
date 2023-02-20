@@ -83,7 +83,9 @@ class AddTaskScreen extends HookConsumerWidget {
                           },
                       child: Card(
                         elevation: 6,
-                        shadowColor: AppColors.blue,
+                        shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                            ? AppColors.accentColorLight
+                            : AppColors.darkThemePrimary,
                         margin: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(
                           borderRadius:
@@ -116,7 +118,9 @@ class AddTaskScreen extends HookConsumerWidget {
                       },
                       child: Card(
                     elevation: 6,
-                    shadowColor: AppColors.blue,
+                    shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? AppColors.accentColorLight
+                        : AppColors.darkThemePrimary,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -138,7 +142,9 @@ class AddTaskScreen extends HookConsumerWidget {
                       },
                       child:Card(
                       elevation: 6,
-                      shadowColor: AppColors.blue,
+                      shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                          ? AppColors.accentColorLight
+                          : AppColors.darkThemePrimary,
                       margin: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                         borderRadius:
@@ -170,6 +176,9 @@ class AddTaskScreen extends HookConsumerWidget {
                   )
                       : CustomButton(
                     text: 'Añadir',
+                    buttonColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? AppColors.lightBlue
+                        : AppColors.darkThemePrimary,
                     onPressed: () async {
 
                       String isNotificationSet = 'false';

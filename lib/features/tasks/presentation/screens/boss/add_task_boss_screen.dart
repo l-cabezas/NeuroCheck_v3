@@ -86,7 +86,9 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                         },
                         child:(Card(
                                       elevation: 6,
-                                      shadowColor: AppColors.blue,
+                                      shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                                          ? AppColors.accentColorLight
+                                          : AppColors.darkThemePrimary,
                                       margin: EdgeInsets.zero,
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -121,7 +123,9 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                       },
                       child:(Card(
                     elevation: 6,
-                    shadowColor: AppColors.blue,
+                    shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                          ? AppColors.accentColorLight
+                          : AppColors.darkThemePrimary,
                     margin: EdgeInsets.zero,
                     shape: RoundedRectangleBorder(
                       borderRadius:
@@ -145,7 +149,9 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                       },
                       child:(Card(
                       elevation: 6,
-                      shadowColor: AppColors.blue,
+                      shadowColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                          ? AppColors.accentColorLight
+                          : AppColors.darkThemePrimary,
                       margin: EdgeInsets.zero,
                       shape: RoundedRectangleBorder(
                         borderRadius:
@@ -174,6 +180,9 @@ class AddTaskScreenBoss extends HookConsumerWidget {
                     )
                         :
                   CustomButton(
+                    buttonColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightBlue
+                      : AppColors.darkThemePrimary,
                 text: 'Añadir',
                 onPressed: () async {
 

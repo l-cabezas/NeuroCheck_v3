@@ -59,8 +59,13 @@ class ChooseDaySectionComponent extends ConsumerWidget {
                       label: (i, v) => v,
                     ),
                     wrapped: true,
-                    choiceStyle: C2ChoiceStyle(color: Colors.blue),
-                  )),
+                    choiceStyle: C2ChoiceStyle(color:
+                     Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? AppColors.accentColorLight
+                        : AppColors.darkThemePrimary,
+                      ),
+                    ),
+                  ),
            /*: CustomText.h4(
             context,
             'Se repetirá solamente hoy ',
