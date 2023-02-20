@@ -18,7 +18,10 @@ class CustomCheckBoxComponent extends ConsumerWidget {
     final checkBoxValue = ref.watch(checkBoxProvider);
     return Column(children: [
       CustomText.h3(context, tr(context).questionrol,
-          color: AppColors.lightBlack),
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white
+      ),
       SizedBox(
         height: Sizes.vMarginSmall(context),
       ),
