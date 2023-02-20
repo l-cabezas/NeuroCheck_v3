@@ -19,6 +19,9 @@ class AppImages {
 
   static const String iconsTask = 'assets/images/app_icons/task_icons';
 
+  static const String nameEdit = 'assets/images/app_icons/profile/name.png';
+  static const String nameEditDark = 'assets/images/app_icons/profile/name_dark.png';
+
   /// Splash Screen + OnBoarding
   static const String splash = '${welcomeImagesPath}splash.png';
   static const String splashAnimation = '${jsonPath}splash_animation.json';

@@ -152,5 +152,8 @@
   "info_mod": "En esta pantalla podemos modificar los día a notificar, el rango horario y cada cuanto se notifica la tarea.",
   "info_perfil": "Datos de la cuenta usando el perfil en este caso el correo en uso, el nombre (modificable en configuración) y una foto de perfil la cual se podrá modificar si se pulsa sobre ella cambiándola por una foto que ya tenga en la galería o bien tomando una foto en ese momento.",
   "info_perfil_boss":"Datos de la cuenta usando el perfil en este caso el correo en uso, el nombre (modificable en configuración) y una foto de perfil la cual se podrá modificar si se pulsa sobre ella cambiándola por una foto que ya tenga en la galería o bien tomando una foto en ese momento. Además tiene su rol y el correo del supervisado a su cargo.",
-  "info_config": "En esta pantalla podrá cambiar el modo de uso de la app (claro u oscuro) el idioma de la app (castellano o galego) y puede cambiar su nombre de usuario. Además tiene un botón para cerrar sesión o bien la opción de poder borrar su cuenta."
+  "info_config": "En esta pantalla podrá cambiar el modo de uso de la app (claro u oscuro) el idioma de la app (castellano o galego) y puede cambiar su nombre de usuario. Además tiene un botón para cerrar sesión o bien la opción de poder borrar su cuenta.",
+  "info_change_name" : "En esta pantalla podrá cambiar el nombre de usuario.",
+  "info_change_language" : "En esta pantalla podrá cambiar el idioma de la aplicación"
+
 }

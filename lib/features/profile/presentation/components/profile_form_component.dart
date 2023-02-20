@@ -7,6 +7,7 @@ import 'package:neurocheck/features/profile/presentation/components/profile_text
 import '../../../../auth/domain/repos/user_repo.dart';
 import '../../../../core/presentation/routing/navigation_service.dart';
 import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/custom_button.dart';
 import '../../../settings/presentation/components/light_button_component.dart';
@@ -49,6 +50,12 @@ class ProfileFormComponent extends HookConsumerWidget {
                 child:   LightButtonComponent(
                   icon: PlatformIcons(context).edit,
                   text: tr(context).change,
+                  color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightThemeIconColor
+                      : AppColors.darkThemePrimary,
+                  textColor: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightThemeIconColor
+                      : AppColors.darkThemePrimary,
                 ),
               );
             },

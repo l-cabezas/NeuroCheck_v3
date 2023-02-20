@@ -26,13 +26,17 @@ class AppSettingsSectionComponent extends ConsumerWidget {
       tileList: [
         CustomTileComponent(
           title: tr(context).theme,
-          leadingIcon: !isDarkThemeMode ? Icons.wb_sunny : Icons.nights_stay,
+          leadingIcon: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? Icons.wb_sunny
+              : Icons.nights_stay,
           customTrailing: Container(
             constraints: BoxConstraints(
               maxWidth: Sizes.switchThemeButtonWidth(context),
             ),
             child: PlatformSwitch(
-              value: !isDarkThemeMode,
+              value: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? true
+                        : false,
               onChanged: (value) {
                 ref
                     .watch(appThemeProvider.notifier)
