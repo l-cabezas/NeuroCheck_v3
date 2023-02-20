@@ -36,7 +36,9 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                  children:[
                    Center(
                      child: CustomText.h2(
-                         context, color: AppColors.darkGray,
+                         context, color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                         ? AppColors.darkGray
+                         : AppColors.whiteGray,
                          tr(context).register_user
                      ),
                    ),
@@ -45,7 +47,9 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                        onPressed: (){
                          AppDialogs.showInfo(context,message: tr(context).info_verify);
                        },
-                       icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+                       icon:  Icon(Icons.info_outline, color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                           ? AppColors.darkGray
+                           : AppColors.whiteGray,)
                    ),
                  ]),
              SizedBox(
@@ -53,7 +57,10 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
              ),
              Center(
                child: CustomText.h3(
-                   context, color: AppColors.darkGray,
+                   context,
+                   color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.darkGray
+                          : AppColors.whiteGray,
                    tr(context).register_text), // todo: tr
              ),
              SizedBox(
@@ -78,7 +85,12 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                    children:[
                      Center(
                  child: CustomText.h2(
-                     context, color: AppColors.darkGray,
+                     context,
+                     color:
+                     Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                         ? AppColors.darkGray
+                         : AppColors.whiteGray,
+
                      tr(context).verifyTitle),
                ),
                IconButton(
@@ -86,7 +98,10 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                onPressed: (){
                AppDialogs.showInfo(context,message: tr(context).info_verify);
                },
-               icon: const Icon(Icons.info_outline, color: AppColors.darkGray,)
+               icon: Icon(Icons.info_outline,
+                 color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                     ? AppColors.darkGray
+                     : AppColors.whiteGray,)
                ),
                    ]),
                SizedBox(
@@ -94,7 +109,9 @@ class VerifyEmailFormComponent extends HookConsumerWidget {
                ),
                Center(
                  child: CustomText.h3(
-                     context, color: AppColors.darkGray,
+                     context, color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                     ? AppColors.darkGray
+                     : AppColors.whiteGray,
                      tr(context).verifyMessage),
                ),
                SizedBox(

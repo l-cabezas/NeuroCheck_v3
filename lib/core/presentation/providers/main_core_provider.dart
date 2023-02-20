@@ -170,8 +170,9 @@ class MainCoreProvider {
     await _userRepo.clearUserLocalData();
     //await FirebaseMessagingService.instance.unsubscribeFromTopic(topic: 'general');
     await _authRepo.deleteUser();
-    await _authRepo.signOut();
     await Future.delayed(const Duration(seconds: 1));
+    await _authRepo.signOut();
+
 
   }
 

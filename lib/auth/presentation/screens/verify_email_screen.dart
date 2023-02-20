@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neurocheck/core/presentation/styles/app_colors.dart';
@@ -50,7 +51,7 @@ class VerifyEmailScreen extends ConsumerWidget {
                         ),
                         CustomButton(
                           text: tr(context).cancelBtn,
-                          buttonColor: AppColors.white,
+                          buttonColor: AppColors.lightRed,
                           onPressed: () {
                             ref.watch(userRepoProvider)
                                 .deleteUidBD(GetStorage().read('uidUsuario'));
