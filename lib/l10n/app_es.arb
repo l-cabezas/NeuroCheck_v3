@@ -130,6 +130,8 @@
   "askYourDates": "Introduzca su usuario y contraseña",
   "askDates": "Ahora el usuario y contraseña de tu supervisado",
   "addSupervised": "Añadir Supervisado",
+  "error_sup": "Error al añadir supervisado",
+  "info_error_sup": "El supervisado añadido ya es supervisor de otra cuenta tienes que añadir otra cuenta que no tenga ese rol.",
   "@_SETTINGS": {
   },
   "change": "Cambiar",

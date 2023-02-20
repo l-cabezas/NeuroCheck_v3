@@ -95,8 +95,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
         UserModel userModel = user;
-        GetStorage().write('emailSup',emailSupervised);
-        GetStorage().write('passwSup',passwordSupervised);
+
         _mainCoreProvider.setSupervisedUid(userModel);
         //
        // subscribeUserToTopic();
@@ -112,6 +111,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
             arguments: {'offAll': true},
           );
         }else{
+          GetStorage().write('emailSup',emailSupervised);
+          GetStorage().write('passwSup',passwordSupervised);
           NavigationService.pushReplacementAll(
             NavigationService.context,
             isNamed: true,

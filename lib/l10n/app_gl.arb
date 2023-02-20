@@ -130,6 +130,8 @@
   "askYourDates": "Introduza o seu usuario e contrasinal",
   "askDates": "Agora o usuario e contrasinal do teu supervisado",
   "addSupervised": "Engadir Supervisado",
+  "error_sup": "Error ó engadir o supervisado",
+  "info_error_sup": "O supervisado engadido xa é supervisor doutra conta tes que engadir outra conta que non teña ese rol.",
   "@_SETTINGS": {
   },
   "change": "Cambiar",

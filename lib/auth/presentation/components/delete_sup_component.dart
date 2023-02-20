@@ -23,7 +23,7 @@ class DeleteSupComponent extends HookConsumerWidget {
                   Center(
                     child: CustomText.h2(
                         context, color: AppColors.darkGray,
-                        'Error al añadir supervisado'),
+                        tr(context).error_sup),
                   ),
                   SizedBox(
                     height: Sizes.vMarginMedium(context),
@@ -31,8 +31,7 @@ class DeleteSupComponent extends HookConsumerWidget {
                   Center(
                     child: CustomText.h3(
                         context, color: AppColors.darkGray,
-                        'El supervisado añadido ya es supervisor de otra cuenta'
-                            'tienes que añadir otra cuenta que no tenga ese rol.'),
+                        tr(context).info_error_sup),
                   ),
                   SizedBox(
                     height: Sizes.vMarginHigh(context),
