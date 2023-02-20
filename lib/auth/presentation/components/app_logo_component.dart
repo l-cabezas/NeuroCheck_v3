@@ -17,7 +17,10 @@ class AppLogoComponent extends StatelessWidget {
       children: [
         CustomImage(
           context,
-          AppImages.loginIcon,
+          Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppImages.loginIcon
+              : AppImages.loginIconDark,
+
           //height: Sizes.loginLogoSize(context),
           //width: Sizes.loginLogoSize(context),
           fit: BoxFit.cover,

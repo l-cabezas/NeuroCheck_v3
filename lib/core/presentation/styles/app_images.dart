@@ -4,6 +4,7 @@ import 'dart:core';
 class AppImages {
   static const String jsonPath = 'assets/json/';
   static const String loginIcon = '${loginImagesPath}loginIcon2.png';
+  static const String loginIconDark = '${loginImagesPath}loginIcon2_dark.png';
   static const String loginIcon2 = '${loginImagesPath}login2.png';
   static const String profileCat = '${appIconsPath}profile/icon_cat.png';
   static const String welcomeImagesPath = 'assets/images/welcome/';
@@ -41,6 +42,7 @@ class AppImages {
   static const String confirmation = '${dialogWidgetIconsPath}confirmation.png';
   static const String error = '${dialogWidgetIconsPath}error.png';
   static const String info = '${dialogWidgetIconsPath}info.png';
+  static const String infoDark = '${dialogWidgetIconsPath}info_dark.png';
   static const String infoReverse = '${dialogWidgetIconsPath}info_reverse.png';
   static const String noHeader = '${dialogWidgetIconsPath}no_header.png';
   static const String success = '${dialogWidgetIconsPath}success.png';

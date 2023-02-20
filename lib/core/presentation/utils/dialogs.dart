@@ -67,7 +67,10 @@ class AppDialogs {
   static Future showInfo(BuildContext context, {String? message}) async {
     await DialogWidget.showCustomDialog(
       context: context,
-      dialogWidgetState: DialogWidgetState.info,
+      dialogWidgetState:
+      Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+          ? DialogWidgetState.info
+          : DialogWidgetState.infoDark,
       title: tr(context).info,
       description: message!,
       backgroundColor: AppColors.lightThemePrimaryColor,

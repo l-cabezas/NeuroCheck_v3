@@ -20,7 +20,9 @@ class WelcomeComponent extends StatelessWidget {
           //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              AppImages.loginIcon,
+              Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                  ? AppImages.loginIcon
+                  : AppImages.loginIconDark,
               width: 220,
               height: 220,
               //padding: EdgeInsets.only(left: Sizes.vMarginExtreme(context)),

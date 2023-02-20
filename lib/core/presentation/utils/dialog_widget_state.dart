@@ -6,6 +6,7 @@ Map<DialogWidgetState, dynamic> dialogMessageData = {
   DialogWidgetState.error: {"icon": AppImages.error},
   DialogWidgetState.noHeader: {"icon": AppImages.noHeader},
   DialogWidgetState.info: {"icon": AppImages.info},
+  DialogWidgetState.infoDark: {"icon": AppImages.infoDark},
   DialogWidgetState.infoReversed: {"icon": AppImages.infoReverse},
   DialogWidgetState.question: {"icon": AppImages.ask},
   DialogWidgetState.success: {"icon": AppImages.success},

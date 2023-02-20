@@ -1,6 +1,7 @@
 enum DialogWidgetState {
   error,
   info,
+  infoDark,
   infoReversed,
   noHeader,
   question,
