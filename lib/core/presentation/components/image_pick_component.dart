@@ -36,7 +36,9 @@ class ImagePickComponent extends StatelessWidget {
               title: CustomText.h3(
                 context,
                 tr(context).chooseOption,
-                color: Colors.blue,
+                color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                    ? AppColors.accentColorLight
+                    : AppColors.darkThemePrimary,
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -59,9 +61,11 @@ class ImagePickComponent extends StatelessWidget {
                         context,
                         tr(context).camera,
                       ),
-                      leading: const Icon(
+                      leading:  Icon(
                         Icons.camera,
-                        color: Colors.blue,
+                        color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                            ? AppColors.accentColorLight
+                            : AppColors.darkThemePrimary,
                       ),
                     ),
                   ),
@@ -83,9 +87,11 @@ class ImagePickComponent extends StatelessWidget {
                         context,
                         tr(context).gallery,
                       ),
-                      leading: const Icon(
+                      leading:  Icon(
                         Icons.account_box,
-                        color: Colors.blue,
+                        color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                            ? AppColors.accentColorLight
+                            : AppColors.darkThemePrimary,
                       ),
                     ),
                   ),
