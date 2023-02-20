@@ -22,12 +22,16 @@ class AddSupervisedScreen extends StatelessWidget {
         elevation: 0,
         title: CustomText(
           context,tr(context).addSupervised,
-          color: AppColors.lightThemePrimary,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightThemePrimary
+              : AppColors.darkThemePrimary,
         ),
         centerTitle: true,
         leading: (GetStorage().read('uidSup') == '')
               ? SizedBox()
-              : BackButton(color: AppColors.lightThemePrimary),
+              : BackButton(color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+            ? AppColors.lightThemePrimary
+            : AppColors.darkThemePrimary,),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         toolbarHeight: Sizes.appBarDefaultHeight(context),
         actions: [
@@ -39,7 +43,9 @@ class AddSupervisedScreen extends StatelessWidget {
                 AppDialogs.showInfo(context,message: tr(context).info_verify);
               },
                 icon: Icon(Icons.info_outline,
-                  color: Theme.of(context).iconTheme.color,
+                  color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightThemePrimary
+                      : AppColors.darkThemePrimary,
                 )
           ),)
         ],
