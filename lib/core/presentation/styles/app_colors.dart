@@ -58,6 +58,9 @@ class AppColors {
   //borde text field cuando está activado
   static const Color lightThemeTextFieldFocusedBorderColor = Color(0xff8ed7ff);
   static const Color darkThemeTextFieldFocusedBorderColor = Color(0xffa68eff);
+
+  static const Color buttonLightSolid =  Colors.blue;
+  static const Color buttonDarkSolid = Color(0xffa68eff);
   //Icon
   static const Color lightThemeIconColor = Color(0xFFAED6F1);
   static const Color darkThemeIconColor = Color(0xFFB7AEF1);
