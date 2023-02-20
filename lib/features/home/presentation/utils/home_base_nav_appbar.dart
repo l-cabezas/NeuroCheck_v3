@@ -84,7 +84,10 @@ class HomeBaseNavAppBar extends ConsumerWidget
             context,
             tr(context).appName,
             color: Theme.of(context).colorScheme.primary,
-            alignment: Alignment.center,
+            alignment:
+            (supervisor)
+                ? Alignment.centerRight
+                : Alignment.center,
           ),
           centerTitle: true,
           trailingActions: [
