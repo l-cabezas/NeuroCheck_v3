@@ -12,6 +12,7 @@ class CustomAppBar extends PlatformAppBar {
   CustomAppBar(
       BuildContext context, {
         Key? key,
+        Color? color,
         GlobalKey<ScaffoldState>? scaffoldKey,
         double? height,
         Color? appBarColor,
@@ -28,7 +29,7 @@ class CustomAppBar extends PlatformAppBar {
     backgroundColor:
     appBarColor ?? Theme.of(context).appBarTheme.backgroundColor,
     leading: hasBackButton
-        ? CustomBackButton(result: result)
+        ? CustomBackButton(result: result, color: color,)
         : hasMenuButton
         ? _MenuButton(scaffoldKey: scaffoldKey!)
         : customLeading,
@@ -119,9 +120,11 @@ class _MenuButton extends StatelessWidget {
 
 class CustomBackButton extends StatelessWidget {
   final dynamic result;
+  final Color? color;
 
   const CustomBackButton({
     required this.result,
+    this.color,
     Key? key,
   }) : super(key: key);
 
@@ -133,7 +136,7 @@ class CustomBackButton extends StatelessWidget {
       },
       icon: Icon(
         PlatformIcons(context).back,
-        color: Theme.of(context).iconTheme.color,
+        color: color ?? Theme.of(context).iconTheme.color,
         size: Sizes.appBarBackButtonRadius(context),
       ),
       padding: EdgeInsets.symmetric(

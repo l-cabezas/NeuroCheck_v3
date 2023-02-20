@@ -126,6 +126,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
       case RoutePaths.profile:
         return CustomAppBar(
           context,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
           hasBackButton:
               PlatformService.instance.isMaterialApp() ? true : false,
           customTitle: CustomText.h2(
@@ -147,9 +150,11 @@ class HomeBaseNavAppBar extends ConsumerWidget
                           message: tr(context).info_perfil);
                     }
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.info_outline,
-                    color: AppColors.lightBlack,
+                    color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? AppColors.lightBlack
+                        : AppColors.white,
                   )),
             )
           ],
@@ -160,13 +165,15 @@ class HomeBaseNavAppBar extends ConsumerWidget
       case RoutePaths.settings:
         return CustomAppBar(
           context,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
           hasBackButton:
               PlatformService.instance.isMaterialApp() ? true : false,
           customTitle: CustomText.h2(
             context,
             tr(context).settings,
             alignment: Alignment.centerLeft,
-            color: Theme.of(context).colorScheme.primary,
           ),
           trailingActions: [
             Container(
@@ -179,7 +186,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
                   },
                   icon: Icon(
                     Icons.info_outline,
-                    color: Theme.of(context).iconTheme.color,
+                    color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                        ? AppColors.lightBlack
+                        : AppColors.white,
                   )),
             )
           ],
@@ -191,6 +200,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
       case RoutePaths.settingsLanguage:
         return CustomAppBar(
           context,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
           hasBackButton: true,
           customTitle: AppBarWithIconComponent(
             icon: AppImages.languageScreenIcon,
@@ -202,6 +214,9 @@ class HomeBaseNavAppBar extends ConsumerWidget
         return CustomAppBar(
           context,
           hasBackButton: true,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
           customTitle: AppBarWithIconComponent(
             icon: AppImages.info,
             title: tr(context).change_name,

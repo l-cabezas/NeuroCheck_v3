@@ -34,7 +34,10 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_email,
           alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          //checkeamos si light mode
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+               ? AppColors.lightBlack
+              : AppColors.white
         ),
         SizedBox(
           height: Sizes.vMarginSmall(context),
@@ -43,7 +46,9 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.email}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightGray
+              : AppColors.whiteGray,
         ),
         (userModel.rol != 'supervisor')
         ? SizedBox()
@@ -56,7 +61,10 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_rol,
         alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          color: //checkeamos si light mode
+          Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
         ),
         SizedBox(
           height: Sizes.vMarginSmallest(context),
@@ -65,7 +73,9 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.rol}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightGray
+              : AppColors.whiteGray,
         ),
 
         SizedBox(
@@ -75,7 +85,9 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           tr(context).profile_sup,
           alignment: Alignment.centerLeft,
-          color: AppColors.lightBlack,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,
         ),
         SizedBox(
           height: Sizes.vMarginSmall(context),
@@ -84,7 +96,9 @@ class UserDetailsComponent extends ConsumerWidget {
           context,
           '${userModel.emailSup}',
           alignment: Alignment.center,
-          color: AppColors.lightGray,
+          color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightGray
+              : AppColors.whiteGray,
         ),])
       ],
     );
