@@ -152,5 +152,7 @@
   "info_mod": "Nesta pantalla podemos modificar os días para notificar, o intervalo de tempo e con que frecuencia se notifica a tarefa.",
   "info_perfil": "Datos da conta utilizando o perfil, neste caso o correo electrónico en uso, o nome (modificable na configuración) e unha foto de perfil que se pode modificar se fai clic nela, cambiándoa por unha foto que xa teña na galería ou facendo unha foto de perfil. foto naquel momento.",
   "info_perfil_boss":"Datos da conta utilizando o perfil, neste caso o correo electrónico en uso, o nome (modificable na configuración) e unha foto de perfil que se pode modificar se fai clic nela, cambiándoa por unha foto que xa teña na galería ou facendo unha foto de perfil. foto da época. Tamén ten ao seu cargo o seu papel e o correo do supervisado.",
-  "info_config": "Nesta pantalla podes cambiar o modo de uso da aplicación (claro ou escuro), o idioma da aplicación (castelán ou galego) e podes cambiar o teu nome de usuario. Tamén ten un botón para pechar a sesión ou a opción de eliminar a túa conta."
+  "info_config": "Nesta pantalla podes cambiar o modo de uso da aplicación (claro ou escuro), o idioma da aplicación (castelán ou galego) e podes cambiar o teu nome de usuario. Tamén ten un botón para pechar a sesión ou a opción de eliminar a túa conta.",
+  "info_change_name" : "Nesta pantalla poderá cambiar o nome de usuario.",
+  "info_change_language" : "Nesta pantalla poderá cambiar o idioma da aplicación"
 }

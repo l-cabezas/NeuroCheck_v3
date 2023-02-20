@@ -108,7 +108,7 @@ class _SharedItemComponent extends StatelessWidget {
           Sizes.dialogSmallRadius(context),
         ),
         border: Border.all(
-          width: 2,
+          width: 1,
           color: AppColors.white,
         ),
         boxShadow: [

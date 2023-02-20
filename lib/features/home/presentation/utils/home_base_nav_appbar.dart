@@ -204,10 +204,29 @@ class HomeBaseNavAppBar extends ConsumerWidget
               ? AppColors.lightBlack
               : AppColors.white,
           hasBackButton: true,
-          customTitle: AppBarWithIconComponent(
-            icon: AppImages.languageScreenIcon,
-            title: tr(context).language,
-          ),
+          customTitle: Text(tr(context).language,
+              style: TextStyle(
+                color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,)),
+          trailingActions: [
+            Container(
+              padding: EdgeInsets.only(right: Sizes.vMarginMedium(context)),
+              child: IconButton(
+                  alignment: Alignment.center,
+                  onPressed: () {
+                    AppDialogs.showInfo(context,
+                        message: tr(context).info_change_language);
+                  },
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Theme.of(context).iconTheme.color ==
+                            AppColors.lightThemeIconColor
+                        ? AppColors.lightBlack
+                        : AppColors.white,
+                  )),
+            )
+          ],
         );
 
       case RoutePaths.settingsName:
@@ -217,10 +236,30 @@ class HomeBaseNavAppBar extends ConsumerWidget
           color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
               ? AppColors.lightBlack
               : AppColors.white,
-          customTitle: AppBarWithIconComponent(
-            icon: AppImages.info,
-            title: tr(context).change_name,
-          ),
+          customTitle: Text(
+            tr(context).change_name, style:
+          TextStyle(color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+              ? AppColors.lightBlack
+              : AppColors.white,)
+             ),
+          trailingActions: [
+            Container(
+              padding: EdgeInsets.only(right: Sizes.vMarginMedium(context)),
+              child: IconButton(
+                  alignment: Alignment.center,
+                  onPressed: () {
+                    AppDialogs.showInfo(context,
+                        message: tr(context).info_change_name);
+                  },
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: Theme.of(context).iconTheme.color ==
+                        AppColors.lightThemeIconColor
+                        ? AppColors.lightBlack
+                        : AppColors.white,
+                  )),
+            )
+          ],
         );
 
       default:

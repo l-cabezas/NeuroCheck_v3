@@ -49,7 +49,9 @@ class LightButtonComponent extends StatelessWidget {
           (icon != null)
               ?Icon(
                   icon,
-                  color: AppColors.lightThemePrimary,
+                  color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                      ? AppColors.lightThemeIconColor
+                      : AppColors.darkThemePrimary,
                 )
           : SizedBox(),
           SizedBox(
