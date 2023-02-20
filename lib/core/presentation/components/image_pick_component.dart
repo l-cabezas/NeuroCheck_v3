@@ -101,7 +101,9 @@ class ImagePickComponent extends StatelessWidget {
       child: ImageIcon(
         const AssetImage(AppImages.cameraIcon),
         size: Sizes.iconsSizes(context)['s7'],
-        color: AppColors.grey,
+        color: Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+            ? AppColors.grey
+            : AppColors.white
       ),
     );
   }
