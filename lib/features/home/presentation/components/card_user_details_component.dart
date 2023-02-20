@@ -3,6 +3,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:neurocheck/core/presentation/styles/app_images.dart';
 
 import '../../../../core/presentation/services/localization_service.dart';
+import '../../../../core/presentation/styles/app_colors.dart';
 import '../../../../core/presentation/styles/font_styles.dart';
 import '../../../../core/presentation/styles/sizes.dart';
 import '../../../../core/presentation/widgets/cached_network_image_circular.dart';
@@ -27,7 +28,12 @@ class CardUserDetailsComponent extends StatelessWidget {
         ClipOval(
           child: SizedBox.fromSize(
             size: Size.fromRadius(28), // Image radius
-            child: Image.asset('${AppImages.iconsTask}/iconTask.png', fit: BoxFit.cover),
+            child: Image.asset(
+                Theme.of(context).iconTheme.color == AppColors.lightThemeIconColor
+                    ? '${AppImages.iconsTask}/iconTask.png'
+                    : '${AppImages.iconsTask}/iconTask_dark.png',
+                fit: BoxFit.cover
+            ),
           ),
         ),
 
