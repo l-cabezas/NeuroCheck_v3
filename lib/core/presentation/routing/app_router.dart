@@ -70,7 +70,7 @@ class AppRouter {
 
       case RoutePaths.verifyEmail:
         return NavigationSlideFromSide(
-           VerifyEmailScreen(),
+           const VerifyEmailScreen(),
           settings: settings,
           transitionDuration: const Duration(microseconds: 700),
         );
@@ -111,13 +111,6 @@ class AppRouter {
           ModTaskComponent(taskModel: args!,),
           settings: settings,
           transitionDuration: const Duration(microseconds: 700),
-        );
-
-      case RoutePaths.map:
-        return platformPageRoute(
-          context: NavigationService.context,
-          builder: (_) =>  HomeScreen(),
-          settings: settings,
         );
 
         //por default estamos en la pantalla de carga

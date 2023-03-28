@@ -32,11 +32,10 @@ class ShowTasks extends HookConsumerWidget {
   }
   @override
   Widget build(BuildContext context, ref) {
+
     GetStorage().write('screen','show');
-    final _taskRepo = ref.watch(tasksRepoProvider);
+
     final taskToDoStreamAll = ref.watch(taskMultipleAll);
-    //final taskToDoStreamAll = ref.watch(taskMultipleAll);
-//todo: info icon
 
     if (GetStorage().read('rol') != 'supervisor') {
       setSupervisor(false);
@@ -44,42 +43,20 @@ class ShowTasks extends HookConsumerWidget {
       setSupervisor(true);
     }
     final cron = Cron();
-
-    log('**** BEFORE CRON SET ${GetStorage().read('CronSet')}');
     //seteamos el crono una vez y si no somos supervisores
 
     if(!supervisor && GetStorage().read('CronSet') == 'false') {
       GetStorage().write('CronSet','true');
       // a las 00:00h se ejecutará esto todos los días
       cron.schedule(Schedule.parse('00 00 * * *'), () async {
-
         GetStorage().write('reset','true');
-        log('**** SETEANDO ${GetStorage().read('reset')}');
-
       });
     }
-
 
         return taskToDoStreamAll.when(
         data: (taskToDo) {
           if(GetStorage().read('reset') == 'true'){
-            for (var listas in taskToDo) {
-              for (var element in listas) {
-                if (element.done == 'true') {
-                  log('**** element ${element.taskName}');
-                  if(element.editable == 'true') {
-                    ref.watch(taskProvider.notifier).resetTask(task: element);
-                  } else {
-                    ref.watch(taskProvider.notifier).resetTaskBoss(task: element);
-                  }
-                }
-              }
-              log('**** tareas reseteadas');
-            }
-            GetStorage().write('reset','false');
-            GetStorage().write('CronSet','false');
-            ref.refresh(taskMultipleAll);
-
+            _resetTasks(ref, taskToDo);
           }
           return (taskToDo.isEmpty || (taskToDo[0].length == 0 && taskToDo[1].length == 0) )
           ? CustomText.h4(
@@ -97,8 +74,6 @@ class ShowTasks extends HookConsumerWidget {
             itemCount: taskToDo[0].length + taskToDo[1].length,
             itemBuilder: (context, index) {
               List<Widget> list = [];
-
-
               if(index != taskToDo[0].length + taskToDo[1].length) {
                       var supervised = taskToDo[0].length;
                       var boss = taskToDo[1].length;
@@ -164,33 +139,30 @@ class ShowTasks extends HookConsumerWidget {
                       onPressed: (){
                         ref.refresh(taskMultipleToDoStreamProviderNOTDONE);
                         ref.refresh(taskMultipleToDoStreamProviderDONE);
+                        ref.refresh(taskMultipleAll);
                       })
                 ]),
     loading: () => LoadingIndicators.instance.smallLoadingAnimation(context)
 
 
     );
+  }
 
-
-    /*return Container(
-      color: Colors.blueAccent,
-      child:
-      ListView.separated(
-        padding: EdgeInsets.symmetric(
-          vertical: Sizes.screenVPaddingDefault(context),
-          horizontal: Sizes.screenHPaddingMedium(context),
-        ),
-        itemBuilder: (context, index) {
-          return CardItemComponent(
-              taskModel: TaskModel(editable: 'no', begin: '', end: '', numRepetition: '', done: '', taskName: '', taskId: '')
-          );
-        },
-        separatorBuilder: (context, index) => SizedBox(
-          height: Sizes.vMarginHigh(context),
-        ),
-        itemCount: 3,
-      )
-    );*/
+  static void _resetTasks(WidgetRef ref, List<List<TaskModel>> taskToDo){
+    for (var listas in taskToDo) {
+      for (var element in listas) {
+        if (element.done == 'true') {
+          if(element.editable == 'true') {
+            ref.watch(taskProvider.notifier).resetTask(task: element);
+          } else {
+            ref.watch(taskProvider.notifier).resetTaskBoss(task: element);
+          }
+        }
+      }
+    }
+    GetStorage().write('reset','false');
+    GetStorage().write('CronSet','false');
+    ref.refresh(taskMultipleAll);
   }
 
 

@@ -61,37 +61,6 @@ class UserRepo {
   }
 
 
-/*  Future<Either<Failure, bool>> deleteUserAuth(
-      BuildContext context, {
-        required String email,
-      }) async {
-    try {
-      final userCredentialSupervised = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: GetStorage().read('emailSup'),
-          password:  GetStorage().read('passwSup'));
-
-      await deleteUserRepo(GetStorage().read('uidSup'));
-      await userCredentialSupervised.user?.delete();
-      GetStorage().write('emailSup', '');
-      GetStorage().write('passwSup', '');
-      GetStorage().write('uidSup', '');
-
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: GetStorage().read('email'),
-          password:  GetStorage().read('passw'));
-
-      return const Right(true);
-    } on FirebaseAuthException catch (e) {
-      final errorMessage = Exceptions.firebaseAuthErrorMessage(context, e);
-      return Left(ServerFailure(message: errorMessage));
-    } catch (e) {
-      log(e.toString());
-      final errorMessage = Exceptions.errorMessage(e);
-      return Left(ServerFailure(message: errorMessage));
-    }
-  }*/
-
-
  //------------------------------------------------------------------------------
   Future<Either<Failure, UserModel?>> checkUidSup() async {
     return await _firebaseCaller.getData(

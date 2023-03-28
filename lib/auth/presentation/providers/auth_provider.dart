@@ -62,11 +62,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
           (user) async {
             state = const AuthState.available();
+
         UserModel userModel = user;
-        GetStorage().write('uidUsuario', user.uId);
-        GetStorage().write('email', email);
-        GetStorage().write('passw', password);
-        GetStorage().write('rol', user.rol);
+        await GetStorage().erase();
+        var getStorage = GetStorage();
+        getStorage.write('uidUsuario', user.uId);
+        getStorage.write('email', email);
+        getStorage.write('passw', password);
+        getStorage.write('rol', user.rol);
 
         // TODO: nombre
         //subscribeUserToTopic();
